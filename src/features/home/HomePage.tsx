@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import HorizontalTimeline from 'react-horizontal-timeline';
 import { format, parseISO } from 'date-fns';
 
 import Container from '../../components/app/layout/Container';
@@ -342,40 +341,6 @@ const HomePage: React.FC = () => {
             <div className='mt-12 px-4'>
                 <div className='max-w-7xl mx-auto'>
                     <h1 className='title text-center'>ROADMAP</h1>
-                    <div className='mx-auto w-2/4 border-2 border-pink-500 rounded-lg p-4 mt-24'>
-                        <h2 className='title-2 text-cyan-500'>
-                            {format(
-                                parseISO(demoTimeLine[timeLineIndex]['date']),
-                                'dd MMMM, yyyy'
-                            )}
-                        </h2>
-                        <h3 className='text-tiny font-bold'>
-                            {demoTimeLine[timeLineIndex]['headline']}
-                        </h3>
-                        <ul>
-                            {demoTimeLine[timeLineIndex]['content'].map(
-                                (item) => (
-                                    <li className='text-sm'>{item}</li>
-                                )
-                            )}
-                        </ul>
-                    </div>
-                    <div className='h-28 mx-auto text-sm mt-8'>
-                        <HorizontalTimeline
-                            styles={{
-                                background: '#000612',
-                                foreground: '#FF50CE',
-                                outline: '#1EE8BB',
-                                // color: 'white',
-                            }}
-                            minEventPadding={60}
-                            index={timeLineIndex}
-                            indexClick={(index: number) => {
-                                setTimeLineIndex(index);
-                            }}
-                            values={demoTimeLine.map(({ date }) => date)}
-                        />
-                    </div>
                 </div>
             </div>
         </Container>
