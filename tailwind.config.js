@@ -35,6 +35,9 @@ module.exports = {
                 sm: '14px',
                 xs: '12px',
             },
+            width: {
+                '3/10': '30%',
+            },
         },
     },
     variants: {

@@ -308,137 +308,343 @@ const HomePage: React.FC = () => {
             <div className='mt-12 px-4'>
                 <div className='max-w-7xl mx-auto'>
                     <h1 className='title text-center'>ROADMAP</h1>
-                    <VerticalTimeline>
-                        <VerticalTimelineElement
-                            className='vertical-timeline-element--work'
-                            contentStyle={{
-                                background: '#000639',
-                                color: '#F5F6FA',
-                                border: '2px solid #1EE8BB',
-                            }}
-                            contentArrowStyle={{
-                                borderRight: '7px solid  #1EE8BB',
-                            }}
-                            date='24 Dec, 2021'
-                            dateClassName='text-cyan-500'
-                            icon={<CubeIcon />}
-                            iconClassName='bg-pink-500 text-yellow-500'
-                        >
-                            <h3 className='text-tiny font-bold'>
-                                Airdrop + whitelist lottery registration opens
-                            </h3>
-                            <ul>
-                                <li className='text-sm'>
-                                    On the 24th of Dec at 12PM (UTC) the Solab
-                                    whitelist went live. You can register
-                                    yourself for the public sale as well as for
-                                    the airdrop.
-                                </li>
-                            </ul>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement
-                            className='vertical-timeline-element--work'
-                            contentStyle={{
-                                background: '#000639',
-                                color: '#F5F6FA',
-                                border: '2px solid #1EE8BB',
-                            }}
-                            contentArrowStyle={{
-                                borderRight: '7px solid  #1EE8BB',
-                            }}
-                            date='1 Jan, 2022'
-                            dateClassName='text-cyan-500'
-                            icon={<CubeIcon />}
-                            iconClassName='bg-pink-500 text-yellow-500'
-                        >
-                            <h3 className='text-tiny font-bold'>
-                                Public sale for lottery winners
-                            </h3>
-                            <ul>
-                                <li className='text-sm'>
-                                    This article contains instructions for lucky
-                                    lottery winners on how to participate in the
-                                    public sale on solanium.io.
-                                </li>
-                            </ul>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement
-                            className='vertical-timeline-element--work'
-                            contentStyle={{
-                                background: '#000639',
-                                color: '#F5F6FA',
-                                border: '2px solid #1EE8BB',
-                            }}
-                            contentArrowStyle={{
-                                borderRight: '7px solid  #1EE8BB',
-                            }}
-                            date='7 Jan, 2022'
-                            dateClassName='text-cyan-500'
-                            icon={<CubeIcon />}
-                            iconClassName='bg-pink-500 text-yellow-500'
-                        >
-                            <h3 className='text-tiny font-bold'>
-                                Airdrop + Public sale token distribution
-                            </h3>
-                            <ul></ul>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement
-                            className='vertical-timeline-element--work'
-                            contentStyle={{
-                                background: '#000639',
-                                color: '#F5F6FA',
-                                border: '2px solid #1EE8BB',
-                            }}
-                            contentArrowStyle={{
-                                borderRight: '7px solid  #1EE8BB',
-                            }}
-                            date='31 Jan, 2022'
-                            dateClassName='text-cyan-500'
-                            icon={<CubeIcon />}
-                            iconClassName='bg-pink-500 text-yellow-500'
-                        >
-                            <h3 className='text-tiny font-bold'>
-                                SLIM trading now live on Raydium
-                            </h3>
-                            <ul>
-                                <li className='text-sm'>
-                                    We have added liquidity on Raydium and the
-                                    SOLAB token is now trade-able through the
-                                    swapping interface!
-                                </li>
-                            </ul>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement
-                            className='vertical-timeline-element--work'
-                            contentStyle={{
-                                background: '#000639',
-                                color: '#F5F6FA',
-                                border: '2px solid #1EE8BB',
-                            }}
-                            contentArrowStyle={{
-                                borderRight: '7px solid  #1EE8BB',
-                            }}
-                            date='15 Feb, 2022'
-                            dateClassName='text-cyan-500'
-                            icon={<CubeIcon />}
-                            iconClassName='bg-pink-500 text-yellow-500'
-                        >
-                            <h3 className='text-tiny font-bold'>
-                                Solanium Staking live
-                            </h3>
-                            <ul>
-                                <li className='text-sm'>
-                                    Optimized non-fungible token exchange
-                                    mechanism and registry table resolution.
-                                </li>
-                                <li className='text-sm'>
-                                    Updated the Python library for blockchain
-                                    interoperability Researched and tested
-                                    on-chain randomness generation.
-                                </li>
-                            </ul>
-                        </VerticalTimelineElement>
-                    </VerticalTimeline>
+                    <div>
+                        <VerticalTimeline>
+                            <VerticalTimelineElement
+                                className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
+                                contentStyle={{
+                                    background: '#000639',
+                                    color: '#F5F6FA',
+                                    border: '2px solid #1EE8BB',
+                                }}
+                                contentArrowStyle={{
+                                    borderRight: '7px solid  #1EE8BB',
+                                }}
+                                date='24 Dec, 2021'
+                                dateClassName='text-cyan-500 p-0'
+                                iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
+                            >
+                                <h3 className='text-tiny font-bold'>
+                                    Airdrop + whitelist lottery registration
+                                    opens
+                                </h3>
+                                <ul>
+                                    <li className='text-sm'>
+                                        On the 24th of Dec at 12PM (UTC) the
+                                        Solab whitelist went live. You can
+                                        register yourself for the public sale as
+                                        well as for the airdrop.
+                                    </li>
+                                </ul>
+                            </VerticalTimelineElement>
+                            <VerticalTimelineElement
+                                className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
+                                contentStyle={{
+                                    background: '#000639',
+                                    color: '#F5F6FA',
+                                    border: '2px solid #1EE8BB',
+                                }}
+                                contentArrowStyle={{
+                                    borderRight: '7px solid  #1EE8BB',
+                                }}
+                                date='1 Jan, 2022'
+                                dateClassName='text-cyan-500 p-0'
+                                iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
+                            >
+                                <h3 className='text-tiny font-bold'>
+                                    Public sale for lottery winners
+                                </h3>
+                                <ul>
+                                    <li className='text-sm'>
+                                        This article contains instructions for
+                                        lucky lottery winners on how to
+                                        participate in the public sale on
+                                        solanium.io.
+                                    </li>
+                                </ul>
+                            </VerticalTimelineElement>
+                            <VerticalTimelineElement
+                                className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
+                                contentStyle={{
+                                    background: '#000639',
+                                    color: '#F5F6FA',
+                                    border: '2px solid #1EE8BB',
+                                }}
+                                contentArrowStyle={{
+                                    borderRight: '7px solid  #1EE8BB',
+                                }}
+                                date='7 Jan, 2022'
+                                dateClassName='text-cyan-500 p-0'
+                                iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
+                            >
+                                <h3 className='text-tiny font-bold'>
+                                    Airdrop + Public sale token distribution
+                                </h3>
+                                <ul></ul>
+                            </VerticalTimelineElement>
+                            <VerticalTimelineElement
+                                className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
+                                contentStyle={{
+                                    background: '#000639',
+                                    color: '#F5F6FA',
+                                    border: '2px solid #1EE8BB',
+                                }}
+                                contentArrowStyle={{
+                                    borderRight: '7px solid  #1EE8BB',
+                                }}
+                                date='31 Jan, 2022'
+                                dateClassName='text-cyan-500 p-0'
+                                iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
+                            >
+                                <h3 className='text-tiny font-bold'>
+                                    SLIM trading now live on Raydium
+                                </h3>
+                                <ul>
+                                    <li className='text-sm'>
+                                        We have added liquidity on Raydium and
+                                        the SOLAB token is now trade-able
+                                        through the swapping interface!
+                                    </li>
+                                </ul>
+                            </VerticalTimelineElement>
+                            <VerticalTimelineElement
+                                className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
+                                contentStyle={{
+                                    background: '#000639',
+                                    color: '#F5F6FA',
+                                    border: '2px solid #1EE8BB',
+                                }}
+                                contentArrowStyle={{
+                                    borderRight: '7px solid  #1EE8BB',
+                                }}
+                                date='15 Feb, 2022'
+                                dateClassName='text-cyan-500 p-0'
+                                iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
+                            >
+                                <h3 className='text-tiny font-bold'>
+                                    Solanium Staking live
+                                </h3>
+                                <ul>
+                                    <li className='text-sm'>
+                                        Optimized non-fungible token exchange
+                                        mechanism and registry table resolution.
+                                    </li>
+                                    <li className='text-sm'>
+                                        Updated the Python library for
+                                        blockchain interoperability Researched
+                                        and tested on-chain randomness
+                                        generation.
+                                    </li>
+                                </ul>
+                            </VerticalTimelineElement>
+                        </VerticalTimeline>
+                    </div>
+                </div>
+            </div>
+            <hr className='p-px gradient-background-1' />
+
+            <div className='mt-24 bg-blue-300 px-4'>
+                <div className='max-w-7xl mx-auto py-12'>
+                    <h1 className='title font-bold text-center'>Tokenomics</h1>
+                    <div className='mt-14'>
+                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                            <div className='p-6 flex flex-col justify-between gradient-background-2 rounded-lg'>
+                                <h2 className='title-3'>
+                                    Public Sale Token Price
+                                </h2>
+                                <p className='text-xl mt-12'>
+                                    $0.001 (BUSD/USDT)
+                                </p>
+                            </div>
+                            <div className='p-6 flex flex-col justify-between gradient-background-3 rounded-lg'>
+                                <h2 className='title-3'>
+                                    Maximum Token Supply
+                                </h2>
+                                <p className='text-xl mt-12'>
+                                    $0.001 (BUSD/USDT)
+                                </p>
+                            </div>
+                            <div className='p-6 flex flex-col justify-between gradient-background-3 rounded-lg'>
+                                <h2 className='title-3'>
+                                    Circulating Supply at Listing
+                                </h2>
+                                <p className='text-xl mt-12'>
+                                    $0.001 (BUSD/USDT)
+                                </p>
+                            </div>
+                            <div className='p-6 flex flex-col justify-between gradient-background-2 rounded-lg'>
+                                <h2 className='title-3'>
+                                    Public Sale Token Price
+                                </h2>
+                                <p className='text-xl mt-12'>
+                                    $0.001 (BUSD/USDT)
+                                </p>
+                            </div>
+                            <div className='p-6 flex flex-col justify-between gradient-background-3 rounded-lg lg:col-span-2'>
+                                <h2 className='title-3 text-center'>
+                                    Public Sale Token Price
+                                </h2>
+                                <div className='px-24 grid grid-cols-1 lg:grid-cols-3'>
+                                    <div>
+                                        <p className='text-xl text-center'>
+                                            Team: 15%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Advisors: 7%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Liquidity: 12%
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className='text-xl text-center'>
+                                            Ecosytem: 12%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Reserve: 5%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Staking/Rewards: 14%
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className='text-xl text-center'>
+                                            Private sale: 20%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Public sale: 14%
+                                        </p>
+                                        <p className='text-xl text-center'>
+                                            Airdrop: 1%
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr className='p-px gradient-background-1' />
+            <div className='mt-24 px-4'>
+                <div className='max-w-7xl mx-auto'>
+                    <h1 className='title font-bold text-center'>
+                        Tiered System
+                    </h1>
+                    <div className='mt-16 flex justify-center items-center flex-wrap gap-8 text-center'>
+                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
+                            <h2 className='title-2 text-cyan-500'>Bronze</h2>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                            <p className='mt-5'>Staking Requirement</p>
+                            <h2 className='title-2 mt-6'>1000</h2>
+                            <p className='mt-6 text-sm'>
+                                Staking Length Required
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                3 hours before Allocation Round opens
+                            </p>
+                            <p className='mt-3 text-sm'>
+                                Whitelist Requirement Twitter
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                Like, Comment & Retweet
+                            </p>
+                            <p className='mt-6 text-sm'>Lottery Tickets</p>
+                            <p className='mt-6 font-bold'>1</p>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        </div>
+                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
+                            <h2 className='title-2 text-cyan-500'>Silver</h2>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                            <p className='mt-5'>Staking Requirement</p>
+                            <h2 className='title-2 mt-6'>2500</h2>
+                            <p className='mt-6 text-sm'>
+                                Staking Length Required
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                3 hours before Allocation Round opens
+                            </p>
+                            <p className='mt-3 text-sm'>
+                                Whitelist Requirement Twitter
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                Like, Comment & Retweet
+                            </p>
+                            <p className='mt-6 text-sm'>Lottery Tickets</p>
+                            <p className='mt-6 font-bold'>3</p>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        </div>
+                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
+                            <h2 className='title-2 text-cyan-500'>Gold</h2>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                            <p className='mt-5'>Staking Requirement</p>
+                            <h2 className='title-2 mt-6'>2500</h2>
+                            <p className='mt-6 text-sm'>
+                                Staking Length Required
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                3 hours before Allocation Round opens
+                            </p>
+                            <p className='mt-3 text-sm'>
+                                Whitelist Requirement Twitter
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                Like, Comment & Retweet
+                            </p>
+                            <p className='mt-6 text-sm'>Lottery Tickets</p>
+                            <p className='mt-6 font-bold'>5</p>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        </div>
+                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
+                            <h2 className='title-2 text-cyan-500'>Platinum</h2>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                            <p className='mt-5'>Staking Requirement</p>
+                            <h2 className='title-2 mt-6'>7500</h2>
+                            <p className='mt-6 text-sm'>
+                                Staking Length Required
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                3 hours before Allocation Round opens
+                            </p>
+                            <p className='mt-3 text-sm'>
+                                Whitelist Requirement Twitter
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                Like, Comment & Retweet
+                            </p>
+                            <p className='mt-6 text-sm'>Lottery Tickets</p>
+                            <p className='mt-6 font-bold'>7</p>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        </div>
+                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
+                            <h2 className='title-2 text-cyan-500'>Diamond</h2>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                            <p className='mt-5'>Staking Requirement</p>
+                            <h2 className='title-2 mt-6'>10000</h2>
+                            <p className='mt-6 text-sm'>
+                                Staking Length Required
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                3 hours before Allocation Round opens
+                            </p>
+                            <p className='mt-3 text-sm'>
+                                Whitelist Requirement Twitter
+                            </p>
+                            <p className='mt-3 font-bold'>
+                                Like, Comment & Retweet
+                            </p>
+                            <p className='mt-6 text-sm'>Lottery Tickets</p>
+                            <p className='mt-6 font-bold'>10</p>
+                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='mt-24 bg-image bg-image-2'>
+                <div className='max-w-7xl mx-auto py-24 text-center'>
+                    <h1 className='title font-bold'>Apply for incubation</h1>
+                    <button className='btn btn-gradient btn-lg mt-32'>
+                        Apply now
+                    </button>
                 </div>
             </div>
         </Container>

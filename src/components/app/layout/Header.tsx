@@ -3,7 +3,8 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
-import { MenuIcon } from '@heroicons/react/outline';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import {
     HomeIcon,
@@ -33,7 +34,11 @@ const Header: React.FC = () => {
                     <div className='-mr-2 -my-2 md:hidden'>
                         <Popover.Button className='gradient-background-1 rounded-md p-2 inline-flex items-center justify-center text-white-500 hover:text-pink-500'>
                             <span className='sr-only'>Open menu</span>
-                            <MenuIcon className='h-6 w-6' aria-hidden='true' />
+                            <FontAwesomeIcon
+                                icon={faBars}
+                                className='h-6 w-6'
+                                aria-hidden='true'
+                            />
                         </Popover.Button>
                     </div>
                     <Popover.Group
