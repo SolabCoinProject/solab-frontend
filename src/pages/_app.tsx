@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
             <Head>
                 <title>Solab Finance</title>
+                <link rel='icon' href='/logo-sm.svg' />
             </Head>
             <Component {...pageProps} />
         </Provider>
