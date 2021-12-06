@@ -12,12 +12,6 @@ import {
     faCubes,
 } from '@fortawesome/free-solid-svg-icons';
 
-// import {
-//     HomeIcon,
-//     BriefcaseIcon,
-//     CubeIcon,
-//     XIcon,
-// } from '@heroicons/react/solid';
 import logo from '../../../assets/images/logo.svg';
 
 const Header: React.FC = () => {
