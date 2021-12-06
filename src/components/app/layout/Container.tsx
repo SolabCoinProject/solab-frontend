@@ -1,10 +1,10 @@
 import Header from './Header';
 
-const Container: React.FC = () => {
+const Container: React.FC = ({ children }) => {
     return (
         <>
             <Header />
-            <h1>sadasdsad</h1>
+            {children}
         </>
     );
 };

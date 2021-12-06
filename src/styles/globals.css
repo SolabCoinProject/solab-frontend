@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply bg-blue-900 font-sans;
+    @apply bg-blue-900 font-sans text-white-500;
 }
 
 .gradient-background-1 {
@@ -40,9 +40,40 @@ body {
 }
 
 .btn {
-    @apply py-2 px-4 font-bold rounded-lg shadow-md;
+    @apply py-2 px-4 rounded-lg shadow-md hover:opacity-90;
 }
 
 .btn-pink {
     @apply text-white-500 text-base bg-pink-500 hover:bg-pink-500;
+}
+
+.btn-lg {
+    @apply py-3.5 px-14;
+}
+
+.btn-gradient {
+    @apply text-white-500;
+    background: linear-gradient(
+        90deg,
+        #1ee8bb -18.52%,
+        #18b1dc 17%,
+        #4185ea 49.73%,
+        #8e4ec7 85.24%,
+        #ff50ce 115.19%
+    );
+}
+
+.title {
+    @apply text-3xl font-bold;
+}
+
+.title-2 {
+    @apply text-xl font-bold;
+}
+
+.bg-image {
+    @apply bg-center bg-cover bg-no-repeat;
+}
+.bg-image-1 {
+    background-image: url('../assets/images/bg-1.svg');
 }

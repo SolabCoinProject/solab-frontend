@@ -11,7 +11,7 @@ import logo from '../../../assets/images/logo.svg';
 
 const Header: React.FC = () => {
     return (
-        <Popover className='relative bg-blue-500 bg-opacity-50 '>
+        <Popover className='sticky top-0 bg-blue-500 z-50'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6'>
                 <div className='flex justify-between items-center py-4 md:justify-start md:space-x-10'>
                     <div className='flex justify-start lg:w-0 lg:flex-1'>
@@ -37,17 +37,17 @@ const Header: React.FC = () => {
                         className='hidden md:flex space-x-10'
                     >
                         <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-gray-900'>
+                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
                                 HOME
                             </a>
                         </Link>
                         <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-gray-900'>
+                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
                                 STAKE
                             </a>
                         </Link>
                         <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-gray-900'>
+                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
                                 PROJECTS
                             </a>
                         </Link>
