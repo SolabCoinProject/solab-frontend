@@ -5,8 +5,12 @@ import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon } from '@heroicons/react/outline';
 
-import { HomeIcon, BriefcaseIcon, CubeIcon } from '@heroicons/react/solid';
-import { ChevronDownIcon, XIcon } from '@heroicons/react/solid';
+import {
+    HomeIcon,
+    BriefcaseIcon,
+    CubeIcon,
+    XIcon,
+} from '@heroicons/react/solid';
 import logo from '../../../assets/images/logo.svg';
 
 const Header: React.FC = () => {

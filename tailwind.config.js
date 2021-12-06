@@ -22,6 +22,9 @@ module.exports = {
                 pink: {
                     500: '#FF50CE',
                 },
+                yellow: {
+                    500: '#F8CB67',
+                },
             },
             fontSize: {
                 base: '18px',

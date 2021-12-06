@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+import {
+    VerticalTimeline,
+    VerticalTimelineElement,
+} from 'react-vertical-timeline-component';
+import { CubeIcon } from '@heroicons/react/solid';
 import { format, parseISO } from 'date-fns';
 
 import Container from '../../components/app/layout/Container';
@@ -8,45 +13,7 @@ import Container from '../../components/app/layout/Container';
 import banner from '../../assets/images/banner.gif';
 import sampleTokenLogo from '../../assets/images/sample-token-logo.png';
 
-const demoTimeLine = [
-    {
-        date: '2021-12-24',
-        headline: 'Airdrop + whitelist lottery registration opens',
-        content: [
-            'On the 24th of Dec at 12PM (UTC) the Solab whitelist went live. You can register yourself for the public sale as well as for the airdrop.',
-        ],
-    },
-    {
-        date: '2022-01-01',
-        headline: 'Public sale for lottery winners',
-        content: [
-            'This article contains instructions for lucky lottery winners on how to participate in the public sale on solanium.io.',
-        ],
-    },
-    {
-        date: '2022-01-07',
-        headline: 'Airdrop + Public sale token distribution',
-        content: [],
-    },
-    {
-        date: '2022-01-31',
-        headline: 'SLIM trading now live on Raydium',
-        content: [
-            'We have added liquidity on Raydium and the SOLAB token is now trade-able through the swapping interface!',
-        ],
-    },
-    {
-        date: '2022-02-15',
-        headline: 'Solanium Staking live',
-        content: [
-            'Optimized non-fungible token exchange mechanism and registry table resolution.',
-            'Updated the Python library for blockchain interoperability Researched and tested on-chain randomness generation.',
-        ],
-    },
-];
-
 const HomePage: React.FC = () => {
-    const [timeLineIndex, setTimeLineIndex] = useState<number>(0);
     return (
         <Container>
             <div className='mt-20'>
@@ -341,6 +308,137 @@ const HomePage: React.FC = () => {
             <div className='mt-12 px-4'>
                 <div className='max-w-7xl mx-auto'>
                     <h1 className='title text-center'>ROADMAP</h1>
+                    <VerticalTimeline>
+                        <VerticalTimelineElement
+                            className='vertical-timeline-element--work'
+                            contentStyle={{
+                                background: '#000639',
+                                color: '#F5F6FA',
+                                border: '2px solid #1EE8BB',
+                            }}
+                            contentArrowStyle={{
+                                borderRight: '7px solid  #1EE8BB',
+                            }}
+                            date='24 Dec, 2021'
+                            dateClassName='text-cyan-500'
+                            icon={<CubeIcon />}
+                            iconClassName='bg-pink-500 text-yellow-500'
+                        >
+                            <h3 className='text-tiny font-bold'>
+                                Airdrop + whitelist lottery registration opens
+                            </h3>
+                            <ul>
+                                <li className='text-sm'>
+                                    On the 24th of Dec at 12PM (UTC) the Solab
+                                    whitelist went live. You can register
+                                    yourself for the public sale as well as for
+                                    the airdrop.
+                                </li>
+                            </ul>
+                        </VerticalTimelineElement>
+                        <VerticalTimelineElement
+                            className='vertical-timeline-element--work'
+                            contentStyle={{
+                                background: '#000639',
+                                color: '#F5F6FA',
+                                border: '2px solid #1EE8BB',
+                            }}
+                            contentArrowStyle={{
+                                borderRight: '7px solid  #1EE8BB',
+                            }}
+                            date='1 Jan, 2022'
+                            dateClassName='text-cyan-500'
+                            icon={<CubeIcon />}
+                            iconClassName='bg-pink-500 text-yellow-500'
+                        >
+                            <h3 className='text-tiny font-bold'>
+                                Public sale for lottery winners
+                            </h3>
+                            <ul>
+                                <li className='text-sm'>
+                                    This article contains instructions for lucky
+                                    lottery winners on how to participate in the
+                                    public sale on solanium.io.
+                                </li>
+                            </ul>
+                        </VerticalTimelineElement>
+                        <VerticalTimelineElement
+                            className='vertical-timeline-element--work'
+                            contentStyle={{
+                                background: '#000639',
+                                color: '#F5F6FA',
+                                border: '2px solid #1EE8BB',
+                            }}
+                            contentArrowStyle={{
+                                borderRight: '7px solid  #1EE8BB',
+                            }}
+                            date='7 Jan, 2022'
+                            dateClassName='text-cyan-500'
+                            icon={<CubeIcon />}
+                            iconClassName='bg-pink-500 text-yellow-500'
+                        >
+                            <h3 className='text-tiny font-bold'>
+                                Airdrop + Public sale token distribution
+                            </h3>
+                            <ul></ul>
+                        </VerticalTimelineElement>
+                        <VerticalTimelineElement
+                            className='vertical-timeline-element--work'
+                            contentStyle={{
+                                background: '#000639',
+                                color: '#F5F6FA',
+                                border: '2px solid #1EE8BB',
+                            }}
+                            contentArrowStyle={{
+                                borderRight: '7px solid  #1EE8BB',
+                            }}
+                            date='31 Jan, 2022'
+                            dateClassName='text-cyan-500'
+                            icon={<CubeIcon />}
+                            iconClassName='bg-pink-500 text-yellow-500'
+                        >
+                            <h3 className='text-tiny font-bold'>
+                                SLIM trading now live on Raydium
+                            </h3>
+                            <ul>
+                                <li className='text-sm'>
+                                    We have added liquidity on Raydium and the
+                                    SOLAB token is now trade-able through the
+                                    swapping interface!
+                                </li>
+                            </ul>
+                        </VerticalTimelineElement>
+                        <VerticalTimelineElement
+                            className='vertical-timeline-element--work'
+                            contentStyle={{
+                                background: '#000639',
+                                color: '#F5F6FA',
+                                border: '2px solid #1EE8BB',
+                            }}
+                            contentArrowStyle={{
+                                borderRight: '7px solid  #1EE8BB',
+                            }}
+                            date='15 Feb, 2022'
+                            dateClassName='text-cyan-500'
+                            icon={<CubeIcon />}
+                            iconClassName='bg-pink-500 text-yellow-500'
+                        >
+                            <h3 className='text-tiny font-bold'>
+                                Solanium Staking live
+                            </h3>
+                            <ul>
+                                <li className='text-sm'>
+                                    Optimized non-fungible token exchange
+                                    mechanism and registry table resolution.
+                                </li>
+                                <li className='text-sm'>
+                                    Updated the Python library for blockchain
+                                    interoperability Researched and tested
+                                    on-chain randomness generation.
+                                </li>
+                            </ul>
+                        </VerticalTimelineElement>
+                    </VerticalTimeline>
                 </div>
             </div>
         </Container>
