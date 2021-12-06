@@ -4,14 +4,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-
 import {
-    HomeIcon,
-    BriefcaseIcon,
-    CubeIcon,
-    XIcon,
-} from '@heroicons/react/solid';
+    faBars,
+    faHome,
+    faTimes,
+    faBriefcase,
+    faCubes,
+} from '@fortawesome/free-solid-svg-icons';
+
+// import {
+//     HomeIcon,
+//     BriefcaseIcon,
+//     CubeIcon,
+//     XIcon,
+// } from '@heroicons/react/solid';
 import logo from '../../../assets/images/logo.svg';
 
 const Header: React.FC = () => {
@@ -98,7 +104,8 @@ const Header: React.FC = () => {
                                         <span className='sr-only'>
                                             Close menu
                                         </span>
-                                        <XIcon
+                                        <FontAwesomeIcon
+                                            icon={faTimes}
                                             className='h-6 w-6 text-white-500 group-hover:text-pink-500'
                                             aria-hidden='true'
                                         />
@@ -109,7 +116,8 @@ const Header: React.FC = () => {
                                 <nav className='grid gap-y-8'>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center'>
-                                            <HomeIcon
+                                            <FontAwesomeIcon
+                                                icon={faHome}
                                                 className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
                                                 aria-hidden='true'
                                             />
@@ -120,7 +128,8 @@ const Header: React.FC = () => {
                                     </Link>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <BriefcaseIcon
+                                            <FontAwesomeIcon
+                                                icon={faBriefcase}
                                                 className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
                                                 aria-hidden='true'
                                             />
@@ -131,7 +140,8 @@ const Header: React.FC = () => {
                                     </Link>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <CubeIcon
+                                            <FontAwesomeIcon
+                                                icon={faCubes}
                                                 className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
                                                 aria-hidden='true'
                                             />
