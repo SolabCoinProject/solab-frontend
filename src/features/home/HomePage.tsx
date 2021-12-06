@@ -1,11 +1,53 @@
+import { useState } from 'react';
 import Image from 'next/image';
+
+import HorizontalTimeline from 'react-horizontal-timeline';
+import { format, parseISO } from 'date-fns';
 
 import Container from '../../components/app/layout/Container';
 
 import banner from '../../assets/images/banner.gif';
 import sampleTokenLogo from '../../assets/images/sample-token-logo.png';
 
+const demoTimeLine = [
+    {
+        date: '2021-12-24',
+        headline: 'Airdrop + whitelist lottery registration opens',
+        content: [
+            'On the 24th of Dec at 12PM (UTC) the Solab whitelist went live. You can register yourself for the public sale as well as for the airdrop.',
+        ],
+    },
+    {
+        date: '2022-01-01',
+        headline: 'Public sale for lottery winners',
+        content: [
+            'This article contains instructions for lucky lottery winners on how to participate in the public sale on solanium.io.',
+        ],
+    },
+    {
+        date: '2022-01-07',
+        headline: 'Airdrop + Public sale token distribution',
+        content: [],
+    },
+    {
+        date: '2022-01-31',
+        headline: 'SLIM trading now live on Raydium',
+        content: [
+            'We have added liquidity on Raydium and the SOLAB token is now trade-able through the swapping interface!',
+        ],
+    },
+    {
+        date: '2022-02-15',
+        headline: 'Solanium Staking live',
+        content: [
+            'Optimized non-fungible token exchange mechanism and registry table resolution.',
+            'Updated the Python library for blockchain interoperability Researched and tested on-chain randomness generation.',
+        ],
+    },
+];
+
 const HomePage: React.FC = () => {
+    const [timeLineIndex, setTimeLineIndex] = useState<number>(0);
     return (
         <Container>
             <div className='mt-20'>
@@ -294,6 +336,45 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div className='mt-12 px-4'>
+                <div className='max-w-7xl mx-auto'>
+                    <h1 className='title text-center'>ROADMAP</h1>
+                    <div className='mx-auto w-2/4 border-2 border-pink-500 rounded-lg p-4 mt-24'>
+                        <h2 className='title-2 text-cyan-500'>
+                            {format(
+                                parseISO(demoTimeLine[timeLineIndex]['date']),
+                                'dd MMMM, yyyy'
+                            )}
+                        </h2>
+                        <h3 className='text-tiny font-bold'>
+                            {demoTimeLine[timeLineIndex]['headline']}
+                        </h3>
+                        <ul>
+                            {demoTimeLine[timeLineIndex]['content'].map(
+                                (item) => (
+                                    <li className='text-sm'>{item}</li>
+                                )
+                            )}
+                        </ul>
+                    </div>
+                    <div className='h-28 mx-auto text-sm mt-8'>
+                        <HorizontalTimeline
+                            styles={{
+                                background: '#000612',
+                                foreground: '#FF50CE',
+                                outline: '#1EE8BB',
+                                // color: 'white',
+                            }}
+                            minEventPadding={60}
+                            index={timeLineIndex}
+                            indexClick={(index: number) => {
+                                setTimeLineIndex(index);
+                            }}
+                            values={demoTimeLine.map(({ date }) => date)}
+                        />
                     </div>
                 </div>
             </div>
