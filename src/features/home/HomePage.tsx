@@ -5,7 +5,6 @@ import {
     VerticalTimeline,
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
-import { CubeIcon } from '@heroicons/react/solid';
 import { format, parseISO } from 'date-fns';
 
 import Container from '../../components/app/layout/Container';
