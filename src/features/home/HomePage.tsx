@@ -87,237 +87,291 @@ const HomePage: React.FC = () => {
                     </h1>
                     <p className='text-center'>Circulating Supply Locked</p>
                     <div className='grid grid-cols-1 lg:grid-cols-2 mt-12 gap-8'>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='rounded-lg border-2 border-cyan-500 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                            <div
-                                className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
-                                style={{
-                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
-                                }}
-                            >
-                                <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
-                                    1 day until whitelist ends
-                                </span>
-                            </div>
-                            <div className='flex flex-col justify-between mt-3'>
-                                <div>
-                                    <h2 className='title-2'>TabTrader</h2>
-                                    <h2 className='text-sm'>
-                                        A trading terminal for crypto exchanges
-                                    </h2>
+                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                            <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
+                                <div
+                                    className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
+                                    style={{
+                                        backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                    }}
+                                >
+                                    <span className='bg-pink-500 rounded-lg p-0.5 font-sm absolute top-1 right-1'>
+                                        1 day until whitelist ends
+                                    </span>
                                 </div>
-                                <div>
-                                    <div className='flex justify-between items-end'>
-                                        <div className='flex items-center justify-center'>
-                                            <Image
-                                                src={sampleTokenLogo}
-                                                width={32}
-                                                height={32}
-                                            />
-                                            <span className='ml-1'>TTT</span>
-                                        </div>
-                                        <div>
-                                            <p className='text-sm'>Followers</p>
-                                            <p className='text-xl'>53,241</p>
-                                        </div>
+                                <div className='flex flex-col justify-between mt-3'>
+                                    <div>
+                                        <h2 className='title-2'>TabTrader</h2>
+                                        <h2 className='text-sm'>
+                                            A trading terminal for crypto
+                                            exchanges
+                                        </h2>
                                     </div>
-                                    <button className='btn btn-gradient mt-2.5'>
-                                        More details
-                                    </button>
+                                    <div>
+                                        <div className='flex justify-between items-end'>
+                                            <div className='flex items-center justify-center'>
+                                                <Image
+                                                    src={sampleTokenLogo}
+                                                    width={32}
+                                                    height={32}
+                                                />
+                                                <span className='ml-1'>
+                                                    TTT
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p className='text-sm'>
+                                                    Followers
+                                                </p>
+                                                <p className='text-xl'>
+                                                    53,241
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button className='btn btn-gradient mt-2.5'>
+                                            More details
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
