@@ -3,21 +3,17 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Popover, Transition } from '@headlessui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faBars,
-    faHome,
-    faTimes,
-    faBriefcase,
-    faCubes,
-} from '@fortawesome/free-solid-svg-icons';
+
+import { FaTimes, FaBars } from 'react-icons/fa';
+import { AiOutlineHome, AiOutlineFundProjectionScreen } from 'react-icons/ai';
+import { SiDatabricks } from 'react-icons/si';
 
 import logo from '../../../assets/images/logo.svg';
 
 const Header: React.FC = () => {
     return (
         <Popover className='sticky top-0 bg-blue-500 z-50'>
-            <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+            <div className='max-w-6xl mx-auto px-4 sm:px-6'>
                 <div className='flex justify-between items-center py-4 md:justify-start md:space-x-10'>
                     <div className='flex justify-start lg:w-0 lg:flex-1'>
                         <Link href='#'>
@@ -34,11 +30,7 @@ const Header: React.FC = () => {
                     <div className='-mr-2 -my-2 md:hidden'>
                         <Popover.Button className='gradient-background-1 rounded-md p-2 inline-flex items-center justify-center text-white-500 hover:text-pink-500'>
                             <span className='sr-only'>Open menu</span>
-                            <FontAwesomeIcon
-                                icon={faBars}
-                                className='h-6 w-6'
-                                aria-hidden='true'
-                            />
+                            <FaBars className='h-6 w-6' />
                         </Popover.Button>
                     </div>
                     <Popover.Group
@@ -98,11 +90,7 @@ const Header: React.FC = () => {
                                         <span className='sr-only'>
                                             Close menu
                                         </span>
-                                        <FontAwesomeIcon
-                                            icon={faTimes}
-                                            className='h-6 w-6 text-white-500 group-hover:text-pink-500'
-                                            aria-hidden='true'
-                                        />
+                                        <FaTimes className='h-6 w-6 text-white-500 group-hover:text-pink-500' />
                                     </Popover.Button>
                                 </div>
                             </div>
@@ -110,11 +98,7 @@ const Header: React.FC = () => {
                                 <nav className='grid gap-y-8'>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center'>
-                                            <FontAwesomeIcon
-                                                icon={faHome}
-                                                className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
-                                                aria-hidden='true'
-                                            />
+                                            <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
                                             <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
                                                 Home
                                             </span>
@@ -122,11 +106,7 @@ const Header: React.FC = () => {
                                     </Link>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <FontAwesomeIcon
-                                                icon={faBriefcase}
-                                                className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
-                                                aria-hidden='true'
-                                            />
+                                            <SiDatabricks className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
                                             <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
                                                 STAKE
                                             </span>
@@ -134,11 +114,7 @@ const Header: React.FC = () => {
                                     </Link>
                                     <Link href='#'>
                                         <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <FontAwesomeIcon
-                                                icon={faCubes}
-                                                className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300'
-                                                aria-hidden='true'
-                                            />
+                                            <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
                                             <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
                                                 PROJECTS
                                             </span>

@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import {
     VerticalTimeline,
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
-import { format, parseISO } from 'date-fns';
+
+import { FaTelegramPlane } from 'react-icons/fa';
+import { BsTwitter } from 'react-icons/bs';
 
 import Container from '../../components/app/layout/Container';
 
@@ -16,7 +18,7 @@ const HomePage: React.FC = () => {
     return (
         <Container>
             <div className='mt-20'>
-                <div className='max-w-7xl mx-auto px-4'>
+                <div className='max-w-6xl mx-auto px-4'>
                     <div className='grid lg:grid-cols-2 auto-cols-fr'>
                         <div>
                             <h1 className='title '>
@@ -35,6 +37,24 @@ const HomePage: React.FC = () => {
                             <button className='btn btn-lg btn-gradient mt-3'>
                                 Stake
                             </button>
+                            <div className='mt-11 flex'>
+                                <Link href='#'>
+                                    <a className='flex items-center group'>
+                                        <FaTelegramPlane className='text-2xl text-blue-light' />
+                                        <span className='ml-2 group-hover:text-blue-light'>
+                                            Join us on Telegram
+                                        </span>
+                                    </a>
+                                </Link>
+                                <Link href='#'>
+                                    <a className='flex items-center ml-2 group'>
+                                        <BsTwitter className='text-2xl text-blue-light' />
+                                        <span className='ml-2 group-hover:text-blue-light'>
+                                            Follow our Twitter
+                                        </span>
+                                    </a>
+                                </Link>
+                            </div>
                         </div>
                         <div className='text-center hidden lg:block'>
                             <Image src={banner} className='mx-auto' />
@@ -43,7 +63,7 @@ const HomePage: React.FC = () => {
                 </div>
             </div>
             <div className='mt-12 bg-blue-300 p-4'>
-                <div className='max-w-7xl mx-auto'>
+                <div className='max-w-6xl mx-auto'>
                     <div className='grid grid-cols-1 sm:grid-cols-3 auto-rows-fr'>
                         <div className='text-center'>
                             <h1 className='text-cyan-500 title'>$16.2B</h1>
@@ -61,7 +81,7 @@ const HomePage: React.FC = () => {
                 </div>
             </div>
             <div className='mt-12 px-4 bg-image bg-image-1'>
-                <div className='max-w-7xl mx-auto'>
+                <div className='max-w-6xl mx-auto'>
                     <h1 className='title  text-center'>
                         Live & Upcoming Projects
                     </h1>
@@ -305,7 +325,7 @@ const HomePage: React.FC = () => {
                 </div>
             </div>
             <div className='mt-12 px-4'>
-                <div className='max-w-7xl mx-auto'>
+                <div className='max-w-6xl mx-auto'>
                     <h1 className='title text-center'>ROADMAP</h1>
                     <div>
                         <VerticalTimeline>
@@ -440,10 +460,9 @@ const HomePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <hr className='p-px gradient-background-1' />
 
             <div className='mt-24 bg-blue-300 px-4'>
-                <div className='max-w-7xl mx-auto py-12'>
+                <div className='max-w-6xl mx-auto py-12'>
                     <h1 className='title font-bold text-center'>Tokenomics</h1>
                     <div className='mt-14'>
                         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
@@ -525,7 +544,7 @@ const HomePage: React.FC = () => {
             </div>
             <hr className='p-px gradient-background-1' />
             <div className='mt-24 px-4'>
-                <div className='max-w-7xl mx-auto'>
+                <div className='max-w-6xl mx-auto'>
                     <h1 className='title font-bold text-center'>
                         Tiered System
                     </h1>
@@ -639,7 +658,7 @@ const HomePage: React.FC = () => {
                 </div>
             </div>
             <div className='mt-24 bg-image bg-image-2'>
-                <div className='max-w-7xl mx-auto py-24 text-center'>
+                <div className='max-w-6xl mx-auto py-24 text-center'>
                     <h1 className='title font-bold'>Apply for incubation</h1>
                     <button className='btn btn-gradient btn-lg mt-32'>
                         Apply now

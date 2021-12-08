@@ -1,14 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faTelegramPlane,
-    faFacebook,
-    faTwitter,
-    faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
-
+import { FaTelegramPlane } from 'react-icons/fa';
+import { AiFillFacebook } from 'react-icons/ai';
+import { BsTwitter, BsYoutube } from 'react-icons/bs';
 import logo from '../../../assets/images/logo.svg';
 
 const Footer: React.FC = () => {
@@ -16,7 +11,7 @@ const Footer: React.FC = () => {
         <div className='footer'>
             <hr className='p-px gradient-background-1' />
             <footer className='py-14'>
-                <div className='max-w-7xl mx-auto px-4'>
+                <div className='max-w-6xl mx-auto px-4'>
                     <div className='grid grid-cols-1 lg:grid-cols-4'>
                         <div className='flex flex-col justify-between'>
                             <Link href='#'>
@@ -29,9 +24,6 @@ const Footer: React.FC = () => {
                                     />
                                 </a>
                             </Link>
-                            <p className='text-sm opacity-80'>
-                                Copyright © 2021 Solab Finance{' '}
-                            </p>
                         </div>
                         <div>
                             <p className='text-sm font-bold'>COMPANY</p>
@@ -105,44 +97,33 @@ const Footer: React.FC = () => {
             </footer>
             <hr className='p-px gradient-background-1' />
             <div className='py-4'>
-                <div className='max-w-7xl mx-auto px-4 flex justify-between'>
-                    <p>Terms & Condition</p>
-                    <div>
+                <div className='max-w-6xl mx-auto px-4 flex justify-between'>
+                    <Link href='#'>
+                        <a className='opacity-80'>Terms & Condition</a>
+                    </Link>
+                    <p className='text-sm opacity-80'>
+                        Copyright © 2021 Solab Finance{' '}
+                    </p>
+                    <div className='flex'>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faTelegramPlane}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <FaTelegramPlane size='24px' />
                             </a>
                         </Link>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faFacebook}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <AiFillFacebook size='24px' className='ml-2' />
                             </a>
                         </Link>
 
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faTwitter}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <BsTwitter size='24px' className='ml-2' />
                             </a>
                         </Link>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faYoutube}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <BsYoutube size='24px' className='ml-2' />
                             </a>
                         </Link>
                     </div>
