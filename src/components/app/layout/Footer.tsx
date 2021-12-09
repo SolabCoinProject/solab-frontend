@@ -5,8 +5,26 @@ import { FaTelegramPlane } from 'react-icons/fa';
 import { AiFillFacebook } from 'react-icons/ai';
 import { BsTwitter, BsYoutube } from 'react-icons/bs';
 import logo from '../../../assets/images/logo.svg';
+import routes from '../../../config/routes';
 
 const Footer: React.FC = () => {
+    const companyItems = [
+        {
+            href: routes.app.home,
+            content: 'Home',
+            isComingSoon: false,
+        },
+        {
+            href: routes.app.stake,
+            content: 'Stake',
+            isComingSoon: false,
+        },
+        {
+            href: routes.app.projects,
+            content: 'Projects',
+            isComingSoon: true,
+        },
+    ];
     return (
         <div className='footer'>
             <hr className='p-px gradient-background-1' />
@@ -30,27 +48,21 @@ const Footer: React.FC = () => {
                                 COMPANY
                             </p>
                             <ul className='mt-0 lg:mt-4'>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Home
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Stake
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Projects
-                                        </a>
-                                    </Link>
-                                </li>
+                                {companyItems.map((item) => (
+                                    <li>
+                                        <Link href={item.href}>
+                                            <a
+                                                className={`text-sm ${
+                                                    item.isComingSoon
+                                                        ? 'opacity-50 pointer-events-none'
+                                                        : 'opacity-80'
+                                                }`}
+                                            >
+                                                {item.content}
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div>
