@@ -610,110 +610,129 @@ const Home: NextPage = () => {
                         Tiered System
                     </h1>
                     <div className='mt-16 flex justify-center items-center flex-wrap gap-8 text-center'>
-                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
-                            <h2 className='title-2 text-cyan-500'>Bronze</h2>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
-                            <p className='mt-5'>Staking Requirement</p>
-                            <h2 className='title-2 mt-6'>1000</h2>
-                            <p className='mt-6 text-sm'>
-                                Staking Length Required
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                3 hours before Allocation Round opens
-                            </p>
-                            <p className='mt-3 text-sm'>
-                                Whitelist Requirement Twitter
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                Like, Comment & Retweet
-                            </p>
-                            <p className='mt-6 text-sm'>Lottery Tickets</p>
-                            <p className='mt-6 font-bold'>1</p>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        <div className='gradient-background-3 p-px rounded-lg lg:w-3/10 w-full'>
+                            <div className='py-12 rounded-lg bg-blue-900'>
+                                <h2 className='title-2 text-cyan-500'>
+                                    Bronze
+                                </h2>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                                <p className='mt-5'>Staking Requirement</p>
+                                <h2 className='title-2 mt-6'>1000</h2>
+                                <p className='mt-6 text-sm'>
+                                    Staking Length Required
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    3 hours before Allocation Round opens
+                                </p>
+                                <p className='mt-3 text-sm'>
+                                    Whitelist Requirement Twitter
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    Like, Comment & Retweet
+                                </p>
+                                <p className='mt-6 text-sm'>Lottery Tickets</p>
+                                <p className='mt-6 font-bold'>1</p>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                            </div>
                         </div>
-                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
-                            <h2 className='title-2 text-cyan-500'>Silver</h2>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
-                            <p className='mt-5'>Staking Requirement</p>
-                            <h2 className='title-2 mt-6'>2500</h2>
-                            <p className='mt-6 text-sm'>
-                                Staking Length Required
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                3 hours before Allocation Round opens
-                            </p>
-                            <p className='mt-3 text-sm'>
-                                Whitelist Requirement Twitter
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                Like, Comment & Retweet
-                            </p>
-                            <p className='mt-6 text-sm'>Lottery Tickets</p>
-                            <p className='mt-6 font-bold'>3</p>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+
+                        <div className='gradient-background-3 p-px rounded-lg lg:w-3/10 w-full'>
+                            <div className='py-12 rounded-lg bg-blue-900'>
+                                <h2 className='title-2 text-cyan-500'>
+                                    Silver
+                                </h2>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                                <p className='mt-5'>Staking Requirement</p>
+                                <h2 className='title-2 mt-6'>2500</h2>
+                                <p className='mt-6 text-sm'>
+                                    Staking Length Required
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    3 hours before Allocation Round opens
+                                </p>
+                                <p className='mt-3 text-sm'>
+                                    Whitelist Requirement Twitter
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    Like, Comment & Retweet
+                                </p>
+                                <p className='mt-6 text-sm'>Lottery Tickets</p>
+                                <p className='mt-6 font-bold'>3</p>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                            </div>
                         </div>
-                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
-                            <h2 className='title-2 text-cyan-500'>Gold</h2>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
-                            <p className='mt-5'>Staking Requirement</p>
-                            <h2 className='title-2 mt-6'>2500</h2>
-                            <p className='mt-6 text-sm'>
-                                Staking Length Required
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                3 hours before Allocation Round opens
-                            </p>
-                            <p className='mt-3 text-sm'>
-                                Whitelist Requirement Twitter
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                Like, Comment & Retweet
-                            </p>
-                            <p className='mt-6 text-sm'>Lottery Tickets</p>
-                            <p className='mt-6 font-bold'>5</p>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        <div className='gradient-background-3 p-px rounded-lg lg:w-3/10 w-full'>
+                            <div className='py-12 rounded-lg bg-blue-900'>
+                                <h2 className='title-2 text-cyan-500'>Gold</h2>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                                <p className='mt-5'>Staking Requirement</p>
+                                <h2 className='title-2 mt-6'>2500</h2>
+                                <p className='mt-6 text-sm'>
+                                    Staking Length Required
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    3 hours before Allocation Round opens
+                                </p>
+                                <p className='mt-3 text-sm'>
+                                    Whitelist Requirement Twitter
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    Like, Comment & Retweet
+                                </p>
+                                <p className='mt-6 text-sm'>Lottery Tickets</p>
+                                <p className='mt-6 font-bold'>5</p>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                            </div>
                         </div>
-                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
-                            <h2 className='title-2 text-cyan-500'>Platinum</h2>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
-                            <p className='mt-5'>Staking Requirement</p>
-                            <h2 className='title-2 mt-6'>7500</h2>
-                            <p className='mt-6 text-sm'>
-                                Staking Length Required
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                3 hours before Allocation Round opens
-                            </p>
-                            <p className='mt-3 text-sm'>
-                                Whitelist Requirement Twitter
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                Like, Comment & Retweet
-                            </p>
-                            <p className='mt-6 text-sm'>Lottery Tickets</p>
-                            <p className='mt-6 font-bold'>7</p>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        <div className='gradient-background-3 p-px rounded-lg lg:w-3/10 w-full'>
+                            <div className='py-12 rounded-lg bg-blue-900'>
+                                <h2 className='title-2 text-cyan-500'>
+                                    Platinum
+                                </h2>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                                <p className='mt-5'>Staking Requirement</p>
+                                <h2 className='title-2 mt-6'>7500</h2>
+                                <p className='mt-6 text-sm'>
+                                    Staking Length Required
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    3 hours before Allocation Round opens
+                                </p>
+                                <p className='mt-3 text-sm'>
+                                    Whitelist Requirement Twitter
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    Like, Comment & Retweet
+                                </p>
+                                <p className='mt-6 text-sm'>Lottery Tickets</p>
+                                <p className='mt-6 font-bold'>7</p>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                            </div>
                         </div>
-                        <div className='lg:w-3/10 w-full py-12 border-2 border-cyan-500 rounded-lg'>
-                            <h2 className='title-2 text-cyan-500'>Diamond</h2>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
-                            <p className='mt-5'>Staking Requirement</p>
-                            <h2 className='title-2 mt-6'>10000</h2>
-                            <p className='mt-6 text-sm'>
-                                Staking Length Required
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                3 hours before Allocation Round opens
-                            </p>
-                            <p className='mt-3 text-sm'>
-                                Whitelist Requirement Twitter
-                            </p>
-                            <p className='mt-3 font-bold'>
-                                Like, Comment & Retweet
-                            </p>
-                            <p className='mt-6 text-sm'>Lottery Tickets</p>
-                            <p className='mt-6 font-bold'>10</p>
-                            <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                        <div className='gradient-background-3 p-px rounded-lg lg:w-3/10 w-full'>
+                            <div className='py-12 rounded-lg bg-blue-900'>
+                                <h2 className='title-2 text-cyan-500'>
+                                    Diamond
+                                </h2>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-6' />
+                                <p className='mt-5'>Staking Requirement</p>
+                                <h2 className='title-2 mt-6'>10000</h2>
+                                <p className='mt-6 text-sm'>
+                                    Staking Length Required
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    3 hours before Allocation Round opens
+                                </p>
+                                <p className='mt-3 text-sm'>
+                                    Whitelist Requirement Twitter
+                                </p>
+                                <p className='mt-3 font-bold'>
+                                    Like, Comment & Retweet
+                                </p>
+                                <p className='mt-6 text-sm'>Lottery Tickets</p>
+                                <p className='mt-6 font-bold'>10</p>
+                                <hr className='p-px gradient-background-1 w-1/2 mx-auto mt-12' />
+                            </div>
                         </div>
                     </div>
                 </div>

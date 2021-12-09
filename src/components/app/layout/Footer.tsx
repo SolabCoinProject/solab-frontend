@@ -26,8 +26,10 @@ const Footer: React.FC = () => {
                             </Link>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>COMPANY</p>
-                            <ul className='mt-4'>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
+                                COMPANY
+                            </p>
+                            <ul className='mt-0 lg:mt-4'>
                                 <li>
                                     <Link href='#'>
                                         <a className='text-sm opacity-80'>
@@ -52,8 +54,10 @@ const Footer: React.FC = () => {
                             </ul>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>RESOURCES</p>
-                            <ul className='mt-4'>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
+                                RESOURCES
+                            </p>
+                            <ul className='mt-0 lg:mt-4'>
                                 <li>
                                     <Link href='#'>
                                         <a className='text-sm opacity-80'>
@@ -78,7 +82,7 @@ const Footer: React.FC = () => {
                             </ul>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
                                 SUBSCRIBE TO OUR COMMUNITY UPDATES
                             </p>
                             <form className='mt-4'>
