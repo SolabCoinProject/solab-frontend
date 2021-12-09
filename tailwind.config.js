@@ -35,6 +35,7 @@ module.exports = {
                 '2xl': '36px',
                 sm: '14px',
                 xs: '12px',
+                xxs: '10px',
             },
             width: {
                 '3/10': '30%',

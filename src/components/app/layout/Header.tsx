@@ -9,8 +9,43 @@ import { AiOutlineHome, AiOutlineFundProjectionScreen } from 'react-icons/ai';
 import { SiDatabricks } from 'react-icons/si';
 
 import logo from '../../../assets/images/logo.svg';
+import { useAppSelector } from '../../../app/hooks';
+import routes from '../../../config/routes';
+import { appHeaderOptions } from '../../../features/layout/layoutSlice';
 
 const Header: React.FC = () => {
+    const activeHeader = useAppSelector(
+        (state) => state.layout.app.activeHeaderItem
+    );
+    const headerItems = [
+        {
+            href: routes.app.home,
+            content: 'HOME',
+            option: appHeaderOptions.home,
+            isComingSoon: false,
+            icon: (
+                <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+            ),
+        },
+        {
+            href: routes.app.stake,
+            content: 'STAKE',
+            option: appHeaderOptions.stake,
+            isComingSoon: false,
+            icon: (
+                <SiDatabricks className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+            ),
+        },
+        {
+            href: routes.app.projects,
+            content: 'PROJECTS',
+            option: appHeaderOptions.projects,
+            isComingSoon: true,
+            icon: (
+                <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+            ),
+        },
+    ];
     return (
         <Popover className='sticky top-0 bg-blue-500 z-50'>
             <div className='max-w-6xl mx-auto px-4 sm:px-6'>
@@ -37,21 +72,30 @@ const Header: React.FC = () => {
                         as='nav'
                         className='hidden md:flex space-x-10'
                     >
-                        <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
-                                HOME
-                            </a>
-                        </Link>
-                        <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
-                                STAKE
-                            </a>
-                        </Link>
-                        <Link href='#'>
-                            <a className='text-tiny font-bold text-white-500 hover:text-pink-500'>
-                                PROJECTS
-                            </a>
-                        </Link>
+                        {headerItems.map((item) => (
+                            <div className='relative'>
+                                <Link href={item.href}>
+                                    <a
+                                        className={`text-tiny font-bold text-white-500 hover:text-pink-500 ${
+                                            item.option === activeHeader
+                                                ? 'border-b-4 border-pink-500 '
+                                                : null
+                                        } ${
+                                            item.isComingSoon
+                                                ? 'opacity-50 pointer-events-none'
+                                                : null
+                                        }`}
+                                    >
+                                        {item.content}
+                                    </a>
+                                </Link>
+                                {item.isComingSoon ? (
+                                    <span className='absolute text-xxs w-max bg-white-500 text-pink-500 rounded-sm px-1 ml-1'>
+                                        Coming soon
+                                    </span>
+                                ) : null}
+                            </div>
+                        ))}
                     </Popover.Group>
                     <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
                         <button className='btn btn-pink'>
@@ -96,30 +140,27 @@ const Header: React.FC = () => {
                             </div>
                             <div className='mt-6'>
                                 <nav className='grid gap-y-8'>
-                                    <Link href='#'>
-                                        <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center'>
-                                            <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
-                                            <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
-                                                Home
-                                            </span>
-                                        </a>
-                                    </Link>
-                                    <Link href='#'>
-                                        <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <SiDatabricks className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
-                                            <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
-                                                STAKE
-                                            </span>
-                                        </a>
-                                    </Link>
-                                    <Link href='#'>
-                                        <a className='-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500'>
-                                            <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
-                                            <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300'>
-                                                PROJECTS
-                                            </span>
-                                        </a>
-                                    </Link>
+                                    {headerItems.map((item) => (
+                                        <Link href={item.href}>
+                                            <a
+                                                className={`-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center ${
+                                                    item.isComingSoon
+                                                        ? 'opacity-50 pointer-events-none'
+                                                        : null
+                                                }`}
+                                            >
+                                                {item.icon}
+                                                <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300 relative'>
+                                                    {item.content}
+                                                    {item.isComingSoon ? (
+                                                        <span className='absolute text-xxs w-max bg-white-500 text-pink-500 rounded-sm px-1 ml-1'>
+                                                            Coming soon
+                                                        </span>
+                                                    ) : null}
+                                                </span>
+                                            </a>
+                                        </Link>
+                                    ))}
                                     <button className='btn btn-pink'>
                                         Connect to wallet
                                     </button>

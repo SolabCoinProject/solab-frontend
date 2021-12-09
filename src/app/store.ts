@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
+import layoutReducer from '../features/layout/layoutSlice';
 
 const sageMiddleware = createSagaMiddleware();
 export const store = configureStore({
-    reducer: {},
+    reducer: {
+        layout: layoutReducer,
+    },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(sageMiddleware),
 });

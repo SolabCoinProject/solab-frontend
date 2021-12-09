@@ -10,8 +10,18 @@ import {
     VerticalTimeline,
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
+import { useAppDispatch } from '../app/hooks';
+import {
+    appHeaderOptions,
+    updateActiveHeaderItem,
+} from '../features/layout/layoutSlice';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(updateActiveHeaderItem(appHeaderOptions.home));
+    }, [dispatch]);
     return (
         <Container>
             <div className='mt-20'>
