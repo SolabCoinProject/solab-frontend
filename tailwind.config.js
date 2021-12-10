@@ -12,6 +12,7 @@ module.exports = {
                     900: '#000612',
                     500: '#000639',
                     300: '#091125',
+                    light: '#0088CC',
                 },
                 cyan: {
                     500: '#1EE8BB',
@@ -34,6 +35,7 @@ module.exports = {
                 '2xl': '36px',
                 sm: '14px',
                 xs: '12px',
+                xxs: '10px',
             },
             width: {
                 '3/10': '30%',

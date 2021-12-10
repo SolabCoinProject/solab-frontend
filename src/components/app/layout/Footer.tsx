@@ -1,22 +1,35 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faTelegramPlane,
-    faFacebook,
-    faTwitter,
-    faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
-
+import { FaTelegramPlane } from 'react-icons/fa';
+import { AiFillFacebook } from 'react-icons/ai';
+import { BsTwitter, BsYoutube } from 'react-icons/bs';
 import logo from '../../../assets/images/logo.svg';
+import routes from '../../../config/routes';
 
 const Footer: React.FC = () => {
+    const companyItems = [
+        {
+            href: routes.app.home,
+            content: 'Home',
+            isComingSoon: false,
+        },
+        {
+            href: routes.app.stake,
+            content: 'Stake',
+            isComingSoon: false,
+        },
+        {
+            href: routes.app.projects,
+            content: 'Projects',
+            isComingSoon: true,
+        },
+    ];
     return (
         <div className='footer'>
             <hr className='p-px gradient-background-1' />
             <footer className='py-14'>
-                <div className='max-w-7xl mx-auto px-4'>
+                <div className='max-w-6xl mx-auto px-4'>
                     <div className='grid grid-cols-1 lg:grid-cols-4'>
                         <div className='flex flex-col justify-between'>
                             <Link href='#'>
@@ -29,50 +42,41 @@ const Footer: React.FC = () => {
                                     />
                                 </a>
                             </Link>
-                            <p className='text-sm opacity-80'>
-                                Copyright © 2021 Solab Finance{' '}
-                            </p>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>COMPANY</p>
-                            <ul className='mt-4'>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Home
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Stake
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Projects
-                                        </a>
-                                    </Link>
-                                </li>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
+                                COMPANY
+                            </p>
+                            <ul className='mt-0 lg:mt-4'>
+                                {companyItems.map((item, index) => (
+                                    <li key={index}>
+                                        <Link href={item.href}>
+                                            <a
+                                                className={`text-sm ${
+                                                    item.isComingSoon
+                                                        ? 'opacity-50 pointer-events-none'
+                                                        : 'opacity-80'
+                                                }`}
+                                            >
+                                                {item.content}
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>RESOURCES</p>
-                            <ul className='mt-4'>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
+                                RESOURCES
+                            </p>
+                            <ul className='mt-0 lg:mt-4'>
                                 <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Whitepaper
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Tokenomics
+                                    <Link href='http://docs.solab.finance'>
+                                        <a
+                                            className='text-sm opacity-80'
+                                            target='_blank'
+                                        >
+                                            Documentation
                                         </a>
                                     </Link>
                                 </li>
@@ -86,7 +90,7 @@ const Footer: React.FC = () => {
                             </ul>
                         </div>
                         <div>
-                            <p className='text-sm font-bold'>
+                            <p className='text-sm font-bold mt-4 lg:mt-0'>
                                 SUBSCRIBE TO OUR COMMUNITY UPDATES
                             </p>
                             <form className='mt-4'>
@@ -105,44 +109,33 @@ const Footer: React.FC = () => {
             </footer>
             <hr className='p-px gradient-background-1' />
             <div className='py-4'>
-                <div className='max-w-7xl mx-auto px-4 flex justify-between'>
-                    <p>Terms & Condition</p>
-                    <div>
+                <div className='max-w-6xl mx-auto px-4 flex justify-between'>
+                    <Link href='#'>
+                        <a className='opacity-80'>Terms & Condition</a>
+                    </Link>
+                    <p className='text-sm opacity-80'>
+                        Copyright © 2021 Solab Finance{' '}
+                    </p>
+                    <div className='flex'>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faTelegramPlane}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <FaTelegramPlane size='24px' />
                             </a>
                         </Link>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faFacebook}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <AiFillFacebook size='24px' className='ml-2' />
                             </a>
                         </Link>
 
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faTwitter}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <BsTwitter size='24px' className='ml-2' />
                             </a>
                         </Link>
                         <Link href='#'>
                             <a>
-                                <FontAwesomeIcon
-                                    icon={faYoutube}
-                                    size='lg'
-                                    className='mx-2'
-                                />
+                                <BsYoutube size='24px' className='ml-2' />
                             </a>
                         </Link>
                     </div>
