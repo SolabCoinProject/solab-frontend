@@ -94,7 +94,7 @@ const Home: NextPage = () => {
                     </h1>
                     <p className='text-center'>Circulating Supply Locked</p>
                     <div className='grid grid-cols-1 lg:grid-cols-2 mt-12 gap-8'>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
@@ -142,7 +142,7 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
@@ -190,7 +190,7 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
@@ -238,7 +238,7 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
@@ -286,7 +286,7 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
@@ -334,7 +334,7 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className='gradient-background-1 rounded-lg p-px flex items-center'>
+                        <div className='gradient-background-1 rounded-lg p-px items-center'>
                             <div className='rounded-lg bg-blue-900 p-2.5 grid grid-cols-1 lg:grid-cols-2 gap-8 my-auto'>
                                 <div
                                     className='relative bg-image rounded-lg w-full h-60 lg:h-auto'
