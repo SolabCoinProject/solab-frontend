@@ -32,7 +32,7 @@ const Home: NextPage = () => {
                                 Fundraising platform on Solana
                             </h1>
                             <p className=' text-base'>
-                                Solanium is the go-to platform for the Solana
+                                Solab is the go-to platform for the Solana
                                 blockchain. Invest in the hottest Solana
                                 projects, stake your tokens, trade on our DEX,
                                 manage your Solana wallet and participate in our
@@ -439,7 +439,7 @@ const Home: NextPage = () => {
                                         This article contains instructions for
                                         lucky lottery winners on how to
                                         participate in the public sale on
-                                        solanium.io.
+                                        Solab.io.
                                     </li>
                                 </ul>
                             </VerticalTimelineElement>
@@ -502,7 +502,7 @@ const Home: NextPage = () => {
                                 iconClassName='bg-pink-500 text-yellow-500 w-6 h-6'
                             >
                                 <h3 className='text-tiny font-bold'>
-                                    Solanium Staking live
+                                    Solab Staking live
                                 </h3>
                                 <ul>
                                     <li className='text-sm'>
