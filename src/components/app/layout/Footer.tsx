@@ -71,16 +71,12 @@ const Footer: React.FC = () => {
                             </p>
                             <ul className='mt-0 lg:mt-4'>
                                 <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Whitepaper
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm opacity-80'>
-                                            Tokenomics
+                                    <Link href='http://docs.solab.finance'>
+                                        <a
+                                            className='text-sm opacity-80'
+                                            target='_blank'
+                                        >
+                                            Documentation
                                         </a>
                                     </Link>
                                 </li>
