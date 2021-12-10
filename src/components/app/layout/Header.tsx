@@ -72,8 +72,8 @@ const Header: React.FC = () => {
                         as='nav'
                         className='hidden md:flex space-x-10'
                     >
-                        {headerItems.map((item) => (
-                            <div className='relative'>
+                        {headerItems.map((item, index) => (
+                            <div className='relative' key={index}>
                                 <Link href={item.href}>
                                     <a
                                         className={`text-tiny font-bold text-white-500 hover:text-pink-500 ${
@@ -140,8 +140,8 @@ const Header: React.FC = () => {
                             </div>
                             <div className='mt-6'>
                                 <nav className='grid gap-y-8'>
-                                    {headerItems.map((item) => (
-                                        <Link href={item.href}>
+                                    {headerItems.map((item, index) => (
+                                        <Link href={item.href} key={index}>
                                             <a
                                                 className={`-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center ${
                                                     item.isComingSoon

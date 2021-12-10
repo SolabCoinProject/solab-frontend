@@ -48,8 +48,8 @@ const Footer: React.FC = () => {
                                 COMPANY
                             </p>
                             <ul className='mt-0 lg:mt-4'>
-                                {companyItems.map((item) => (
-                                    <li>
+                                {companyItems.map((item, index) => (
+                                    <li key={index}>
                                         <Link href={item.href}>
                                             <a
                                                 className={`text-sm ${
