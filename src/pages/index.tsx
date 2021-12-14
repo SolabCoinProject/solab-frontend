@@ -11,10 +11,8 @@ import {
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
 import { useAppDispatch } from '../app/hooks';
-import {
-    appHeaderOptions,
-    updateActiveHeaderItem,
-} from '../features/layout/layoutSlice';
+import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
+import { appHeaderOptions } from '../features/layout/types';
 import { useEffect } from 'react';
 
 const Home: NextPage = () => {

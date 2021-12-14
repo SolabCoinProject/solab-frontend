@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
     purge: [
         './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -26,6 +28,8 @@ module.exports = {
                 yellow: {
                     500: '#F8CB67',
                 },
+                orange: colors.orange,
+                blueGray: colors.blueGray,
             },
             fontSize: {
                 base: '18px',

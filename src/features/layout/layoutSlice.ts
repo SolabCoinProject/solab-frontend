@@ -1,20 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export enum appHeaderOptions {
-    home = 'home',
-    stake = 'company',
-    projects = 'projects',
-}
-
-export interface LayoutState {
-    app: {
-        activeHeaderItem: appHeaderOptions;
-    };
-}
+import {
+    adminSidebarItemOptions,
+    appHeaderOptions,
+    LayoutState,
+} from './types';
 
 const initialState: LayoutState = {
     app: {
         activeHeaderItem: appHeaderOptions.home,
+    },
+    admin: {
+        isSidebarOpen: false,
+        activeSidebarItem: adminSidebarItemOptions.dashboard,
     },
 };
 
@@ -28,9 +25,22 @@ export const layoutSlice = createSlice({
         ) => {
             state.app.activeHeaderItem = action.payload;
         },
+        toggleAdminSidebar: (state) => {
+            state.admin.isSidebarOpen = !state.admin.isSidebarOpen;
+        },
+        updateActiveSidebarItem: (
+            state,
+            action: PayloadAction<adminSidebarItemOptions>
+        ) => {
+            state.admin.activeSidebarItem = action.payload;
+        },
     },
 });
 
-export const { updateActiveHeaderItem } = layoutSlice.actions;
+export const {
+    updateActiveHeaderItem,
+    toggleAdminSidebar,
+    updateActiveSidebarItem,
+} = layoutSlice.actions;
 
 export default layoutSlice.reducer;

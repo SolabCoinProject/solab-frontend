@@ -4,8 +4,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-body {
-    @apply bg-blue-900 font-sans text-white-500;
+.container-app {
+    @apply bg-blue-900 text-white-500;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container-admin {
+    @apply bg-blue-300 text-white-500;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -120,4 +125,32 @@ body {
         .vertical-timeline-element-date {
         top: 0 !important;
     }
+}
+
+.sidebar-link {
+    @apply text-base text-gray-100 font-normal rounded-lg flex items-center p-2 hover:bg-gray-100;
+}
+
+.sidebar-link-active {
+    @apply bg-blue-light;
+}
+
+.sidebar-icon {
+    @apply w-6 h-6 text-white-500 flex-shrink-0 group-hover:text-blue-light transition duration-75;
+}
+
+.sidebar-icon-active {
+    @apply text-white-500;
+}
+
+.sidebar-content {
+    @apply ml-3 font-bold group-hover:text-blue-light;
+}
+
+.sidebar-content-active {
+    @apply text-white-500;
+}
+
+.input-primary {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 focus:ring-orange-500 focus:border-orange-500 focus:outline-none;
 }

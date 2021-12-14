@@ -1,2 +1,2 @@
-export const solabBackendUrl =
-    process.env.SOLAB_BACKEND_URL || 'http://localhost:8080';
+export const solabApiUrl =
+    process.env.SOLAB_API_URL || 'https://apisandbox.solab.finance';

@@ -11,7 +11,7 @@ import { SiDatabricks } from 'react-icons/si';
 import logo from '../../../assets/images/logo.svg';
 import { useAppSelector } from '../../../app/hooks';
 import routes from '../../../config/routes';
-import { appHeaderOptions } from '../../../features/layout/layoutSlice';
+import { appHeaderOptions } from '../../../features/layout/types';
 
 const Header: React.FC = () => {
     const activeHeader = useAppSelector(
