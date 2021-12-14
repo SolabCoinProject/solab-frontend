@@ -52,13 +52,11 @@ export const userSlice = createSlice({
             action: PayloadAction<IResponseFailure>
         ) => {
             state.admin.isLoading = false;
-            if (action.payload.status === 401) {
+            if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');
                 state.admin.authenticated = false;
                 state.admin.isLoggedIn = false;
-            } else if (action.payload.status !== 500) {
-                toast.error(action.payload.data.message);
             } else {
                 toast.error('Server Error');
             }

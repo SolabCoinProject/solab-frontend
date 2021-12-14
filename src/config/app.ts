@@ -1,2 +1,1 @@
-export const solabApiUrl =
-    process.env.SOLAB_API_URL || 'https://apisandbox.solab.finance';
+export const solabApiUrl = process.env.NEXT_PUBLIC_SOLAB_API_URL;
