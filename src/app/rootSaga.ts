@@ -1,10 +1,7 @@
 import { all } from 'redux-saga/effects';
-
-function* helloSaga() {
-    console.log('Hello saga');
-}
+import userSaga from '../features/user/userSaga';
+import tierSaga from '../features/tier/tierSaga';
 
 export default function* rootSaga() {
-    console.log('Root saga');
-    yield all([helloSaga()]);
+    yield all([userSaga(), tierSaga()]);
 }

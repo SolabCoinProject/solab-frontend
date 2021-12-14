@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: true,
+    images: {
+        domains: ['solab-content.s3.sa-east-1.amazonaws.com'],
+    },
     async headers() {
         return [
             {
