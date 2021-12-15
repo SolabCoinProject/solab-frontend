@@ -10,6 +10,7 @@ const initialState: IUserState = {
         isLoggingIn: false,
         isLoggedIn: false,
         authenticated: true,
+        isFetchingStaff: false,
     },
 };
 
@@ -40,10 +41,10 @@ export const userSlice = createSlice({
             }
         },
         getCurrentStaff: (state) => {
-            state.admin.isLoading = true;
+            state.admin.isFetchingStaff = true;
         },
         getCurrentStaffSuccess: (state, action: PayloadAction<IStaff>) => {
-            state.admin.isLoading = false;
+            state.admin.isFetchingStaff = false;
             state.admin.authenticated = true;
             state.admin.staff = action.payload;
         },
@@ -51,7 +52,7 @@ export const userSlice = createSlice({
             state,
             action: PayloadAction<IResponseFailure>
         ) => {
-            state.admin.isLoading = false;
+            state.admin.isFetchingStaff = false;
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');
