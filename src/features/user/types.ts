@@ -17,6 +17,7 @@ export interface IUserState {
         isLoggingIn: boolean;
         isLoggedIn: boolean;
         authenticated: boolean;
+        isFetchingStaff: boolean;
     };
 }
 
@@ -29,7 +30,3 @@ export interface ILoginResponse {
     accessToken: string;
     message: string;
 }
-
-
-
-
