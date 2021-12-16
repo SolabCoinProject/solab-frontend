@@ -5,6 +5,10 @@ import 'react-vertical-timeline-component/style.min.css';
 
 import('@solana/wallet-adapter-react-ui/styles.css' as any);
 
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+
 import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
@@ -16,13 +20,12 @@ import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { useMemo } from 'react';
 
-const network = WalletAdapterNetwork.Mainnet;
+const network = WalletAdapterNetwork.Devnet;
 
 const WalletProvider = dynamic(
     () => import('../components/app/wallet/ClientWalletProvider'),
     { ssr: false }
 );
-
 
 function MyApp({ Component, pageProps }: AppProps) {
     const endpoint = useMemo(() => clusterApiUrl(network), []);
@@ -48,7 +51,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 draggable
                 pauseOnHover
             />
-
         </Provider>
     );
 }

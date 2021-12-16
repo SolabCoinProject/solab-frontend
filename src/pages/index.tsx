@@ -13,15 +13,124 @@ import {
 import { useAppDispatch } from '../app/hooks';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
-import { useEffect } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useCallback, useEffect, useState } from 'react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { web3 } from '@project-serum/anchor';
+import { PublicKey } from '@solana/web3.js';
+import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
+import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
+import { createTransferInstruction } from '../libs/createTransferInstructions';
+
+import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
 
 const Home: NextPage = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.home));
     }, [dispatch]);
-    const { publicKey } = useWallet();
+    const { publicKey, sendTransaction, signTransaction } = useWallet();
+    console.log(useWallet());
+    const { connection } = useConnection();
+    const [value, onChange] = useState(new Date());
+
+    // useEffect(() => {
+    //     const testTrans = async (publicKey: web3.PublicKey | null) => {
+    //         if (publicKey) {
+    //             const secret = new Uint8Array([
+    //                 131, 54, 83, 145, 34, 243, 108, 28, 182, 94, 233, 14, 151,
+    //                 248, 24, 155, 152, 219, 131, 47, 33, 165, 142, 129, 160,
+    //                 172, 87, 128, 248, 136, 242, 222, 12, 229, 171, 71, 117,
+    //                 167, 197, 255, 107, 105, 89, 228, 161, 185, 250, 10, 190,
+    //                 151, 51, 154, 115, 16, 40, 68, 244, 156, 108, 132, 165, 152,
+    //                 161, 250,
+    //             ]);
+    //             const from = web3.Keypair.fromSecretKey(secret);
+    //             const toPub = new web3.PublicKey(
+    //                 'HzNpMU4mTrGgAxD8DtrS2bmwVJukUzhsB3hQtUW8H6qt'
+    //             );
+    //             let transaction = new web3.Transaction().add(
+    //                 web3.SystemProgram.transfer({
+    //                     fromPubkey: from.publicKey,
+    //                     toPubkey: toPub,
+    //                     lamports: 100000000,
+    //                 })
+    //             );
+    //             var signature = await web3.sendAndConfirmTransaction(
+    //                 connection,
+    //                 transaction,
+    //                 [from]
+    //             );
+    //             await connection.confirmTransaction(signature, 'processed');
+    //         }
+    //     };
+    //     testTrans(publicKey);
+    // }, [publicKey]);
+
+    // const onClick = useCallback(async () => {
+    //     if (!publicKey) throw new WalletNotConnectedError();
+    //     const to = new web3.PublicKey(
+    //         'sM1kEqVVENecnsRagWDfhjgq3LKceF8hhVmV7HeHRZB'
+    //     );
+
+    //     const transaction = new web3.Transaction().add(
+    //         web3.SystemProgram.transfer({
+    //             fromPubkey: publicKey,
+    //             toPubkey: to,
+    //             lamports: 100000,
+    //         })
+    //     );
+    //     const signature = await sendTransaction(transaction, connection);
+    //     await connection.confirmTransaction(signature, 'processed');
+    // }, [publicKey, sendTransaction, connection]);
+    // const test = new web3.
+
+    // const handleClick = useCallback(async () => {
+    //     try {
+    //         if (!publicKey || !signTransaction)
+    //             throw new WalletNotConnectedError();
+    //         const toPub = new web3.PublicKey(
+    //             'HzNpMU4mTrGgAxD8DtrS2bmwVJukUzhsB3hQtUW8H6qt'
+    //         );
+    //         const mint = new web3.PublicKey(
+    //             'Cs3ywW9tRrsbkGLqiYPaZ4wPXecEB1vNfnnAR6pbmfBm'
+    //         );
+    //         const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+    //             connection,
+    //             publicKey,
+    //             mint,
+    //             publicKey,
+    //             signTransaction
+    //         );
+
+    //         const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+    //             connection,
+    //             publicKey,
+    //             mint,
+    //             toPub,
+    //             signTransaction
+    //         );
+    //         const transaction = new web3.Transaction().add(
+    //             createTransferInstruction(
+    //                 fromTokenAccount.address, // source
+    //                 toTokenAccount.address, // dest
+    //                 publicKey,
+    //                 100000 * web3.LAMPORTS_PER_SOL,
+    //                 [],
+    //                 TOKEN_PROGRAM_ID
+    //             )
+    //         );
+
+    //         const blockHash = await connection.getRecentBlockhash();
+    //         transaction.feePayer = await publicKey;
+    //         transaction.recentBlockhash = await blockHash.blockhash;
+    //         const signed = await signTransaction(transaction);
+
+    //         await connection.sendRawTransaction(signed.serialize());
+    //     } catch (err: any) {
+    //         console.log(err.message);
+    //     }
+    // }, [publicKey, sendTransaction, connection, signTransaction]);
 
     return (
         <Container>
@@ -30,6 +139,17 @@ const Home: NextPage = () => {
                     <div className='grid lg:grid-cols-2 auto-cols-fr'>
                         <div>
                             <h1 className='title '>
+                                {/* <button
+                                    className='btn btn-pink'
+                                    onClick={handleClick}
+                                >
+                                    Send transaction
+                                </button> */}
+                                {/* <DateTimePicker
+                                    onChange={onChange}
+                                    value={value}
+                                    format='yyyy-MM-dd HH:mm:ss'
+                                /> */}
                                 Fundraising platform on Solana
                             </h1>
                             <p className=' text-base'>
