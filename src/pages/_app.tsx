@@ -23,9 +23,9 @@ const WalletProvider = dynamic(
     { ssr: false }
 );
 
+
 function MyApp({ Component, pageProps }: AppProps) {
     const endpoint = useMemo(() => clusterApiUrl(network), []);
-
     return (
         <Provider store={store}>
             <Head>
@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 draggable
                 pauseOnHover
             />
+
         </Provider>
     );
 }
