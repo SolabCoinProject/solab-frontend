@@ -14,12 +14,15 @@ import { useAppDispatch } from '../app/hooks';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
 import { useEffect } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const Home: NextPage = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.home));
     }, [dispatch]);
+    const { publicKey } = useWallet();
+
     return (
         <Container>
             <div className='mt-20'>

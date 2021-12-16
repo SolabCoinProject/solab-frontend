@@ -12,6 +12,7 @@ import logo from '../../../assets/images/logo.svg';
 import { useAppSelector } from '../../../app/hooks';
 import routes from '../../../config/routes';
 import { appHeaderOptions } from '../../../features/layout/types';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const Header: React.FC = () => {
     const activeHeader = useAppSelector(
@@ -98,9 +99,11 @@ const Header: React.FC = () => {
                         ))}
                     </Popover.Group>
                     <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
-                        <button className='btn btn-pink'>
+                        {/* <button className='btn btn-pink'>
                             Connect to wallet
-                        </button>
+                        </button> */}
+
+                        <WalletMultiButton className='btn btn-pink' />
                     </div>
                 </div>
             </div>
