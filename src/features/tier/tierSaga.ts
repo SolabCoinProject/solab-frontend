@@ -27,7 +27,7 @@ function* fetchTiers(action: PayloadAction<any>) {
         yield put(tierActions.fetchTiersSuccess(response));
     } catch (err: any) {
         const { status, data } = err.response;
-        yield put(tierActions.createTierFailure({ status, data: data }));
+        yield put(tierActions.fetchTiersFailure({ status, data: data }));
     }
 }
 

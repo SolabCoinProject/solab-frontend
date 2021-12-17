@@ -8,6 +8,7 @@ const routes = {
         dashboard: '/admin-slb',
         tiers: '/admin-slb/tier',
         login: '/admin-slb/login',
+        project: '/admin-slb/project',
     },
 };
 

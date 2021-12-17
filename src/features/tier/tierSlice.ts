@@ -6,7 +6,6 @@ import {
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ITier, ITierState } from './types';
 import { toast } from 'react-toastify';
-import { string } from 'yup/lib/locale';
 
 const initialState: ITierState = {
     admin: {
@@ -42,8 +41,18 @@ export const tierSlice = createSlice({
             action: PayloadAction<IPaginationResponse<ITier[]>>
         ) => {
             state.admin.loading = false;
-            console.log(action.payload);
             state.admin.tiers = action.payload.data;
+        },
+        fetchTiersFailure: (state, action: PayloadAction<IResponseFailure>) => {
+            state.admin.loading = false;
+            if (action.payload.status === 401) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Server Error');
+            }
         },
         openCreateTierModal: (state) => {
             state.admin.isCreateTierModalOpen = true;

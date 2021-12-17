@@ -22,8 +22,6 @@ import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
 import { createTransferInstruction } from '../libs/createTransferInstructions';
 
-import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
-
 const Home: NextPage = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -32,7 +30,6 @@ const Home: NextPage = () => {
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     console.log(useWallet());
     const { connection } = useConnection();
-    const [value, onChange] = useState(new Date());
 
     // useEffect(() => {
     //     const testTrans = async (publicKey: web3.PublicKey | null) => {
@@ -82,6 +79,12 @@ const Home: NextPage = () => {
     //     );
     //     const signature = await sendTransaction(transaction, connection);
     //     await connection.confirmTransaction(signature, 'processed');
+    //     const detail = await connection.getTransaction(signature);
+    //     console.log(detail);
+    //     const accounts = detail?.transaction.message.accountKeys;
+    //     accounts?.map((account) => {
+    //         console.log(account.toBase58());
+    //     });
     // }, [publicKey, sendTransaction, connection]);
     // const test = new web3.
 
@@ -141,7 +144,7 @@ const Home: NextPage = () => {
                             <h1 className='title '>
                                 {/* <button
                                     className='btn btn-pink'
-                                    onClick={handleClick}
+                                    onClick={onClick}
                                 >
                                     Send transaction
                                 </button> */}

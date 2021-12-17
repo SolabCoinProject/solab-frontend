@@ -5,11 +5,11 @@ import 'react-vertical-timeline-component/style.min.css';
 
 import('@solana/wallet-adapter-react-ui/styles.css' as any);
 
+import '../styles/globals.css';
+
+import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import 'react-clock/dist/Clock.css';
-import 'react-datetime-picker/dist/DateTimePicker.css';
-
-import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
