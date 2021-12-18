@@ -23,6 +23,7 @@
         "@solana/wallet-adapter-wallets": "0.11.3",
         "@solana/web3.js": "^1.31.0",
         "@tinymce/tinymce-react": "^3.13.0",
+        "@types/react-time-picker": "^4.0.2",
         "axios": "^0.24.0",
         "buffer-layout": "^1.2.2",
         "date-fns": "^2.27.0",
@@ -44,6 +45,7 @@
     "devDependencies": {
         "@types/node": "16.11.9",
         "@types/react": "17.0.36",
+        "@types/react-datetime-picker": "^3.4.1",
         "@types/react-vertical-timeline-component": "^3.3.1",
         "autoprefixer": "^10.4.0",
         "eslint": "7.32.0",
