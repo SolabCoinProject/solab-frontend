@@ -158,10 +158,6 @@
 .wallet-adapter-button {
     background-color: #ff50ce !important;
 }
-.react-calendar {
-    color: black;
-}
-
-.rdtPicker {
+.react-datetime-picker {
     color: black !important;
 }

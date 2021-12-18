@@ -1,67 +1,19 @@
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { IProject } from './types';
-import { format } from 'date-fns';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { projectActions } from './projectSlice';
 import { FaTimes } from 'react-icons/fa';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import ProjectFrom from './ProjectForm';
+import { projectActions } from './projectSlice';
 
-const CreateProjectModal: React.FC = () => {
+const EditProjectModal: React.FC = () => {
     const isOpen = useAppSelector(
-        (state) => state.project.admin.isCreateProjectModalOpen
+        (state) => state.project.admin.isEditProjectModalOpen
     );
+
     const dispatch = useAppDispatch();
-    const createProjectInitialValues: Omit<IProject, '_id'> = {
-        name: '',
-        slug: '',
-        description: '',
-        thumbnail: '',
-        token: {
-            thumbnail: '',
-            symbol: '',
-            category: '',
-        },
-        idoPrice: 0,
-        idoSlots: 0,
-        phrases: {
-            preparation: {
-                title: 'Preparation',
-                description:
-                    'This project is in preparation phase. Stay tuned.',
-            },
-            whitelist: {
-                startDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                endDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                title: 'Whitelist',
-                description: 'You can now whitelist yourself for the lottery.',
-            },
-            lottery: {
-                startDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                endDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                title: 'Lottery',
-                description: 'See if you have any winning lottery tickets.',
-            },
-            sale: {
-                startDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                endDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                title: 'Sale',
-                description: 'Winners can participate in the token sale.',
-            },
-            distribution: {
-                startDate: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                title: 'Distribution',
-                description: 'The tokens get distributed to Sale participants.',
-            },
-        },
-        launchType: {
-            name: '',
-            paymentAmountAtDistribution: 0,
-            tokenPaymentInterval: 0,
-            tokenPaymentPercent: 0,
-            tokenPaymentAllDate: '',
-        },
-    };
+    const editingProject = useAppSelector(
+        (state) => state.project.admin.editingProject
+    );
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -103,13 +55,13 @@ const CreateProjectModal: React.FC = () => {
                                 className='text-lg font-medium leading-6 text-gray-900 flex items-center justify-between'
                             >
                                 <span className='text-center text-2xl'>
-                                    Create New Project
+                                    Update Project
                                 </span>
                                 <button
                                     type='button'
                                     onClick={() =>
                                         dispatch(
-                                            projectActions.closeCreateProjectModal()
+                                            projectActions.closeEditProjectModal()
                                         )
                                     }
                                 >
@@ -117,7 +69,7 @@ const CreateProjectModal: React.FC = () => {
                                 </button>
                             </Dialog.Title>
                             <ProjectFrom
-                                initialValues={createProjectInitialValues}
+                                initialValues={editingProject}
                                 onSubmit={(values) => {
                                     dispatch(
                                         projectActions.createProject(values)
@@ -132,4 +84,4 @@ const CreateProjectModal: React.FC = () => {
     );
 };
 
-export default CreateProjectModal;
+export default EditProjectModal;

@@ -31,3 +31,12 @@ export interface IResponseFailure {
     status: number;
     data: { message: String; error: any };
 }
+
+export interface IOptionNumber {
+    value: number;
+    label: string;
+}
+export interface IOptionString {
+    value: string;
+    label: string;
+}

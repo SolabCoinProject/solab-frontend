@@ -31,7 +31,7 @@ const RichTextEditor: React.FC<Props> = ({ value, onChange }) => {
                 contextmenu: 'link image imagetools table',
             }}
             onEditorChange={onChange}
-            initialValue={value}
+            value={value}
         />
     );
 };

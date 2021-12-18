@@ -7,17 +7,24 @@ import Container from '../../../components/admin/layout/Container';
 import { updateActiveSidebarItem } from '../../../features/layout/layoutSlice';
 import { adminSidebarItemOptions } from '../../../features/layout/types';
 import { projectActions } from '../../../features/project/projectSlice';
-import RichTextEditor from '../../../components/RichTextEditor';
 import CreateProjectModal from '../../../features/project/CreateProjectModal';
+import EditProjectModal from '../../../features/project/EditProjectModal';
 
 const Project: NextPage = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const projects = useAppSelector((state) => state.project.admin.projects);
+    const reload = useAppSelector((state) => state.project.admin.reload);
     useEffect(() => {
         dispatch(updateActiveSidebarItem(adminSidebarItemOptions.project));
         dispatch(projectActions.fetchProjects(router.query));
     }, []);
+    useEffect(() => {
+        if (reload) {
+            dispatch(projectActions.fetchProjects(router.query));
+            dispatch(projectActions.setReload(false));
+        }
+    }, [reload]);
     return (
         <Container>
             <div className='p-4 block sm:flex items-center justify-between lg:mt-1.5'>
@@ -146,13 +153,13 @@ const Project: NextPage = () => {
                                                 <td>
                                                     <button
                                                         className='btn btn-pink'
-                                                        // onClick={() => {
-                                                        //     dispatch(
-                                                        //         tierActions.openEditTierModal(
-                                                        //             tier
-                                                        //         )
-                                                        //     );
-                                                        // }}
+                                                        onClick={() => {
+                                                            dispatch(
+                                                                projectActions.openEditProjectModal(
+                                                                    project
+                                                                )
+                                                            );
+                                                        }}
                                                     >
                                                         Edit
                                                     </button>
@@ -170,6 +177,7 @@ const Project: NextPage = () => {
                 </div>
             </div>
             <CreateProjectModal />
+            <EditProjectModal />
         </Container>
     );
 };

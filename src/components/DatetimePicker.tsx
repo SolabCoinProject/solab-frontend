@@ -12,6 +12,8 @@ const DatetimePicker: React.FC<Props> = ({ value, onChange }) => {
             value={value}
             onChange={onChange}
             disableClock={true}
+            disableCalendar={true}
+            className='border border-white-500'
         />
     );
 };

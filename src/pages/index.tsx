@@ -28,7 +28,6 @@ const Home: NextPage = () => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.home));
     }, [dispatch]);
     const { publicKey, sendTransaction, signTransaction } = useWallet();
-    console.log(useWallet());
     const { connection } = useConnection();
 
     // useEffect(() => {

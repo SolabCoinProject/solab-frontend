@@ -1,4 +1,8 @@
-import { IPaginationResponse, IPaginationData } from '../../common/types';
+import {
+    IPaginationResponse,
+    IPaginationData,
+    IOptionNumber,
+} from '../../common/types';
 
 export interface IProject {
     _id: string;
@@ -86,11 +90,24 @@ export interface IProject {
     updatedAt?: string;
 }
 
+export interface IProjectFieldOptions {
+    taskTypes: [IOptionNumber] | [];
+    keyMetricUnitPoses: [IOptionNumber] | [];
+    socialTypes: [IOptionNumber] | [];
+    keyMetricTypes: [IOptionNumber] | [];
+}
+
 export interface IProjectState {
     admin: {
         projects: IPaginationData<IProject[]>;
         isFetchingProject: boolean;
         isCreateProjectModalOpen: boolean;
         reload: boolean;
+        isCreatingProject: boolean;
+        isFetchingFieldOptions: boolean;
+        fieldOptions: IProjectFieldOptions;
+        isEditProjectModalOpen: boolean;
+        editingProject: IProject | null;
+        isEditingProject: boolean;
     };
 }

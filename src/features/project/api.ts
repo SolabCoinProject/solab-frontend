@@ -1,6 +1,6 @@
 import { IResponseData } from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
-import { IProject } from './types';
+import { IProject, IProjectFieldOptions } from './types';
 
 const projectApi = {
     admin: {
@@ -9,6 +9,24 @@ const projectApi = {
             return axiosClient.get(url, {
                 params,
             });
+        },
+        createProject(
+            data: Omit<IProject, '_id'>
+        ): Promise<IResponseData<IProject>> {
+            const url = 'admin/project/create';
+            return axiosClient.post(url, data);
+        },
+
+        fetchFieldOptions: (): Promise<IResponseData<IProjectFieldOptions>> => {
+            const url = 'admin/project/field-options';
+            return axiosClient.get(url);
+        },
+        editProject: (
+            id: string,
+            data: Omit<IProject, '_id'>
+        ): Promise<IResponseData<IProject>> => {
+            const url = `admin/project/${id}`;
+            return axiosClient.put(url, data);
         },
     },
 };
