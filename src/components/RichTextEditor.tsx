@@ -1,5 +1,6 @@
 import { Editor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
+import { tinyEmcApikey } from '../config/app';
 
 interface Props {
     value: string;
@@ -9,6 +10,7 @@ interface Props {
 const RichTextEditor: React.FC<Props> = ({ value, onChange }) => {
     return (
         <Editor
+            apiKey={tinyEmcApikey}
             init={{
                 plugins:
                     'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
