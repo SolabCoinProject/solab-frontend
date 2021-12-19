@@ -21,39 +21,39 @@ const Header: React.FC = () => {
     const headerItems = [
         {
             href: routes.app.home,
-            content: 'HOME',
+            content: 'Home',
             option: appHeaderOptions.home,
             isComingSoon: false,
             icon: (
-                <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+                <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
             ),
         },
         {
             href: routes.app.stake,
-            content: 'STAKE',
+            content: 'Stake',
             option: appHeaderOptions.stake,
             isComingSoon: false,
             icon: (
-                <SiDatabricks className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+                <SiDatabricks className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
             ),
         },
         {
             href: routes.app.projects,
-            content: 'PROJECTS',
+            content: 'Projects',
             option: appHeaderOptions.projects,
             isComingSoon: true,
             icon: (
-                <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-white-500 group-hover:text-pink-300' />
+                <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
             ),
         },
     ];
     return (
-        <Popover className='sticky top-0 bg-blue-500 z-50'>
-            <div className='max-w-6xl mx-auto px-4 sm:px-6'>
-                <div className='flex justify-between items-center py-4 md:justify-start md:space-x-10'>
-                    <div className='flex justify-start lg:w-0 lg:flex-1'>
+        <Popover className='sticky top-0 bg-solabGray-300 z-50'>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+                <div className='flex items-center py-4 lg:justify-start justify-between md:space-x-10'>
+                    <div className='flex justify-start'>
                         <Link href='#'>
-                            <a href='#'>
+                            <a href='#' className='leading-none'>
                                 <span className='sr-only'>Solab</span>
                                 <Image
                                     src={logo}
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                         </Link>
                     </div>
                     <div className='-mr-2 -my-2 md:hidden'>
-                        <Popover.Button className='gradient-background-1 rounded-md p-2 inline-flex items-center justify-center text-white-500 hover:text-pink-500'>
+                        <Popover.Button className='inline-flex items-center justify-center text-solabWhite-500'>
                             <span className='sr-only'>Open menu</span>
                             <FaBars className='h-6 w-6' />
                         </Popover.Button>
@@ -74,28 +74,31 @@ const Header: React.FC = () => {
                         className='hidden md:flex space-x-10'
                     >
                         {headerItems.map((item, index) => (
-                            <div className='relative' key={index}>
-                                <Link href={item.href}>
-                                    <a
-                                        className={`text-tiny font-bold text-white-500 hover:text-pink-500 ${
+                            <Link href={item.href}>
+                                <a className='relative'>
+                                    <div
+                                        className={`font-bold mt-1 ${
                                             item.option === activeHeader
-                                                ? 'border-b-4 border-pink-500 '
-                                                : null
+                                                ? 'text-solabWhite-500'
+                                                : 'text-solabGray-100'
                                         } ${
                                             item.isComingSoon
-                                                ? 'opacity-50 pointer-events-none'
-                                                : null
+                                                ? 'opacity-50 cursor-not-allowed'
+                                                : 'text-gradient-1-on-hover'
                                         }`}
                                     >
                                         {item.content}
-                                    </a>
-                                </Link>
-                                {item.isComingSoon ? (
-                                    <span className='absolute text-xxs w-max bg-white-500 text-pink-500 rounded-sm px-1 ml-1'>
-                                        Coming soon
-                                    </span>
-                                ) : null}
-                            </div>
+                                        {item.option === activeHeader ? (
+                                            <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                        ) : null}
+                                    </div>
+                                    {item.isComingSoon ? (
+                                        <span className='absolute text-xxs w-max text-gradient-1 top-0 left-full cursor-not-allowed'>
+                                            Coming soon
+                                        </span>
+                                    ) : null}
+                                </a>
+                            </Link>
                         ))}
                     </Popover.Group>
                     <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
@@ -103,12 +106,10 @@ const Header: React.FC = () => {
                             Connect to wallet
                         </button> */}
 
-                        <WalletMultiButton className='btn btn-pink' />
+                        <WalletMultiButton />
                     </div>
                 </div>
             </div>
-            <hr className='p-px gradient-background-1' />
-
             <Transition
                 as={Fragment}
                 enter='duration-200 ease-out'
@@ -122,7 +123,7 @@ const Header: React.FC = () => {
                     focus
                     className='absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden'
                 >
-                    <div className='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-blue-500 divide-y-2 divide-gray-50'>
+                    <div className='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-solabGray-300 divide-y-2 divide-gray-50'>
                         <div className='pt-5 pb-6 px-5'>
                             <div className='flex items-center justify-between'>
                                 <div>
@@ -137,7 +138,7 @@ const Header: React.FC = () => {
                                         <span className='sr-only'>
                                             Close menu
                                         </span>
-                                        <FaTimes className='h-6 w-6 text-white-500 group-hover:text-pink-500' />
+                                        <FaTimes className='h-6 w-6 text-white-500' />
                                     </Popover.Button>
                                 </div>
                             </div>
@@ -146,27 +147,37 @@ const Header: React.FC = () => {
                                     {headerItems.map((item, index) => (
                                         <Link href={item.href} key={index}>
                                             <a
-                                                className={`-m-3 p-3 flex items-center justify-center rounded-md group hover:bg-blue-500 text-center ${
+                                                className={`w-min mx-auto ${
                                                     item.isComingSoon
-                                                        ? 'opacity-50 pointer-events-none'
-                                                        : null
+                                                        ? 'cursor-not-allowed'
+                                                        : ''
                                                 }`}
                                             >
-                                                {item.icon}
-                                                <span className='ml-3 text-base font-medium text-white-500 group-hover:text-pink-300 relative'>
-                                                    {item.content}
-                                                    {item.isComingSoon ? (
-                                                        <span className='absolute text-xxs w-max bg-white-500 text-pink-500 rounded-sm px-1 ml-1'>
-                                                            Coming soon
-                                                        </span>
-                                                    ) : null}
-                                                </span>
+                                                <div
+                                                    className={`-m-3 p-3 flex items-center justify-center rounded-md group text-center ${
+                                                        item.isComingSoon
+                                                            ? 'opacity-50 pointer-events-none'
+                                                            : null
+                                                    }`}
+                                                >
+                                                    {item.icon}
+                                                    <span className='ml-3 text-base font-medium text-solabWhite-500 relative'>
+                                                        {item.content}
+                                                        {item.isComingSoon ? (
+                                                            <span className='absolute text-xxs w-max text-gradient-1 top-0 left-full cursor-not-allowed'>
+                                                                Coming soon
+                                                            </span>
+                                                        ) : null}
+                                                    </span>
+                                                </div>
+                                                {item.option ===
+                                                activeHeader ? (
+                                                    <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                ) : null}
                                             </a>
                                         </Link>
                                     ))}
-                                    <button className='btn btn-pink'>
-                                        Connect to wallet
-                                    </button>
+                                    <WalletMultiButton className='w-1/2 mx-auto justify-center' />
                                 </nav>
                             </div>
                         </div>

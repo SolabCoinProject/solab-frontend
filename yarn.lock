@@ -1798,6 +1798,13 @@
   dependencies:
     "esutils" "^2.0.2"
 
+"dom7@^4.0.2":
+  "integrity" "sha512-Ji4t3Y/vNQg6Q9bR+Syx6Td8qiq8116LE9h4OzbPuxdxK7DyyX7i8EXkYgBX6+EiX6+oYXDTH5BSN29G/n4jug=="
+  "resolved" "https://registry.npmjs.org/dom7/-/dom7-4.0.2.tgz"
+  "version" "4.0.2"
+  dependencies:
+    "ssr-window" "^4.0.0"
+
 "domain-browser@4.19.0":
   "integrity" "sha512-fRA+BaAWOR/yr/t7T9E9GJztHPeFjj8U35ajyAjCDtAAnTn1Rc1f6W6VGPJrO1tkQv9zWu+JRof7z6oQtiYVFQ=="
   "resolved" "https://registry.npmjs.org/domain-browser/-/domain-browser-4.19.0.tgz"
@@ -3823,7 +3830,7 @@
     "react-fit" "^1.0.3"
     "react-time-picker" "^4.4.2"
 
-"react-dom@^15.5.0 || ^16.0.0 || ^17.0.0-0", "react-dom@^16 || ^17 || ^18", "react-dom@^16.3.0 || ^17.0.0-0", "react-dom@^17.0.1 || ^16.7.0", "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>=15.5", "react-dom@>=16", "react-dom@17.0.2":
+"react-dom@^0.14 || ^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react-dom@^15.5.0 || ^16.0.0 || ^17.0.0-0", "react-dom@^16 || ^17 || ^18", "react-dom@^16.3.0 || ^17.0.0-0", "react-dom@^17.0.1 || ^16.7.0", "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>=15.5", "react-dom@>=16", "react-dom@17.0.2":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -3869,6 +3876,13 @@
   "integrity" "sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
+
+"react-number-format@^4.8.0":
+  "integrity" "sha512-oGGiQpqzvKTR5PD2/AJbyUsci8jyupaoKxpuSPevjpWHMhFkUtmo390t+EIpJOgnuAHZogLu6PHiXgb/OXETKA=="
+  "resolved" "https://registry.npmjs.org/react-number-format/-/react-number-format-4.8.0.tgz"
+  "version" "4.8.0"
+  dependencies:
+    "prop-types" "^15.7.2"
 
 "react-redux@^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0", "react-redux@^7.2.1", "react-redux@^7.2.6":
   "integrity" "sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ=="
@@ -3918,7 +3932,7 @@
     "prop-types" "^15.7.2"
     "react-intersection-observer" "^8.26.2"
 
-"react@*", "react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0", "react@^15.5.0 || ^16.0.0 || ^17.0.0-0", "react@^16 || ^17 || ^18", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0-0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^17.0.1 || ^16.7.0", "react@^17.0.2", "react@^17.0.2 || ^18.0.0-0", "react@>= 16.8.0 || 17.x.x || 18.x.x", "react@>=15.5", "react@>=16", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^0.14 || ^15.0.0-0 || ^16.0.0-0 || ^17.0.0-0", "react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0", "react@^15.5.0 || ^16.0.0 || ^17.0.0-0", "react@^16 || ^17 || ^18", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0-0", "react@^16.8.0 || ^17.0.0", "react@^16.8.3 || ^17", "react@^17.0.1 || ^16.7.0", "react@^17.0.2", "react@^17.0.2 || ^18.0.0-0", "react@>= 16.8.0 || 17.x.x || 18.x.x", "react@>=15.5", "react@>=16", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -4276,6 +4290,11 @@
   "resolved" "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
   "version" "1.0.3"
 
+"ssr-window@^4.0.0", "ssr-window@^4.0.2":
+  "integrity" "sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ=="
+  "resolved" "https://registry.npmjs.org/ssr-window/-/ssr-window-4.0.2.tgz"
+  "version" "4.0.2"
+
 "stacktrace-parser@0.1.10":
   "integrity" "sha512-KJP1OCML99+8fhOHxwwzyWrlUuVX5GQ0ZpJTd1DFXhdkrvg1szxfHhawXUZ3g9TkXORQd4/WG68jMlQZ2p8wlg=="
   "resolved" "https://registry.npmjs.org/stacktrace-parser/-/stacktrace-parser-0.1.10.tgz"
@@ -4430,6 +4449,14 @@
   "version" "8.1.1"
   dependencies:
     "has-flag" "^4.0.0"
+
+"swiper@^7.3.3":
+  "integrity" "sha512-Y6kjNI3MhqkLPOf01AZwXMxULMeFDEavArDyVKbOlBLhz+h3hj4vIHwbDUwI0k5iVH7VYNE67jWLsQmoKjuaVA=="
+  "resolved" "https://registry.npmjs.org/swiper/-/swiper-7.3.3.tgz"
+  "version" "7.3.3"
+  dependencies:
+    "dom7" "^4.0.2"
+    "ssr-window" "^4.0.2"
 
 "symbol-observable@^1.2.0":
   "integrity" "sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ=="

@@ -2,16 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
 
 .container-app {
-    @apply bg-blue-900 text-white-500;
-    font-family: 'Open Sans', sans-serif;
+    @apply bg-solabGray-900 text-solabWhite-500 text-base font-medium;
+    font-family: 'Inter', sans-serif;
 }
 
 .container-admin {
     @apply bg-blue-300 text-white-500;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 .gradient-background-1 {
@@ -45,6 +46,32 @@
         #8e4ec7 57.64%,
         #ff50ce 120.35%
     );
+}
+
+.text-gradient-1 {
+    background: linear-gradient(
+        90deg,
+        #1ee8bb -18.52%,
+        #18b1dc 17%,
+        #4185ea 49.73%,
+        #8e4ec7 85.24%,
+        #ff50ce 115.19%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-1-on-hover:hover {
+    background: linear-gradient(
+        90deg,
+        #1ee8bb -18.52%,
+        #18b1dc 17%,
+        #4185ea 49.73%,
+        #8e4ec7 85.24%,
+        #ff50ce 115.19%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .btn {
@@ -91,34 +118,36 @@
     @apply text-2xl font-bold;
 }
 
-.bg-image {
-    @apply bg-center bg-cover bg-no-repeat;
-}
-.bg-image-1 {
-    background-image: url('../assets/images/bg-1.svg');
-}
-.bg-image-2 {
-    background-image: url('../assets/images/bg-2.svg');
+.bg-image-earth {
+    background-image: url('/bg-earth.svg');
 }
 .vertical-timeline-element-icon {
-    left: 8px;
+    left: 11px;
 }
 .vertical-timeline-element-content-arrow {
     top: 0;
 }
 
 .vertical-timeline.vertical-timeline--two-columns:before {
-    background: #1ee8bb;
+    /* background: #6c738d;
+    width: 2px; */
+    border: 1px dotted #6c738d;
+    width: 0;
+    background: none;
 }
 .vertical-timeline--two-columns .vertical-timeline-element-icon {
-    box-shadow: 0 0 0 4px #1ee8bb, inset 0 2px 0 rgba(0, 0, 0, 0.08),
-        0 3px 0 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 6px rgba(29, 231, 187, 0.32),
+        inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 6px rgba(0, 0, 0, 0.05);
+}
+.vertical-timeline-element-content {
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 @media only screen and (min-width: 1170px) {
     .vertical-timeline--two-columns .vertical-timeline-element-icon {
         left: 51% !important;
-        margin-left: -23px;
+        margin-left: -20px;
     }
     .vertical-timeline--two-columns
         .vertical-timeline-element-content
@@ -154,10 +183,32 @@
 .input-primary {
     @apply bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 focus:ring-orange-500 focus:border-orange-500 focus:outline-none;
 }
-
-.wallet-adapter-button {
-    background-color: #ff50ce !important;
+.wallet-adapter-modal-wrapper {
+    @apply bg-solabGray-300 text-solabWhite-500 !important;
 }
+.wallet-adapter-modal-title {
+    @apply text-solabWhite-500 !important;
+}
+.wallet-adapter-button {
+    @apply py-2.5 px-5 h-full leading-none bg-solabGray-300 border border-solid border-solabCyan-500 border-opacity-100 rounded text-solabWhite-500 !important;
+}
+
 .react-datetime-picker {
     color: black !important;
+}
+
+.swiper-pagination-bullet-active {
+    @apply bg-solabCyan-500 !important;
+}
+.swiper-pagination-bullet {
+    @apply bg-solabGray-100;
+}
+
+@media only screen and (min-width: 1024px) {
+    .banner {
+        background-image: url('../assets/images/banner.svg');
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: auto 120%;
+    }
 }

@@ -3,9 +3,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-vertical-timeline-component/style.min.css';
 
-import('@solana/wallet-adapter-react-ui/styles.css' as any);
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import '../styles/globals.css';
+import('@solana/wallet-adapter-react-ui/styles.css' as any);
 
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
@@ -18,6 +21,11 @@ import dynamic from 'next/dynamic';
 import { ConnectionProvider } from '@solana/wallet-adapter-react';
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+    WalletModalProvider,
+    WalletDisconnectButton,
+    WalletMultiButton,
+} from '@solana/wallet-adapter-react-ui';
 import { useMemo } from 'react';
 
 const network = WalletAdapterNetwork.Devnet;
@@ -37,7 +45,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
             <ConnectionProvider endpoint={endpoint}>
                 <WalletProvider>
-                    <Component {...pageProps} />
+                    <WalletModalProvider>
+                        <Component {...pageProps} />
+                    </WalletModalProvider>
                 </WalletProvider>
             </ConnectionProvider>
             <ToastContainer
