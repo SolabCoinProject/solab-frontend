@@ -69,7 +69,7 @@ const nextConfig = {
             // FIX this
             // Disable minimize to make it work with Candy Machine template
             // minimization brakes Public Key names
-            config.optimization.minimize = false;
+            config.optimization.minimize = true;
         }
         return config;
     },
