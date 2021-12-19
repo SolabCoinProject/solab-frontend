@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import Container from '../components/app/layout/Container';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { BsTwitter } from 'react-icons/bs';
-import banner from '../assets/images/banner.gif';
-import sampleTokenLogo from '../assets/images/sample-token-logo.png';
+// import banner from '../assets/images/banner.gif';
+// import sampleTokenLogo from '../assets/images/sample-token-logo.png';
 
 import {
     VerticalTimeline,
@@ -17,12 +17,12 @@ import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { web3 } from '@project-serum/anchor';
-import { PublicKey } from '@solana/web3.js';
-import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
-import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
-import { createTransferInstruction } from '../libs/createTransferInstructions';
+// import { web3 } from '@project-serum/anchor';
+// import { PublicKey } from '@solana/web3.js';
+// import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
+// import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+// import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
+// import { createTransferInstruction } from '../libs/createTransferInstructions';
 import { Tab } from '@headlessui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
@@ -146,7 +146,7 @@ const Home: NextPage = () => {
                 <div className='px-4'>
                     <div className='grid lg:grid-cols-7 auto-cols-fr'>
                         <div className='col-span-4'>
-                            <h1 className='text-solabWhite-500 text-4xl'>
+                            <h1 className='text-solabWhite-500 text-3xl sm:text-4xl'>
                                 {/* <button
                                     className='btn btn-pink'
                                     onClick={onClick}
@@ -174,11 +174,11 @@ const Home: NextPage = () => {
                                 (future) governance.
                             </p>
                             <button className='bg-solabCyan-500 text-solabBlack-500 py-4 px-16 rounded mt-10 hover:opacity-80'>
-                                Buy on Solab
+                                Buy Solab
                             </button>
 
                             <div className='mt-9 flex'>
-                                <Link href='#'>
+                                <Link href='https://t.me/solabcommunity'>
                                     <a className='flex items-center group'>
                                         <FaTelegramPlane className='text-2xl text-solabBlue-500' />
                                         <span className='ml-2 group-hover:text-solabBlue-500 text-xs underline'>
@@ -186,7 +186,7 @@ const Home: NextPage = () => {
                                         </span>
                                     </a>
                                 </Link>
-                                <Link href='#'>
+                                <Link href='https://twitter.com/solablaunchpad'>
                                     <a className='flex items-center ml-2 group'>
                                         <BsTwitter className='text-2xl text-solabBlue-500' />
                                         <span className='ml-2 group-hover:text-solabBlue-500 text-xs underline'>
@@ -201,15 +201,17 @@ const Home: NextPage = () => {
             </div>
             <div className='mt-24 p-4'>
                 <div className='max-w-7xl mx-auto'>
-                    <div className='grid grid-cols-1 sm:grid-cols-3 auto-rows-fr gap-x-8'>
+                    <div className='grid grid-cols-1 sm:grid-cols-3 auto-rows-fr gap-8'>
                         <div className='text-center border border-solabGray-50 py-4'>
-                            <h1 className='text-solabCyan-500 text-3xl'>10</h1>
+                            <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
+                                10
+                            </h1>
                             <p className='text-sm text-solabGray-100'>
                                 FUNDED PROJECTS
                             </p>
                         </div>
                         <div className='text-center border border-solabGray-50 py-4'>
-                            <h1 className='text-solabCyan-500 text-3xl'>
+                            <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
                                 <NumberFormat
                                     thousandsGroupStyle='thousand'
                                     value={10262938}
@@ -222,7 +224,9 @@ const Home: NextPage = () => {
                             </p>
                         </div>
                         <div className='text-center border border-solabGray-50 py-4'>
-                            <h1 className='text-solabCyan-500 text-3xl'>2</h1>
+                            <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
+                                2
+                            </h1>
                             <p className='text-sm text-solabGray-100'>
                                 UPCOMING PROJECTS
                             </p>
@@ -1539,14 +1543,24 @@ const Home: NextPage = () => {
                 <div className='max-w-7xl mx-auto'>
                     <h1 className='text-center text-3xl font-bold'>Press</h1>
                     <Swiper
-                        spaceBetween={30}
-                        slidesPerView={4}
                         pagination={{
                             clickable: true,
                         }}
-                        loop={true}
                         className='pb-12 mt-8'
                         autoplay={true}
+                        slidesPerView={2}
+                        spaceBetween={10}
+                        loop={true}
+                        breakpoints={{
+                            '768': {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            },
+                            '1024': {
+                                slidesPerView: 4,
+                                spaceBetween: 30,
+                            },
+                        }}
                     >
                         <SwiperSlide>
                             <Link href='#'>

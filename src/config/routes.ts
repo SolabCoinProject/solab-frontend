@@ -1,8 +1,8 @@
 const routes = {
     app: {
         home: '/',
-        stake: '/stake',
-        projects: '/projects',
+        stake: '#',
+        projects: '#',
     },
     admin: {
         dashboard: '/admin-slb',

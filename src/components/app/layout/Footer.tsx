@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
                 }}
             >
                 <div className='max-w-7xl mx-auto px-4'>
-                    <div className='flex items-center justify-between py-16 border-b border-solabGray-50'>
+                    <div className='flex flex-col lg:flex-row items-center justify-between py-16 border-b border-solabGray-50'>
                         <div>
                             <p className='font-bold'>
                                 Subscribe to our community updates
@@ -45,11 +45,11 @@ const Footer: React.FC = () => {
                                 list.
                             </p>
                         </div>
-                        <div>
+                        <div className='w-full lg:w-96 mt-6 lg:mt-0'>
                             <form className='relative'>
-                                <input className='border border-solabGray-50 bg-solabGray-300 rounded py-5 w-96 focus:border-solabCyan-500 focus:ring-solabCyan-500 focus-visible:border-solabCyan-500 focus-visible:ring-solabCyan-500' />
+                                <input className='border border-solabGray-50 bg-solabGray-300 rounded py-5 w-full lg:w-96 focus:border-solabCyan-500 focus:ring-solabCyan-500 focus-visible:border-solabCyan-500 focus-visible:ring-solabCyan-500 focus:text-solabWhite-500 px-2' />
                                 <button
-                                    className='py-3 px-4 bg-solabCyan-500 rounded-lg absolute right-2 top-1/2'
+                                    className='py-3 px-4 bg-solabCyan-500 rounded-lg absolute right-2 top-1/2 text-solabBlack-500'
                                     style={{
                                         transform: 'translateY(-50%)',
                                     }}
@@ -164,7 +164,7 @@ const Footer: React.FC = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className='flex gap-4 justify-center items-center'>
+                        <div className='flex gap-4 justify-start lg:justify-center items-center mt-8 lg:mt-0'>
                             <Link href='https://t.me/solabcommunity'>
                                 <a className='p-1 border border-solabGray-50'>
                                     <FaTelegramPlane size='24px' />
