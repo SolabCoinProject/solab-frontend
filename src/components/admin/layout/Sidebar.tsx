@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { adminSidebarItemOptions } from '../../../features/layout/types';
 import { RiDashboardLine } from 'react-icons/ri';
 import { GiBowTieRibbon } from 'react-icons/gi';
+import { AiOutlineProject } from 'react-icons/ai';
 const Sidebar: React.FC = () => {
     const isSidebarOpen = useAppSelector(
         (state) => state.layout.admin.isSidebarOpen
@@ -83,6 +84,37 @@ const Sidebar: React.FC = () => {
                                         </span>
                                     </a>
                                 </Link>
+                                <li>
+                                    <Link href={routes.admin.project}>
+                                        <a
+                                            className={`sidebar-link group ${
+                                                activeSidebarItem ===
+                                                adminSidebarItemOptions.project
+                                                    ? 'sidebar-link-active'
+                                                    : ''
+                                            }`}
+                                        >
+                                            <AiOutlineProject
+                                                className={`sidebar-icon ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.project
+                                                        ? 'sidebar-icon-active'
+                                                        : ''
+                                                }`}
+                                            />
+                                            <span
+                                                className={`sidebar-content ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.project
+                                                        ? 'sidebar-content-active'
+                                                        : ''
+                                                }`}
+                                            >
+                                                Projects
+                                            </span>
+                                        </a>
+                                    </Link>
+                                </li>
                             </li>
                         </ul>
                     </div>

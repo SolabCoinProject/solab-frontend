@@ -7,6 +7,7 @@ export enum appHeaderOptions {
 export enum adminSidebarItemOptions {
     dashboard = 'dashboard',
     tier = 'tier',
+    project = 'project',
 }
 
 export interface LayoutState {
