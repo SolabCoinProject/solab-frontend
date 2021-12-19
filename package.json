@@ -33,6 +33,7 @@
         "next": "^12.0.7",
         "next-compose-plugins": "^2.2.1",
         "next-transpile-modules": "^9.0.0",
+        "pm2": "^5.1.2",
         "react": "17.0.2",
         "react-datetime-picker": "^3.4.3",
         "react-dom": "17.0.2",
