@@ -6,7 +6,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "heroku-postbuild": "npm run build"
+        "heroku-postbuild": "npm run build",
+        "pm2": "pm2"
     },
     "dependencies": {
         "@headlessui/react": "^1.4.2",
