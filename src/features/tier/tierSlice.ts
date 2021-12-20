@@ -27,6 +27,20 @@ const initialState: ITierState = {
         isEditTierModalOpen: false,
         reload: false,
     },
+    app: {
+        tiers: {
+            docs: [],
+            totalDocs: 0,
+            limit: 0,
+            totalPages: 0,
+            page: 0,
+            pagingCounter: 0,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null,
+        },
+    },
 };
 
 export const tierSlice = createSlice({

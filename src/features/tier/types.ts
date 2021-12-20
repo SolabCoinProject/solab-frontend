@@ -7,6 +7,7 @@ export interface ITier {
     requiredLabAmount: number;
     usdcLimit: number;
     hasGuaranteedAllocation: string | boolean;
+    order: number;
 }
 
 export interface ITierState {
@@ -17,5 +18,8 @@ export interface ITierState {
         isCreateTierModalOpen: boolean;
         isEditTierModalOpen: boolean;
         reload: boolean;
+    };
+    app: {
+        tiers: IPaginationData<ITier[]>;
     };
 }
