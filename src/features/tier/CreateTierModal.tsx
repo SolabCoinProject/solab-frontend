@@ -19,6 +19,7 @@ const CreateTierModal: React.FC = () => {
         usdcLimit: 0,
         hasGuaranteedAllocation: 'no',
         name: '',
+        order: 0,
     };
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -177,6 +178,25 @@ const CreateTierModal: React.FC = () => {
                                                 />
                                                 <ErrorMessage
                                                     name='usdcLimit'
+                                                    render={(msg) => (
+                                                        <span className='font-bold text-red-500'>
+                                                            {msg}
+                                                        </span>
+                                                    )}
+                                                />
+                                            </div>
+                                            <div className='mt-3'>
+                                                <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                    Order
+                                                </label>
+                                                <Field
+                                                    className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                    type='number'
+                                                    placeholder='Enter order of this tier'
+                                                    name='order'
+                                                />
+                                                <ErrorMessage
+                                                    name='order'
                                                     render={(msg) => (
                                                         <span className='font-bold text-red-500'>
                                                             {msg}

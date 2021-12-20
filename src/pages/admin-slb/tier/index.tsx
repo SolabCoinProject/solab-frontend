@@ -94,6 +94,12 @@ const Tier: NextPage = () => {
                                             scope='col'
                                             className='p-4 text-left text-xs text-white-500 font-bold uppercase'
                                         >
+                                            Order
+                                        </th>
+                                        <th
+                                            scope='col'
+                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                        >
                                             Has GuaranteeAllocation
                                         </th>
                                         <th
@@ -129,6 +135,9 @@ const Tier: NextPage = () => {
                                             </td>
                                             <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
                                                 {tier.usdcLimit}
+                                            </td>
+                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                {tier.order}
                                             </td>
                                             <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
                                                 {tier.hasGuaranteedAllocation

@@ -17,6 +17,9 @@ const tierValidationSchema = Yup.object().shape({
     thumbnail: Yup.string()
         .url('Must be an url')
         .required('Thumbnail is required'),
+    order: Yup.number()
+        .min(0, 'Must be positive')
+        .required('Order is required'),
 });
 
 export default tierValidationSchema;
