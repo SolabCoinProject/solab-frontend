@@ -93,7 +93,7 @@ const Header: React.FC = () => {
                                         ) : null}
                                     </div>
                                     {item.isComingSoon ? (
-                                        <span className='absolute text-xxs w-max text-gradient-1 top-0 left-full cursor-not-allowed'>
+                                        <span className='absolute text-xxs w-max text-gradient-1 -top-1.5 left-full cursor-not-allowed'>
                                             Coming soon
                                         </span>
                                     ) : null}
