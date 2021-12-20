@@ -9,7 +9,7 @@ const OurTeam: NextPage = () => {
             <div
                 className='bg-no-repeat bg-center bg-cover px-5 py-48 lg:px-72 flex items-center justify-center flex-col'
                 style={{
-                    backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/our-team-banner.jpeg')`,
+                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/our-team-banner.jpeg')`,
                 }}
             >
                 <h2 className='font-bold text-2xl sm:text-3xl text-center'>
@@ -30,7 +30,7 @@ const OurTeam: NextPage = () => {
                 <div className='flex mt-12 items-center justify-center sm:justify-start flex-col sm:flex-row'>
                     <div className='p-20 relative rounded-lg'>
                         <Image
-                            src='https://solab-content.s3.sa-east-1.amazonaws.com/daniel.png'
+                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/daniel.png'
                             alt='daniel'
                             layout='fill'
                             className='rounded-lg'
@@ -55,7 +55,7 @@ const OurTeam: NextPage = () => {
                 <div className='flex mt-12 items-center justify-center sm:justify-start flex-col sm:flex-row'>
                     <div className='p-20 relative rounded-lg'>
                         <Image
-                            src='https://solab-content.s3.sa-east-1.amazonaws.com/riki.png'
+                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/riki.png'
                             alt='riki'
                             layout='fill'
                             className='rounded-lg'
@@ -80,7 +80,7 @@ const OurTeam: NextPage = () => {
                 <div className='flex mt-12 items-center justify-center sm:justify-start flex-col sm:flex-row'>
                     <div className='p-20 relative rounded-lg'>
                         <Image
-                            src='https://solab-content.s3.sa-east-1.amazonaws.com/lucas.png'
+                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/lucas.png'
                             alt='lucas'
                             layout='fill'
                             className='rounded-lg'
@@ -104,7 +104,7 @@ const OurTeam: NextPage = () => {
                 <div className='flex mt-12 items-center justify-center sm:justify-start flex-col sm:flex-row'>
                     <div className='p-20 relative rounded-lg'>
                         <Image
-                            src='https://solab-content.s3.sa-east-1.amazonaws.com/laurie.png'
+                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/laurie.png'
                             alt='laurie'
                             layout='fill'
                             className='rounded-lg'
@@ -133,7 +133,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/courtney.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/courtney.png'
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
@@ -145,7 +145,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/annettee.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/annettee.png'
                                 alt='Annette Black'
                                 layout='fill'
                                 className='rounded-full'
@@ -157,7 +157,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/theresa.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/theresa.png'
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
@@ -171,7 +171,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/wade.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/wade.png'
                                 alt='Wade Warren'
                                 layout='fill'
                                 className='rounded-full'
@@ -183,7 +183,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/camaron.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/camaron.png'
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
@@ -197,7 +197,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/jerome.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/jerome.png'
                                 alt='Jerome Bell'
                                 layout='fill'
                                 className='rounded-full'
@@ -209,7 +209,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/robert.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/robert.png'
                                 alt='Robert Fox'
                                 layout='fill'
                                 className='rounded-full'
@@ -221,7 +221,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/jacob.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/jacob.png'
                                 alt='Jacob Jones'
                                 layout='fill'
                                 className='rounded-full'
@@ -234,7 +234,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/bessie.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/bessie.png'
                                 alt='Bessie Cooper'
                                 layout='fill'
                                 className='rounded-full'
@@ -246,7 +246,7 @@ const OurTeam: NextPage = () => {
                     <div className='flex flex-col items-center justify-center text-center mt-12'>
                         <div className='w-32 h-32 relative rounded-full'>
                             <Image
-                                src='https://solab-content.s3.sa-east-1.amazonaws.com/kathin.png'
+                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/team/kathin.png'
                                 alt='Kathryn Murphy'
                                 layout='fill'
                                 className='rounded-full'
