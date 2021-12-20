@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { BsTwitter } from 'react-icons/bs';
 // import banner from '../assets/images/banner.gif';
-// import sampleTokenLogo from '../assets/images/sample-token-logo.png';
+// import sampleTokenLogo from '../assets/imageshttps://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png';
 
 import {
     VerticalTimeline,
@@ -290,7 +290,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -302,7 +302,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -373,7 +373,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -385,7 +385,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -456,7 +456,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -468,7 +468,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -539,7 +539,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -551,7 +551,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -622,7 +622,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -634,7 +634,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -705,7 +705,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -717,7 +717,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -792,7 +792,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -804,7 +804,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -875,7 +875,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -887,7 +887,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -958,7 +958,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -970,7 +970,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -1041,7 +1041,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1053,7 +1053,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -1124,7 +1124,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1136,7 +1136,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -1207,7 +1207,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1219,7 +1219,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -1309,7 +1309,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                         style={{
-                                            backgroundImage: `url('/tier-demo.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
                                         }}
                                     ></div>
                                 </div>
@@ -1355,7 +1355,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                         style={{
-                                            backgroundImage: `url('/tier-demo.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
                                         }}
                                     ></div>
                                 </div>
@@ -1401,7 +1401,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                         style={{
-                                            backgroundImage: `url('/tier-demo.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
                                         }}
                                     ></div>
                                 </div>
@@ -1450,7 +1450,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                         style={{
-                                            backgroundImage: `url('/tier-demo.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
                                         }}
                                     ></div>
                                 </div>
@@ -1496,7 +1496,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                         style={{
-                                            backgroundImage: `url('/tier-demo.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
                                         }}
                                     ></div>
                                 </div>
@@ -1568,7 +1568,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/p1.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p1.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1583,7 +1583,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/p2.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p2.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1598,7 +1598,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/p4.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p4.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1613,7 +1613,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/p5.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p5.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1628,7 +1628,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-content.s3.sa-east-1.amazonaws.com/p6.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p6.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
