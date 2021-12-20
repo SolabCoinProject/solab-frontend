@@ -32,7 +32,7 @@ const Header: React.FC = () => {
             href: routes.app.stake,
             content: 'Stake',
             option: appHeaderOptions.stake,
-            isComingSoon: false,
+            isComingSoon: true,
             icon: (
                 <SiDatabricks className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
             ),
@@ -52,8 +52,8 @@ const Header: React.FC = () => {
             <div className='max-w-7xl mx-auto px-4 sm:px-6'>
                 <div className='flex items-center py-4 lg:justify-start justify-between md:space-x-10'>
                     <div className='flex justify-start'>
-                        <Link href='#'>
-                            <a href='#' className='leading-none'>
+                        <Link href={`${routes.app.home}`}>
+                            <a className='leading-none'>
                                 <span className='sr-only'>Solab</span>
                                 <Image
                                     src={logo}

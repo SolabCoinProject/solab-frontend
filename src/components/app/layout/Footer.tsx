@@ -10,8 +10,8 @@ import routes from '../../../config/routes';
 const Footer: React.FC = () => {
     const companyItems = [
         {
-            href: routes.app.home,
-            content: 'About us',
+            href: routes.app.ourTeam,
+            content: 'Our team',
             isComingSoon: false,
         },
         {

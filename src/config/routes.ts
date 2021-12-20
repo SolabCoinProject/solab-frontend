@@ -3,6 +3,7 @@ const routes = {
         home: '/',
         stake: '#',
         projects: '#',
+        ourTeam: '/our-team',
     },
     admin: {
         dashboard: '/admin-slb',
