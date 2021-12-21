@@ -2,6 +2,7 @@ export enum appHeaderOptions {
     home = 'home',
     stake = 'company',
     projects = 'projects',
+    myAccount = 'my-account',
 }
 
 export enum adminSidebarItemOptions {

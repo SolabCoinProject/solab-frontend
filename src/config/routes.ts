@@ -4,6 +4,7 @@ const routes = {
         stake: '#',
         projects: '#',
         ourTeam: '/our-team',
+        myAccount: '/my-account',
     },
     admin: {
         dashboard: '/admin-slb',

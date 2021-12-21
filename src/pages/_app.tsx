@@ -42,6 +42,22 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Solab Finance</title>
                 <link rel='icon' href='/logo-sm.svg' />
+                <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-DSC6N47KW4`}
+                />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'DSC6N47KW4', {
+              page_path: window.location.pathname,
+            });
+          `,
+                    }}
+                />
             </Head>
             <ConnectionProvider endpoint={endpoint}>
                 <WalletProvider>
@@ -52,14 +68,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             </ConnectionProvider>
             <ToastContainer
                 position='top-center'
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
             />
         </Provider>
     );

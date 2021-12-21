@@ -18,8 +18,6 @@ axiosClient.interceptors.request.use(
         const accessToken = localStorage.getItem('accessToken');
         config.headers = {
             Authorization: `Bearer ${accessToken}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
         };
         return config;
     },
@@ -34,7 +32,7 @@ axiosClient.interceptors.response.use(
         if (newAccessToken) {
             localStorage.setItem('accessToken', newAccessToken);
         }
-        return response.data;
+        return response.data.data;
     },
     function (error) {
         return Promise.reject(error);

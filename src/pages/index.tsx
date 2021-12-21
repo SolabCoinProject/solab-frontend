@@ -35,7 +35,6 @@ const Home: NextPage = () => {
     }, [dispatch]);
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     const { connection } = useConnection();
-
     // useEffect(() => {
     //     const testTrans = async (publicKey: web3.PublicKey | null) => {
     //         if (publicKey) {

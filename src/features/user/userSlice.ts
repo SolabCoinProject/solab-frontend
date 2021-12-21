@@ -1,7 +1,16 @@
+import { IResponseFailure } from './../../common/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IStaff, IUserState, ILoginParams, ILoginResponse } from './types';
-import { IResponseFailure } from '../../common/types';
+import {
+    IStaff,
+    IUserState,
+    ILoginParams,
+    ILoginResponse,
+    IWalletConnectParams,
+    IUser,
+    IUserInfoUpdateParams,
+} from './types';
 import { toast } from 'react-toastify';
+import toastConfigs from '../../config/toast';
 
 const initialState: IUserState = {
     admin: {
@@ -12,12 +21,43 @@ const initialState: IUserState = {
         authenticated: true,
         isFetchingStaff: false,
     },
+    app: {
+        user: null,
+        isFetchingUser: false,
+        isUpdatingInfo: false,
+        constants: {
+            kycVerified: 1,
+            kycDenied: 0,
+            kycVerifying: 2,
+            kycNeverSubmitted: 3,
+            kycArr: [0, 1, 2, 3],
+            kycStatuses: [
+                {
+                    value: 1,
+                    label: 'Verified',
+                },
+                {
+                    value: 0,
+                    label: 'Denied',
+                },
+                {
+                    value: 2,
+                    label: 'Verifying',
+                },
+                {
+                    value: 3,
+                    label: 'Never Submitted',
+                },
+            ],
+        },
+    },
 };
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        // staff
         setStaff: (state, action: PayloadAction<IStaff>) => {
             state.admin.staff = action.payload;
         },
@@ -60,6 +100,57 @@ export const userSlice = createSlice({
                 state.admin.isLoggedIn = false;
             } else {
                 toast.error('Server Error');
+            }
+        },
+
+        // App
+
+        userWalletConnected: (
+            state,
+            action: PayloadAction<IWalletConnectParams>
+        ) => {
+            state.app.isFetchingUser = true;
+        },
+
+        getOrCreateUserSuccess: (state, action: PayloadAction<IUser>) => {
+            state.app.isFetchingUser = false;
+            state.app.user = action.payload;
+        },
+
+        getOrCreateUserFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isFetchingUser = false;
+        },
+
+        userWalletDisconnected: (state) => {
+            state.app.user = null;
+        },
+
+        updateUserInformation: (
+            state,
+            action: PayloadAction<{
+                walletAddress: string;
+                data: IUserInfoUpdateParams;
+            }>
+        ) => {
+            state.app.isUpdatingInfo = true;
+        },
+        updateUserInformationSuccess: (state, action: PayloadAction<IUser>) => {
+            state.app.isUpdatingInfo = false;
+            state.app.user = action.payload;
+            toast.success('Update successfully', toastConfigs.success);
+        },
+        updateUserInformationFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isUpdatingInfo = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Server Error', toastConfigs.error);
             }
         },
     },

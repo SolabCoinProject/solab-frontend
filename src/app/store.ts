@@ -5,6 +5,7 @@ import layoutReducer from '../features/layout/layoutSlice';
 import userReducer from '../features/user/userSlice';
 import tierReducer from '../features/tier/tierSlice';
 import projectReducer from '../features/project/projectSlice';
+import resourceReducer from '../features/resources/resourceSlice';
 
 const sageMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
         user: userReducer,
         tier: tierReducer,
         project: projectReducer,
+        resource: resourceReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ thunk: false }).concat(sageMiddleware),

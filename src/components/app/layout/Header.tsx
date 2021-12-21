@@ -7,6 +7,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import { AiOutlineHome, AiOutlineFundProjectionScreen } from 'react-icons/ai';
 import { SiDatabricks } from 'react-icons/si';
+import { RiAccountCircleLine } from 'react-icons/ri';
 
 import logo from '../../../assets/images/logo.svg';
 import { useAppSelector } from '../../../app/hooks';
@@ -14,39 +15,49 @@ import routes from '../../../config/routes';
 import { appHeaderOptions } from '../../../features/layout/types';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
+const headerItems = [
+    {
+        href: routes.app.home,
+        content: 'Home',
+        option: appHeaderOptions.home,
+        isComingSoon: false,
+        icon: (
+            <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+        ),
+    },
+    {
+        href: routes.app.myAccount,
+        content: 'Account',
+        option: appHeaderOptions.myAccount,
+        isComingSoon: false,
+        icon: (
+            <RiAccountCircleLine className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+        ),
+    },
+    {
+        href: routes.app.stake,
+        content: 'Stake',
+        option: appHeaderOptions.stake,
+        isComingSoon: true,
+        icon: (
+            <SiDatabricks className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+        ),
+    },
+    {
+        href: routes.app.projects,
+        content: 'Projects',
+        option: appHeaderOptions.projects,
+        isComingSoon: true,
+        icon: (
+            <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+        ),
+    },
+];
+
 const Header: React.FC = () => {
     const activeHeader = useAppSelector(
         (state) => state.layout.app.activeHeaderItem
     );
-    const headerItems = [
-        {
-            href: routes.app.home,
-            content: 'Home',
-            option: appHeaderOptions.home,
-            isComingSoon: false,
-            icon: (
-                <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
-            ),
-        },
-        {
-            href: routes.app.stake,
-            content: 'Stake',
-            option: appHeaderOptions.stake,
-            isComingSoon: true,
-            icon: (
-                <SiDatabricks className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
-            ),
-        },
-        {
-            href: routes.app.projects,
-            content: 'Projects',
-            option: appHeaderOptions.projects,
-            isComingSoon: true,
-            icon: (
-                <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
-            ),
-        },
-    ];
     return (
         <Popover className='sticky top-0 bg-solabGray-300 z-50'>
             <div className='max-w-7xl mx-auto px-4 sm:px-6'>
