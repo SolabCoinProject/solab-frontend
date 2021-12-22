@@ -5,6 +5,7 @@ import {
     IStaff,
     IUser,
     IUserInfoUpdateParams,
+    IUserKycUpdateParams,
     IWalletConnectParams,
 } from './types';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
@@ -64,7 +65,28 @@ function* updateUserInformation(
         yield put(userActions.updateUserInformationSuccess(updatedUser));
     } catch (err: any) {
         const { status, data } = err.response;
-        // yield put(tierActions.updateTierFailure({ status, data: data }));
+        yield put(
+            userActions.updateUserInformationFailure({ status, data: data })
+        );
+    }
+}
+
+function* updateKyc(
+    action: PayloadAction<{
+        walletAddress: string;
+        data: IUserKycUpdateParams;
+    }>
+) {
+    try {
+        const updatedUser: IUser = yield call(
+            userApi.app.updateKyc,
+            action.payload.walletAddress,
+            action.payload.data
+        );
+        yield put(userActions.updateKycSuccess(updatedUser));
+    } catch (err: any) {
+        const { status, data } = err.response;
+        yield put(userActions.updateKycFailure({ status, data: data }));
     }
 }
 
@@ -76,4 +98,5 @@ export default function* userSaga() {
         userActions.updateUserInformation.type,
         updateUserInformation
     );
+    yield takeLatest(userActions.updateKyc.type, updateKyc);
 }

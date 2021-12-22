@@ -21,6 +21,9 @@ export interface IUser {
     firstName?: string;
     lastName?: string;
     displayName?: string;
+    address?: string;
+    phone?: string;
+    nation?: string;
     tier?: ITier;
     stake: {
         totalSolab: number;
@@ -54,6 +57,7 @@ export interface IUserState {
         user: IUser | null;
         isFetchingUser: boolean;
         isUpdatingInfo: boolean;
+        isUpdatingKyc: boolean;
         constants: {
             kycVerified: number;
             kycDenied: number;
@@ -91,4 +95,15 @@ export interface IUserInfoUpdateParams {
     firstName?: string;
     lastName?: string;
     displayName?: string;
+    address?: string;
+    phone?: string;
+    nation?: string;
+}
+
+export interface IUserKycUpdateParams {
+    personalId: string;
+    docsExpiredDate: string;
+    docsFront: string;
+    docsBack: string;
+    selfie: string;
 }

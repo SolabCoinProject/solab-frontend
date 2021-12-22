@@ -6,7 +6,7 @@ import Container from '../components/app/layout/Container';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import loaderCyan from '../assets/images/loader-cyan.svg';
 import Image from 'next/image';
@@ -18,6 +18,8 @@ import { resourceActions } from '../features/resources/resourceSlice';
 import Select from 'react-select';
 import axiosClient from '../libs/axiosClient';
 import { handleUserFileUpload } from '../libs/fileUpload';
+import { toast } from 'react-toastify';
+import toastConfigs from '../config/toast';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -26,6 +28,9 @@ const MyAccount: NextPage = () => {
     const userConstants = useAppSelector((state) => state.user.app.constants);
     const isUpdatingUserInfo = useAppSelector(
         (state) => state.user.app.isUpdatingInfo
+    );
+    const isUpdatingKyc = useAppSelector(
+        (state) => state.user.app.isUpdatingKyc
     );
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.myAccount));
@@ -99,6 +104,9 @@ const MyAccount: NextPage = () => {
                                                         user.lastName ?? '',
                                                     displayName:
                                                         user.displayName ?? '',
+                                                    address: user.address ?? '',
+                                                    phone: user.phone ?? '',
+                                                    nation: user.nation ?? '',
                                                 }}
                                                 onSubmit={(
                                                     values,
@@ -137,6 +145,10 @@ const MyAccount: NextPage = () => {
                                                                 30,
                                                                 'Display name is too long'
                                                             ),
+                                                        phone: Yup.string().matches(
+                                                            /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+                                                            'Phone number is not invalid'
+                                                        ),
                                                     }
                                                 )}
                                             >
@@ -144,6 +156,7 @@ const MyAccount: NextPage = () => {
                                                     values,
                                                     isSubmitting,
                                                     errors,
+                                                    setFieldValue,
                                                 }) => {
                                                     return (
                                                         <Form>
@@ -232,6 +245,18 @@ const MyAccount: NextPage = () => {
                                                                                     : false
                                                                             }
                                                                         />
+                                                                        <ErrorMessage
+                                                                            name='firstName'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                        />
                                                                     </div>
                                                                 </div>
                                                                 <div className='mt-4 grid grid-cols-4 items-center w-full'>
@@ -250,6 +275,18 @@ const MyAccount: NextPage = () => {
                                                                             }
                                                                             className='input input-cyan'
                                                                         />
+                                                                        <ErrorMessage
+                                                                            name='lastName'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                        />
                                                                     </div>
                                                                 </div>
                                                                 <div className='mt-4 grid grid-cols-4 items-center w-full'>
@@ -267,6 +304,148 @@ const MyAccount: NextPage = () => {
                                                                                     : false
                                                                             }
                                                                             className='input input-cyan'
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name='displayName'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
+                                                                    <div className='mr-2 text-left col-span-1'>
+                                                                        Address
+                                                                    </div>
+                                                                    <div className='lg:ml-2 text-left col-span-3'>
+                                                                        <Field
+                                                                            name='address'
+                                                                            type='text'
+                                                                            disabled={
+                                                                                isUpdatingUserInfo
+                                                                                    ? true
+                                                                                    : false
+                                                                            }
+                                                                            className='input input-cyan'
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name='address'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
+                                                                    <div className='mr-2 text-left col-span-1'>
+                                                                        Phone
+                                                                    </div>
+                                                                    <div className='lg:ml-2 text-left col-span-3'>
+                                                                        <Field
+                                                                            name='phone'
+                                                                            type='text'
+                                                                            disabled={
+                                                                                isUpdatingUserInfo
+                                                                                    ? true
+                                                                                    : false
+                                                                            }
+                                                                            className='input input-cyan'
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name='phone'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
+                                                                    <label>
+                                                                        Nation
+                                                                    </label>
+                                                                    <div className='lg:ml-2 text-left col-span-3'>
+                                                                        <Select
+                                                                            options={countries.map(
+                                                                                (
+                                                                                    country
+                                                                                ) => {
+                                                                                    return {
+                                                                                        label: country
+                                                                                            .name
+                                                                                            .common,
+                                                                                        value: country
+                                                                                            .name
+                                                                                            .common,
+                                                                                    };
+                                                                                }
+                                                                            )}
+                                                                            theme={(
+                                                                                theme
+                                                                            ) => {
+                                                                                return {
+                                                                                    ...theme,
+                                                                                    colors: {
+                                                                                        ...theme.colors,
+                                                                                        neutral0:
+                                                                                            '#0F1217',
+                                                                                        neutral20:
+                                                                                            '#1F2733',
+                                                                                        neutral30:
+                                                                                            '#1F2733',
+                                                                                        primary:
+                                                                                            '#1EE8BB',
+                                                                                        primary50:
+                                                                                            '#1EE8BB',
+                                                                                        primary25:
+                                                                                            '#1EE8BB',
+                                                                                        neutral5:
+                                                                                            '#1EE8BB',
+                                                                                        neutral80:
+                                                                                            '#E2E4E9',
+                                                                                    },
+                                                                                };
+                                                                            }}
+                                                                            onChange={(
+                                                                                selected
+                                                                            ) => {
+                                                                                setFieldValue(
+                                                                                    'nation',
+                                                                                    selected
+                                                                                        ? selected.value
+                                                                                        : ''
+                                                                                );
+                                                                            }}
+                                                                            className='w-full'
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name='nation'
+                                                                            render={(
+                                                                                msg
+                                                                            ) => (
+                                                                                <span className='text-xs text-red-500'>
+                                                                                    {
+                                                                                        msg
+                                                                                    }
+                                                                                </span>
+                                                                            )}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -303,318 +482,413 @@ const MyAccount: NextPage = () => {
                                     </div>
                                 </Tab.Panel>
                                 <Tab.Panel>
-                                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-2 lg:px-5 lg:w-1/2 mx-auto'>
-                                        {user ? (
-                                            user.isKycVerified ===
-                                            userConstants.kycVerified ? (
-                                                <p className='text-center font-light text-green-500'>
-                                                    Kyc verified
-                                                </p>
-                                            ) : user.isKycVerified ===
-                                              userConstants.kycVerifying ? (
-                                                <p className='text-center font-light text-yellow-500'>
-                                                    Kyc verifying
-                                                </p>
-                                            ) : user.isKycVerified ===
-                                              userConstants.kycDenied ? (
-                                                <>
-                                                    <p className='text-center font-light text-red-500'>
-                                                        Kyc denied
+                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-2 lg:px-5 w-full mx-auto'>
+                                            Manual
+                                        </div>
+                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-2 lg:px-5 w-full mx-auto'>
+                                            {user ? (
+                                                user.isKycVerified ===
+                                                userConstants.kycVerified ? (
+                                                    <p className='text-center font-light text-green-500'>
+                                                        Kyc verified
                                                     </p>
+                                                ) : user.isKycVerified ===
+                                                  userConstants.kycVerifying ? (
+                                                    <p className='text-center font-light text-yellow-500'>
+                                                        Kyc verifying
+                                                    </p>
+                                                ) : user.isKycVerified ===
+                                                  userConstants.kycDenied ? (
+                                                    <>
+                                                        <p className='text-center font-light text-red-500'>
+                                                            Kyc denied
+                                                        </p>
+                                                        <p className='text-center font-light text-solabGray-100'>
+                                                            {user.kycNote ?? ''}
+                                                        </p>
+                                                    </>
+                                                ) : (
                                                     <p className='text-center font-light text-solabGray-100'>
-                                                        {user.kycNote ?? ''}
+                                                        You need kyc to continue
                                                     </p>
-                                                </>
+                                                )
                                             ) : (
-                                                <p className='text-center font-light text-solabGray-100'>
-                                                    You need kyc to continue
-                                                </p>
-                                            )
-                                        ) : (
-                                            <WalletMultiButton className='mx-auto' />
-                                        )}
-                                        {user &&
-                                        (user.isKycVerified ===
-                                            userConstants.kycNeverSubmitted ||
-                                            user.isKycVerified ===
-                                                userConstants.kycDenied) ? (
-                                            <Formik
-                                                enableReinitialize
-                                                initialValues={{
-                                                    name: '',
-                                                    birthday: '',
-                                                    address: '',
-                                                    phone: '',
-                                                    mail: '',
-                                                    nation: '',
-                                                    personalId: '',
-                                                    docsExpiredDate: '',
-                                                    docsFront: '',
-                                                    docsBack: '',
-                                                    selfie: '',
-                                                }}
-                                                onSubmit={(
-                                                    values,
-                                                    { setSubmitting }
-                                                ) => {
-                                                    console.log(values);
-                                                }}
-                                            >
-                                                {({
-                                                    values,
-                                                    errors,
-                                                    setFieldValue,
-                                                }) => {
-                                                    console.log(values);
-                                                    return (
-                                                        <Form>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Name
-                                                                </label>
-                                                                <Field
-                                                                    name='name'
-                                                                    className='input input-cyan'
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Birthday
-                                                                </label>
-                                                                <DatePicker
-                                                                    className='input input-cyan'
-                                                                    selected={
-                                                                        values.birthday
-                                                                            ? parseISO(
-                                                                                  values.birthday
-                                                                              )
-                                                                            : new Date()
-                                                                    }
-                                                                    onChange={(
-                                                                        date
-                                                                    ) => {
-                                                                        setFieldValue(
-                                                                            'birthday',
-                                                                            formatISO(
-                                                                                date,
-                                                                                {
-                                                                                    representation:
-                                                                                        'date',
-                                                                                }
-                                                                            )
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Address
-                                                                </label>
-                                                                <Field
-                                                                    name='address'
-                                                                    className='input input-cyan'
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Phone
-                                                                </label>
-                                                                <Field
-                                                                    name='phone'
-                                                                    className='input input-cyan'
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Email
-                                                                </label>
-                                                                <Field
-                                                                    name='email'
-                                                                    className='input input-cyan'
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Nation
-                                                                </label>
-                                                                <Select
-                                                                    options={countries.map(
-                                                                        (
-                                                                            country
-                                                                        ) => {
-                                                                            return {
-                                                                                label: country
-                                                                                    .name
-                                                                                    .common,
-                                                                                value: country
-                                                                                    .name
-                                                                                    .common,
-                                                                            };
-                                                                        }
-                                                                    )}
-                                                                    theme={(
-                                                                        theme
-                                                                    ) => {
-                                                                        return {
-                                                                            ...theme,
-                                                                            colors: {
-                                                                                ...theme.colors,
-                                                                                neutral0:
-                                                                                    '#0F1217',
-                                                                                neutral20:
-                                                                                    '#1F2733',
-                                                                                neutral30:
-                                                                                    '#1F2733',
-                                                                                primary:
-                                                                                    '#1EE8BB',
-                                                                                primary50:
-                                                                                    '#1EE8BB',
-                                                                                primary25:
-                                                                                    '#1EE8BB',
-                                                                                neutral5:
-                                                                                    '#1EE8BB',
-                                                                                neutral80:
-                                                                                    '#E2E4E9',
-                                                                            },
-                                                                        };
-                                                                    }}
-                                                                    onChange={(
-                                                                        selected
-                                                                    ) => {
-                                                                        setFieldValue(
-                                                                            'nation',
-                                                                            selected
-                                                                                ? selected.value
-                                                                                : ''
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Personal ID
-                                                                </label>
-                                                                <Field
-                                                                    name='personalId'
-                                                                    className='input input-cyan'
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Docs Expired
-                                                                    Date
-                                                                </label>
-                                                                <DatePicker
-                                                                    className='input input-cyan'
-                                                                    selected={
-                                                                        values.birthday
-                                                                            ? parseISO(
-                                                                                  values.birthday
-                                                                              )
-                                                                            : new Date()
-                                                                    }
-                                                                    onChange={(
-                                                                        date
-                                                                    ) => {
-                                                                        setFieldValue(
-                                                                            'docsExpiredDate',
-                                                                            formatISO(
-                                                                                date,
-                                                                                {
-                                                                                    representation:
-                                                                                        'date',
-                                                                                }
-                                                                            )
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Docs front
-                                                                </label>
-                                                                <Field
-                                                                    name='docsFront'
-                                                                    className='input input-cyan'
-                                                                    type='file'
-                                                                    onChange={async (
-                                                                        e
-                                                                    ) => {
-                                                                        const uploadedFile =
-                                                                            e
-                                                                                .target
-                                                                                .files[0];
-                                                                        const objUrl =
-                                                                            await handleUserFileUpload(
-                                                                                uploadedFile,
-                                                                                `docsFront-${uploadedFile.name}`,
-                                                                                'kyc',
-                                                                                user.walletAddress
-                                                                            );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Docs back
-                                                                </label>
-                                                                <Field
-                                                                    name='docsBack'
-                                                                    className='input input-cyan'
-                                                                    type='file'
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        console.log(
-                                                                            e
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Selfie
-                                                                </label>
-                                                                <Field
-                                                                    name='selfie'
-                                                                    className='input input-cyan'
-                                                                    type='file'
-                                                                    onChange={(
-                                                                        e
-                                                                    ) => {
-                                                                        console.log(
-                                                                            e
-                                                                        );
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                {isUpdatingUserInfo ? (
-                                                                    <Image
-                                                                        src={
-                                                                            loaderCyan
-                                                                        }
-                                                                        height={
-                                                                            32
-                                                                        }
-                                                                        width={
-                                                                            32
+                                                <WalletMultiButton className='mx-auto' />
+                                            )}
+                                            {user &&
+                                            (user.isKycVerified ===
+                                                userConstants.kycNeverSubmitted ||
+                                                user.isKycVerified ===
+                                                    userConstants.kycDenied) ? (
+                                                <Formik
+                                                    enableReinitialize
+                                                    initialValues={{
+                                                        personalId: '',
+                                                        docsExpiredDate:
+                                                            formatISO(
+                                                                new Date(),
+                                                                {
+                                                                    representation:
+                                                                        'date',
+                                                                }
+                                                            ),
+                                                        docsFront: '',
+                                                        docsBack: '',
+                                                        selfie: '',
+                                                    }}
+                                                    onSubmit={(
+                                                        values,
+                                                        { setSubmitting }
+                                                    ) => {
+                                                        dispatch(
+                                                            userActions.updateKyc(
+                                                                {
+                                                                    walletAddress:
+                                                                        user.walletAddress,
+                                                                    data: values,
+                                                                }
+                                                            )
+                                                        );
+                                                        setSubmitting(false);
+                                                    }}
+                                                    validationSchema={Yup.object().shape(
+                                                        {
+                                                            personalId:
+                                                                Yup.string()
+                                                                    .required(
+                                                                        'Personal ID is required!'
+                                                                    )
+                                                                    .min(1)
+                                                                    .max(20),
+                                                            docsExpiredDate:
+                                                                Yup.string().required(
+                                                                    'Docs expired date is required!'
+                                                                ),
+                                                            docsFront:
+                                                                Yup.string().required(
+                                                                    'Docs front is required!'
+                                                                ),
+                                                            docsBack:
+                                                                Yup.string().required(
+                                                                    'Docs back is required!'
+                                                                ),
+                                                            selfie: Yup.string().required(
+                                                                'Selfie is required!'
+                                                            ),
+                                                        }
+                                                    )}
+                                                >
+                                                    {({
+                                                        values,
+                                                        errors,
+                                                        setFieldValue,
+                                                    }) => {
+                                                        return (
+                                                            <Form>
+                                                                <div className='mt-4'>
+                                                                    <label>
+                                                                        Personal
+                                                                        ID
+                                                                    </label>
+                                                                    <Field
+                                                                        name='personalId'
+                                                                        className='input input-cyan'
+                                                                        disabled={
+                                                                            isUpdatingKyc
+                                                                                ? true
+                                                                                : false
                                                                         }
                                                                     />
-                                                                ) : (
-                                                                    <button
-                                                                        type='submit'
-                                                                        className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
-                                                                    >
-                                                                        Update
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        </Form>
-                                                    );
-                                                }}
-                                            </Formik>
-                                        ) : null}
+                                                                    <ErrorMessage
+                                                                        name='personalId'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div className='mt-4'>
+                                                                    <label>
+                                                                        Docs
+                                                                        Expired
+                                                                        Date
+                                                                    </label>
+                                                                    <DatePicker
+                                                                        className='input input-cyan'
+                                                                        selected={
+                                                                            values.docsExpiredDate
+                                                                                ? parseISO(
+                                                                                      values.docsExpiredDate
+                                                                                  )
+                                                                                : new Date()
+                                                                        }
+                                                                        disabled={
+                                                                            isUpdatingKyc
+                                                                                ? true
+                                                                                : false
+                                                                        }
+                                                                        onChange={(
+                                                                            date
+                                                                        ) => {
+                                                                            setFieldValue(
+                                                                                'docsExpiredDate',
+                                                                                formatISO(
+                                                                                    date,
+                                                                                    {
+                                                                                        representation:
+                                                                                            'date',
+                                                                                    }
+                                                                                )
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='docsExpiredDate'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div className='mt-4'>
+                                                                    <label>
+                                                                        Docs
+                                                                        front
+                                                                    </label>
+                                                                    <Field
+                                                                        name='docsFrontFile'
+                                                                        className='input input-cyan'
+                                                                        accept='image/*'
+                                                                        type='file'
+                                                                        disabled={
+                                                                            isUpdatingKyc
+                                                                                ? true
+                                                                                : false
+                                                                        }
+                                                                        onChange={async (
+                                                                            e
+                                                                        ) => {
+                                                                            const uploadedFile =
+                                                                                e
+                                                                                    .target
+                                                                                    .files[0];
+                                                                            const objUrl =
+                                                                                await handleUserFileUpload(
+                                                                                    uploadedFile,
+                                                                                    `docsFront-${uploadedFile.name}`,
+                                                                                    'kyc',
+                                                                                    user.walletAddress
+                                                                                );
+                                                                            if (
+                                                                                !objUrl
+                                                                            ) {
+                                                                                toast.error(
+                                                                                    'Cannot upload file, make sure your file is less than 5MB',
+                                                                                    toastConfigs.error
+                                                                                );
+                                                                            } else {
+                                                                                setFieldValue(
+                                                                                    'docsFront',
+                                                                                    objUrl
+                                                                                );
+                                                                            }
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='docsFront'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                    {values.docsFront ? (
+                                                                        <div className='mt-4 relative h-52 w-full'>
+                                                                            <Image
+                                                                                src={
+                                                                                    values.docsFront
+                                                                                }
+                                                                                layout='fill'
+                                                                            />
+                                                                        </div>
+                                                                    ) : null}
+                                                                </div>
+                                                                <div className='mt-4'>
+                                                                    <label>
+                                                                        Docs
+                                                                        back
+                                                                    </label>
+                                                                    <Field
+                                                                        name='docsBackFile'
+                                                                        className='input input-cyan'
+                                                                        type='file'
+                                                                        accept='image/*'
+                                                                        disabled={
+                                                                            isUpdatingKyc
+                                                                                ? true
+                                                                                : false
+                                                                        }
+                                                                        onChange={async (
+                                                                            e
+                                                                        ) => {
+                                                                            const uploadedFile =
+                                                                                e
+                                                                                    .target
+                                                                                    .files[0];
+                                                                            const objUrl =
+                                                                                await handleUserFileUpload(
+                                                                                    uploadedFile,
+                                                                                    `docsBack-${uploadedFile.name}`,
+                                                                                    'kyc',
+                                                                                    user.walletAddress
+                                                                                );
+                                                                            if (
+                                                                                !objUrl
+                                                                            ) {
+                                                                                toast.error(
+                                                                                    'Cannot upload file, make sure your file is less than 5MB',
+                                                                                    toastConfigs.error
+                                                                                );
+                                                                            } else {
+                                                                                setFieldValue(
+                                                                                    'docsBack',
+                                                                                    objUrl
+                                                                                );
+                                                                            }
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='docsBack'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                    {values.docsBack ? (
+                                                                        <div className='mt-4 relative h-52 w-full'>
+                                                                            <Image
+                                                                                src={
+                                                                                    values.docsBack
+                                                                                }
+                                                                                layout='fill'
+                                                                            />
+                                                                        </div>
+                                                                    ) : null}
+                                                                </div>
+                                                                <div className='mt-4'>
+                                                                    <label>
+                                                                        Selfie
+                                                                    </label>
+                                                                    <Field
+                                                                        name='selfieFile'
+                                                                        className='input input-cyan'
+                                                                        type='file'
+                                                                        accept='image/*'
+                                                                        disabled={
+                                                                            isUpdatingKyc
+                                                                                ? true
+                                                                                : false
+                                                                        }
+                                                                        onChange={async (
+                                                                            e
+                                                                        ) => {
+                                                                            const uploadedFile =
+                                                                                e
+                                                                                    .target
+                                                                                    .files[0];
+                                                                            const objUrl =
+                                                                                await handleUserFileUpload(
+                                                                                    uploadedFile,
+                                                                                    `selfie-${uploadedFile.name}`,
+                                                                                    'kyc',
+                                                                                    user.walletAddress
+                                                                                );
+                                                                            if (
+                                                                                !objUrl
+                                                                            ) {
+                                                                                toast.error(
+                                                                                    'Cannot upload file, make sure your file is less than 5MB',
+                                                                                    toastConfigs.error
+                                                                                );
+                                                                            } else {
+                                                                                setFieldValue(
+                                                                                    'selfie',
+                                                                                    objUrl
+                                                                                );
+                                                                            }
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='selfie'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                    {values.selfie ? (
+                                                                        <div className='mt-4 relative h-52 w-full'>
+                                                                            <Image
+                                                                                src={
+                                                                                    values.selfie
+                                                                                }
+                                                                                layout='fill'
+                                                                            />
+                                                                        </div>
+                                                                    ) : null}
+                                                                </div>
+                                                                <div className='mt-4'>
+                                                                    {isUpdatingKyc ? (
+                                                                        <Image
+                                                                            src={
+                                                                                loaderCyan
+                                                                            }
+                                                                            height={
+                                                                                32
+                                                                            }
+                                                                            width={
+                                                                                32
+                                                                            }
+                                                                        />
+                                                                    ) : (
+                                                                        <button
+                                                                            type='submit'
+                                                                            className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
+                                                                        >
+                                                                            Update
+                                                                        </button>
+                                                                    )}
+                                                                </div>
+                                                            </Form>
+                                                        );
+                                                    }}
+                                                </Formik>
+                                            ) : null}
+                                        </div>
                                     </div>
                                 </Tab.Panel>
                             </Tab.Panels>

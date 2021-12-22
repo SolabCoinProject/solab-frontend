@@ -7,6 +7,7 @@ import {
     IUser,
     IWalletConnectParams,
     IUserInfoUpdateParams,
+    IUserKycUpdateParams,
 } from './types';
 
 const userApi = {
@@ -32,6 +33,13 @@ const userApi = {
             data: IUserInfoUpdateParams
         ): Promise<IResponseData<IUser>> => {
             const url = `app/user/wallet/${walletAddress}/update`;
+            return axiosClient.put(url, { ...data });
+        },
+        updateKyc: (
+            walletAddress: string,
+            data: IUserKycUpdateParams
+        ): Promise<IResponseData<IUser>> => {
+            const url = `app/user/kyc/${walletAddress}/update`;
             return axiosClient.put(url, { ...data });
         },
     },

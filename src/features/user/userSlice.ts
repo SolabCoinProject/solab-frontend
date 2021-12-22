@@ -8,6 +8,7 @@ import {
     IWalletConnectParams,
     IUser,
     IUserInfoUpdateParams,
+    IUserKycUpdateParams,
 } from './types';
 import { toast } from 'react-toastify';
 import toastConfigs from '../../config/toast';
@@ -25,6 +26,7 @@ const initialState: IUserState = {
         user: null,
         isFetchingUser: false,
         isUpdatingInfo: false,
+        isUpdatingKyc: false,
         constants: {
             kycVerified: 1,
             kycDenied: 0,
@@ -146,6 +148,28 @@ export const userSlice = createSlice({
             state,
             action: PayloadAction<IResponseFailure>
         ) => {
+            state.app.isUpdatingInfo = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Server Error', toastConfigs.error);
+            }
+        },
+        updateKyc: (
+            state,
+            action: PayloadAction<{
+                walletAddress: string;
+                data: IUserKycUpdateParams;
+            }>
+        ) => {
+            state.app.isUpdatingKyc = true;
+        },
+        updateKycSuccess: (state, action: PayloadAction<IUser>) => {
+            state.app.isUpdatingKyc = false;
+            state.app.user = action.payload;
+            toast.success('Update successfully', toastConfigs.success);
+        },
+        updateKycFailure: (state, action: PayloadAction<IResponseFailure>) => {
             state.app.isUpdatingInfo = false;
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message, toastConfigs.error);

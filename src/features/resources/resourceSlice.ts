@@ -15,7 +15,6 @@ export const resourceSlice = createSlice({
         },
         fetchCountriesSuccess: (state, action: PayloadAction<ICountry[]>) => {
             state.isFetchingCountries = false;
-            console.log(action);
             state.countries = action.payload;
         },
         fetchCountriesFailure: (state) => {
