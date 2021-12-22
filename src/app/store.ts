@@ -16,6 +16,7 @@ export const store = configureStore({
         project: projectReducer,
         resource: resourceReducer,
     },
+    devTools: process.env.NODE_ENV !== 'production',
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ thunk: false }).concat(sageMiddleware),
 });

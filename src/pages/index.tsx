@@ -1547,10 +1547,14 @@ const Home: NextPage = () => {
                         }}
                         className='pb-12 mt-8'
                         autoplay={true}
-                        slidesPerView={2}
+                        slidesPerView={1}
                         spaceBetween={10}
                         loop={true}
                         breakpoints={{
+                            '640': {
+                                slidesPerView: 2,
+                                spaceBetween: 30,
+                            },
                             '768': {
                                 slidesPerView: 3,
                                 spaceBetween: 30,
@@ -1565,7 +1569,7 @@ const Home: NextPage = () => {
                             <Link href='#'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p1.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1580,7 +1584,7 @@ const Home: NextPage = () => {
                             <Link href='#'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p2.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1595,7 +1599,7 @@ const Home: NextPage = () => {
                             <Link href='#'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p4.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1610,7 +1614,7 @@ const Home: NextPage = () => {
                             <Link href='#'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p5.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1625,7 +1629,7 @@ const Home: NextPage = () => {
                             <Link href='#'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p6.png')`,
                                             backgroundRepeat: 'no-repeat',
