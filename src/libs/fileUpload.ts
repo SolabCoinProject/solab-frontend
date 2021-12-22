@@ -1,4 +1,5 @@
 import axiosClient from './axiosClient';
+import { getUnixTime } from 'date-fns';
 
 export const handleUserFileUpload = async (
     file: any,
@@ -20,7 +21,9 @@ export const handleUserFileUpload = async (
     try {
         const { securedUrl }: any = await axiosClient.get('/s3/secured-url', {
             params: {
-                name: `/${folder}/${fileName}`,
+                name: `${folder}/${walletAddress}-${getUnixTime(
+                    new Date()
+                ).toString()}-${fileName}`,
                 walletAddress: walletAddress,
             },
         });
