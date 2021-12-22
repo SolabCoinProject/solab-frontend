@@ -7,6 +7,8 @@ import tierReducer from '../features/tier/tierSlice';
 import projectReducer from '../features/project/projectSlice';
 import resourceReducer from '../features/resources/resourceSlice';
 
+console.log(process.env.NODE_ENV);
+
 const sageMiddleware = createSagaMiddleware();
 export const store = configureStore({
     reducer: {
@@ -16,7 +18,7 @@ export const store = configureStore({
         project: projectReducer,
         resource: resourceReducer,
     },
-    devTools: process.env.NODE_ENV !== 'production',
+    devTools: process.env.NODE_ENV === 'development' ? true : false,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ thunk: false }).concat(sageMiddleware),
 });
