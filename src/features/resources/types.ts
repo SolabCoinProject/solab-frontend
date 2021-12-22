@@ -1,3 +1,5 @@
+import { GroupBase } from 'react-select';
+
 export interface ICountry {
     name: {
         common: string;

@@ -1643,7 +1643,7 @@ const Home: NextPage = () => {
                 <div className='max-w-6xl mx-auto'>
                     <h1 className='text-center text-3xl font-bold'>Roadmap</h1>
                     <div className='mt-8'>
-                        <VerticalTimeline>
+                        <VerticalTimeline animate={false}>
                             <VerticalTimelineElement
                                 className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
                                 contentStyle={{

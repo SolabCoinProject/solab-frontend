@@ -1,4 +1,4 @@
-import { Listbox, Tab } from '@headlessui/react';
+import { Tab } from '@headlessui/react';
 import type { NextPage } from 'next';
 import { Fragment, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
@@ -16,10 +16,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { resourceActions } from '../features/resources/resourceSlice';
 import Select from 'react-select';
-import axiosClient from '../libs/axiosClient';
 import { handleUserFileUpload } from '../libs/fileUpload';
 import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
+import { userInfo } from 'os';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -383,6 +383,10 @@ const MyAccount: NextPage = () => {
                                                                     </label>
                                                                     <div className='lg:ml-2 text-left col-span-3'>
                                                                         <Select
+                                                                            value={{
+                                                                                label: values.nation,
+                                                                                value: values.nation,
+                                                                            }}
                                                                             options={countries.map(
                                                                                 (
                                                                                     country
