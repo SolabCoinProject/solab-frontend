@@ -6,6 +6,8 @@ import 'react-vertical-timeline-component/style.min.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/free-mode';
+import 'swiper/css/thumbs';
 
 import '../styles/globals.css';
 import('@solana/wallet-adapter-react-ui/styles.css' as any);

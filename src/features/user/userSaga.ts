@@ -29,7 +29,9 @@ function* staffLogin(action: IReduxAction<ILoginParams>) {
 
 function* getCurrentStaff() {
     try {
-        const staff: IStaff = yield call(userApi.admin.getCurrentStaff);
+        const staff: IResponseData<IStaff> = yield call(
+            userApi.admin.getCurrentStaff
+        );
         yield put(userActions.getCurrentStaffSuccess(staff));
     } catch (error: any) {
         const { status, data } = error.response;
@@ -39,7 +41,7 @@ function* getCurrentStaff() {
 
 function* getOrCreateUser(action: PayloadAction<IWalletConnectParams>) {
     try {
-        const user: IUser = yield call(
+        const user: IResponseData<IUser> = yield call(
             userApi.app.getOrCreateUser,
             action.payload
         );
@@ -57,7 +59,7 @@ function* updateUserInformation(
     }>
 ) {
     try {
-        const updatedUser: IUser = yield call(
+        const updatedUser: IResponseData<IUser> = yield call(
             userApi.app.updateUserData,
             action.payload.walletAddress,
             action.payload.data
@@ -78,7 +80,7 @@ function* updateKyc(
     }>
 ) {
     try {
-        const updatedUser: IUser = yield call(
+        const updatedUser: IResponseData<IUser> = yield call(
             userApi.app.updateKyc,
             action.payload.walletAddress,
             action.payload.data

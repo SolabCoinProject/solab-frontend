@@ -8,6 +8,7 @@ import {
 const initialState: LayoutState = {
     app: {
         activeHeaderItem: appHeaderOptions.home,
+        ref: '',
     },
     admin: {
         isSidebarOpen: false,

@@ -14,6 +14,7 @@ export enum adminSidebarItemOptions {
 export interface LayoutState {
     app: {
         activeHeaderItem: appHeaderOptions;
+        ref: string;
     };
     admin: {
         isSidebarOpen: boolean;

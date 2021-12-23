@@ -1,4 +1,4 @@
-import { IResponseFailure } from './../../common/types';
+import { IResponseData, IResponseFailure } from './../../common/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     IStaff,
@@ -85,10 +85,13 @@ export const userSlice = createSlice({
         getCurrentStaff: (state) => {
             state.admin.isFetchingStaff = true;
         },
-        getCurrentStaffSuccess: (state, action: PayloadAction<IStaff>) => {
+        getCurrentStaffSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IStaff>>
+        ) => {
             state.admin.isFetchingStaff = false;
             state.admin.authenticated = true;
-            state.admin.staff = action.payload;
+            state.admin.staff = action.payload.data;
         },
         getCurrentStaffFailure: (
             state,
@@ -114,9 +117,12 @@ export const userSlice = createSlice({
             state.app.isFetchingUser = true;
         },
 
-        getOrCreateUserSuccess: (state, action: PayloadAction<IUser>) => {
+        getOrCreateUserSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IUser>>
+        ) => {
             state.app.isFetchingUser = false;
-            state.app.user = action.payload;
+            state.app.user = action.payload.data;
         },
 
         getOrCreateUserFailure: (
@@ -139,9 +145,12 @@ export const userSlice = createSlice({
         ) => {
             state.app.isUpdatingInfo = true;
         },
-        updateUserInformationSuccess: (state, action: PayloadAction<IUser>) => {
+        updateUserInformationSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IUser>>
+        ) => {
             state.app.isUpdatingInfo = false;
-            state.app.user = action.payload;
+            state.app.user = action.payload.data;
             toast.success('Update successfully', toastConfigs.success);
         },
         updateUserInformationFailure: (
@@ -164,9 +173,12 @@ export const userSlice = createSlice({
         ) => {
             state.app.isUpdatingKyc = true;
         },
-        updateKycSuccess: (state, action: PayloadAction<IUser>) => {
+        updateKycSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IUser>>
+        ) => {
             state.app.isUpdatingKyc = false;
-            state.app.user = action.payload;
+            state.app.user = action.payload.data;
             toast.success('Update successfully', toastConfigs.success);
         },
         updateKycFailure: (state, action: PayloadAction<IResponseFailure>) => {

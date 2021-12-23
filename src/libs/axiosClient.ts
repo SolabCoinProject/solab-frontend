@@ -32,7 +32,7 @@ axiosClient.interceptors.response.use(
         if (newAccessToken) {
             localStorage.setItem('accessToken', newAccessToken);
         }
-        return response.data.data;
+        return response.data;
     },
     function (error) {
         return Promise.reject(error);
