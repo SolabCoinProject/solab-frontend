@@ -19,7 +19,6 @@ import Select from 'react-select';
 import { handleUserFileUpload } from '../libs/fileUpload';
 import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
-import { userInfo } from 'os';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();

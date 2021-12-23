@@ -12,6 +12,7 @@ export interface IStaff {
 }
 
 export interface IUser {
+    _id: string;
     walletAddress: string;
     email?: string;
     telegram?: {

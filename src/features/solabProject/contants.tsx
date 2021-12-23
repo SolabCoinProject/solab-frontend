@@ -7,6 +7,8 @@ import {
 } from 'react-icons/bs';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { SiDiscord, SiMedium } from 'react-icons/si';
+import { CgCommunity } from 'react-icons/cg';
+import { GoMegaphone } from 'react-icons/go';
 
 const taskTypeCommunity = 1;
 const taskTypeReferral = 2;
@@ -158,6 +160,17 @@ export const getSocialIcon = (socialType, className) => {
             return <SiDiscord className={className} />;
         case socialTypeMedium:
             return <SiMedium className={className} />;
+        default:
+            return null;
+    }
+};
+
+export const getTaskIcon = (taskType, className) => {
+    switch (taskType) {
+        case taskTypeCommunity:
+            return <CgCommunity className={className} />;
+        case taskTypeReferral:
+            return <GoMegaphone className={className} />;
         default:
             return null;
     }

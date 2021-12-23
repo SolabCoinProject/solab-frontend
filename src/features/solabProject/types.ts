@@ -36,8 +36,14 @@ export interface ISolabProject {
     }[];
     isClosed: boolean;
     media: { mediaType: number; link: string; thumbnail: string }[];
-    firstPayment: string;
-    lastPayment: string;
+    firstPayment: {
+        date: string;
+        amount: number;
+    };
+    lastPayment: {
+        date: string;
+        amount: number;
+    };
 }
 
 export interface ISolabProjectState {
