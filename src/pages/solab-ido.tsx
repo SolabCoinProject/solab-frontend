@@ -28,7 +28,6 @@ const SolabIDO: NextPage = () => {
         (state) => state.solabProject.app.solabProject
     );
     const user = useAppSelector((state) => state.user.app.user);
-    console.log(user);
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     useEffect(() => {
         dispatch(solabProjectActions.fetchSolabProject());
@@ -453,14 +452,45 @@ const SolabIDO: NextPage = () => {
                                                                               ) ? (
                                                                                   <AiOutlineCheck />
                                                                               ) : (
-                                                                                  <button className='py-2 px-3 border border-solabCyan-500 rounded-lg text-solabCyan-500 text-xs hover:bg-opacity-80 mb-4'>
-                                                                                      Collect
-                                                                                      Now
-                                                                                  </button>
+                                                                                  <Link
+                                                                                      href={
+                                                                                          t
+                                                                                              .settings
+                                                                                              .url ??
+                                                                                          '#'
+                                                                                      }
+                                                                                  >
+                                                                                      <a
+                                                                                          target='_blank'
+                                                                                          className='py-2 px-3 border border-solabCyan-500 rounded-lg text-solabCyan-500 text-xs hover:bg-opacity-80 mb-4'
+                                                                                          onClick={() => {
+                                                                                              dispatch(
+                                                                                                  solabProjectActions.doCommunityTask(
+                                                                                                      {
+                                                                                                          taskUuid:
+                                                                                                              t.uuid,
+                                                                                                          walletAddress:
+                                                                                                              user.walletAddress,
+                                                                                                      }
+                                                                                                  )
+                                                                                              );
+                                                                                          }}
+                                                                                      >
+                                                                                          Collect
+                                                                                          Now
+                                                                                      </a>
+                                                                                  </Link>
                                                                               )
                                                                           ) : t.taskType ===
                                                                             solabProjectConstants.taskTypeReferral ? (
-                                                                              <button className='py-2 px-3 border border-solabCyan-500 rounded-lg text-solabCyan-500 text-xs hover:bg-opacity-80 mb-4'>
+                                                                              <button
+                                                                                  className='py-2 px-3 border border-solabCyan-500 rounded-lg text-solabCyan-500 text-xs hover:bg-opacity-80 mb-4'
+                                                                                  onClick={() => {
+                                                                                      console.log(
+                                                                                          router
+                                                                                      );
+                                                                                  }}
+                                                                              >
                                                                                   Get
                                                                                   Referral
                                                                                   link
@@ -481,7 +511,20 @@ const SolabIDO: NextPage = () => {
                                             </div>
                                         </div>
                                     </Tab.Panel>
-                                    <Tab.Panel></Tab.Panel>
+                                    <Tab.Panel>
+                                        <Tab.Group vertical>
+                                            <Tab.List>
+                                                <Tab>Tab 1</Tab>
+                                                <Tab>Tab 2</Tab>
+                                                <Tab>Tab 3</Tab>
+                                            </Tab.List>
+                                            <Tab.Panels>
+                                                <Tab.Panel>Content 1</Tab.Panel>
+                                                <Tab.Panel>Content 2</Tab.Panel>
+                                                <Tab.Panel>Content 3</Tab.Panel>
+                                            </Tab.Panels>
+                                        </Tab.Group>
+                                    </Tab.Panel>
                                 </Tab.Panels>
                             </Tab.Group>
                         </div>

@@ -50,5 +50,11 @@ export interface ISolabProjectState {
     app: {
         solabProject: ISolabProject | null;
         isFetchingSolabProject: boolean;
+        isDoingTaskCommunity: boolean;
     };
+}
+
+export interface IDoTaskCommunityParams {
+    taskUuid: string;
+    walletAddress: string;
 }
