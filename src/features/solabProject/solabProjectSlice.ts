@@ -13,6 +13,7 @@ const initialState: ISolabProjectState = {
         solabProject: null,
         isFetchingSolabProject: false,
         isDoingTaskCommunity: false,
+        isPurchaseProcessing: false,
     },
 };
 
@@ -65,6 +66,9 @@ export const solabProjectSlice = createSlice({
             } else {
                 toast.error('Server Error', toastConfigs.error);
             }
+        },
+        processPurchase: (state) => {
+            state.app.isPurchaseProcessing = true;
         },
     },
 });

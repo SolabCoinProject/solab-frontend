@@ -42,7 +42,7 @@ const OurTeam: NextPage = () => {
                             <h3 className='text-xxl font-bold'>
                                 Daniel Mathew
                             </h3>
-                            <Link href='https://www.linkedin.com/in/daniel-mathew-5504b8228/'>
+                            <Link href='#'>
                                 <a target='_blank'>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
@@ -69,7 +69,7 @@ const OurTeam: NextPage = () => {
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Riki Price</h3>
-                            <Link href='https://www.linkedin.com/in/riki-price-320301228/'>
+                            <Link href='#'>
                                 <a target='_blank'>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
@@ -98,7 +98,7 @@ const OurTeam: NextPage = () => {
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Lucas Ridley</h3>
-                            <Link href='https://www.linkedin.com/in/lucas-ridley-32b762227/'>
+                            <Link href='#'>
                                 <a target='_blank'>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>

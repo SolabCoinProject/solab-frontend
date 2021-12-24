@@ -51,6 +51,7 @@ export interface ISolabProjectState {
         solabProject: ISolabProject | null;
         isFetchingSolabProject: boolean;
         isDoingTaskCommunity: boolean;
+        isPurchaseProcessing: boolean;
     };
 }
 
@@ -58,3 +59,4 @@ export interface IDoTaskCommunityParams {
     taskUuid: string;
     walletAddress: string;
 }
+

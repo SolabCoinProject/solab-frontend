@@ -68,7 +68,9 @@ module.exports = {
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            opacity: ['disabled'],
+        },
     },
     plugins: ['postcss-import', 'tailwindcss', 'autoprefixer'],
     important: true,
