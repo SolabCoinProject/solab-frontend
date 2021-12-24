@@ -12,7 +12,7 @@ import {
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
 import NumberFormat from 'react-number-format';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
 import { Fragment, useCallback, useEffect, useState } from 'react';
@@ -26,15 +26,33 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { Tab } from '@headlessui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
+import { tierActions } from '../features/tier/tierSlice';
 SwiperCore.use([Pagination, Autoplay]);
+
+import { ITier } from '../features/tier/types';
 
 const Home: NextPage = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.home));
     }, [dispatch]);
+    useEffect(() => {
+        dispatch(tierActions.fetchTiersApp());
+    }, []);
+
+    const tiers = useAppSelector((state) => state.tier.app.tiers);
+
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     const { connection } = useConnection();
+
+    const getTiersSlice = () => {
+        const chunkedTiers: ITier[][] = [];
+        const copyTier: ITier[] = [...tiers];
+        while (copyTier.length > 0) {
+            chunkedTiers.push(copyTier.splice(0, 3));
+        }
+        return chunkedTiers;
+    };
 
     // useEffect(() => {
     //     const testTrans = async (publicKey: web3.PublicKey | null) => {
@@ -204,7 +222,7 @@ const Home: NextPage = () => {
                     <div className='grid grid-cols-1 sm:grid-cols-3 auto-rows-fr gap-8'>
                         <div className='text-center border border-solabGray-50 py-4'>
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
-                                10
+                                TBA
                             </h1>
                             <p className='text-sm text-solabGray-100'>
                                 FUNDED PROJECTS
@@ -212,12 +230,13 @@ const Home: NextPage = () => {
                         </div>
                         <div className='text-center border border-solabGray-50 py-4'>
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
-                                <NumberFormat
+                                {/* <NumberFormat
                                     thousandsGroupStyle='thousand'
                                     value={10262938}
                                     displayType='text'
                                     thousandSeparator={true}
-                                />
+                                /> */}
+                                TBA
                             </h1>
                             <p className='text-sm text-solabGray-100'>
                                 FUNDS RAISES
@@ -225,7 +244,7 @@ const Home: NextPage = () => {
                         </div>
                         <div className='text-center border border-solabGray-50 py-4'>
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
-                                2
+                                TBA
                             </h1>
                             <p className='text-sm text-solabGray-100'>
                                 UPCOMING PROJECTS
@@ -290,7 +309,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-main-2.jpg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -302,7 +321,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-thumbnail-2.jpg')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -326,7 +345,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -334,7 +353,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -350,7 +370,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -358,7 +378,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -373,7 +394,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -385,23 +406,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Dragon Pets
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $DPET
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                The strength of the super
+                                                dragons will show the level of
+                                                the player. Build your own
+                                                dragon island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -409,7 +430,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -417,7 +438,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -433,7 +455,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -441,7 +463,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -456,7 +479,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -468,23 +491,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        The Destiny
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $DESTN
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                Look for everything useful on
+                                                the island to help you survive.
+                                                The strongest is the last one
+                                                standing.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -492,7 +515,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -500,7 +523,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -516,7 +540,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -524,7 +548,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -539,7 +564,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -551,23 +576,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Azura
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $AZR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                With a limited military force,
+                                                defend the base until
+                                                reinforcements arrive. The
+                                                country will honor you
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -575,7 +600,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -583,7 +608,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -599,7 +625,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -607,7 +633,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -622,7 +649,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -634,23 +661,22 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Pharawin
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $PHAR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                As loyal soldiers, protect the
+                                                peace of the earth against
+                                                hostile forces in space.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -658,7 +684,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -666,7 +692,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -682,7 +709,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -690,7 +717,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -705,7 +733,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -717,23 +745,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Taira
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $TAIR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                As a samurai warrior of the
+                                                Taira clan, fight against the
+                                                Fujiwara and Minamoto clans even
+                                                if it costs you death.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -741,7 +769,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -749,7 +777,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -765,7 +794,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -773,7 +802,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -792,7 +822,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-main-2.jpg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -804,7 +834,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-thumbnail-2.jpg')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -828,7 +858,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -836,7 +866,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -852,7 +883,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -860,7 +891,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -875,7 +907,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -887,23 +919,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Dragon Pets
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $DPET
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                The strength of the super
+                                                dragons will show the level of
+                                                the player. Build your own
+                                                dragon island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -911,7 +943,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -919,7 +951,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -935,7 +968,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -943,7 +976,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -958,7 +992,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -970,23 +1004,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        The Destiny
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $DESTN
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                Look for everything useful on
+                                                the island to help you survive.
+                                                The strongest is the last one
+                                                standing.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -994,7 +1028,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -1002,7 +1036,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1018,7 +1053,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -1026,7 +1061,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -1041,7 +1077,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1053,23 +1089,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Azura
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $AZR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                With a limited military force,
+                                                defend the base until
+                                                reinforcements arrive. The
+                                                country will honor you
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1077,7 +1113,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -1085,7 +1121,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1101,7 +1138,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -1109,7 +1146,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -1124,7 +1162,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1136,23 +1174,22 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Pharawin
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $PHAR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                As loyal soldiers, protect the
+                                                peace of the earth against
+                                                hostile forces in space.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1160,7 +1197,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -1168,7 +1205,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1184,7 +1222,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -1192,7 +1230,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -1207,7 +1246,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-project-thumbnail.png')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
                                             >
@@ -1219,23 +1258,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-thumbnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Taira
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $TAIR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                As a samurai warrior of the
+                                                Taira clan, fight against the
+                                                Fujiwara and Minamoto clans even
+                                                if it costs you death.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1243,7 +1282,7 @@ const Home: NextPage = () => {
                                                         Raise amount
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={500000}
                                                             displayType='text'
@@ -1251,7 +1290,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1267,7 +1307,7 @@ const Home: NextPage = () => {
                                                         Price per token
                                                     </span>
                                                     <span className='text-solabGray-100'>
-                                                        <NumberFormat
+                                                        {/* <NumberFormat
                                                             thousandsGroupStyle='thousand'
                                                             value={0.00012}
                                                             displayType='text'
@@ -1275,7 +1315,8 @@ const Home: NextPage = () => {
                                                                 true
                                                             }
                                                             prefix='$'
-                                                        />
+                                                        /> */}
+                                                        TBA
                                                     </span>
                                                 </div>
                                             </div>
@@ -1300,242 +1341,199 @@ const Home: NextPage = () => {
                         Tiered System
                     </h1>
                     <div className='mt-12'>
-                        <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                <p className='text-center font-bold mt-10 text-xxl'>
-                                    Tier 1
-                                </p>
-                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
-                                    <div
-                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
-                                        style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <h1 className='text-center font-bold text-2xl mt-11'>
-                                    <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={10000}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix=' LAB'
-                                    />
-                                </h1>
-                                <div className='mt-8 px-4'>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Lottery tickets
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            10
-                                        </span>
+                        {getTiersSlice().map((chunkTier) => {
+                            if (chunkTier.length === 3) {
+                                return (
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 auto-cols-max'>
+                                        {chunkTier.map((tier) => (
+                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                <p className='text-center font-bold mt-10 text-xxl'>
+                                                    {tier.name}
+                                                </p>
+                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                    <div
+                                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
+                                                        style={{
+                                                            backgroundImage: `url('${tier.thumbnail}')`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <h1 className='text-center font-bold text-2xl mt-11'>
+                                                    <NumberFormat
+                                                        thousandsGroupStyle='thousand'
+                                                        value={
+                                                            tier.requiredLabAmount
+                                                        }
+                                                        displayType='text'
+                                                        thousandSeparator={true}
+                                                        suffix=' LAB'
+                                                    />
+                                                </h1>
+                                                <div className='mt-8 px-4'>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Lottery tickets
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            {tier.hasGuaranteedAllocation
+                                                                ? 'Guaranteed Allocation'
+                                                                : tier.lotteryTickets}
+                                                        </span>
+                                                    </div>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Max Individual
+                                                            Allocation
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            <NumberFormat
+                                                                thousandsGroupStyle='thousand'
+                                                                value={
+                                                                    tier.usdcLimit
+                                                                }
+                                                                displayType='text'
+                                                                thousandSeparator={
+                                                                    true
+                                                                }
+                                                                suffix=' USDC'
+                                                            />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Max Individual Allocation
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            <NumberFormat
-                                                thousandsGroupStyle='thousand'
-                                                value={60}
-                                                displayType='text'
-                                                thousandSeparator={true}
-                                                suffix=' USDC'
-                                            />
-                                        </span>
+                                );
+                            } else if (chunkTier.length === 2) {
+                                return (
+                                    <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:mt-12 mt-8'>
+                                        <div className='hidden lg:col-span-2 lg:block'></div>
+                                        {chunkTier.map((tier) => (
+                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:col-span-4'>
+                                                <p className='text-center font-bold mt-10 text-xxl'>
+                                                    {tier.name}
+                                                </p>
+                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                    <div
+                                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
+                                                        style={{
+                                                            backgroundImage: `url('${tier.thumbnail}')`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <h1 className='text-center font-bold text-2xl mt-11'>
+                                                    <NumberFormat
+                                                        thousandsGroupStyle='thousand'
+                                                        value={
+                                                            tier.requiredLabAmount
+                                                        }
+                                                        displayType='text'
+                                                        thousandSeparator={true}
+                                                        suffix=' LAB'
+                                                    />
+                                                </h1>
+                                                <div className='mt-8 px-4'>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Lottery tickets
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            {tier.hasGuaranteedAllocation
+                                                                ? 'Guaranteed Allocation'
+                                                                : tier.lotteryTickets}
+                                                        </span>
+                                                    </div>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Max Individual
+                                                            Allocation
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            <NumberFormat
+                                                                thousandsGroupStyle='thousand'
+                                                                value={
+                                                                    tier.usdcLimit
+                                                                }
+                                                                displayType='text'
+                                                                thousandSeparator={
+                                                                    true
+                                                                }
+                                                                suffix=' USDC'
+                                                            />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div className='hidden lg:col-span-2 lg:block'></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                <p className='text-center font-bold mt-10 text-xxl'>
-                                    Tier 1
-                                </p>
-                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
-                                    <div
-                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
-                                        style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <h1 className='text-center font-bold text-2xl mt-11'>
-                                    <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={10000}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix=' LAB'
-                                    />
-                                </h1>
-                                <div className='mt-8 px-4'>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Lottery tickets
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            10
-                                        </span>
+                                );
+                            } else {
+                                return (
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:mt-12 mt-8'>
+                                        <div className='hidden  lg:block'></div>
+                                        {chunkTier.map((tier) => (
+                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                <p className='text-center font-bold mt-10 text-xxl'>
+                                                    {tier.name}
+                                                </p>
+                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                    <div
+                                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
+                                                        style={{
+                                                            backgroundImage: `url('${tier.thumbnail}')`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <h1 className='text-center font-bold text-2xl mt-11'>
+                                                    <NumberFormat
+                                                        thousandsGroupStyle='thousand'
+                                                        value={
+                                                            tier.requiredLabAmount
+                                                        }
+                                                        displayType='text'
+                                                        thousandSeparator={true}
+                                                        suffix=' LAB'
+                                                    />
+                                                </h1>
+                                                <div className='mt-8 px-4'>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Lottery tickets
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            {tier.hasGuaranteedAllocation
+                                                                ? 'Guaranteed Allocation'
+                                                                : tier.lotteryTickets}
+                                                        </span>
+                                                    </div>
+                                                    <div className='flex justify-between items-center'>
+                                                        <span className='font-bold'>
+                                                            Max Individual
+                                                            Allocation
+                                                        </span>
+                                                        <span className='text-solabGray-100'>
+                                                            <NumberFormat
+                                                                thousandsGroupStyle='thousand'
+                                                                value={
+                                                                    tier.usdcLimit
+                                                                }
+                                                                displayType='text'
+                                                                thousandSeparator={
+                                                                    true
+                                                                }
+                                                                suffix=' USDC'
+                                                            />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div className='hidden lg:block'></div>
                                     </div>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Max Individual Allocation
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            <NumberFormat
-                                                thousandsGroupStyle='thousand'
-                                                value={60}
-                                                displayType='text'
-                                                thousandSeparator={true}
-                                                suffix=' USDC'
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                <p className='text-center font-bold mt-10 text-xxl'>
-                                    Tier 1
-                                </p>
-                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
-                                    <div
-                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
-                                        style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <h1 className='text-center font-bold text-2xl mt-11'>
-                                    <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={10000}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix=' LAB'
-                                    />
-                                </h1>
-                                <div className='mt-8 px-4'>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Lottery tickets
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            10
-                                        </span>
-                                    </div>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Max Individual Allocation
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            <NumberFormat
-                                                thousandsGroupStyle='thousand'
-                                                value={60}
-                                                displayType='text'
-                                                thousandSeparator={true}
-                                                suffix=' USDC'
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:mt-12 mt-8'>
-                            <div className='hidden lg:col-span-2 lg:block'></div>
-                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:col-span-4'>
-                                <p className='text-center font-bold mt-10 text-xxl'>
-                                    Tier 1
-                                </p>
-                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
-                                    <div
-                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
-                                        style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <h1 className='text-center font-bold text-2xl mt-11'>
-                                    <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={10000}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix=' LAB'
-                                    />
-                                </h1>
-                                <div className='mt-8 px-4'>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Lottery tickets
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            10
-                                        </span>
-                                    </div>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Max Individual Allocation
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            <NumberFormat
-                                                thousandsGroupStyle='thousand'
-                                                value={60}
-                                                displayType='text'
-                                                thousandSeparator={true}
-                                                suffix=' USDC'
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:col-span-4'>
-                                <p className='text-center font-bold mt-10 text-xxl'>
-                                    Tier 1
-                                </p>
-                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
-                                    <div
-                                        className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
-                                        style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/tier-demo.png')`,
-                                        }}
-                                    ></div>
-                                </div>
-                                <h1 className='text-center font-bold text-2xl mt-11'>
-                                    <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={10000}
-                                        displayType='text'
-                                        thousandSeparator={true}
-                                        suffix=' LAB'
-                                    />
-                                </h1>
-                                <div className='mt-8 px-4'>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Lottery tickets
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            10
-                                        </span>
-                                    </div>
-                                    <div className='flex justify-between items-center'>
-                                        <span className='font-bold'>
-                                            Max Individual Allocation
-                                        </span>
-                                        <span className='text-solabGray-100'>
-                                            <NumberFormat
-                                                thousandsGroupStyle='thousand'
-                                                value={60}
-                                                displayType='text'
-                                                thousandSeparator={true}
-                                                suffix=' USDC'
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='hidden lg:col-span-2 lg:block'></div>
-                        </div>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
             </div>
@@ -1548,10 +1546,14 @@ const Home: NextPage = () => {
                         }}
                         className='pb-12 mt-8'
                         autoplay={true}
-                        slidesPerView={2}
+                        slidesPerView={1}
                         spaceBetween={10}
                         loop={true}
                         breakpoints={{
+                            '640': {
+                                slidesPerView: 2,
+                                spaceBetween: 30,
+                            },
                             '768': {
                                 slidesPerView: 3,
                                 spaceBetween: 30,
@@ -1563,10 +1565,10 @@ const Home: NextPage = () => {
                         }}
                     >
                         <SwiperSlide>
-                            <Link href='#'>
+                            <Link href='https://finance.yahoo.com/news/solab-finance-solab-2022-game-162100649.html'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p1.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1578,10 +1580,10 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='#'>
+                            <Link href='https://apnews.com/press-release/pr-newswire/5708439be8f1fbe6ce131a5af45dca0d'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p2.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1593,10 +1595,10 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='#'>
+                            <Link href='https://www.benzinga.com/pressreleases/21/12/n24758980/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p4.png')`,
                                             backgroundRepeat: 'no-repeat',
@@ -1608,12 +1610,12 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='#'>
+                            <Link href='https://www.morningstar.com/news/pr-newswire/20211223hk15705/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p5.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/morning-star-logo.svg')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1623,12 +1625,42 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='#'>
+                            <Link href='https://www.marketwatch.com/press-release/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-2021-12-23'>
                                 <a>
                                     <div
-                                        className='w-64 h-24 bg-solabWhite-700 rounded'
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
                                             backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/p6.png')`,
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: '80% auto',
+                                            backgroundPosition: 'center',
+                                        }}
+                                    ></div>
+                                </a>
+                            </Link>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <Link href='https://www.prnewswire.com/news-releases/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-301450469.html'>
+                                <a>
+                                    <div
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
+                                        style={{
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/pr-news.png')`,
+                                            backgroundRepeat: 'no-repeat',
+                                            backgroundSize: '80% auto',
+                                            backgroundPosition: 'center',
+                                        }}
+                                    ></div>
+                                </a>
+                            </Link>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <Link href='https://markets.businessinsider.com/news/stocks/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-1031064521'>
+                                <a>
+                                    <div
+                                        className='sm:w-64 h-24 bg-solabWhite-700 rounded'
+                                        style={{
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/markets-insider.svg')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
@@ -1644,7 +1676,7 @@ const Home: NextPage = () => {
                 <div className='max-w-6xl mx-auto'>
                     <h1 className='text-center text-3xl font-bold'>Roadmap</h1>
                     <div className='mt-8'>
-                        <VerticalTimeline>
+                        <VerticalTimeline animate={false}>
                             <VerticalTimelineElement
                                 className='vertical-timeline-element--work vertical-timeline.vertical-timeline-custom-line'
                                 contentStyle={{

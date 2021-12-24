@@ -25,6 +25,7 @@ export interface IResponseData<T> {
     data: T;
     newAccessToken: string | undefined;
     message: string;
+    constants?: any;
 }
 
 export interface IResponseFailure {

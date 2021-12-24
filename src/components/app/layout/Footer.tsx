@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                         </div>
                         <div className='w-full lg:w-96 mt-6 lg:mt-0'>
                             <form className='relative'>
-                                <input className='border border-solabGray-50 bg-solabGray-300 rounded py-5 w-full lg:w-96 focus:border-solabCyan-500 focus:ring-solabCyan-500 focus-visible:border-solabCyan-500 focus-visible:ring-solabCyan-500 focus:text-solabWhite-500 px-2' />
+                                <input className='border border-solabGray-50 bg-solabGray-300 rounded py-5 w-full lg:w-96 focus:border-solabCyan-500 focus:ring-solabCyan-500 focus:text-solabWhite-500 px-2 focus:outline-none' />
                                 <button
                                     className='py-3 px-4 bg-solabCyan-500 rounded-lg absolute right-2 top-1/2 text-solabBlack-500'
                                     style={{
@@ -152,13 +152,6 @@ const Footer: React.FC = () => {
                                     <Link href='#'>
                                         <a className='text-sm text-solabGray-100'>
                                             NFT Marketplace
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm text-solabGray-100'>
-                                            Contact us
                                         </a>
                                     </Link>
                                 </li>
