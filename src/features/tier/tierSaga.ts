@@ -47,8 +47,21 @@ function* updateTier(
     }
 }
 
+function* fetchTiersApp() {
+    try {
+        const response: IResponseData<ITier[]> = yield call(
+            tierApi.app.fetchTiers
+        );
+        yield put(tierActions.fetchTiersAppSuccess(response));
+    } catch (err: any) {
+        const { status, data } = err.response;
+        yield put(tierActions.fetchTierAppFailure({ status, data: data }));
+    }
+}
+
 export default function* tierSaga() {
     yield takeLatest(tierActions.createTier.type, createTier);
     yield takeLatest(tierActions.fetchTiers.type, fetchTiers);
     yield takeLatest(tierActions.updateTier.type, updateTier);
+    yield takeLatest(tierActions.fetchTiersApp.type, fetchTiersApp);
 }

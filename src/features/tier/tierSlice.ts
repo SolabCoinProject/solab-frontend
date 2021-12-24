@@ -28,18 +28,8 @@ const initialState: ITierState = {
         reload: false,
     },
     app: {
-        tiers: {
-            docs: [],
-            totalDocs: 0,
-            limit: 0,
-            totalPages: 0,
-            page: 0,
-            pagingCounter: 0,
-            hasPrevPage: false,
-            hasNextPage: false,
-            prevPage: null,
-            nextPage: null,
-        },
+        tiers: [],
+        isFetchingTier: false,
     },
 };
 
@@ -124,6 +114,32 @@ export const tierSlice = createSlice({
         },
         updateTierFailure: (state, action: PayloadAction<IResponseFailure>) => {
             state.admin.loading = false;
+            if (action.payload.status === 401) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Server Error');
+            }
+        },
+
+        //App
+        fetchTiersApp: (state) => {
+            state.app.isFetchingTier = true;
+        },
+        fetchTiersAppSuccess: (
+            state,
+            action: PayloadAction<IResponseData<ITier[]>>
+        ) => {
+            state.app.isFetchingTier = false;
+            state.app.tiers = action.payload.data;
+        },
+        fetchTierAppFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isFetchingTier = false;
             if (action.payload.status === 401) {
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');

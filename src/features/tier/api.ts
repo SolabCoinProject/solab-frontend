@@ -24,6 +24,12 @@ const tierApi = {
             return axiosClient.put(url, data);
         },
     },
+    app: {
+        fetchTiers: (): Promise<IResponseData<ITier[]>> => {
+            const url = 'app/tier';
+            return axiosClient.get(url);
+        },
+    },
 };
 
 export default tierApi;

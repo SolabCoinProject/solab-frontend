@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Container from '../components/app/layout/Container';
 import Image from 'next/image';
 import { FaLinkedinIn } from 'react-icons/fa';
+import Link from 'next/link';
 
 const OurTeam: NextPage = () => {
     return (
@@ -41,7 +42,11 @@ const OurTeam: NextPage = () => {
                             <h3 className='text-xxl font-bold'>
                                 Daniel Mathew
                             </h3>
-                            <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                            <Link href='https://www.linkedin.com/in/daniel-mathew-5504b8228/'>
+                                <a target='_blank'>
+                                    <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                                </a>
+                            </Link>
                         </div>
                         <p className='text-solabGray-100'>Founder & CEO</p>
                         <p className='text-solabGray-100'>
@@ -64,7 +69,11 @@ const OurTeam: NextPage = () => {
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Riki Price</h3>
-                            <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                            <Link href='https://www.linkedin.com/in/riki-price-320301228/'>
+                                <a target='_blank'>
+                                    <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                                </a>
+                            </Link>
                         </div>
                         <p className='text-solabGray-100'>Co-Founder & CTO</p>
                         <p className='text-solabGray-100'>
@@ -89,7 +98,11 @@ const OurTeam: NextPage = () => {
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Lucas Ridley</h3>
-                            <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                            <Link href='https://www.linkedin.com/in/lucas-ridley-32b762227/'>
+                                <a target='_blank'>
+                                    <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                                </a>
+                            </Link>
                         </div>
                         <p className='text-solabGray-100'>CMO</p>
                         <p className='text-solabGray-100'>
@@ -112,8 +125,12 @@ const OurTeam: NextPage = () => {
                     </div>
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
-                            <h3 className='text-xxl font-bold'>Lucas Ridley</h3>
-                            <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                            <h3 className='text-xxl font-bold'>Laurie Neil</h3>
+                            <Link href='https://www.linkedin.com/in/laurie-neil-6bb628222/'>
+                                <a target='_blank'>
+                                    <FaLinkedinIn className='text-solabBlue-500  ml-2' />
+                                </a>
+                            </Link>
                         </div>
                         <p className='text-solabGray-100'>COO</p>
                         <p className='text-solabGray-100'>

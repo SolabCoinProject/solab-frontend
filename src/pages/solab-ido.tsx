@@ -22,6 +22,11 @@ import { Tab } from '@headlessui/react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
+import { url } from '../config/app';
+import copy from 'copy-to-clipboard';
+import { toast } from 'react-toastify';
+import toastConfigs from '../config/toast';
+
 const SolabIDO: NextPage = () => {
     const dispatch = useAppDispatch();
     const solabProject = useAppSelector(
@@ -486,9 +491,22 @@ const SolabIDO: NextPage = () => {
                                                                               <button
                                                                                   className='py-2 px-3 border border-solabCyan-500 rounded-lg text-solabCyan-500 text-xs hover:bg-opacity-80 mb-4'
                                                                                   onClick={() => {
-                                                                                      console.log(
-                                                                                          router
+                                                                                      const refParams =
+                                                                                          JSON.stringify(
+                                                                                              {
+                                                                                                  p: 'solab-project',
+                                                                                                  u: user._id,
+                                                                                              }
+                                                                                          );
+                                                                                      const refLink = `${url}${router.pathname}?ref=${refParams}`;
+                                                                                      copy(
+                                                                                          refLink
                                                                                       );
+                                                                                      toast.success(
+                                                                                          'Ref Link copied to clipboard',
+                                                                                          toastConfigs.success
+                                                                                      );
+                                                                                      //   navigator.clipboard.writeText()
                                                                                   }}
                                                                               >
                                                                                   Get

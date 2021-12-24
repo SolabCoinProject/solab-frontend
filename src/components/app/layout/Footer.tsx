@@ -155,13 +155,6 @@ const Footer: React.FC = () => {
                                         </a>
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link href='#'>
-                                        <a className='text-sm text-solabGray-100'>
-                                            Contact us
-                                        </a>
-                                    </Link>
-                                </li>
                             </ul>
                         </div>
                         <div className='flex gap-4 justify-start lg:justify-center items-center mt-8 lg:mt-0'>

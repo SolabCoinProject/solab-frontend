@@ -20,6 +20,7 @@ export interface ITierState {
         reload: boolean;
     };
     app: {
-        tiers: IPaginationData<ITier[]>;
+        tiers: ITier[];
+        isFetchingTier: boolean;
     };
 }
