@@ -1,6 +1,7 @@
 import { IDoTaskCommunityParams, ISolabProject } from './types';
 import { IResponseData } from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
 const solabProjectApi = {
     app: {

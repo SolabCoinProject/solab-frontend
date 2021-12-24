@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import Container from '../components/app/layout/Container';
 import { solabProjectActions } from '../features/solabProject/solabProjectSlice';
@@ -22,10 +22,21 @@ import { Tab } from '@headlessui/react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
-import { url } from '../config/app';
+import { url, recaptchaSiteKey } from '../config/app';
+import { usdcPubKey } from '../config/token';
 import copy from 'copy-to-clipboard';
 import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { ErrorMessage, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import Select from 'react-select';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
+import { web3 } from '@project-serum/anchor';
+import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
+import { createTransferInstruction } from '../libs/createTransferInstructions';
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 const SolabIDO: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -33,7 +44,15 @@ const SolabIDO: NextPage = () => {
         (state) => state.solabProject.app.solabProject
     );
     const user = useAppSelector((state) => state.user.app.user);
+    const isPurchaseProcessing = useAppSelector(
+        (state) => state.solabProject.app.isPurchaseProcessing
+    );
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+    const [isCaptchaDone, setIsCaptchaDone] = useState<boolean>(false);
+
+    const { publicKey, sendTransaction, signTransaction } = useWallet();
+    const { connection } = useConnection();
+
     useEffect(() => {
         dispatch(solabProjectActions.fetchSolabProject());
     }, []);
@@ -51,7 +70,7 @@ const SolabIDO: NextPage = () => {
             return (
                 <button
                     type='button'
-                    className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
+                    className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 mx-auto'
                     onClick={() => {
                         router.reload();
                     }}
@@ -146,6 +165,63 @@ const SolabIDO: NextPage = () => {
         }
         return result;
     };
+
+    const purchaseSubmitted = useCallback(
+        async (usdcAmount: number) => {
+            try {
+                console.log(usdcPubKey);
+                if (!publicKey || !signTransaction)
+                    throw new WalletNotConnectedError();
+                if (!solabProject) {
+                    throw new Error('Project not found');
+                }
+                const toPub = new web3.PublicKey(solabProject?.pubKey);
+                const mint = new web3.PublicKey(usdcPubKey);
+                const fromTokenAccount =
+                    await getOrCreateAssociatedTokenAccount(
+                        connection,
+                        publicKey,
+                        mint,
+                        publicKey,
+                        signTransaction
+                    );
+                const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+                    connection,
+                    publicKey,
+                    mint,
+                    toPub,
+                    signTransaction
+                );
+                const transaction = new web3.Transaction().add(
+                    createTransferInstruction(
+                        fromTokenAccount.address,
+                        toTokenAccount.address,
+                        publicKey,
+                        usdcAmount * web3.LAMPORTS_PER_SOL,
+                        [],
+                        TOKEN_PROGRAM_ID
+                    )
+                );
+
+                const blockHash = await connection.getRecentBlockhash();
+                transaction.feePayer = await publicKey;
+                transaction.recentBlockhash = await blockHash.blockhash;
+                const signed = await signTransaction(transaction);
+                const signature = await connection.sendRawTransaction(
+                    signed.serialize()
+                );
+                await connection.confirmTransaction(signature, 'processed');
+            
+            } catch (err: any) {
+                toast.error(
+                    'Please check your wallet connection and USDC balance!',
+                    toastConfigs.error
+                );
+                return false;
+            }
+        },
+        [publicKey, sendTransaction, connection, signTransaction]
+    );
 
     return (
         <Container>
@@ -289,8 +365,147 @@ const SolabIDO: NextPage = () => {
                                         {getProjectPhraseAndCountDown().status}
                                     </span>
                                 </div>
-                                <div>
+                                <div className='w-full text-center mt-4'>
                                     {getProjectPhraseAndCountDown().countDown}
+
+                                    {user ? (
+                                        isAfter(
+                                            new Date(),
+                                            new Date(solabProject.idoStartDate)
+                                        ) &&
+                                        isBefore(
+                                            new Date(),
+                                            new Date(solabProject.idoEndDate)
+                                        ) ? (
+                                            !isCaptchaDone ? (
+                                                <ReCAPTCHA
+                                                    sitekey={recaptchaSiteKey}
+                                                    onChange={() => {
+                                                        setIsCaptchaDone(true);
+                                                    }}
+                                                />
+                                            ) : (
+                                                <Formik
+                                                    enableReinitialize
+                                                    initialValues={{
+                                                        usdcAmount: 100,
+                                                    }}
+                                                    onSubmit={async (
+                                                        values,
+                                                        { setSubmitting }
+                                                    ) => {
+                                                        dispatch(
+                                                            solabProjectActions.processPurchase()
+                                                        );
+                                                        await purchaseSubmitted(
+                                                            values.usdcAmount
+                                                        );
+                                                    }}
+                                                    validationSchema={Yup.object().shape(
+                                                        {
+                                                            usdcAmount:
+                                                                Yup.mixed().oneOf(
+                                                                    [
+                                                                        100,
+                                                                        200,
+                                                                        300,
+                                                                    ],
+                                                                    'Must be 100,200 or 300'
+                                                                ),
+                                                        }
+                                                    )}
+                                                >
+                                                    {({
+                                                        values,
+                                                        isSubmitting,
+                                                        errors,
+                                                        setFieldValue,
+                                                    }) => {
+                                                        return (
+                                                            <Form>
+                                                                <div className='lg:ml-2 text-left col-span-3'>
+                                                                    <Select
+                                                                        value={{
+                                                                            label: values.usdcAmount,
+                                                                            value: values.usdcAmount,
+                                                                        }}
+                                                                        options={[
+                                                                            {
+                                                                                label: 100,
+                                                                                value: 100,
+                                                                            },
+                                                                            {
+                                                                                label: 200,
+                                                                                value: 200,
+                                                                            },
+                                                                            {
+                                                                                label: 300,
+                                                                                value: 300,
+                                                                            },
+                                                                        ]}
+                                                                        theme={(
+                                                                            theme
+                                                                        ) => {
+                                                                            return {
+                                                                                ...theme,
+                                                                                colors: {
+                                                                                    ...theme.colors,
+                                                                                    neutral0:
+                                                                                        '#0F1217',
+                                                                                    neutral20:
+                                                                                        '#1F2733',
+                                                                                    neutral30:
+                                                                                        '#1F2733',
+                                                                                    primary:
+                                                                                        '#1EE8BB',
+                                                                                    primary50:
+                                                                                        '#1EE8BB',
+                                                                                    primary25:
+                                                                                        '#1EE8BB',
+                                                                                    neutral5:
+                                                                                        '#1EE8BB',
+                                                                                    neutral80:
+                                                                                        '#E2E4E9',
+                                                                                },
+                                                                            };
+                                                                        }}
+                                                                        onChange={(
+                                                                            selected
+                                                                        ) => {
+                                                                            setFieldValue(
+                                                                                'usdcAmount',
+                                                                                selected
+                                                                                    ? selected.value
+                                                                                    : 0
+                                                                            );
+                                                                        }}
+                                                                        className='w-full'
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name='usdcAmount'
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='text-xs text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <button type='submit'>
+                                                                    Submit
+                                                                </button>
+                                                            </Form>
+                                                        );
+                                                    }}
+                                                </Formik>
+                                            )
+                                        ) : null
+                                    ) : (
+                                        <WalletMultiButton className='mx-auto' />
+                                    )}
                                 </div>
                             </div>
                         </div>

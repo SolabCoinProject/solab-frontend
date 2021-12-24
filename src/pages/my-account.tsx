@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react';
 import type { NextPage } from 'next';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import Container from '../components/app/layout/Container';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
@@ -19,6 +19,8 @@ import Select from 'react-select';
 import { handleUserFileUpload } from '../libs/fileUpload';
 import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
+import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ImageUploading from 'react-images-uploading';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -31,6 +33,9 @@ const MyAccount: NextPage = () => {
     const isUpdatingKyc = useAppSelector(
         (state) => state.user.app.isUpdatingKyc
     );
+
+    const [personalInfoTabIndex, setPersonalInfoTabIndex] = useState<number>(0);
+
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.myAccount));
         dispatch(resourceActions.fetchCountries());
@@ -485,414 +490,554 @@ const MyAccount: NextPage = () => {
                                     </div>
                                 </Tab.Panel>
                                 <Tab.Panel>
-                                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-2 lg:px-5 w-full mx-auto'>
-                                            Manual
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-2 lg:px-5 w-full mx-auto'>
-                                            {user ? (
-                                                user.isKycVerified ===
-                                                userConstants.kycVerified ? (
-                                                    <p className='text-center font-light text-green-500'>
-                                                        Kyc verified
+                                    <>
+                                        {user ? (
+                                            user.isKycVerified ===
+                                            userConstants.kycVerified ? (
+                                                <p className='text-center font-light text-green-500'>
+                                                    Kyc verified
+                                                </p>
+                                            ) : user.isKycVerified ===
+                                              userConstants.kycVerifying ? (
+                                                <p className='text-center font-light text-yellow-500'>
+                                                    Kyc verifying
+                                                </p>
+                                            ) : user.isKycVerified ===
+                                              userConstants.kycDenied ? (
+                                                <>
+                                                    <p className='text-center font-light text-red-500'>
+                                                        Kyc denied
                                                     </p>
-                                                ) : user.isKycVerified ===
-                                                  userConstants.kycVerifying ? (
-                                                    <p className='text-center font-light text-yellow-500'>
-                                                        Kyc verifying
-                                                    </p>
-                                                ) : user.isKycVerified ===
-                                                  userConstants.kycDenied ? (
-                                                    <>
-                                                        <p className='text-center font-light text-red-500'>
-                                                            Kyc denied
-                                                        </p>
-                                                        <p className='text-center font-light text-solabGray-100'>
-                                                            {user.kycNote ?? ''}
-                                                        </p>
-                                                    </>
-                                                ) : (
                                                     <p className='text-center font-light text-solabGray-100'>
-                                                        You need kyc to continue
+                                                        {user.kycNote ?? ''}
                                                     </p>
-                                                )
-                                            ) : (
-                                                <WalletMultiButton className='mx-auto' />
-                                            )}
-                                            {user &&
-                                            (user.isKycVerified ===
-                                                userConstants.kycNeverSubmitted ||
-                                                user.isKycVerified ===
-                                                    userConstants.kycDenied) ? (
-                                                <Formik
-                                                    enableReinitialize
-                                                    initialValues={{
-                                                        personalId: '',
-                                                        docsExpiredDate:
-                                                            formatISO(
-                                                                new Date(),
-                                                                {
-                                                                    representation:
-                                                                        'date',
-                                                                }
-                                                            ),
-                                                        docsFront: '',
-                                                        docsBack: '',
-                                                        selfie: '',
-                                                    }}
-                                                    onSubmit={(
-                                                        values,
-                                                        { setSubmitting }
-                                                    ) => {
-                                                        dispatch(
-                                                            userActions.updateKyc(
-                                                                {
-                                                                    walletAddress:
-                                                                        user.walletAddress,
-                                                                    data: values,
-                                                                }
-                                                            )
-                                                        );
-                                                        setSubmitting(false);
-                                                    }}
-                                                    validationSchema={Yup.object().shape(
+                                                </>
+                                            ) : null
+                                        ) : (
+                                            <WalletMultiButton className='mx-auto' />
+                                        )}
+
+                                        {user &&
+                                        (user.isKycVerified ===
+                                            userConstants.kycNeverSubmitted ||
+                                            user.isKycVerified ===
+                                                userConstants.kycDenied) ? (
+                                            <Formik
+                                                validateOnMount={true}
+                                                enableReinitialize
+                                                initialValues={{
+                                                    personalId: '',
+                                                    docsExpiredDate: formatISO(
+                                                        new Date(),
                                                         {
-                                                            personalId:
-                                                                Yup.string()
-                                                                    .required(
-                                                                        'Personal ID is required!'
-                                                                    )
-                                                                    .min(1)
-                                                                    .max(20),
-                                                            docsExpiredDate:
-                                                                Yup.string().required(
-                                                                    'Docs expired date is required!'
-                                                                ),
-                                                            docsFront:
-                                                                Yup.string().required(
-                                                                    'Docs front is required!'
-                                                                ),
-                                                            docsBack:
-                                                                Yup.string().required(
-                                                                    'Docs back is required!'
-                                                                ),
-                                                            selfie: Yup.string().required(
-                                                                'Selfie is required!'
-                                                            ),
+                                                            representation:
+                                                                'date',
                                                         }
-                                                    )}
-                                                >
-                                                    {({
-                                                        values,
-                                                        errors,
-                                                        setFieldValue,
-                                                    }) => {
-                                                        return (
-                                                            <Form>
-                                                                <div className='mt-4'>
-                                                                    <label>
-                                                                        Personal
-                                                                        ID
-                                                                    </label>
-                                                                    <Field
-                                                                        name='personalId'
-                                                                        className='input input-cyan'
-                                                                        disabled={
-                                                                            isUpdatingKyc
-                                                                                ? true
-                                                                                : false
-                                                                        }
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name='personalId'
-                                                                        render={(
-                                                                            msg
-                                                                        ) => (
-                                                                            <span className='text-xs text-red-500'>
-                                                                                {
-                                                                                    msg
-                                                                                }
-                                                                            </span>
-                                                                        )}
-                                                                    />
-                                                                </div>
-                                                                <div className='mt-4'>
-                                                                    <label>
-                                                                        Docs
-                                                                        Expired
-                                                                        Date
-                                                                    </label>
-                                                                    <DatePicker
-                                                                        className='input input-cyan'
-                                                                        selected={
-                                                                            values.docsExpiredDate
-                                                                                ? parseISO(
-                                                                                      values.docsExpiredDate
-                                                                                  )
-                                                                                : new Date()
-                                                                        }
-                                                                        disabled={
-                                                                            isUpdatingKyc
-                                                                                ? true
-                                                                                : false
-                                                                        }
-                                                                        onChange={(
-                                                                            date
-                                                                        ) => {
-                                                                            setFieldValue(
-                                                                                'docsExpiredDate',
-                                                                                formatISO(
-                                                                                    date,
-                                                                                    {
-                                                                                        representation:
-                                                                                            'date',
-                                                                                    }
-                                                                                )
+                                                    ),
+                                                    docsFront: '',
+                                                    docsBack: '',
+                                                    selfie: '',
+                                                }}
+                                                onSubmit={(
+                                                    values,
+                                                    { setSubmitting }
+                                                ) => {
+                                                    dispatch(
+                                                        userActions.updateKyc({
+                                                            walletAddress:
+                                                                user.walletAddress,
+                                                            data: values,
+                                                        })
+                                                    );
+                                                    setSubmitting(false);
+                                                }}
+                                                validationSchema={Yup.object().shape(
+                                                    {
+                                                        personalId: Yup.string()
+                                                            .required(
+                                                                'Personal ID is required!'
+                                                            )
+                                                            .min(1)
+                                                            .max(20),
+                                                        docsExpiredDate:
+                                                            Yup.string().required(
+                                                                'Docs expired date is required!'
+                                                            ),
+                                                        docsFront:
+                                                            Yup.string().required(
+                                                                'Docs front is required!'
+                                                            ),
+                                                        docsBack:
+                                                            Yup.string().required(
+                                                                'Docs back is required!'
+                                                            ),
+                                                        selfie: Yup.string().required(
+                                                            'Selfie is required!'
+                                                        ),
+                                                    }
+                                                )}
+                                            >
+                                                {({
+                                                    values,
+                                                    errors,
+                                                    setFieldValue,
+                                                    validateForm,
+                                                    validateField,
+                                                }) => {
+                                                    console.log(errors);
+                                                    return (
+                                                        <Form>
+                                                            {/* 
+                                                            <div className='mt-4'>
+                                                                <label>
+                                                                    Docs front
+                                                                </label>
+                                                                <Field
+                                                                    name='docsFrontFile'
+                                                                    className='input input-cyan'
+                                                                    accept='image/*'
+                                                                    type='file'
+                                                                    disabled={
+                                                                        isUpdatingKyc
+                                                                            ? true
+                                                                            : false
+                                                                    }
+                                                                    onChange={async (
+                                                                        e
+                                                                    ) => {
+                                                                        const uploadedFile =
+                                                                            e
+                                                                                .target
+                                                                                .files[0];
+                                                                        const objUrl =
+                                                                            await handleUserFileUpload(
+                                                                                uploadedFile,
+                                                                                `docsFront-${uploadedFile.name}`,
+                                                                                'kyc',
+                                                                                user.walletAddress
                                                                             );
-                                                                        }}
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name='docsExpiredDate'
-                                                                        render={(
-                                                                            msg
-                                                                        ) => (
-                                                                            <span className='text-xs text-red-500'>
-                                                                                {
-                                                                                    msg
-                                                                                }
-                                                                            </span>
-                                                                        )}
-                                                                    />
-                                                                </div>
-                                                                <div className='mt-4'>
-                                                                    <label>
-                                                                        Docs
-                                                                        front
-                                                                    </label>
-                                                                    <Field
-                                                                        name='docsFrontFile'
-                                                                        className='input input-cyan'
-                                                                        accept='image/*'
-                                                                        type='file'
-                                                                        disabled={
-                                                                            isUpdatingKyc
-                                                                                ? true
-                                                                                : false
+                                                                        if (
+                                                                            !objUrl
+                                                                        ) {
+                                                                            toast.error(
+                                                                                'Cannot upload file, make sure your file is less than 5MB',
+                                                                                toastConfigs.error
+                                                                            );
+                                                                        } else {
+                                                                            setFieldValue(
+                                                                                'docsFront',
+                                                                                objUrl
+                                                                            );
                                                                         }
-                                                                        onChange={async (
-                                                                            e
-                                                                        ) => {
-                                                                            const uploadedFile =
-                                                                                e
-                                                                                    .target
-                                                                                    .files[0];
-                                                                            const objUrl =
-                                                                                await handleUserFileUpload(
-                                                                                    uploadedFile,
-                                                                                    `docsFront-${uploadedFile.name}`,
-                                                                                    'kyc',
-                                                                                    user.walletAddress
-                                                                                );
-                                                                            if (
-                                                                                !objUrl
-                                                                            ) {
-                                                                                toast.error(
-                                                                                    'Cannot upload file, make sure your file is less than 5MB',
-                                                                                    toastConfigs.error
-                                                                                );
-                                                                            } else {
-                                                                                setFieldValue(
-                                                                                    'docsFront',
-                                                                                    objUrl
-                                                                                );
+                                                                    }}
+                                                                />
+                                                                <ErrorMessage
+                                                                    name='docsFront'
+                                                                    render={(
+                                                                        msg
+                                                                    ) => (
+                                                                        <span className='text-xs text-red-500'>
+                                                                            {
+                                                                                msg
                                                                             }
-                                                                        }}
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name='docsFront'
-                                                                        render={(
-                                                                            msg
-                                                                        ) => (
-                                                                            <span className='text-xs text-red-500'>
-                                                                                {
-                                                                                    msg
-                                                                                }
-                                                                            </span>
-                                                                        )}
-                                                                    />
-                                                                    {values.docsFront ? (
-                                                                        <div className='mt-4 relative h-52 w-full'>
-                                                                            <Image
-                                                                                src={
-                                                                                    values.docsFront
-                                                                                }
-                                                                                layout='fill'
-                                                                            />
-                                                                        </div>
-                                                                    ) : null}
-                                                                </div>
-                                                                <div className='mt-4'>
-                                                                    <label>
-                                                                        Docs
-                                                                        back
-                                                                    </label>
-                                                                    <Field
-                                                                        name='docsBackFile'
-                                                                        className='input input-cyan'
-                                                                        type='file'
-                                                                        accept='image/*'
-                                                                        disabled={
-                                                                            isUpdatingKyc
-                                                                                ? true
-                                                                                : false
-                                                                        }
-                                                                        onChange={async (
-                                                                            e
-                                                                        ) => {
-                                                                            const uploadedFile =
-                                                                                e
-                                                                                    .target
-                                                                                    .files[0];
-                                                                            const objUrl =
-                                                                                await handleUserFileUpload(
-                                                                                    uploadedFile,
-                                                                                    `docsBack-${uploadedFile.name}`,
-                                                                                    'kyc',
-                                                                                    user.walletAddress
-                                                                                );
-                                                                            if (
-                                                                                !objUrl
-                                                                            ) {
-                                                                                toast.error(
-                                                                                    'Cannot upload file, make sure your file is less than 5MB',
-                                                                                    toastConfigs.error
-                                                                                );
-                                                                            } else {
-                                                                                setFieldValue(
-                                                                                    'docsBack',
-                                                                                    objUrl
-                                                                                );
-                                                                            }
-                                                                        }}
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name='docsBack'
-                                                                        render={(
-                                                                            msg
-                                                                        ) => (
-                                                                            <span className='text-xs text-red-500'>
-                                                                                {
-                                                                                    msg
-                                                                                }
-                                                                            </span>
-                                                                        )}
-                                                                    />
-                                                                    {values.docsBack ? (
-                                                                        <div className='mt-4 relative h-52 w-full'>
-                                                                            <Image
-                                                                                src={
-                                                                                    values.docsBack
-                                                                                }
-                                                                                layout='fill'
-                                                                            />
-                                                                        </div>
-                                                                    ) : null}
-                                                                </div>
-                                                                <div className='mt-4'>
-                                                                    <label>
-                                                                        Selfie
-                                                                    </label>
-                                                                    <Field
-                                                                        name='selfieFile'
-                                                                        className='input input-cyan'
-                                                                        type='file'
-                                                                        accept='image/*'
-                                                                        disabled={
-                                                                            isUpdatingKyc
-                                                                                ? true
-                                                                                : false
-                                                                        }
-                                                                        onChange={async (
-                                                                            e
-                                                                        ) => {
-                                                                            const uploadedFile =
-                                                                                e
-                                                                                    .target
-                                                                                    .files[0];
-                                                                            const objUrl =
-                                                                                await handleUserFileUpload(
-                                                                                    uploadedFile,
-                                                                                    `selfie-${uploadedFile.name}`,
-                                                                                    'kyc',
-                                                                                    user.walletAddress
-                                                                                );
-                                                                            if (
-                                                                                !objUrl
-                                                                            ) {
-                                                                                toast.error(
-                                                                                    'Cannot upload file, make sure your file is less than 5MB',
-                                                                                    toastConfigs.error
-                                                                                );
-                                                                            } else {
-                                                                                setFieldValue(
-                                                                                    'selfie',
-                                                                                    objUrl
-                                                                                );
-                                                                            }
-                                                                        }}
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name='selfie'
-                                                                        render={(
-                                                                            msg
-                                                                        ) => (
-                                                                            <span className='text-xs text-red-500'>
-                                                                                {
-                                                                                    msg
-                                                                                }
-                                                                            </span>
-                                                                        )}
-                                                                    />
-                                                                    {values.selfie ? (
-                                                                        <div className='mt-4 relative h-52 w-full'>
-                                                                            <Image
-                                                                                src={
-                                                                                    values.selfie
-                                                                                }
-                                                                                layout='fill'
-                                                                            />
-                                                                        </div>
-                                                                    ) : null}
-                                                                </div>
-                                                                <div className='mt-4'>
-                                                                    {isUpdatingKyc ? (
+                                                                        </span>
+                                                                    )}
+                                                                />
+                                                                {values.docsFront ? (
+                                                                    <div className='mt-4 relative h-52 w-full'>
                                                                         <Image
                                                                             src={
-                                                                                loaderCyan
+                                                                                values.docsFront
                                                                             }
-                                                                            height={
-                                                                                32
-                                                                            }
-                                                                            width={
-                                                                                32
-                                                                            }
+                                                                            layout='fill'
                                                                         />
-                                                                    ) : (
-                                                                        <button
-                                                                            type='submit'
-                                                                            className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
-                                                                        >
-                                                                            Update
-                                                                        </button>
+                                                                    </div>
+                                                                ) : null}
+                                                            </div>
+                                                            <div className='mt-4'>
+                                                                <label>
+                                                                    Docs back
+                                                                </label>
+                                                                <Field
+                                                                    name='docsBackFile'
+                                                                    className='input input-cyan'
+                                                                    type='file'
+                                                                    accept='image/*'
+                                                                    disabled={
+                                                                        isUpdatingKyc
+                                                                            ? true
+                                                                            : false
+                                                                    }
+                                                                    onChange={async (
+                                                                        e
+                                                                    ) => {
+                                                                        const uploadedFile =
+                                                                            e
+                                                                                .target
+                                                                                .files[0];
+                                                                        const objUrl =
+                                                                            await handleUserFileUpload(
+                                                                                uploadedFile,
+                                                                                `docsBack-${uploadedFile.name}`,
+                                                                                'kyc',
+                                                                                user.walletAddress
+                                                                            );
+                                                                        if (
+                                                                            !objUrl
+                                                                        ) {
+                                                                            toast.error(
+                                                                                'Cannot upload file, make sure your file is less than 5MB',
+                                                                                toastConfigs.error
+                                                                            );
+                                                                        } else {
+                                                                            setFieldValue(
+                                                                                'docsBack',
+                                                                                objUrl
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <ErrorMessage
+                                                                    name='docsBack'
+                                                                    render={(
+                                                                        msg
+                                                                    ) => (
+                                                                        <span className='text-xs text-red-500'>
+                                                                            {
+                                                                                msg
+                                                                            }
+                                                                        </span>
                                                                     )}
-                                                                </div>
-                                                            </Form>
-                                                        );
-                                                    }}
-                                                </Formik>
-                                            ) : null}
-                                        </div>
-                                    </div>
+                                                                />
+                                                                {values.docsBack ? (
+                                                                    <div className='mt-4 relative h-52 w-full'>
+                                                                        <Image
+                                                                            src={
+                                                                                values.docsBack
+                                                                            }
+                                                                            layout='fill'
+                                                                        />
+                                                                    </div>
+                                                                ) : null}
+                                                            </div>
+                                                            <div className='mt-4'>
+                                                                <label>
+                                                                    Selfie
+                                                                </label>
+                                                                <Field
+                                                                    name='selfieFile'
+                                                                    className='input input-cyan'
+                                                                    type='file'
+                                                                    accept='image/*'
+                                                                    disabled={
+                                                                        isUpdatingKyc
+                                                                            ? true
+                                                                            : false
+                                                                    }
+                                                                    onChange={async (
+                                                                        e
+                                                                    ) => {
+                                                                        const uploadedFile =
+                                                                            e
+                                                                                .target
+                                                                                .files[0];
+                                                                        const objUrl =
+                                                                            await handleUserFileUpload(
+                                                                                uploadedFile,
+                                                                                `selfie-${uploadedFile.name}`,
+                                                                                'kyc',
+                                                                                user.walletAddress
+                                                                            );
+                                                                        if (
+                                                                            !objUrl
+                                                                        ) {
+                                                                            toast.error(
+                                                                                'Cannot upload file, make sure your file is less than 5MB',
+                                                                                toastConfigs.error
+                                                                            );
+                                                                        } else {
+                                                                            setFieldValue(
+                                                                                'selfie',
+                                                                                objUrl
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                <ErrorMessage
+                                                                    name='selfie'
+                                                                    render={(
+                                                                        msg
+                                                                    ) => (
+                                                                        <span className='text-xs text-red-500'>
+                                                                            {
+                                                                                msg
+                                                                            }
+                                                                        </span>
+                                                                    )}
+                                                                />
+                                                                {values.selfie ? (
+                                                                    <div className='mt-4 relative h-52 w-full'>
+                                                                        <Image
+                                                                            src={
+                                                                                values.selfie
+                                                                            }
+                                                                            layout='fill'
+                                                                        />
+                                                                    </div>
+                                                                ) : null}
+                                                            </div>
+                                                            <div className='mt-4'>
+                                                                {isUpdatingKyc ? (
+                                                                    <Image
+                                                                        src={
+                                                                            loaderCyan
+                                                                        }
+                                                                        height={
+                                                                            32
+                                                                        }
+                                                                        width={
+                                                                            32
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    <button
+                                                                        type='submit'
+                                                                        className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
+                                                                    >
+                                                                        Update
+                                                                    </button>
+                                                                )}
+                                                            </div> */}
+                                                            <Tabs
+                                                                selectedIndex={
+                                                                    personalInfoTabIndex
+                                                                }
+                                                                onSelect={(
+                                                                    index
+                                                                ) =>
+                                                                    setPersonalInfoTabIndex(
+                                                                        index
+                                                                    )
+                                                                }
+                                                                className='text-solabGray-100'
+                                                                selectedTabClassName='font-bold text-solabWhite-500'
+                                                            >
+                                                                <TabList className='flex'>
+                                                                    <ReactTab
+                                                                        className={`w-min whitespace-nowrap cursor-pointer`}
+                                                                    >
+                                                                        <span>
+                                                                            <span>
+                                                                                1.
+                                                                                Personal
+                                                                                information
+                                                                            </span>
+                                                                            <span className='ml-2 mr-2'>
+                                                                                {
+                                                                                    '>'
+                                                                                }
+                                                                            </span>
+                                                                        </span>
+                                                                    </ReactTab>
+                                                                    <ReactTab
+                                                                        className={`w-min whitespace-nowrap cursor-pointer`}
+                                                                    >
+                                                                        <span>
+                                                                            <span>
+                                                                                2.
+                                                                                Identity
+                                                                                Verification
+                                                                            </span>
+                                                                            <span className='ml-2 mr-2'>
+                                                                                {
+                                                                                    '>'
+                                                                                }
+                                                                            </span>
+                                                                        </span>
+                                                                    </ReactTab>
+                                                                    <ReactTab
+                                                                        className={`w-min whitespace-nowrap cursor-pointer`}
+                                                                    >
+                                                                        <span>
+                                                                            3.
+                                                                            Selfie
+                                                                        </span>
+                                                                    </ReactTab>
+                                                                </TabList>
+                                                                <TabPanel>
+                                                                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-6 mt-8'>
+                                                                        <h2 className='text-2xl font-bold text-solabWhite-500'>
+                                                                            Personal
+                                                                            information
+                                                                        </h2>
+                                                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                                                                            <div className='mt-4'>
+                                                                                <label className='text-solabWhite-500'>
+                                                                                    Personal
+                                                                                    ID
+                                                                                </label>
+                                                                                <Field
+                                                                                    name='personalId'
+                                                                                    className='input input-cyan text-solabWhite-500'
+                                                                                    disabled={
+                                                                                        isUpdatingKyc
+                                                                                            ? true
+                                                                                            : false
+                                                                                    }
+                                                                                />
+                                                                                <ErrorMessage
+                                                                                    name='personalId'
+                                                                                    render={(
+                                                                                        msg
+                                                                                    ) => (
+                                                                                        <span className='text-xs text-red-500'>
+                                                                                            {
+                                                                                                msg
+                                                                                            }
+                                                                                        </span>
+                                                                                    )}
+                                                                                />
+                                                                            </div>
+                                                                            <div className='mt-4'>
+                                                                                <label className='text-solabWhite-500'>
+                                                                                    Docs
+                                                                                    Expired
+                                                                                    Date
+                                                                                </label>
+                                                                                <DatePicker
+                                                                                    className='input input-cyan text-solabWhite-500'
+                                                                                    selected={
+                                                                                        values.docsExpiredDate
+                                                                                            ? parseISO(
+                                                                                                  values.docsExpiredDate
+                                                                                              )
+                                                                                            : new Date()
+                                                                                    }
+                                                                                    disabled={
+                                                                                        isUpdatingKyc
+                                                                                            ? true
+                                                                                            : false
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        date
+                                                                                    ) => {
+                                                                                        setFieldValue(
+                                                                                            'docsExpiredDate',
+                                                                                            formatISO(
+                                                                                                date,
+                                                                                                {
+                                                                                                    representation:
+                                                                                                        'date',
+                                                                                                }
+                                                                                            )
+                                                                                        );
+                                                                                    }}
+                                                                                />
+                                                                                <ErrorMessage
+                                                                                    name='docsExpiredDate'
+                                                                                    render={(
+                                                                                        msg
+                                                                                    ) => (
+                                                                                        <span className='text-xs text-red-500'>
+                                                                                            {
+                                                                                                msg
+                                                                                            }
+                                                                                        </span>
+                                                                                    )}
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className='flex justify-end'>
+                                                                            <button
+                                                                                type='button'
+                                                                                className='py-3 px-40 bg-solabCyan-500 rounded text-solabBlack-500 mt-3 text-right ml-auto mr-0 disabled:opacity-50'
+                                                                                onClick={() => {
+                                                                                    validateForm().then(
+                                                                                        () => {
+                                                                                            setPersonalInfoTabIndex(
+                                                                                                1
+                                                                                            );
+                                                                                        }
+                                                                                    );
+                                                                                }}
+                                                                                disabled={
+                                                                                    errors.personalId ||
+                                                                                    errors.docsExpiredDate
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                            >
+                                                                                Continue
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </TabPanel>
+                                                                <TabPanel>
+                                                                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-6 mt-8'>
+                                                                        <h2 className='text-2xl font-bold text-solabWhite-500'>
+                                                                            Identity
+                                                                            Verification
+                                                                        </h2>
+                                                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                                                                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                                                                <ImageUploading
+                                                                                    value={[]}
+                                                                                    onChange={() => {
+                                                                                        console.log(
+                                                                                            'abc'
+                                                                                        );
+                                                                                    }}
+                                                                                    maxNumber={
+                                                                                        1
+                                                                                    }
+                                                                                    dataURLKey='data_url'
+                                                                                >
+                                                                                    {({
+                                                                                        imageList,
+                                                                                        onImageUpload,
+                                                                                        onImageRemoveAll,
+                                                                                        onImageUpdate,
+                                                                                        onImageRemove,
+                                                                                        isDragging,
+                                                                                        dragProps,
+                                                                                    }) => (
+                                                                                        // write your building UI
+                                                                                        <button
+                                                                                            style={
+                                                                                                isDragging
+                                                                                                    ? {
+                                                                                                          color: 'red',
+                                                                                                      }
+                                                                                                    : undefined
+                                                                                            }
+                                                                                            onClick={
+                                                                                                onImageUpload
+                                                                                            }
+                                                                                            {...dragProps}
+                                                                                        >
+                                                                                            Click
+                                                                                            or
+                                                                                            Drop
+                                                                                            here
+                                                                                        </button>
+                                                                                    )}
+                                                                                </ImageUploading>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </TabPanel>
+                                                                <TabPanel>
+                                                                    <h1>
+                                                                        asdasdsad
+                                                                    </h1>
+                                                                </TabPanel>
+                                                            </Tabs>
+                                                        </Form>
+                                                    );
+                                                }}
+                                            </Formik>
+                                        ) : null}
+                                    </>
                                 </Tab.Panel>
                             </Tab.Panels>
                         </Tab.Group>
