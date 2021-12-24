@@ -21,6 +21,8 @@ import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
 import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ImageUploading from 'react-images-uploading';
+import { FaPlus } from 'react-icons/fa';
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -537,6 +539,7 @@ const MyAccount: NextPage = () => {
                                                     docsFront: '',
                                                     docsBack: '',
                                                     selfie: '',
+                                                    confirmPolicy: false,
                                                 }}
                                                 onSubmit={(
                                                     values,
@@ -574,6 +577,8 @@ const MyAccount: NextPage = () => {
                                                         selfie: Yup.string().required(
                                                             'Selfie is required!'
                                                         ),
+                                                        confirmPolicy:
+                                                            Yup.bool(),
                                                     }
                                                 )}
                                             >
@@ -587,227 +592,6 @@ const MyAccount: NextPage = () => {
                                                     console.log(errors);
                                                     return (
                                                         <Form>
-                                                            {/* 
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Docs front
-                                                                </label>
-                                                                <Field
-                                                                    name='docsFrontFile'
-                                                                    className='input input-cyan'
-                                                                    accept='image/*'
-                                                                    type='file'
-                                                                    disabled={
-                                                                        isUpdatingKyc
-                                                                            ? true
-                                                                            : false
-                                                                    }
-                                                                    onChange={async (
-                                                                        e
-                                                                    ) => {
-                                                                        const uploadedFile =
-                                                                            e
-                                                                                .target
-                                                                                .files[0];
-                                                                        const objUrl =
-                                                                            await handleUserFileUpload(
-                                                                                uploadedFile,
-                                                                                `docsFront-${uploadedFile.name}`,
-                                                                                'kyc',
-                                                                                user.walletAddress
-                                                                            );
-                                                                        if (
-                                                                            !objUrl
-                                                                        ) {
-                                                                            toast.error(
-                                                                                'Cannot upload file, make sure your file is less than 5MB',
-                                                                                toastConfigs.error
-                                                                            );
-                                                                        } else {
-                                                                            setFieldValue(
-                                                                                'docsFront',
-                                                                                objUrl
-                                                                            );
-                                                                        }
-                                                                    }}
-                                                                />
-                                                                <ErrorMessage
-                                                                    name='docsFront'
-                                                                    render={(
-                                                                        msg
-                                                                    ) => (
-                                                                        <span className='text-xs text-red-500'>
-                                                                            {
-                                                                                msg
-                                                                            }
-                                                                        </span>
-                                                                    )}
-                                                                />
-                                                                {values.docsFront ? (
-                                                                    <div className='mt-4 relative h-52 w-full'>
-                                                                        <Image
-                                                                            src={
-                                                                                values.docsFront
-                                                                            }
-                                                                            layout='fill'
-                                                                        />
-                                                                    </div>
-                                                                ) : null}
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Docs back
-                                                                </label>
-                                                                <Field
-                                                                    name='docsBackFile'
-                                                                    className='input input-cyan'
-                                                                    type='file'
-                                                                    accept='image/*'
-                                                                    disabled={
-                                                                        isUpdatingKyc
-                                                                            ? true
-                                                                            : false
-                                                                    }
-                                                                    onChange={async (
-                                                                        e
-                                                                    ) => {
-                                                                        const uploadedFile =
-                                                                            e
-                                                                                .target
-                                                                                .files[0];
-                                                                        const objUrl =
-                                                                            await handleUserFileUpload(
-                                                                                uploadedFile,
-                                                                                `docsBack-${uploadedFile.name}`,
-                                                                                'kyc',
-                                                                                user.walletAddress
-                                                                            );
-                                                                        if (
-                                                                            !objUrl
-                                                                        ) {
-                                                                            toast.error(
-                                                                                'Cannot upload file, make sure your file is less than 5MB',
-                                                                                toastConfigs.error
-                                                                            );
-                                                                        } else {
-                                                                            setFieldValue(
-                                                                                'docsBack',
-                                                                                objUrl
-                                                                            );
-                                                                        }
-                                                                    }}
-                                                                />
-                                                                <ErrorMessage
-                                                                    name='docsBack'
-                                                                    render={(
-                                                                        msg
-                                                                    ) => (
-                                                                        <span className='text-xs text-red-500'>
-                                                                            {
-                                                                                msg
-                                                                            }
-                                                                        </span>
-                                                                    )}
-                                                                />
-                                                                {values.docsBack ? (
-                                                                    <div className='mt-4 relative h-52 w-full'>
-                                                                        <Image
-                                                                            src={
-                                                                                values.docsBack
-                                                                            }
-                                                                            layout='fill'
-                                                                        />
-                                                                    </div>
-                                                                ) : null}
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                <label>
-                                                                    Selfie
-                                                                </label>
-                                                                <Field
-                                                                    name='selfieFile'
-                                                                    className='input input-cyan'
-                                                                    type='file'
-                                                                    accept='image/*'
-                                                                    disabled={
-                                                                        isUpdatingKyc
-                                                                            ? true
-                                                                            : false
-                                                                    }
-                                                                    onChange={async (
-                                                                        e
-                                                                    ) => {
-                                                                        const uploadedFile =
-                                                                            e
-                                                                                .target
-                                                                                .files[0];
-                                                                        const objUrl =
-                                                                            await handleUserFileUpload(
-                                                                                uploadedFile,
-                                                                                `selfie-${uploadedFile.name}`,
-                                                                                'kyc',
-                                                                                user.walletAddress
-                                                                            );
-                                                                        if (
-                                                                            !objUrl
-                                                                        ) {
-                                                                            toast.error(
-                                                                                'Cannot upload file, make sure your file is less than 5MB',
-                                                                                toastConfigs.error
-                                                                            );
-                                                                        } else {
-                                                                            setFieldValue(
-                                                                                'selfie',
-                                                                                objUrl
-                                                                            );
-                                                                        }
-                                                                    }}
-                                                                />
-                                                                <ErrorMessage
-                                                                    name='selfie'
-                                                                    render={(
-                                                                        msg
-                                                                    ) => (
-                                                                        <span className='text-xs text-red-500'>
-                                                                            {
-                                                                                msg
-                                                                            }
-                                                                        </span>
-                                                                    )}
-                                                                />
-                                                                {values.selfie ? (
-                                                                    <div className='mt-4 relative h-52 w-full'>
-                                                                        <Image
-                                                                            src={
-                                                                                values.selfie
-                                                                            }
-                                                                            layout='fill'
-                                                                        />
-                                                                    </div>
-                                                                ) : null}
-                                                            </div>
-                                                            <div className='mt-4'>
-                                                                {isUpdatingKyc ? (
-                                                                    <Image
-                                                                        src={
-                                                                            loaderCyan
-                                                                        }
-                                                                        height={
-                                                                            32
-                                                                        }
-                                                                        width={
-                                                                            32
-                                                                        }
-                                                                    />
-                                                                ) : (
-                                                                    <button
-                                                                        type='submit'
-                                                                        className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500'
-                                                                    >
-                                                                        Update
-                                                                    </button>
-                                                                )}
-                                                            </div> */}
                                                             <Tabs
                                                                 selectedIndex={
                                                                     personalInfoTabIndex
@@ -822,7 +606,7 @@ const MyAccount: NextPage = () => {
                                                                 className='text-solabGray-100'
                                                                 selectedTabClassName='font-bold text-solabWhite-500'
                                                             >
-                                                                <TabList className='flex'>
+                                                                <TabList className='flex flex-col md:flex-row'>
                                                                     <ReactTab
                                                                         className={`w-min whitespace-nowrap cursor-pointer`}
                                                                     >
@@ -950,7 +734,7 @@ const MyAccount: NextPage = () => {
                                                                         <div className='flex justify-end'>
                                                                             <button
                                                                                 type='button'
-                                                                                className='py-3 px-40 bg-solabCyan-500 rounded text-solabBlack-500 mt-3 text-right ml-auto mr-0 disabled:opacity-50'
+                                                                                className='py-3 px-6 bg-solabCyan-500 rounded text-solabBlack-500 mt-3 text-right ml-auto mr-0 disabled:opacity-50'
                                                                                 onClick={() => {
                                                                                     validateForm().then(
                                                                                         () => {
@@ -974,18 +758,427 @@ const MyAccount: NextPage = () => {
                                                                 </TabPanel>
                                                                 <TabPanel>
                                                                     <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-6 mt-8'>
-                                                                        <h2 className='text-2xl font-bold text-solabWhite-500'>
+                                                                        <h2 className='text-xl lg:text-2xl font-bold text-solabWhite-500'>
                                                                             Identity
                                                                             Verification
                                                                         </h2>
                                                                         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                                                                            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                                                            <div>
+                                                                                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-6'>
+                                                                                    <ImageUploading
+                                                                                        value={[]}
+                                                                                        onChange={async (
+                                                                                            imageList,
+                                                                                            addUpdateIndex
+                                                                                        ) => {
+                                                                                            const uploadedFile =
+                                                                                                imageList[0]
+                                                                                                    .file;
+                                                                                            const supportedFormat =
+                                                                                                [
+                                                                                                    'image/jpeg',
+                                                                                                    'image/png',
+                                                                                                ];
+                                                                                            if (
+                                                                                                !supportedFormat.includes(
+                                                                                                    uploadedFile?.type as string
+                                                                                                )
+                                                                                            ) {
+                                                                                                toast.error(
+                                                                                                    'Only support png and jpeg format',
+                                                                                                    toastConfigs.error
+                                                                                                );
+                                                                                                return false;
+                                                                                            }
+                                                                                            const objUrl =
+                                                                                                await handleUserFileUpload(
+                                                                                                    uploadedFile,
+                                                                                                    `docsFront-${uploadedFile?.name}`,
+                                                                                                    'kyc',
+                                                                                                    user.walletAddress
+                                                                                                );
+                                                                                            if (
+                                                                                                !objUrl
+                                                                                            ) {
+                                                                                                toast.error(
+                                                                                                    'Cannot upload file, make sure your file is less than 5MB',
+                                                                                                    toastConfigs.error
+                                                                                                );
+                                                                                            } else {
+                                                                                                setFieldValue(
+                                                                                                    'docsFront',
+                                                                                                    objUrl
+                                                                                                );
+                                                                                            }
+                                                                                        }}
+                                                                                        maxNumber={
+                                                                                            1
+                                                                                        }
+                                                                                        dataURLKey='data_url'
+                                                                                    >
+                                                                                        {({
+                                                                                            imageList,
+                                                                                            onImageUpload,
+                                                                                            onImageRemoveAll,
+                                                                                            onImageUpdate,
+                                                                                            onImageRemove,
+                                                                                            isDragging,
+                                                                                            dragProps,
+                                                                                        }) => (
+                                                                                            // write your building UI
+                                                                                            <div>
+                                                                                                <p className='text-solabWhite-500'>
+                                                                                                    Front
+                                                                                                </p>
+                                                                                                <div
+                                                                                                    style={
+                                                                                                        values.docsFront
+                                                                                                            ? {
+                                                                                                                  backgroundImage: `url(${values.docsFront})`,
+                                                                                                              }
+                                                                                                            : undefined
+                                                                                                    }
+                                                                                                    onClick={
+                                                                                                        onImageUpload
+                                                                                                    }
+                                                                                                    {...dragProps}
+                                                                                                    className='p-20 border-2 rounded-lg border-dashed border-solabGray-50 text-center flex items-center justify-center cursor-pointer bg-center bg-cover bg-no-repeat'
+                                                                                                >
+                                                                                                    <FaPlus className='w-6 h-6 text-solabGray-50' />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </ImageUploading>
+                                                                                    <ImageUploading
+                                                                                        value={[]}
+                                                                                        onChange={async (
+                                                                                            imageList,
+                                                                                            addUpdateIndex
+                                                                                        ) => {
+                                                                                            const uploadedFile =
+                                                                                                imageList[0]
+                                                                                                    .file;
+                                                                                            const objUrl =
+                                                                                                await handleUserFileUpload(
+                                                                                                    uploadedFile,
+                                                                                                    `docsBack-${uploadedFile?.name}`,
+                                                                                                    'kyc',
+                                                                                                    user.walletAddress
+                                                                                                );
+                                                                                            if (
+                                                                                                !objUrl
+                                                                                            ) {
+                                                                                                toast.error(
+                                                                                                    'Cannot upload file, make sure your file is less than 5MB',
+                                                                                                    toastConfigs.error
+                                                                                                );
+                                                                                            } else {
+                                                                                                setFieldValue(
+                                                                                                    'docsBack',
+                                                                                                    objUrl
+                                                                                                );
+                                                                                            }
+                                                                                        }}
+                                                                                        maxNumber={
+                                                                                            1
+                                                                                        }
+                                                                                        dataURLKey='data_url'
+                                                                                    >
+                                                                                        {({
+                                                                                            imageList,
+                                                                                            onImageUpload,
+                                                                                            onImageRemoveAll,
+                                                                                            onImageUpdate,
+                                                                                            onImageRemove,
+                                                                                            isDragging,
+                                                                                            dragProps,
+                                                                                        }) => (
+                                                                                            // write your building UI
+                                                                                            <div>
+                                                                                                <p className='text-solabWhite-500'>
+                                                                                                    Back
+                                                                                                </p>
+                                                                                                <div
+                                                                                                    style={
+                                                                                                        values.docsBack
+                                                                                                            ? {
+                                                                                                                  backgroundImage: `url(${values.docsBack})`,
+                                                                                                              }
+                                                                                                            : undefined
+                                                                                                    }
+                                                                                                    onClick={
+                                                                                                        onImageUpload
+                                                                                                    }
+                                                                                                    {...dragProps}
+                                                                                                    className='p-20 border-2 rounded-lg border-dashed border-solabGray-50 text-center flex items-center justify-center cursor-pointer bg-center bg-cover bg-no-repeat'
+                                                                                                >
+                                                                                                    <FaPlus className='w-6 h-6 text-solabGray-50' />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </ImageUploading>
+                                                                                </div>
+                                                                                <div className='mt-10 flex items-center justify-center gap-4 flex-wrap'>
+                                                                                    <div className='flex flex-col items-center justify-center'>
+                                                                                        <div className='w-24 relative h-16'>
+                                                                                            <Image
+                                                                                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/doc-1.svg'
+                                                                                                layout='fill'
+                                                                                            />
+                                                                                        </div>
+                                                                                        <AiOutlineCheckCircle className='w-3.5 h-3.5 text-solabCyan-500 mt-4' />
+                                                                                        <span className='text-solabWhite-500'>
+                                                                                            Good
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div className='flex flex-col items-center justify-center'>
+                                                                                        <div className='w-24 relative h-16'>
+                                                                                            <Image
+                                                                                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/id2-01+(2).svg'
+                                                                                                layout='fill'
+                                                                                            />
+                                                                                        </div>
+                                                                                        <AiOutlineCloseCircle className='w-3.5 h-3.5 text-red-500 mt-4' />
+                                                                                        <span className='text-solabWhite-500'>
+                                                                                            Not
+                                                                                            cropped
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div className='flex flex-col items-center justify-center'>
+                                                                                        <div className='w-24 relative h-16'>
+                                                                                            <Image
+                                                                                                src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/doc-3.svg'
+                                                                                                layout='fill'
+                                                                                            />
+                                                                                        </div>
+                                                                                        <AiOutlineCheckCircle className='w-3.5 h-3.5 text-solabCyan-500 mt-4' />
+                                                                                        <span className='text-solabWhite-500'>
+                                                                                            Not
+                                                                                            blur
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className='flex flex-col items-center lg:items-start justify-center lg:pl-28 gap-4'>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCheckCircle className='text-solabCyan-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        Government-issued
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCheckCircle className='text-solabCyan-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        Original
+                                                                                        full-size,
+                                                                                        unedited
+                                                                                        documents
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCheckCircle className='text-solabCyan-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        Place
+                                                                                        documents
+                                                                                        againts
+                                                                                        a
+                                                                                        single-coloured
+                                                                                        background
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCheckCircle className='text-solabCyan-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        Readable,
+                                                                                        well-lit,
+                                                                                        coloured
+                                                                                        images
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCloseCircle className='text-red-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        No
+                                                                                        black
+                                                                                        and
+                                                                                        white
+                                                                                        images
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCloseCircle className='text-red-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
+                                                                                        No
+                                                                                        edited
+                                                                                        or
+                                                                                        expired
+                                                                                        documents
+                                                                                    </span>
+                                                                                </div>
+                                                                                <p>
+                                                                                    Supported
+                                                                                    formats:
+                                                                                    JPG,
+                                                                                    JPEG
+                                                                                    and
+                                                                                    PNG
+                                                                                    File
+                                                                                    size
+                                                                                    must
+                                                                                    be
+                                                                                    between
+                                                                                    10KB
+                                                                                    and
+                                                                                    5120KB
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className='flex justify-end'>
+                                                                            <button
+                                                                                type='button'
+                                                                                className='py-3 px-6 bg-solabCyan-500 rounded text-solabBlack-500 mt-3 text-right ml-auto mr-0 disabled:opacity-50'
+                                                                                onClick={() => {
+                                                                                    validateForm().then(
+                                                                                        () => {
+                                                                                            setPersonalInfoTabIndex(
+                                                                                                2
+                                                                                            );
+                                                                                        }
+                                                                                    );
+                                                                                }}
+                                                                                disabled={
+                                                                                    errors.docsFront ||
+                                                                                    errors.docsBack
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                            >
+                                                                                Continue
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </TabPanel>
+                                                                <TabPanel>
+                                                                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 py-5 px-6 mt-8'>
+                                                                        <h2 className='text-xl lg:text-2xl font-bold text-solabWhite-500'>
+                                                                            Identity
+                                                                            Verification
+                                                                        </h2>
+                                                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6'>
+                                                                            <div>
+                                                                                <p className='text-solabWhite-500 leading-6'>
+                                                                                    Take
+                                                                                    a
+                                                                                    selfie
+                                                                                    photo
+                                                                                    with
+                                                                                    your
+                                                                                    ID
+                                                                                    card
+                                                                                </p>
+                                                                                <p className='leading-6 mt-2'>
+                                                                                    Please
+                                                                                    provide
+                                                                                    a
+                                                                                    photo
+                                                                                    with
+                                                                                    your
+                                                                                    identity
+                                                                                    document
+                                                                                    (including
+                                                                                    portrait
+                                                                                    photo).
+                                                                                </p>
+                                                                                <p className='leading-6 mt-6'>
+                                                                                    Ensure
+                                                                                    the
+                                                                                    characters
+                                                                                    on
+                                                                                    the
+                                                                                    photograph
+                                                                                    are
+                                                                                    clear
+                                                                                    and
+                                                                                    recognizable.
+                                                                                    Supported
+                                                                                    formats:
+                                                                                    JPG,
+                                                                                    JPEG
+                                                                                    and
+                                                                                    PNG.
+                                                                                    File
+                                                                                    size
+                                                                                    must
+                                                                                    be
+                                                                                    between
+                                                                                    10KB
+                                                                                    and
+                                                                                    5120KB.
+                                                                                </p>
+                                                                                <p className='leading-6 mt-6'>
+                                                                                    This
+                                                                                    information
+                                                                                    is
+                                                                                    used
+                                                                                    for
+                                                                                    verification
+                                                                                    only,
+                                                                                    and
+                                                                                    is
+                                                                                    kept
+                                                                                    private
+                                                                                    and
+                                                                                    confidential
+                                                                                    by
+                                                                                    Solab.
+                                                                                </p>
+                                                                            </div>
+                                                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                                                                                 <ImageUploading
                                                                                     value={[]}
-                                                                                    onChange={() => {
-                                                                                        console.log(
-                                                                                            'abc'
-                                                                                        );
+                                                                                    onChange={async (
+                                                                                        imageList,
+                                                                                        addUpdateIndex
+                                                                                    ) => {
+                                                                                        const uploadedFile =
+                                                                                            imageList[0]
+                                                                                                .file;
+                                                                                        const supportedFormat =
+                                                                                            [
+                                                                                                'image/jpeg',
+                                                                                                'image/png',
+                                                                                            ];
+                                                                                        if (
+                                                                                            !supportedFormat.includes(
+                                                                                                uploadedFile?.type as string
+                                                                                            )
+                                                                                        ) {
+                                                                                            toast.error(
+                                                                                                'Only support png and jpeg format',
+                                                                                                toastConfigs.error
+                                                                                            );
+                                                                                            return false;
+                                                                                        }
+                                                                                        const objUrl =
+                                                                                            await handleUserFileUpload(
+                                                                                                uploadedFile,
+                                                                                                `selfie-${uploadedFile?.name}`,
+                                                                                                'kyc',
+                                                                                                user.walletAddress
+                                                                                            );
+                                                                                        if (
+                                                                                            !objUrl
+                                                                                        ) {
+                                                                                            toast.error(
+                                                                                                'Cannot upload file, make sure your file is less than 5MB',
+                                                                                                toastConfigs.error
+                                                                                            );
+                                                                                        } else {
+                                                                                            setFieldValue(
+                                                                                                'selfie',
+                                                                                                objUrl
+                                                                                            );
+                                                                                        }
                                                                                     }}
                                                                                     maxNumber={
                                                                                         1
@@ -1002,34 +1195,84 @@ const MyAccount: NextPage = () => {
                                                                                         dragProps,
                                                                                     }) => (
                                                                                         // write your building UI
-                                                                                        <button
-                                                                                            style={
-                                                                                                isDragging
-                                                                                                    ? {
-                                                                                                          color: 'red',
-                                                                                                      }
-                                                                                                    : undefined
-                                                                                            }
-                                                                                            onClick={
-                                                                                                onImageUpload
-                                                                                            }
-                                                                                            {...dragProps}
-                                                                                        >
-                                                                                            Click
-                                                                                            or
-                                                                                            Drop
-                                                                                            here
-                                                                                        </button>
+                                                                                        <div>
+                                                                                            <p className='text-solabWhite-500'>
+                                                                                                Selfie
+                                                                                            </p>
+                                                                                            <div
+                                                                                                style={
+                                                                                                    values.selfie
+                                                                                                        ? {
+                                                                                                              backgroundImage: `url(${values.selfie})`,
+                                                                                                          }
+                                                                                                        : undefined
+                                                                                                }
+                                                                                                onClick={
+                                                                                                    onImageUpload
+                                                                                                }
+                                                                                                {...dragProps}
+                                                                                                className='p-20 border-2 rounded-lg border-dashed border-solabGray-50 text-center flex items-center justify-center cursor-pointer bg-center bg-cover bg-no-repeat'
+                                                                                            >
+                                                                                                <FaPlus className='w-6 h-6 text-solabGray-50' />
+                                                                                            </div>
+                                                                                        </div>
                                                                                     )}
                                                                                 </ImageUploading>
+                                                                                <div className='flex items-center justify-center flex-col'>
+                                                                                    <p className='text-solabWhite-500'>
+                                                                                        Sample
+                                                                                    </p>
+                                                                                    <div className='relative w-28 h-28'>
+                                                                                        <Image
+                                                                                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-selfie.png'
+                                                                                            layout='fill'
+                                                                                        />
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div className='flex justify-end items-end'>
+                                                                            <div className='mr-2 flex items-center'>
+                                                                                <input
+                                                                                    type='checkbox'
+                                                                                    className='mr-2 w-6 h-6 text-xs checked:bg-solabCyan-500'
+                                                                                    onChange={() => {
+                                                                                        setFieldValue(
+                                                                                            'confirmPolicy',
+                                                                                            !values.confirmPolicy
+                                                                                        );
+                                                                                    }}
+                                                                                />
+
+                                                                                <p>
+                                                                                    I
+                                                                                    have
+                                                                                    read
+                                                                                    and
+                                                                                    agree{' '}
+                                                                                    <a
+                                                                                        href='https://docs.solab.finance/privacy-policy'
+                                                                                        className='underline'
+                                                                                    >
+                                                                                        Privacy
+                                                                                        Policy
+                                                                                    </a>
+                                                                                </p>
+                                                                            </div>
+                                                                            <button
+                                                                                type='submit'
+                                                                                className='py-3 px-6 bg-solabCyan-500 rounded text-solabBlack-500 mt-3 text-right mr-0 disabled:opacity-50'
+                                                                                disabled={
+                                                                                    errors.selfie ||
+                                                                                    !values.confirmPolicy
+                                                                                        ? true
+                                                                                        : false
+                                                                                }
+                                                                            >
+                                                                                Submit
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
-                                                                </TabPanel>
-                                                                <TabPanel>
-                                                                    <h1>
-                                                                        asdasdsad
-                                                                    </h1>
                                                                 </TabPanel>
                                                             </Tabs>
                                                         </Form>

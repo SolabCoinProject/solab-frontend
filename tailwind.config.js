@@ -28,6 +28,9 @@ module.exports = {
                 yellow: {
                     500: '#F8CB67',
                 },
+                red: {
+                    500: '#FF5661',
+                },
                 orange: colors.orange,
                 blueGray: colors.blueGray,
                 solabGray: {
@@ -70,6 +73,7 @@ module.exports = {
     variants: {
         extend: {
             opacity: ['disabled'],
+            backgroundColor: ['checked'],
         },
     },
     plugins: ['postcss-import', 'tailwindcss', 'autoprefixer'],
