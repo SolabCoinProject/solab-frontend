@@ -309,9 +309,9 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-main-2.jpg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -321,23 +321,21 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-thumbnail-2.jpg')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-thumnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Syzygy
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $SYZG
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                Build a new planet. Let's fight
+                                                all the space monsters.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -394,9 +392,9 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/savolmain-3.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -406,23 +404,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/salvor-thumbnail-3.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Dragon Pets
+                                                        Salvor
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $DPET
+                                                        $SALVR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
                                                 The strength of the super
-                                                dragons will show the level of
+                                                monsters will show the level of
                                                 the player. Build your own
-                                                dragon island.
+                                                monster island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -481,7 +479,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -566,7 +564,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -651,7 +649,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -735,7 +733,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -822,9 +820,9 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-main-2.jpg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -834,23 +832,21 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/retro-thumbnail-2.jpg')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-thumnail.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Retro
+                                                        Syzygy
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $Retro
+                                                        $SYZG
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                Nitro League is a unique,
-                                                mobile-first, play-to-earn
-                                                racing game with cutting-edge
-                                                gameplay mechanics and graphics.
+                                                Build a new planet. Let's fight
+                                                all the space monsters.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -907,9 +903,9 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/savolmain-3.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -919,23 +915,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/wodden-main-2.jpg')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/salvor-thumbnail-3.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Dragon Pets
+                                                        Salvor
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $DPET
+                                                        $SALVR
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
                                                 The strength of the super
-                                                dragons will show the level of
+                                                monsters will show the level of
                                                 the player. Build your own
-                                                dragon island.
+                                                monster island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -994,7 +990,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -1079,7 +1075,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -1164,7 +1160,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
@@ -1248,7 +1244,7 @@ const Home: NextPage = () => {
                                                 style={{
                                                     backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
                                                 }}
-                                                className='bg-no-repeat bg-center bg-cover h-48 rounded-t-lg relative'
+                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
                                                 <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                                     Upcoming
