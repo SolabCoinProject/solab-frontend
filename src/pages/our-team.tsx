@@ -126,7 +126,7 @@ const OurTeam: NextPage = () => {
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Laurie Neil</h3>
-                            <Link href='https://www.linkedin.com/in/laurie-neil-6bb628222/'>
+                            <Link href='#'>
                                 <a target='_blank'>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
