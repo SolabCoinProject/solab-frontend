@@ -185,11 +185,11 @@ const Home: NextPage = () => {
                                 </span>
                             </h1>
                             <p className='text-base w-4/5 text-solabGray-100'>
-                                Solab is the go-to platform for the Solana
-                                blockchain. Invest in the hottest Solana
-                                projects, stake your tokens, trade on our DEX,
-                                manage your Solana wallet and participate in our
-                                (future) governance.
+                                The Solab platform is a decentralized platform
+                                on the Solana blockchain. Featuring an
+                                industry-leading launchpad with guaranteed
+                                allocations, token vesting, token generator, an
+                                NFT marketplace, and more.
                             </p>
                             <button className='bg-solabCyan-500 text-solabBlack-500 py-4 px-16 rounded mt-10 hover:opacity-80'>
                                 Buy Solab
