@@ -169,12 +169,12 @@ const SolabIDO: NextPage = () => {
     const purchaseSubmitted = useCallback(
         async (usdcAmount: number) => {
             try {
+                console.log(usdcAmount);
                 if (!publicKey || !signTransaction || !user)
                     throw new WalletNotConnectedError();
                 if (!solabProject) {
                     throw new Error('Project not found');
                 }
-                console.log(usdcPubKey);
                 const toPub = new web3.PublicKey(solabProject.pubKey);
                 const mint = new web3.PublicKey(usdcPubKey);
                 const fromTokenAccount =
