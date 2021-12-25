@@ -411,7 +411,7 @@ const SolabIDO: NextPage = () => {
                                                     <Formik
                                                         enableReinitialize
                                                         initialValues={{
-                                                            usdcAmount: 100,
+                                                            usdcAmount: 1,
                                                         }}
                                                         onSubmit={async (
                                                             values,
@@ -429,9 +429,9 @@ const SolabIDO: NextPage = () => {
                                                                 usdcAmount:
                                                                     Yup.mixed().oneOf(
                                                                         [
-                                                                            100,
-                                                                            200,
-                                                                            300,
+                                                                            1,
+                                                                            2,
+                                                                            3,
                                                                         ],
                                                                         'Must be 100,200 or 300'
                                                                     ),
@@ -454,16 +454,16 @@ const SolabIDO: NextPage = () => {
                                                                             }}
                                                                             options={[
                                                                                 {
-                                                                                    label: 100,
-                                                                                    value: 100,
+                                                                                    label: 1,
+                                                                                    value: 1,
                                                                                 },
                                                                                 {
-                                                                                    label: 200,
-                                                                                    value: 200,
+                                                                                    label: 2,
+                                                                                    value: 2,
                                                                                 },
                                                                                 {
-                                                                                    label: 300,
-                                                                                    value: 300,
+                                                                                    label: 3,
+                                                                                    value: 3,
                                                                                 },
                                                                             ]}
                                                                             theme={(
