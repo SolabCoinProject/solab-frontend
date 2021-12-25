@@ -174,6 +174,7 @@ const SolabIDO: NextPage = () => {
                 if (!solabProject) {
                     throw new Error('Project not found');
                 }
+                console.log(usdcPubKey);
                 const toPub = new web3.PublicKey(solabProject.pubKey);
                 const mint = new web3.PublicKey(usdcPubKey);
                 const fromTokenAccount =
