@@ -174,7 +174,7 @@ const SolabIDO: NextPage = () => {
                 if (!solabProject) {
                     throw new Error('Project not found');
                 }
-                const toPub = new web3.PublicKey(solabProject?.pubKey);
+                const toPub = new web3.PublicKey(solabProject.pubKey);
                 const mint = new web3.PublicKey(usdcPubKey);
                 const fromTokenAccount =
                     await getOrCreateAssociatedTokenAccount(
@@ -225,7 +225,14 @@ const SolabIDO: NextPage = () => {
                 return false;
             }
         },
-        [publicKey, sendTransaction, connection, signTransaction, user]
+        [
+            publicKey,
+            sendTransaction,
+            connection,
+            signTransaction,
+            user,
+            solabProject,
+        ]
     );
 
     return (
@@ -588,7 +595,7 @@ const SolabIDO: NextPage = () => {
                                                             new Date(
                                                                 solabProject.idoStartDate
                                                             ),
-                                                            'MMMM do yyyy, hh a OOOO'
+                                                            'MMMM do yyyy, hh:mm a OOOO'
                                                         )}
                                                     </span>
                                                 </div>
@@ -601,7 +608,7 @@ const SolabIDO: NextPage = () => {
                                                             new Date(
                                                                 solabProject.idoEndDate
                                                             ),
-                                                            'MMMM do yyyy, hh a OOOO'
+                                                            'MMMM do yyyy, hh:mm a OOOO'
                                                         )}
                                                     </span>
                                                 </div>
@@ -616,7 +623,7 @@ const SolabIDO: NextPage = () => {
                                                             new Date(
                                                                 solabProject.firstPayment.date
                                                             ),
-                                                            'MMMM do yyyy, hh a OOOO'
+                                                            'MMMM do yyyy, hh:mm a OOOO'
                                                         )}
                                                     </span>
                                                 </div>
@@ -631,7 +638,7 @@ const SolabIDO: NextPage = () => {
                                                             new Date(
                                                                 solabProject.lastPayment.date
                                                             ),
-                                                            'MMMM do yyyy, hh a OOOO'
+                                                            'MMMM do yyyy, hh:mm a OOOO'
                                                         )}
                                                     </span>
                                                 </div>
