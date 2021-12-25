@@ -412,7 +412,7 @@ const SolabIDO: NextPage = () => {
                                                     <Formik
                                                         enableReinitialize
                                                         initialValues={{
-                                                            usdcAmount: 1,
+                                                            usdcAmount: 0.0001,
                                                         }}
                                                         onSubmit={async (
                                                             values,
@@ -430,9 +430,9 @@ const SolabIDO: NextPage = () => {
                                                                 usdcAmount:
                                                                     Yup.mixed().oneOf(
                                                                         [
-                                                                            1,
-                                                                            2,
-                                                                            3,
+                                                                            0.0001,
+                                                                            0.0002,
+                                                                            0.0003,
                                                                         ],
                                                                         'Must be 100,200 or 300'
                                                                     ),
@@ -455,16 +455,16 @@ const SolabIDO: NextPage = () => {
                                                                             }}
                                                                             options={[
                                                                                 {
-                                                                                    label: 1,
-                                                                                    value: 1,
+                                                                                    label: 0.0001,
+                                                                                    value: 0.0001,
                                                                                 },
                                                                                 {
-                                                                                    label: 2,
-                                                                                    value: 2,
+                                                                                    label: 0.0002,
+                                                                                    value: 0.0002,
                                                                                 },
                                                                                 {
-                                                                                    label: 3,
-                                                                                    value: 3,
+                                                                                    label: 0.0003,
+                                                                                    value: 0.0003,
                                                                                 },
                                                                             ]}
                                                                             theme={(
