@@ -169,49 +169,52 @@ const SolabIDO: NextPage = () => {
     const purchaseSubmitted = useCallback(
         async (usdcAmount: number) => {
             try {
-                console.log(usdcPubKey);
-                if (!publicKey || !signTransaction)
-                    throw new WalletNotConnectedError();
-                if (!solabProject) {
-                    throw new Error('Project not found');
-                }
-                const toPub = new web3.PublicKey(solabProject?.pubKey);
-                const mint = new web3.PublicKey(usdcPubKey);
-                const fromTokenAccount =
-                    await getOrCreateAssociatedTokenAccount(
-                        connection,
-                        publicKey,
-                        mint,
-                        publicKey,
-                        signTransaction
-                    );
-                const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-                    connection,
-                    publicKey,
-                    mint,
-                    toPub,
-                    signTransaction
+                const detail = await connection.getTransaction(
+                    '4Wkvwekb1ByDGNXh5frisCk9Lpcjqfb1SEga8ZeJFfTLrkFSdxYoGfT6VGVRnKujYLr2BAitTCGM8RWuJN381Upe'
                 );
-                const transaction = new web3.Transaction().add(
-                    createTransferInstruction(
-                        fromTokenAccount.address,
-                        toTokenAccount.address,
-                        publicKey,
-                        usdcAmount * web3.LAMPORTS_PER_SOL,
-                        [],
-                        TOKEN_PROGRAM_ID
-                    )
-                );
+                console.log(detail);
+                // console.log(usdcPubKey);
+                // if (!publicKey || !signTransaction)
+                //     throw new WalletNotConnectedError();
+                // if (!solabProject) {
+                //     throw new Error('Project not found');
+                // }
+                // const toPub = new web3.PublicKey(solabProject?.pubKey);
+                // const mint = new web3.PublicKey(usdcPubKey);
+                // const fromTokenAccount =
+                //     await getOrCreateAssociatedTokenAccount(
+                //         connection,
+                //         publicKey,
+                //         mint,
+                //         publicKey,
+                //         signTransaction
+                //     );
+                // const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+                //     connection,
+                //     publicKey,
+                //     mint,
+                //     toPub,
+                //     signTransaction
+                // );
+                // const transaction = new web3.Transaction().add(
+                //     createTransferInstruction(
+                //         fromTokenAccount.address,
+                //         toTokenAccount.address,
+                //         publicKey,
+                //         usdcAmount * web3.LAMPORTS_PER_SOL,
+                //         [],
+                //         TOKEN_PROGRAM_ID
+                //     )
+                // );
 
-                const blockHash = await connection.getRecentBlockhash();
-                transaction.feePayer = await publicKey;
-                transaction.recentBlockhash = await blockHash.blockhash;
-                const signed = await signTransaction(transaction);
-                const signature = await connection.sendRawTransaction(
-                    signed.serialize()
-                );
-                await connection.confirmTransaction(signature, 'processed');
-            
+                // const blockHash = await connection.getRecentBlockhash();
+                // transaction.feePayer = await publicKey;
+                // transaction.recentBlockhash = await blockHash.blockhash;
+                // const signed = await signTransaction(transaction);
+                // const signature = await connection.sendRawTransaction(
+                //     signed.serialize()
+                // );
+                // await connection.confirmTransaction(signature, 'processed');
             } catch (err: any) {
                 toast.error(
                     'Please check your wallet connection and USDC balance!',
