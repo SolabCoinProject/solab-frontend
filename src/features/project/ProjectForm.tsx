@@ -1304,9 +1304,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                     className='btn btn-pink'
                                                     type='button'
                                                     onClick={() => {
-                                                        console.log(
-                                                            arrayHelpers
-                                                        );
+                                                     
                                                         arrayHelpers.push({
                                                             socialType:
                                                                 fieldOptions

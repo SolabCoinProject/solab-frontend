@@ -44,6 +44,7 @@ export interface ISolabProject {
         date: string;
         amount: number;
     };
+    registeredUsers: string[];
 }
 
 export interface ISolabProjectState {
@@ -60,3 +61,8 @@ export interface IDoTaskCommunityParams {
     walletAddress: string;
 }
 
+export interface IProcessPurchaseParams {
+    walletAddress: string;
+    signature: string;
+    amount: number;
+}

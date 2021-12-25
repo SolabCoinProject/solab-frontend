@@ -589,7 +589,6 @@ const MyAccount: NextPage = () => {
                                                     validateForm,
                                                     validateField,
                                                 }) => {
-                                                    console.log(errors);
                                                     return (
                                                         <Form>
                                                             <Tabs

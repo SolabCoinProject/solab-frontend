@@ -4,6 +4,7 @@ import { IResponseData, IResponseFailure } from '../../common/types';
 import toastConfigs from '../../config/toast';
 import {
     IDoTaskCommunityParams,
+    IProcessPurchaseParams,
     ISolabProject,
     ISolabProjectState,
 } from './types';
@@ -69,6 +70,30 @@ export const solabProjectSlice = createSlice({
         },
         processPurchase: (state) => {
             state.app.isPurchaseProcessing = true;
+        },
+        processPurchaseInfo: (
+            state,
+            action: PayloadAction<IProcessPurchaseParams>
+        ) => {
+            state.app.isPurchaseProcessing = true;
+        },
+        processPurchaseInfoSuccess: (
+            state,
+            action: PayloadAction<IResponseData<ISolabProject>>
+        ) => {
+            state.app.isPurchaseProcessing = false;
+            state.app.solabProject = action.payload.data;
+        },
+        processPurchaseInfoFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isPurchaseProcessing = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Server Error', toastConfigs.error);
+            }
         },
     },
 });
