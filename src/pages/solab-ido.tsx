@@ -169,7 +169,6 @@ const SolabIDO: NextPage = () => {
     const purchaseSubmitted = useCallback(
         async (usdcAmount: number) => {
             try {
-                console.log(usdcAmount);
                 if (!publicKey || !signTransaction || !user)
                     throw new WalletNotConnectedError();
                 if (!solabProject) {
