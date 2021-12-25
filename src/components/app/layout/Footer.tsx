@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             isComingSoon: false,
         },
         {
-            href: '/Whitepaper.pdf',
+            href: '/whitepaper.pdf',
             content: 'Whitepaper',
             isComingSoon: false,
         },
