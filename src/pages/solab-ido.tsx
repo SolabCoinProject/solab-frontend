@@ -197,7 +197,7 @@ const SolabIDO: NextPage = () => {
                         fromTokenAccount.address,
                         toTokenAccount.address,
                         publicKey,
-                        usdcAmount * web3.LAMPORTS_PER_SOL,
+                        (usdcAmount / 1000) * web3.LAMPORTS_PER_SOL,
                         [],
                         TOKEN_PROGRAM_ID
                     )
@@ -412,7 +412,7 @@ const SolabIDO: NextPage = () => {
                                                     <Formik
                                                         enableReinitialize
                                                         initialValues={{
-                                                            usdcAmount: 0.0001,
+                                                            usdcAmount: 1,
                                                         }}
                                                         onSubmit={async (
                                                             values,
@@ -430,9 +430,9 @@ const SolabIDO: NextPage = () => {
                                                                 usdcAmount:
                                                                     Yup.mixed().oneOf(
                                                                         [
-                                                                            0.0001,
-                                                                            0.0002,
-                                                                            0.0003,
+                                                                            1,
+                                                                            2,
+                                                                            3,
                                                                         ],
                                                                         'Must be 100,200 or 300'
                                                                     ),
@@ -455,16 +455,16 @@ const SolabIDO: NextPage = () => {
                                                                             }}
                                                                             options={[
                                                                                 {
-                                                                                    label: 0.0001,
-                                                                                    value: 0.0001,
+                                                                                    label: 1,
+                                                                                    value: 1,
                                                                                 },
                                                                                 {
-                                                                                    label: 0.0002,
-                                                                                    value: 0.0002,
+                                                                                    label: 2,
+                                                                                    value: 2,
                                                                                 },
                                                                                 {
-                                                                                    label: 0.0003,
-                                                                                    value: 0.0003,
+                                                                                    label: 3,
+                                                                                    value: 3,
                                                                                 },
                                                                             ]}
                                                                             theme={(
