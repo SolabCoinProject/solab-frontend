@@ -31,6 +31,8 @@ import {
 import { net } from '../config/solana';
 import { useMemo } from 'react';
 
+console.log(net);
+
 const network =
     net === 'devnet'
         ? WalletAdapterNetwork.Devnet
