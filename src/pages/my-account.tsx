@@ -24,6 +24,7 @@ import ImageUploading from 'react-images-uploading';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
+import { telegramLoginBot } from '../config/app';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -234,7 +235,9 @@ const MyAccount: NextPage = () => {
                                                                         ) : (
                                                                             <div>
                                                                                 <TelegramLoginButton
-                                                                                    botName='SOLAB_login_sandbox_bot'
+                                                                                    botName={
+                                                                                        telegramLoginBot
+                                                                                    }
                                                                                     dataOnauth={(
                                                                                         user: TelegramUser
                                                                                     ) => {
