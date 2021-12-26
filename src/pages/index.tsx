@@ -1797,7 +1797,7 @@ const Home: NextPage = () => {
                                 iconClassName='bg-solabCyan-500 text-yellow-500 w-4 h-4'
                             >
                                 <h3 className='text-2xl text-solabCyan-500'>
-                                    Q4, 2021
+                                    Q4, 2022
                                 </h3>
                                 <ul className='list-disc pl-5'>
                                     <li className='text-base'>
