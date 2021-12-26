@@ -114,6 +114,10 @@ const MyAccount: NextPage = () => {
                                                     address: user.address ?? '',
                                                     phone: user.phone ?? '',
                                                     nation: user.nation ?? '',
+                                                    telegram: {
+                                                        id: '',
+                                                        username: '',
+                                                    },
                                                 }}
                                                 onSubmit={(
                                                     values,
@@ -233,11 +237,19 @@ const MyAccount: NextPage = () => {
                                                                                     botName='SOLAB_login_sandbox_bot'
                                                                                     dataOnauth={(
                                                                                         user: TelegramUser
-                                                                                    ) =>
+                                                                                    ) => {
                                                                                         console.log(
                                                                                             user
-                                                                                        )
-                                                                                    }
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.id',
+                                                                                            user.id
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.username',
+                                                                                            user.username
+                                                                                        );
+                                                                                    }}
                                                                                 />
                                                                             </div>
                                                                         )}
