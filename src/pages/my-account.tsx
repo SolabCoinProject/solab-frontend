@@ -23,6 +23,7 @@ import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ImageUploading from 'react-images-uploading';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -228,9 +229,16 @@ const MyAccount: NextPage = () => {
                                                                                 .username
                                                                         ) : (
                                                                             <div>
-                                                                                Login
-                                                                                with
-                                                                                telegram
+                                                                                <TelegramLoginButton
+                                                                                    botName='solab_login_bot'
+                                                                                    dataOnauth={(
+                                                                                        user: TelegramUser
+                                                                                    ) =>
+                                                                                        console.log(
+                                                                                            user
+                                                                                        )
+                                                                                    }
+                                                                                />
                                                                             </div>
                                                                         )}
                                                                     </div>
