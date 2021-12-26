@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import { Tab } from '@headlessui/react';
 
 import { AiOutlineCheck } from 'react-icons/ai';
+import { GoPrimitiveDot } from 'react-icons/go';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { url, recaptchaSiteKey } from '../config/app';
 import { usdcPubKey } from '../config/token';
@@ -38,6 +39,8 @@ import { createTransferInstruction } from '../libs/createTransferInstructions';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 
 import { kycVerified } from '../features/user/constants';
+import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ReactHtmlParser from 'react-html-parser';
 
 const SolabIDO: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -742,7 +745,11 @@ const SolabIDO: NextPage = () => {
                                                                                                   u: user._id,
                                                                                               }
                                                                                           );
-                                                                                      const refLink = `${url}${router.pathname}?ref=${refParams}`;
+                                                                                      const encryptedRefData =
+                                                                                          btoa(
+                                                                                              refParams
+                                                                                          );
+                                                                                      const refLink = `${url}${router.pathname}?ref=${encryptedRefData}`;
                                                                                       copy(
                                                                                           refLink
                                                                                       );
@@ -774,18 +781,35 @@ const SolabIDO: NextPage = () => {
                                         </div>
                                     </Tab.Panel>
                                     <Tab.Panel>
-                                        <Tab.Group vertical>
-                                            <Tab.List>
-                                                <Tab>Tab 1</Tab>
-                                                <Tab>Tab 2</Tab>
-                                                <Tab>Tab 3</Tab>
-                                            </Tab.List>
-                                            <Tab.Panels>
-                                                <Tab.Panel>Content 1</Tab.Panel>
-                                                <Tab.Panel>Content 2</Tab.Panel>
-                                                <Tab.Panel>Content 3</Tab.Panel>
-                                            </Tab.Panels>
-                                        </Tab.Group>
+                                        <Tabs
+                                            className='lg:flex text-solabGray-100 gap-x-8'
+                                            selectedTabClassName='font-bold text-solabCyan-500 active-dot'
+                                            selectedTabPanelClassName='py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500'
+                                        >
+                                            <TabList className='lg:block flex gap-x-4'>
+                                                {solabProject.details?.map(
+                                                    (detail) => (
+                                                        <ReactTab
+                                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                                        >
+                                                            {detail.title}
+                                                        </ReactTab>
+                                                    )
+                                                )}
+                                            </TabList>
+
+                                            <div>
+                                                {solabProject.details?.map(
+                                                    (detail) => (
+                                                        <TabPanel className='mt-8 lg:mt-0'>
+                                                            {ReactHtmlParser(
+                                                                detail.content
+                                                            )}
+                                                        </TabPanel>
+                                                    )
+                                                )}
+                                            </div>
+                                        </Tabs>
                                     </Tab.Panel>
                                 </Tab.Panels>
                             </Tab.Group>

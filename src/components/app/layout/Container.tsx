@@ -30,7 +30,7 @@ const Container: React.FC = ({ children }) => {
                 const storedRefs = JSON.parse(
                     localStorage.getItem('storeRefs') ?? JSON.stringify([])
                 );
-                const ref = JSON.parse(query.ref as string);
+                const ref = JSON.parse(atob(query.ref as string) as string);
                 const existedProjectRefIndex = storedRefs.findIndex(
                     (existedRef) => existedRef.p === ref.p
                 );

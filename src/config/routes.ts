@@ -5,6 +5,7 @@ const routes = {
         projects: '#',
         ourTeam: '/our-team',
         myAccount: '/my-account',
+        marketplace: '/marketplace',
     },
     admin: {
         dashboard: '/admin-slb',

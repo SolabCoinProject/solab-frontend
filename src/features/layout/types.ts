@@ -3,6 +3,7 @@ export enum appHeaderOptions {
     stake = 'company',
     projects = 'projects',
     myAccount = 'my-account',
+    marketplace = 'marketplace',
 }
 
 export enum adminSidebarItemOptions {
