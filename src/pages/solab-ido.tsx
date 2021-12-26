@@ -21,7 +21,6 @@ import { Tab } from '@headlessui/react';
 
 import { AiOutlineCheck } from 'react-icons/ai';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-
 import { url, recaptchaSiteKey } from '../config/app';
 import { usdcPubKey } from '../config/token';
 import copy from 'copy-to-clipboard';
@@ -37,6 +36,8 @@ import { web3 } from '@project-serum/anchor';
 import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
 import { createTransferInstruction } from '../libs/createTransferInstructions';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+
+import { kycVerified } from '../features/user/constants';
 
 const SolabIDO: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -381,9 +382,11 @@ const SolabIDO: NextPage = () => {
                                     {getProjectPhraseAndCountDown().countDown}
 
                                     {user ? (
-                                        !solabProject.registeredUsers.includes(
-                                            user._id
-                                        ) ? (
+                                        user.isKycVerified !== kycVerified ? (
+                                            'Kyc not verified'
+                                        ) : !solabProject.registeredUsers.includes(
+                                              user._id
+                                          ) ? (
                                             isAfter(
                                                 new Date(),
                                                 new Date(

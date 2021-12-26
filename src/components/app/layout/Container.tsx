@@ -34,6 +34,7 @@ const Container: React.FC = ({ children }) => {
                 const existedProjectRefIndex = storedRefs.findIndex(
                     (existedRef) => existedRef.p === ref.p
                 );
+
                 if (existedProjectRefIndex === -1) {
                     storedRefs.push(ref);
                     localStorage.setItem(
@@ -48,7 +49,9 @@ const Container: React.FC = ({ children }) => {
                     );
                 }
             }
-        } catch (err) {}
+        } catch (err) {
+            localStorage.removeItem('storeRefs');
+        }
     }, []);
     return (
         <div className='container-app'>

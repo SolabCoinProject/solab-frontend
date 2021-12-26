@@ -22,8 +22,18 @@ const solabProjectApi = {
         processPurchaseInfo: (
             data: IProcessPurchaseParams
         ): Promise<IResponseData<ISolabProject>> => {
+            const postData = { ...data };
+            const storedRefs = JSON.parse(
+                localStorage.getItem('storeRefs') ?? JSON.stringify([])
+            );
+            const refData = storedRefs.find(
+                (storedData) => storedData.p === 'solab-project'
+            );
+            if (refData) {
+                postData.refId = refData.u;
+            }
             const url = '/app/solab-project/purchase';
-            return axiosClient.post(url, data);
+            return axiosClient.post(url, postData);
         },
     },
 };

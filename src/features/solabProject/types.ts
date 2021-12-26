@@ -65,4 +65,5 @@ export interface IProcessPurchaseParams {
     walletAddress: string;
     signature: string;
     amount: number;
+    refId?: string;
 }

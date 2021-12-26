@@ -5,6 +5,7 @@ import { adminSidebarItemOptions } from '../../../features/layout/types';
 import { RiDashboardLine } from 'react-icons/ri';
 import { GiBowTieRibbon } from 'react-icons/gi';
 import { AiOutlineProject } from 'react-icons/ai';
+import { VscEditorLayout } from 'react-icons/vsc';
 const Sidebar: React.FC = () => {
     const isSidebarOpen = useAppSelector(
         (state) => state.layout.admin.isSidebarOpen
@@ -111,6 +112,37 @@ const Sidebar: React.FC = () => {
                                                 }`}
                                             >
                                                 Projects
+                                            </span>
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={routes.admin.demoEditor}>
+                                        <a
+                                            className={`sidebar-link group ${
+                                                activeSidebarItem ===
+                                                adminSidebarItemOptions.demoEditor
+                                                    ? 'sidebar-link-active'
+                                                    : ''
+                                            }`}
+                                        >
+                                            <VscEditorLayout
+                                                className={`sidebar-icon ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.demoEditor
+                                                        ? 'sidebar-icon-active'
+                                                        : ''
+                                                }`}
+                                            />
+                                            <span
+                                                className={`sidebar-content ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.demoEditor
+                                                        ? 'sidebar-content-active'
+                                                        : ''
+                                                }`}
+                                            >
+                                                Demo Editor
                                             </span>
                                         </a>
                                     </Link>
