@@ -230,7 +230,7 @@ const MyAccount: NextPage = () => {
                                                                         ) : (
                                                                             <div>
                                                                                 <TelegramLoginButton
-                                                                                    botName='solab_login_bot'
+                                                                                    botName='SOLAB_login_sandbox_bot'
                                                                                     dataOnauth={(
                                                                                         user: TelegramUser
                                                                                     ) =>
