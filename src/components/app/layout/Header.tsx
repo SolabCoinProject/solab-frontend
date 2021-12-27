@@ -235,8 +235,8 @@ const Header: React.FC = () => {
                                             </a>
                                         </Link>
                                     ))}
-                                    <div>
-                                        <WalletMultiButton className='w-1/2 mx-auto justify-center' />
+                                    <div className='text-center'>
+                                        <WalletMultiButton className='mx-auto justify-center' />
                                     </div>
                                 </nav>
                             </div>

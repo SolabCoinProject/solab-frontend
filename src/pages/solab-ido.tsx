@@ -471,7 +471,7 @@ const SolabIDO: NextPage = () => {
                         </div>
                         <div className='mt-8'>
                             <Tab.Group>
-                                <Tab.List className='border-b border-solabGray-50 gap-x-6 flex'>
+                                <Tab.List className='border-b border-solabGray-50 gap-x-6 flex overflow-x-auto'>
                                     <Tab as={Fragment}>
                                         {({ selected }) => (
                                             <div
@@ -534,10 +534,10 @@ const SolabIDO: NextPage = () => {
                                     </Tab>
                                 </Tab.List>
                                 <Tab.Panels className='mt-8'>
-                                    <Tab.Panel>
+                                    <Tab.Panel className='overflow-x-auto'>
                                         <div className='w-full mx-auto'>
                                             <div className='flex justify-between items-end relative'>
-                                                <hr className='absolute w-1/3 border border-solabCyan-500 bottom-9 z-0' />
+                                                <hr className='absolute w-1/3 border border-solabCyan-500 bottom-9 z-0 hidden lg:block' />
                                                 <div className='flex flex-col items-center justify-center text-center text-sm'>
                                                     <ul className='text-solabCyan-500'>
                                                         <li className='flex items-center justify-center'>
@@ -578,7 +578,7 @@ const SolabIDO: NextPage = () => {
                                                         )
                                                             ? 'border border-solabCyan-500'
                                                             : 'border border-solabGray-100'
-                                                    } bottom-9 z-0 left-2/4`}
+                                                    } bottom-9 z-0 left-2/4 hidden lg:block`}
                                                     style={{
                                                         transform:
                                                             'translate(-50%,0)',
@@ -645,7 +645,7 @@ const SolabIDO: NextPage = () => {
                                                         )
                                                             ? 'border border-solabCyan-500'
                                                             : 'border border-solabGray-100'
-                                                    } bottom-9 z-0 right-0`}
+                                                    } bottom-9 z-0 right-0 hidden lg:block`}
                                                 />
                                                 <div
                                                     className={`flex flex-col items-center justify-center text-center text-sm ${
@@ -739,6 +739,15 @@ const SolabIDO: NextPage = () => {
                                                                                                 true
                                                                                             );
                                                                                         }}
+                                                                                    />
+                                                                                </div>
+                                                                            ) : isPurchaseProcessing ? (
+                                                                                <div className='w-10 h-10 mx-auto relative'>
+                                                                                    <Image
+                                                                                        src={
+                                                                                            loaderCyan
+                                                                                        }
+                                                                                        layout='fill'
                                                                                     />
                                                                                 </div>
                                                                             ) : (
@@ -918,9 +927,7 @@ const SolabIDO: NextPage = () => {
                                                                                                                 isPurchaseProcessing
                                                                                                             }
                                                                                                         >
-                                                                                                            {isPurchaseProcessing
-                                                                                                                ? '...'
-                                                                                                                : ' Prefunding'}
+                                                                                                            Prefunding
                                                                                                         </button>
                                                                                                     )}
                                                                                                 </div>
@@ -1225,13 +1232,22 @@ const SolabIDO: NextPage = () => {
                                                                                       )
                                                                                   ) : (
                                                                                       <div
-                                                                                          className='p-2 rounded border border-solabCyan-500 text-solabCyan-500 cursor-pointer'
+                                                                                          className='p-2 rounded border border-solabGray-100 text-solabGray-100 cursor-pointer relative group'
                                                                                           title='Wallet is not connected'
                                                                                       >
-                                                                                          +{' '}
-                                                                                          {
-                                                                                              ta.rewardTickets
-                                                                                          }
+                                                                                          <span>
+                                                                                              {' '}
+                                                                                              +{' '}
+                                                                                              {
+                                                                                                  ta.rewardTickets
+                                                                                              }
+                                                                                          </span>
+                                                                                          <span className='bg-solabGray-300 absolute hidden group-hover:inline-block whitespace-nowrap text-xxs px-2 py-1 -top-3 right-0'>
+                                                                                              Wallet
+                                                                                              is
+                                                                                              not
+                                                                                              connected
+                                                                                          </span>
                                                                                       </div>
                                                                                   )}
                                                                               </div>
@@ -1256,7 +1272,7 @@ const SolabIDO: NextPage = () => {
                                                                     !getRefLink()
                                                                 }
                                                                 type='text'
-                                                                className='input input-cyan w-3/4'
+                                                                className='input input-cyan w-3/4 text-sm'
                                                                 value={`${
                                                                     !getRefLink()
                                                                         ? 'Wallet is not connected'
@@ -1268,7 +1284,7 @@ const SolabIDO: NextPage = () => {
                                                                     !getRefLink()
                                                                 }
                                                                 type='button'
-                                                                className='py-3 px-4 border text-solabWhite-500 border-solabCyan-500 rounded-lg inline text-sm'
+                                                                className='py-2 px-4 border text-solabWhite-500 border-solabCyan-500 rounded-lg inline text-sm'
                                                                 onClick={() => {
                                                                     copy(
                                                                         getRefLink()
@@ -1284,10 +1300,10 @@ const SolabIDO: NextPage = () => {
                                                                 Copy Link
                                                             </button>
                                                         </div>
-                                                        <p className='mt-6'>
+                                                        <p className='mt-6 text-sm'>
                                                             Rules
                                                         </p>
-                                                        <ul className='list-disc px-4'>
+                                                        <ul className='list-disc px-4 text-sm'>
                                                             <li>
                                                                 Get 3 tickets
                                                                 when your
@@ -1310,13 +1326,13 @@ const SolabIDO: NextPage = () => {
                                             ) : null}
                                         </div>
                                     </Tab.Panel>
-                                    <Tab.Panel>
+                                    <Tab.Panel className='overflow-x-auto'>
                                         <Tabs
-                                            className='lg:flex text-solabGray-100 gap-x-8'
+                                            className='lg:flex text-solabGray-100 gap-x-8 overflow-x-auto'
                                             selectedTabClassName='font-bold text-solabCyan-500 active-dot'
                                             selectedTabPanelClassName='py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500'
                                         >
-                                            <TabList className='lg:block flex gap-x-4'>
+                                            <TabList className='lg:block flex gap-x-4 overflow-x-auto lg:overflow-x-visible'>
                                                 {solabProject.details?.map(
                                                     (detail) => (
                                                         <ReactTab
@@ -1331,7 +1347,7 @@ const SolabIDO: NextPage = () => {
                                             <div className='w-full'>
                                                 {solabProject.details?.map(
                                                     (detail) => (
-                                                        <TabPanel className='mt-8 lg:mt-0'>
+                                                        <TabPanel className='mt-8 lg:mt-0 overflow-x-auto'>
                                                             {ReactHtmlParser(
                                                                 detail.content
                                                             )}
@@ -1341,7 +1357,7 @@ const SolabIDO: NextPage = () => {
                                             </div>
                                         </Tabs>
                                     </Tab.Panel>
-                                    <Tab.Panel>
+                                    <Tab.Panel className='overflow-x-auto'>
                                         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                                             <div className='rounded-lg bg-solabGray-300 p-4'>
                                                 <h2 className='text-2xl font-bold'>

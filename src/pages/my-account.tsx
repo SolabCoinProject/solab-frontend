@@ -175,7 +175,7 @@ const MyAccount: NextPage = () => {
                                                         <Form>
                                                             <div className='flex flex-col items-center justify-center'>
                                                                 <div className='grid grid-cols-4 w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
+                                                                    <div className='mr-2 text-left col-span-1 text-sm lg:text-base'>
                                                                         Wallet
                                                                         Address
                                                                     </div>
@@ -185,47 +185,9 @@ const MyAccount: NextPage = () => {
                                                                         }
                                                                     </div>
                                                                 </div>
+
                                                                 <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
-                                                                        Email
-                                                                    </div>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        {user.email ? (
-                                                                            user.email
-                                                                        ) : (
-                                                                            <div className='relative'>
-                                                                                <Field
-                                                                                    type='text'
-                                                                                    name='email'
-                                                                                    className='input input-cyan'
-                                                                                    disabled={
-                                                                                        isUpdatingUserInfo
-                                                                                            ? true
-                                                                                            : false
-                                                                                    }
-                                                                                />
-                                                                                {errors.email ? (
-                                                                                    <span className='text-xs text-red-500'>
-                                                                                        {
-                                                                                            errors.email
-                                                                                        }
-                                                                                    </span>
-                                                                                ) : (
-                                                                                    <span className='text-xs text-yellow-500'>
-                                                                                        Email
-                                                                                        can
-                                                                                        be
-                                                                                        updated
-                                                                                        only
-                                                                                        once
-                                                                                    </span>
-                                                                                )}
-                                                                            </div>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
+                                                                    <div className='mr-2 text-left col-span-1 text-sm lg:text-base'>
                                                                         Telegram
                                                                     </div>
                                                                     <div className='lg:ml-2 text-left col-span-3'>
@@ -263,68 +225,9 @@ const MyAccount: NextPage = () => {
                                                                         )}
                                                                     </div>
                                                                 </div>
+
                                                                 <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
-                                                                        First
-                                                                        Name
-                                                                    </div>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        <Field
-                                                                            name='firstName'
-                                                                            type='text'
-                                                                            className='input input-cyan'
-                                                                            disabled={
-                                                                                isUpdatingUserInfo
-                                                                                    ? true
-                                                                                    : false
-                                                                            }
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name='firstName'
-                                                                            render={(
-                                                                                msg
-                                                                            ) => (
-                                                                                <span className='text-xs text-red-500'>
-                                                                                    {
-                                                                                        msg
-                                                                                    }
-                                                                                </span>
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
-                                                                        Last
-                                                                        Name
-                                                                    </div>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        <Field
-                                                                            name='lastName'
-                                                                            type='text'
-                                                                            disabled={
-                                                                                isUpdatingUserInfo
-                                                                                    ? true
-                                                                                    : false
-                                                                            }
-                                                                            className='input input-cyan'
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name='lastName'
-                                                                            render={(
-                                                                                msg
-                                                                            ) => (
-                                                                                <span className='text-xs text-red-500'>
-                                                                                    {
-                                                                                        msg
-                                                                                    }
-                                                                                </span>
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
+                                                                    <div className='mr-2 text-left col-span-1 text-sm lg:text-base'>
                                                                         Display
                                                                         Name
                                                                     </div>
@@ -353,140 +256,7 @@ const MyAccount: NextPage = () => {
                                                                         />
                                                                     </div>
                                                                 </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
-                                                                        Address
-                                                                    </div>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        <Field
-                                                                            name='address'
-                                                                            type='text'
-                                                                            disabled={
-                                                                                isUpdatingUserInfo
-                                                                                    ? true
-                                                                                    : false
-                                                                            }
-                                                                            className='input input-cyan'
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name='address'
-                                                                            render={(
-                                                                                msg
-                                                                            ) => (
-                                                                                <span className='text-xs text-red-500'>
-                                                                                    {
-                                                                                        msg
-                                                                                    }
-                                                                                </span>
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <div className='mr-2 text-left col-span-1'>
-                                                                        Phone
-                                                                    </div>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        <Field
-                                                                            name='phone'
-                                                                            type='text'
-                                                                            disabled={
-                                                                                isUpdatingUserInfo
-                                                                                    ? true
-                                                                                    : false
-                                                                            }
-                                                                            className='input input-cyan'
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name='phone'
-                                                                            render={(
-                                                                                msg
-                                                                            ) => (
-                                                                                <span className='text-xs text-red-500'>
-                                                                                    {
-                                                                                        msg
-                                                                                    }
-                                                                                </span>
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                                <div className='mt-4 grid grid-cols-4 items-center w-full'>
-                                                                    <label>
-                                                                        Nation
-                                                                    </label>
-                                                                    <div className='lg:ml-2 text-left col-span-3'>
-                                                                        <Select
-                                                                            value={{
-                                                                                label: values.nation,
-                                                                                value: values.nation,
-                                                                            }}
-                                                                            options={countries.map(
-                                                                                (
-                                                                                    country
-                                                                                ) => {
-                                                                                    return {
-                                                                                        label: country
-                                                                                            .name
-                                                                                            .common,
-                                                                                        value: country
-                                                                                            .name
-                                                                                            .common,
-                                                                                    };
-                                                                                }
-                                                                            )}
-                                                                            theme={(
-                                                                                theme
-                                                                            ) => {
-                                                                                return {
-                                                                                    ...theme,
-                                                                                    colors: {
-                                                                                        ...theme.colors,
-                                                                                        neutral0:
-                                                                                            '#0F1217',
-                                                                                        neutral20:
-                                                                                            '#1F2733',
-                                                                                        neutral30:
-                                                                                            '#1F2733',
-                                                                                        primary:
-                                                                                            '#1EE8BB',
-                                                                                        primary50:
-                                                                                            '#1EE8BB',
-                                                                                        primary25:
-                                                                                            '#1EE8BB',
-                                                                                        neutral5:
-                                                                                            '#1EE8BB',
-                                                                                        neutral80:
-                                                                                            '#E2E4E9',
-                                                                                    },
-                                                                                };
-                                                                            }}
-                                                                            onChange={(
-                                                                                selected
-                                                                            ) => {
-                                                                                setFieldValue(
-                                                                                    'nation',
-                                                                                    selected
-                                                                                        ? selected.value
-                                                                                        : ''
-                                                                                );
-                                                                            }}
-                                                                            className='w-full'
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name='nation'
-                                                                            render={(
-                                                                                msg
-                                                                            ) => (
-                                                                                <span className='text-xs text-red-500'>
-                                                                                    {
-                                                                                        msg
-                                                                                    }
-                                                                                </span>
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
+
                                                                 <div className='mt-4'>
                                                                     {isUpdatingUserInfo ? (
                                                                         <Image
