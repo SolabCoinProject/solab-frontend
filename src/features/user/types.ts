@@ -18,6 +18,7 @@ export interface IUser {
     telegram?: {
         id: string;
         username: string;
+        avatar: string;
     };
     firstName?: string;
     lastName?: string;
@@ -107,4 +108,9 @@ export interface IUserKycUpdateParams {
     docsFront: string;
     docsBack: string;
     selfie: string;
+}
+
+export interface IFollowProjectParams {
+    userId: string;
+    refId?: string;
 }

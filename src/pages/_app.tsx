@@ -23,14 +23,14 @@ import dynamic from 'next/dynamic';
 import { ConnectionProvider } from '@solana/wallet-adapter-react';
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import {
-    WalletModalProvider,
-    WalletDisconnectButton,
-    WalletMultiButton,
-} from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { net } from '../config/solana';
 import { useMemo } from 'react';
 
-const network = WalletAdapterNetwork.Devnet;
+const network =
+    net === 'devnet'
+        ? WalletAdapterNetwork.Devnet
+        : WalletAdapterNetwork.Mainnet;
 
 const WalletProvider = dynamic(
     () => import('../components/app/wallet/ClientWalletProvider'),

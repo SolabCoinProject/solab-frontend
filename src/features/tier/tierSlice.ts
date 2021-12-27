@@ -55,7 +55,7 @@ export const tierSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         openCreateTierModal: (state) => {
@@ -84,7 +84,7 @@ export const tierSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         setReload: (state, action: PayloadAction<boolean>) => {
@@ -120,7 +120,7 @@ export const tierSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
 
@@ -146,7 +146,7 @@ export const tierSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
     },

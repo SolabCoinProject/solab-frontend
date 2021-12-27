@@ -31,6 +31,10 @@ const RichTextEditor: React.FC<Props> = ({ value, onChange }) => {
                 noneditable_noneditable_class: 'mceNonEditable',
                 toolbar_mode: 'sliding',
                 contextmenu: 'link image imagetools table',
+                fontsize_formats:
+                    '8px 9px 10px 11px 12px 14px 16px 18px 24px 30px 32px 36px 48px 60px 72px 96px',
+                content_style:
+                    "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap'); body {  font-family: Inter, sans-serif; font-size:16px; background-color: #091125; color: #E2E4E9; font-weight: 700 };",
             }}
             onEditorChange={onChange}
             value={value}

@@ -23,6 +23,8 @@ import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ImageUploading from 'react-images-uploading';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
+import { telegramLoginBot } from '../config/app';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -113,6 +115,11 @@ const MyAccount: NextPage = () => {
                                                     address: user.address ?? '',
                                                     phone: user.phone ?? '',
                                                     nation: user.nation ?? '',
+                                                    telegram: {
+                                                        id: '',
+                                                        username: '',
+                                                        avatar: '',
+                                                    },
                                                 }}
                                                 onSubmit={(
                                                     values,
@@ -228,9 +235,30 @@ const MyAccount: NextPage = () => {
                                                                                 .username
                                                                         ) : (
                                                                             <div>
-                                                                                Login
-                                                                                with
-                                                                                telegram
+                                                                                <TelegramLoginButton
+                                                                                    botName={
+                                                                                        telegramLoginBot
+                                                                                    }
+                                                                                    dataOnauth={(
+                                                                                        user: TelegramUser
+                                                                                    ) => {
+                                                                                        console.log(
+                                                                                            user
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.id',
+                                                                                            user.id
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.username',
+                                                                                            user.username
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.avatar',
+                                                                                            user.photo_url
+                                                                                        );
+                                                                                    }}
+                                                                                />
                                                                             </div>
                                                                         )}
                                                                     </div>
@@ -589,7 +617,6 @@ const MyAccount: NextPage = () => {
                                                     validateForm,
                                                     validateField,
                                                 }) => {
-                                                    console.log(errors);
                                                     return (
                                                         <Form>
                                                             <Tabs
@@ -1249,7 +1276,8 @@ const MyAccount: NextPage = () => {
                                                                                     have
                                                                                     read
                                                                                     and
-                                                                                    agree{' '}
+                                                                                    agreed
+                                                                                    with{' '}
                                                                                     <a
                                                                                         href='https://docs.solab.finance/privacy-policy'
                                                                                         className='underline'

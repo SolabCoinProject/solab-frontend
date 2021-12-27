@@ -5,12 +5,14 @@ const routes = {
         projects: '#',
         ourTeam: '/our-team',
         myAccount: '/my-account',
+        marketplace: '/marketplace',
     },
     admin: {
         dashboard: '/admin-slb',
         tiers: '/admin-slb/tier',
         login: '/admin-slb/login',
         project: '/admin-slb/project',
+        demoEditor: '/admin-slb/editor-demo',
     },
 };
 

@@ -44,6 +44,16 @@ export interface ISolabProject {
         date: string;
         amount: number;
     };
+    registeredUsers: string[];
+    followers: string[];
+}
+
+export interface ISolabRegisteredInfo {
+    _id: string;
+    user: string;
+    bought: number;
+    tickets: number;
+    isInWhiteList: number;
 }
 
 export interface ISolabProjectState {
@@ -52,6 +62,12 @@ export interface ISolabProjectState {
         isFetchingSolabProject: boolean;
         isDoingTaskCommunity: boolean;
         isPurchaseProcessing: boolean;
+        isFollowingProject: boolean;
+        solabRegisteredInfo: ISolabRegisteredInfo | null;
+        isFetchingRegisterInfo: boolean;
+        isTaskModalOpen: boolean;
+        openTask: any;
+        reloadRegisterInfo: boolean;
     };
 }
 
@@ -60,3 +76,13 @@ export interface IDoTaskCommunityParams {
     walletAddress: string;
 }
 
+export interface IProcessPurchaseParams {
+    walletAddress: string;
+    signature: string;
+    amount: number;
+    refId?: string;
+}
+
+export interface IFetchRegisterInfoParams {
+    userId: string;
+}

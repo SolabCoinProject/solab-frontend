@@ -69,7 +69,7 @@ export const projectSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         createProject: (
@@ -98,7 +98,7 @@ export const projectSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         setReload: (state, action: PayloadAction<boolean>) => {
@@ -125,7 +125,7 @@ export const projectSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         openEditProjectModal: (state, action: PayloadAction<IProject>) => {
@@ -163,7 +163,7 @@ export const projectSlice = createSlice({
             } else if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
     },
