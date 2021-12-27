@@ -4,6 +4,7 @@ export enum appHeaderOptions {
     projects = 'projects',
     myAccount = 'my-account',
     marketplace = 'marketplace',
+    idoSolab = 'ido-solab',
 }
 
 export enum adminSidebarItemOptions {
