@@ -39,11 +39,16 @@ import { kycVerified } from '../features/user/constants';
 import { createTransferInstruction } from '../libs/createTransferInstructions';
 import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { appHeaderOptions } from '../features/layout/types';
+import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 
 SwiperCore.use([FreeMode, Navigation, Thumbs, Pagination]);
 
 const SolabIDO: NextPage = () => {
     const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(updateActiveHeaderItem(appHeaderOptions.idoSolab));
+    }, [dispatch]);
     const solabProject = useAppSelector(
         (state) => state.solabProject.app.solabProject
     );

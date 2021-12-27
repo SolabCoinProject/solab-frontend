@@ -54,110 +54,6 @@ const Home: NextPage = () => {
         return chunkedTiers;
     };
 
-    // useEffect(() => {
-    //     const testTrans = async (publicKey: web3.PublicKey | null) => {
-    //         if (publicKey) {
-    //             const secret = new Uint8Array([
-    //                 131, 54, 83, 145, 34, 243, 108, 28, 182, 94, 233, 14, 151,
-    //                 248, 24, 155, 152, 219, 131, 47, 33, 165, 142, 129, 160,
-    //                 172, 87, 128, 248, 136, 242, 222, 12, 229, 171, 71, 117,
-    //                 167, 197, 255, 107, 105, 89, 228, 161, 185, 250, 10, 190,
-    //                 151, 51, 154, 115, 16, 40, 68, 244, 156, 108, 132, 165, 152,
-    //                 161, 250,
-    //             ]);
-    //             const from = web3.Keypair.fromSecretKey(secret);
-    //             const toPub = new web3.PublicKey(
-    //                 'HzNpMU4mTrGgAxD8DtrS2bmwVJukUzhsB3hQtUW8H6qt'
-    //             );
-    //             let transaction = new web3.Transaction().add(
-    //                 web3.SystemProgram.transfer({
-    //                     fromPubkey: from.publicKey,
-    //                     toPubkey: toPub,
-    //                     lamports: 100000000,
-    //                 })
-    //             );
-    //             var signature = await web3.sendAndConfirmTransaction(
-    //                 connection,
-    //                 transaction,
-    //                 [from]
-    //             );
-    //             await connection.confirmTransaction(signature, 'processed');
-    //         }
-    //     };
-    //     testTrans(publicKey);
-    // }, [publicKey]);
-
-    // const onClick = useCallback(async () => {
-    //     if (!publicKey) throw new WalletNotConnectedError();
-    //     const to = new web3.PublicKey(
-    //         'sM1kEqVVENecnsRagWDfhjgq3LKceF8hhVmV7HeHRZB'
-    //     );
-
-    //     const transaction = new web3.Transaction().add(
-    //         web3.SystemProgram.transfer({
-    //             fromPubkey: publicKey,
-    //             toPubkey: to,
-    //             lamports: 100000,
-    //         })
-    //     );
-    //     const signature = await sendTransaction(transaction, connection);
-    //     await connection.confirmTransaction(signature, 'processed');
-    //     const detail = await connection.getTransaction(signature);
-    //     console.log(detail);
-    //     const accounts = detail?.transaction.message.accountKeys;
-    //     accounts?.map((account) => {
-    //         console.log(account.toBase58());
-    //     });
-    // }, [publicKey, sendTransaction, connection]);
-    // const test = new web3.
-
-    // const handleClick = useCallback(async () => {
-    //     try {
-    //         if (!publicKey || !signTransaction)
-    //             throw new WalletNotConnectedError();
-    //         const toPub = new web3.PublicKey(
-    //             'HzNpMU4mTrGgAxD8DtrS2bmwVJukUzhsB3hQtUW8H6qt'
-    //         );
-    //         const mint = new web3.PublicKey(
-    //             'Cs3ywW9tRrsbkGLqiYPaZ4wPXecEB1vNfnnAR6pbmfBm'
-    //         );
-    //         const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-    //             connection,
-    //             publicKey,
-    //             mint,
-    //             publicKey,
-    //             signTransaction
-    //         );
-
-    //         const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-    //             connection,
-    //             publicKey,
-    //             mint,
-    //             toPub,
-    //             signTransaction
-    //         );
-    //         const transaction = new web3.Transaction().add(
-    //             createTransferInstruction(
-    //                 fromTokenAccount.address, // source
-    //                 toTokenAccount.address, // dest
-    //                 publicKey,
-    //                 100000 * web3.LAMPORTS_PER_SOL,
-    //                 [],
-    //                 TOKEN_PROGRAM_ID
-    //             )
-    //         );
-
-    //         const blockHash = await connection.getRecentBlockhash();
-    //         transaction.feePayer = await publicKey;
-    //         transaction.recentBlockhash = await blockHash.blockhash;
-    //         const signed = await signTransaction(transaction);
-
-    //         await connection.sendRawTransaction(signed.serialize());
-    //     } catch (err: any) {
-    //         console.log(err.message);
-    //     }
-    // }, [publicKey, sendTransaction, connection, signTransaction]);
-
     return (
         <Container>
             <div className='banner pt-20 max-w-7xl mx-auto'>
@@ -165,17 +61,6 @@ const Home: NextPage = () => {
                     <div className='grid lg:grid-cols-7 auto-cols-fr'>
                         <div className='col-span-4'>
                             <h1 className='text-solabWhite-500 text-3xl sm:text-4xl'>
-                                {/* <button
-                                    className='btn btn-pink'
-                                    onClick={onClick}
-                                >
-                                    Send transaction
-                                </button> */}
-                                {/* <DateTimePicker
-                                    onChange={onChange}
-                                    value={value}
-                                    format='yyyy-MM-dd HH:mm:ss'
-                                /> */}
                                 <span className='font-bold leading-4'>
                                     Fundraising platform
                                 </span>
@@ -230,12 +115,6 @@ const Home: NextPage = () => {
                         </div>
                         <div className='text-center border border-solabGray-50 py-4'>
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
-                                {/* <NumberFormat
-                                    thousandsGroupStyle='thousand'
-                                    value={10262938}
-                                    displayType='text'
-                                    thousandSeparator={true}
-                                /> */}
                                 TBA
                             </h1>
                             <p className='text-sm text-solabGray-100'>
@@ -326,10 +205,10 @@ const Home: NextPage = () => {
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Syzygy
+                                                        Dark Age
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $SYZG
+                                                        $DAGE
                                                     </p>
                                                 </div>
                                             </div>
@@ -392,7 +271,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/savolmain-3.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-main-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -404,7 +283,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/salvor-thumbnail-3.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -412,15 +291,13 @@ const Home: NextPage = () => {
                                                         Salvor
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $SALVR
+                                                        $SAL
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                The strength of the super
-                                                monsters will show the level of
-                                                the player. Build your own
-                                                monster island.
+                                                Dinosaur farming game. Build
+                                                your own dinosaur island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -497,7 +374,7 @@ const Home: NextPage = () => {
                                                         The Destiny
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $DESTN
+                                                        $DES
                                                     </p>
                                                 </div>
                                             </div>
@@ -562,7 +439,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/azura-thumbnail-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -574,7 +451,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-thumbnail.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -731,7 +608,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -743,23 +620,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-thumbnail.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Taira
+                                                        GUERRERO
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $TAIR
+                                                        $GUE
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                As a samurai warrior of the
-                                                Taira clan, fight against the
-                                                Fujiwara and Minamoto clans even
-                                                if it costs you death.
+                                                The strength of the super
+                                                monsters will show the level of
+                                                the player. Build your own
+                                                monster island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -837,10 +714,10 @@ const Home: NextPage = () => {
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Syzygy
+                                                        Dark Age
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $SYZG
+                                                        $DAGE
                                                     </p>
                                                 </div>
                                             </div>
@@ -903,7 +780,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/savolmain-3.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-main-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -915,7 +792,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/salvor-thumbnail-3.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -923,15 +800,13 @@ const Home: NextPage = () => {
                                                         Salvor
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $SALVR
+                                                        $SAL
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                The strength of the super
-                                                monsters will show the level of
-                                                the player. Build your own
-                                                monster island.
+                                                Dinosaur farming game. Build
+                                                your own dinosaur island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>
@@ -1008,7 +883,7 @@ const Home: NextPage = () => {
                                                         The Destiny
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $DESTN
+                                                        $DES
                                                     </p>
                                                 </div>
                                             </div>
@@ -1073,7 +948,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-main.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/azura-thumbnail-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -1085,7 +960,7 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/azura-thumbnail.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
@@ -1242,7 +1117,7 @@ const Home: NextPage = () => {
                                         <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                             <div
                                                 style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-main.jpeg')`,
+                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-product.jpeg')`,
                                                 }}
                                                 className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                                             >
@@ -1254,23 +1129,23 @@ const Home: NextPage = () => {
                                                 <div
                                                     className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
                                                     style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/taira-thumbnail.png')`,
+                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-icon-product.png')`,
                                                     }}
                                                 ></div>
                                                 <div className='flex flex-col justify-center'>
                                                     <p className='font-bold'>
-                                                        Taira
+                                                        GUERRERO
                                                     </p>
                                                     <p className='text-solabGray-100'>
-                                                        $TAIR
+                                                        $GUE
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className='px-4 text-solabGray-100 text-sm'>
-                                                As a samurai warrior of the
-                                                Taira clan, fight against the
-                                                Fujiwara and Minamoto clans even
-                                                if it costs you death.
+                                                The strength of the super
+                                                monsters will show the level of
+                                                the player. Build your own
+                                                monster island.
                                             </div>
                                             <div className='mt-4 px-4'>
                                                 <div className='flex justify-between items-center mt-0.5 mb-0.5'>

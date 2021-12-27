@@ -6,6 +6,7 @@ const routes = {
         ourTeam: '/our-team',
         myAccount: '/my-account',
         marketplace: '/marketplace',
+        idoSolab: '/solab-ido',
     },
     admin: {
         dashboard: '/admin-slb',

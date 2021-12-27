@@ -15,6 +15,7 @@ import { useAppSelector } from '../../../app/hooks';
 import routes from '../../../config/routes';
 import { appHeaderOptions } from '../../../features/layout/types';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { GiToken } from 'react-icons/gi';
 
 const headerItems = [
     {
@@ -25,6 +26,13 @@ const headerItems = [
         icon: (
             <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
         ),
+    },
+    {
+        href: routes.app.idoSolab,
+        content: 'IDO SOLAB',
+        option: appHeaderOptions.idoSolab,
+        isComingSoon: false,
+        icon: <GiToken className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />,
     },
     {
         href: routes.app.stake,

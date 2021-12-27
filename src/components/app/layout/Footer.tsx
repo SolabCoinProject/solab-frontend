@@ -118,9 +118,9 @@ const Footer: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href='#'>
+                                    <Link href='https://guide.solab.finance/'>
                                         <a className='text-sm text-solabGray-100'>
-                                            Contact us
+                                            Help Center
                                         </a>
                                     </Link>
                                 </li>
