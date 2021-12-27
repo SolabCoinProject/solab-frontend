@@ -255,7 +255,7 @@ const SolabIDO: NextPage = () => {
                             amount: usdcAmount,
                         })
                     );
-                }, 2000);
+                }, 4000);
             } catch (err: any) {
                 toast.error(
                     'Please check your wallet connection and USDC balance!',
