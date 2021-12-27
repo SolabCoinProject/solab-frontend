@@ -158,7 +158,7 @@ const Footer: React.FC = () => {
                             </ul>
                         </div>
                         <div className='flex gap-4 justify-start lg:justify-center items-center mt-8 lg:mt-0'>
-                            <Link href='https://t.me/solabcommunity'>
+                            <Link href='https://t.me/solabofficial'>
                                 <a className='p-1 border border-solabGray-50'>
                                     <FaTelegramPlane size='24px' />
                                 </a>
@@ -173,7 +173,7 @@ const Footer: React.FC = () => {
                                     <BsTwitter size='24px' />
                                 </a>
                             </Link>
-                            <Link href='https://www.youtube.com/channel/UCr3Na0s-WMzOqfN9rL0TP-A'>
+                            <Link href='https://www.youtube.com/channel/UCr3Na0s-WMzOqfN9rL0TP-A/featured'>
                                 <a className='p-1 border border-solabGray-50'>
                                     <BsYoutube size='24px' />
                                 </a>

@@ -79,7 +79,7 @@ export const userSlice = createSlice({
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
         getCurrentStaff: (state) => {
@@ -104,7 +104,7 @@ export const userSlice = createSlice({
                 state.admin.authenticated = false;
                 state.admin.isLoggedIn = false;
             } else {
-                toast.error('Server Error');
+                toast.error('Something went wrong!');
             }
         },
 
@@ -161,7 +161,7 @@ export const userSlice = createSlice({
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message, toastConfigs.error);
             } else {
-                toast.error('Server Error', toastConfigs.error);
+                toast.error('Something went wrong!', toastConfigs.error);
             }
         },
         updateKyc: (
@@ -186,7 +186,7 @@ export const userSlice = createSlice({
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message, toastConfigs.error);
             } else {
-                toast.error('Server Error', toastConfigs.error);
+                toast.error('Something went wrong!', toastConfigs.error);
             }
         },
     },

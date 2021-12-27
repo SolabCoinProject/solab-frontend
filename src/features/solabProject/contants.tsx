@@ -9,6 +9,7 @@ import { FaTelegramPlane } from 'react-icons/fa';
 import { SiDiscord, SiMedium } from 'react-icons/si';
 import { CgCommunity } from 'react-icons/cg';
 import { GoMegaphone } from 'react-icons/go';
+import { MdSocialDistance } from 'react-icons/md';
 
 const taskTypeCommunity = 1;
 const taskTypeReferral = 2;
@@ -142,16 +143,32 @@ const solabProjectConstants = {
     ],
 };
 
-export const getSocialIcon = (socialType, className) => {
+export const getSocialIcon = (
+    socialType,
+    className,
+    fromSocialTask = false
+) => {
     switch (socialType) {
         case socialTypeWeb:
             return <BsGlobe2 className={className} />;
         case socialTypeFacebook:
             return <BsFacebook className={className} />;
         case socialTypeTelegram:
-            return <FaTelegramPlane className={className} />;
+            return (
+                <FaTelegramPlane
+                    className={`${className} ${
+                        fromSocialTask ? 'text-solabBlue-500' : null
+                    }`}
+                />
+            );
         case socialTypeTwitter:
-            return <BsTwitter className={className} />;
+            return (
+                <BsTwitter
+                    className={`${className} ${
+                        fromSocialTask ? 'text-solabBlue-500' : null
+                    }`}
+                />
+            );
         case socialTypeInstagram:
             return <BsInstagram className={className} />;
         case socialTypeYoutube:
@@ -161,7 +178,7 @@ export const getSocialIcon = (socialType, className) => {
         case socialTypeMedium:
             return <SiMedium className={className} />;
         default:
-            return null;
+            return <MdSocialDistance className={className} />;
     }
 };
 

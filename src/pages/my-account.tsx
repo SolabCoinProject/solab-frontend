@@ -118,6 +118,7 @@ const MyAccount: NextPage = () => {
                                                     telegram: {
                                                         id: '',
                                                         username: '',
+                                                        avatar: '',
                                                     },
                                                 }}
                                                 onSubmit={(
@@ -251,6 +252,10 @@ const MyAccount: NextPage = () => {
                                                                                         setFieldValue(
                                                                                             'telegram.username',
                                                                                             user.username
+                                                                                        );
+                                                                                        setFieldValue(
+                                                                                            'telegram.avatar',
+                                                                                            user.photo_url
                                                                                         );
                                                                                     }}
                                                                                 />
@@ -1271,7 +1276,8 @@ const MyAccount: NextPage = () => {
                                                                                     have
                                                                                     read
                                                                                     and
-                                                                                    agree{' '}
+                                                                                    agreed
+                                                                                    with{' '}
                                                                                     <a
                                                                                         href='https://docs.solab.finance/privacy-policy'
                                                                                         className='underline'
