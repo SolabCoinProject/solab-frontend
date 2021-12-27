@@ -242,13 +242,15 @@ const SolabIDO: NextPage = () => {
                     signed.serialize()
                 );
                 await connection.confirmTransaction(signature, 'processed');
-                dispatch(
-                    solabProjectActions.processPurchaseInfo({
-                        walletAddress: user.walletAddress,
-                        signature,
-                        amount: usdcAmount,
-                    })
-                );
+                setTimeout(() => {
+                    dispatch(
+                        solabProjectActions.processPurchaseInfo({
+                            walletAddress: user.walletAddress,
+                            signature,
+                            amount: usdcAmount,
+                        })
+                    );
+                }, 2000);
             } catch (err: any) {
                 toast.error(
                     'Please check your wallet connection and USDC balance!',
