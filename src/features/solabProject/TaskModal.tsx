@@ -69,7 +69,10 @@ const TaskModal: React.FC = () => {
                                         </p>
                                         {openTask.settings.link ? (
                                             <Link href={openTask.settings.link}>
-                                                <a className='text-solabCyan-500'>
+                                                <a
+                                                    href='_blank'
+                                                    className='text-solabCyan-500'
+                                                >
                                                     {openTask.settings.link}
                                                 </a>
                                             </Link>
@@ -77,7 +80,7 @@ const TaskModal: React.FC = () => {
                                             ''
                                         )}
                                         {openTask.settings.content ? (
-                                            <div className='text-solabWhite-500 p-2 border border-solabCyan-500 rounded mt-2'>
+                                            <div className='text-solabWhite-500 p-2 border border-solabCyan-500 rounded mt-2 overflow-auto'>
                                                 {ReactHtmlParser(
                                                     openTask.settings.content
                                                 )}

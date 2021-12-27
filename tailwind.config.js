@@ -74,6 +74,7 @@ module.exports = {
         extend: {
             opacity: ['disabled'],
             backgroundColor: ['checked'],
+            display: ['group-hover'],
         },
     },
     plugins: ['postcss-import', 'tailwindcss', 'autoprefixer'],
