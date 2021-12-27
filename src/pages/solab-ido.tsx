@@ -477,6 +477,26 @@ const SolabIDO: NextPage = () => {
                                                             : 'text-solabGray-100'
                                                     }`}
                                                 >
+                                                    YOUR TICKETS
+                                                </span>
+                                                {selected ? (
+                                                    <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                ) : null}
+                                            </div>
+                                        )}
+                                    </Tab>
+                                    <Tab as={Fragment}>
+                                        {({ selected }) => (
+                                            <div
+                                                className={`w-min whitespace-nowrap cursor-pointer`}
+                                            >
+                                                <span
+                                                    className={`${
+                                                        selected
+                                                            ? 'font-bold'
+                                                            : 'text-solabGray-100'
+                                                    }`}
+                                                >
                                                     DESCRIPTION
                                                 </span>
                                                 {selected ? (
@@ -505,135 +525,8 @@ const SolabIDO: NextPage = () => {
                                             </div>
                                         )}
                                     </Tab>
-                                    <Tab as={Fragment}>
-                                        {({ selected }) => (
-                                            <div
-                                                className={`w-min whitespace-nowrap cursor-pointer`}
-                                            >
-                                                <span
-                                                    className={`${
-                                                        selected
-                                                            ? 'font-bold'
-                                                            : 'text-solabGray-100'
-                                                    }`}
-                                                >
-                                                    YOUR TICKETS
-                                                </span>
-                                                {selected ? (
-                                                    <hr className='gradient-background-1 mt-1 py-px border-0' />
-                                                ) : null}
-                                            </div>
-                                        )}
-                                    </Tab>
                                 </Tab.List>
                                 <Tab.Panels className='mt-8'>
-                                    <Tab.Panel>
-                                        <Tabs
-                                            className='lg:flex text-solabGray-100 gap-x-8'
-                                            selectedTabClassName='font-bold text-solabCyan-500 active-dot'
-                                            selectedTabPanelClassName='py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500'
-                                        >
-                                            <TabList className='lg:block flex gap-x-4'>
-                                                {solabProject.details?.map(
-                                                    (detail) => (
-                                                        <ReactTab
-                                                            className={`w-min whitespace-nowrap cursor-pointer`}
-                                                        >
-                                                            {detail.title}
-                                                        </ReactTab>
-                                                    )
-                                                )}
-                                            </TabList>
-
-                                            <div>
-                                                {solabProject.details?.map(
-                                                    (detail) => (
-                                                        <TabPanel className='mt-8 lg:mt-0'>
-                                                            {ReactHtmlParser(
-                                                                detail.content
-                                                            )}
-                                                        </TabPanel>
-                                                    )
-                                                )}
-                                            </div>
-                                        </Tabs>
-                                    </Tab.Panel>
-                                    <Tab.Panel>
-                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                                            <div className='rounded-lg bg-solabGray-300 p-4'>
-                                                <h2 className='text-2xl font-bold'>
-                                                    IDO Schedule
-                                                </h2>
-                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
-                                                        Whitelist Registration
-                                                        Start
-                                                    </span>
-                                                    <span className='text-sm'>
-                                                        {format(
-                                                            new Date(
-                                                                '2021-12-28T02:00:00.000+00:00'
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
-                                                        Social Task Start
-                                                    </span>
-                                                    <span className='text-sm'>
-                                                        {format(
-                                                            new Date(
-                                                                '2021-12-28T02:00:00.000+00:00'
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
-                                                        Commit USDC
-                                                    </span>
-                                                    <span className='text-sm'>
-                                                        {format(
-                                                            new Date(
-                                                                solabProject.idoStartDate
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
-                                                        Whitelist Registration
-                                                        End
-                                                    </span>
-                                                    <span className='text-sm'>
-                                                        {format(
-                                                            new Date(
-                                                                solabProject.idoEndDate
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
-                                                        Token distribution
-                                                    </span>
-                                                    <span className='text-sm'>
-                                                        {format(
-                                                            new Date(
-                                                                solabProject.firstPayment.date
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Tab.Panel>
                                     <Tab.Panel>
                                         <div className='w-full mx-auto'>
                                             <div className='flex justify-between items-end relative'>
@@ -1243,7 +1136,7 @@ const SolabIDO: NextPage = () => {
                                                                                               true
                                                                                           )}
                                                                                       </div>
-                                                                                      <span className='ml-2'>
+                                                                                      <span className='ml-2 text-solabGray-100'>
                                                                                           {
                                                                                               ta
                                                                                                   .settings
@@ -1384,9 +1277,137 @@ const SolabIDO: NextPage = () => {
                                                                 Copy Link
                                                             </button>
                                                         </div>
+                                                        <p className='mt-6'>
+                                                            Rules
+                                                        </p>
+                                                        <ul className='list-disc px-4'>
+                                                            <li>
+                                                                Get 3 tickets
+                                                                when your
+                                                                friends
+                                                                successfully
+                                                                registered this
+                                                                project.
+                                                            </li>
+                                                            <li>
+                                                                Get 7 tickets
+                                                                when your
+                                                                friends have
+                                                                been completed
+                                                                Commit USDC
+                                                                step.
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             ) : null}
+                                        </div>
+                                    </Tab.Panel>
+                                    <Tab.Panel>
+                                        <Tabs
+                                            className='lg:flex text-solabGray-100 gap-x-8'
+                                            selectedTabClassName='font-bold text-solabCyan-500 active-dot'
+                                            selectedTabPanelClassName='py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500'
+                                        >
+                                            <TabList className='lg:block flex gap-x-4'>
+                                                {solabProject.details?.map(
+                                                    (detail) => (
+                                                        <ReactTab
+                                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                                        >
+                                                            {detail.title}
+                                                        </ReactTab>
+                                                    )
+                                                )}
+                                            </TabList>
+
+                                            <div className='w-full'>
+                                                {solabProject.details?.map(
+                                                    (detail) => (
+                                                        <TabPanel className='mt-8 lg:mt-0'>
+                                                            {ReactHtmlParser(
+                                                                detail.content
+                                                            )}
+                                                        </TabPanel>
+                                                    )
+                                                )}
+                                            </div>
+                                        </Tabs>
+                                    </Tab.Panel>
+                                    <Tab.Panel>
+                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                                            <div className='rounded-lg bg-solabGray-300 p-4'>
+                                                <h2 className='text-2xl font-bold'>
+                                                    IDO Schedule
+                                                </h2>
+                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
+                                                    <span className='text-solabGray-100 text-sm'>
+                                                        Whitelist Registration
+                                                        Start
+                                                    </span>
+                                                    <span className='text-sm'>
+                                                        {format(
+                                                            new Date(
+                                                                '2021-12-28T02:00:00.000+00:00'
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
+                                                    <span className='text-solabGray-100 text-sm'>
+                                                        Social Task Start
+                                                    </span>
+                                                    <span className='text-sm'>
+                                                        {format(
+                                                            new Date(
+                                                                '2021-12-28T02:00:00.000+00:00'
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
+                                                    <span className='text-solabGray-100 text-sm'>
+                                                        Commit USDC
+                                                    </span>
+                                                    <span className='text-sm'>
+                                                        {format(
+                                                            new Date(
+                                                                solabProject.idoStartDate
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
+                                                    <span className='text-solabGray-100 text-sm'>
+                                                        Whitelist Registration
+                                                        End
+                                                    </span>
+                                                    <span className='text-sm'>
+                                                        {format(
+                                                            new Date(
+                                                                solabProject.idoEndDate
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
+                                                    <span className='text-solabGray-100 text-sm'>
+                                                        Token distribution
+                                                    </span>
+                                                    <span className='text-sm'>
+                                                        {format(
+                                                            new Date(
+                                                                solabProject.firstPayment.date
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </Tab.Panel>
                                 </Tab.Panels>

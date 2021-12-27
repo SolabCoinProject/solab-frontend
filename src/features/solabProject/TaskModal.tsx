@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { solabProjectActions } from './solabProjectSlice';
 import * as Yup from 'yup';
 import ReactHtmlParser from 'react-html-parser';
-import copy from 'copy-to-clipboard';
 
 const TaskModal: React.FC = () => {
     const isOpen = useAppSelector(
