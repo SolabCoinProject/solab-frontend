@@ -70,7 +70,7 @@ const TaskModal: React.FC = () => {
                                         {openTask.settings.link ? (
                                             <Link href={openTask.settings.link}>
                                                 <a
-                                                    href='_blank'
+                                                    target='_blank'
                                                     className='text-solabCyan-500'
                                                 >
                                                     {openTask.settings.link}
