@@ -7,6 +7,7 @@ import tierReducer from '../features/tier/tierSlice';
 import projectReducer from '../features/project/projectSlice';
 import resourceReducer from '../features/resources/resourceSlice';
 import solabProjectReducer from '../features/solabProject/solabProjectSlice';
+import imagePreviewReducer from '../features/imagePreview/imagePreviewSlice';
 
 const sageMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
         project: projectReducer,
         resource: resourceReducer,
         solabProject: solabProjectReducer,
+        imagePreview: imagePreviewReducer,
     },
     devTools: process.env.NODE_ENV === 'development' ? true : false,
     middleware: (getDefaultMiddleware) =>

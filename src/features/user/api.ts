@@ -1,5 +1,6 @@
-import { IResponseData } from './../../common/types';
+import { IPaginationResponse, IResponseData } from './../../common/types';
 import axiosClient from '../../libs/axiosClient';
+import * as _ from 'lodash';
 import {
     IStaff,
     ILoginParams,
@@ -8,6 +9,7 @@ import {
     IWalletConnectParams,
     IUserInfoUpdateParams,
     IUserKycUpdateParams,
+    IUserFull,
 } from './types';
 
 const userApi = {
@@ -19,6 +21,24 @@ const userApi = {
         getCurrentStaff: (): Promise<IStaff> => {
             const url = 'admin/auth/current-staff';
             return axiosClient.get(url);
+        },
+        fetchUsers: (query: any): Promise<IPaginationResponse<IUserFull[]>> => {
+            const docsQuery = _.omit(query, ['page', 'limit']);
+            const queryParams = {
+                page: query.page,
+                limit: query.limit,
+                q: JSON.stringify(docsQuery),
+            };
+            const url = 'admin/user';
+            return axiosClient.get(url, {
+                params: queryParams,
+            });
+        },
+        updateUserKyc: (
+            data: IUserKycUpdateParams
+        ): Promise<IResponseData<null>> => {
+            const url = 'admin/user/verify';
+            return axiosClient.put(url, data);
         },
     },
     app: {

@@ -1,3 +1,5 @@
+import { string } from 'yup/lib/locale';
+import { IPaginationData } from '../../common/types';
 import { ITier } from './../tier/types';
 export interface IStaff {
     username: string;
@@ -54,6 +56,10 @@ export interface IUserState {
         isLoggedIn: boolean;
         authenticated: boolean;
         isFetchingStaff: boolean;
+        users: IPaginationData<IUserFull[]>;
+        isFetchingUsers: boolean;
+        reloadUsers: boolean;
+        isUpdatingUsersKyc: boolean;
     };
     app: {
         user: IUser | null;
@@ -113,4 +119,18 @@ export interface IUserKycUpdateParams {
 export interface IFollowProjectParams {
     userId: string;
     refId?: string;
+}
+
+export interface IUserFull extends IUser {
+    kyc?: {
+        personalId: string;
+        docsExpiredDate: string;
+        docsFront: string;
+        docsBack: string;
+        selfie: string;
+    };
+}
+
+export interface IUpdateUserKycParams {
+    kycData: { address: string; kycStatus: number }[];
 }

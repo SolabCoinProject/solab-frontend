@@ -12,6 +12,7 @@ export enum adminSidebarItemOptions {
     tier = 'tier',
     project = 'project',
     demoEditor = 'demoEditor',
+    user = 'user',
 }
 
 export interface LayoutState {
