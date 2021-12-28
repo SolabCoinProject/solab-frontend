@@ -132,6 +132,7 @@ const User: NextPage = () => {
                         );
                     }}
                 </Formik>
+                <h1 className='text-xl mt-2'>Total: {users.totalDocs}</h1>
             </div>
             <div className='flex flex-col p-4'>
                 <div className='overflow-x-auto'>
