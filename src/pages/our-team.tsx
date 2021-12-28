@@ -43,7 +43,7 @@ const OurTeam: NextPage = () => {
                                 Daniel Mathew
                             </h3>
                             <Link href='#'>
-                                <a target='_blank'>
+                                <a>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
                             </Link>
@@ -70,7 +70,7 @@ const OurTeam: NextPage = () => {
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Riki Price</h3>
                             <Link href='#'>
-                                <a target='_blank'>
+                                <a>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
                             </Link>
@@ -99,7 +99,7 @@ const OurTeam: NextPage = () => {
                         <div className='flex items-center'>
                             <h3 className='text-xxl font-bold'>Lucas Ridley</h3>
                             <Link href='#'>
-                                <a target='_blank'>
+                                <a>
                                     <FaLinkedinIn className='text-solabBlue-500  ml-2' />
                                 </a>
                             </Link>
