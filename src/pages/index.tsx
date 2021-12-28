@@ -1,11 +1,8 @@
 import type { NextPage } from 'next';
 import Container from '../components/app/layout/Container';
 import Link from 'next/link';
-// import Image from 'next/image';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { BsTwitter } from 'react-icons/bs';
-// import banner from '../assets/images/banner.gif';
-// import sampleTokenLogo from '../assets/imageshttps://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-token-logo.png';
 
 import {
     VerticalTimeline,
@@ -15,14 +12,7 @@ import NumberFormat from 'react-number-format';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
 import { appHeaderOptions } from '../features/layout/types';
-import { Fragment, useCallback, useEffect, useState } from 'react';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-// import { web3 } from '@project-serum/anchor';
-// import { PublicKey } from '@solana/web3.js';
-// import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
-// import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-// import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
-// import { createTransferInstruction } from '../libs/createTransferInstructions';
+import { Fragment, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Pagination, Autoplay } from 'swiper';
@@ -30,8 +20,11 @@ import { tierActions } from '../features/tier/tierSlice';
 SwiperCore.use([Pagination, Autoplay]);
 
 import { ITier } from '../features/tier/types';
+import { useRouter } from 'next/router';
+import routes from '../config/routes';
 
 const Home: NextPage = () => {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.home));
@@ -41,10 +34,6 @@ const Home: NextPage = () => {
     }, []);
 
     const tiers = useAppSelector((state) => state.tier.app.tiers);
-
-    const { publicKey, sendTransaction, signTransaction } = useWallet();
-    const { connection } = useConnection();
-
     const getTiersSlice = () => {
         const chunkedTiers: ITier[][] = [];
         const copyTier: ITier[] = [...tiers];
@@ -76,8 +65,13 @@ const Home: NextPage = () => {
                                 allocations, token vesting, token generator, an
                                 NFT marketplace, and more.
                             </p>
-                            <button className='bg-solabCyan-500 text-solabBlack-500 py-4 px-16 rounded mt-10 hover:opacity-80'>
-                                Buy Solab
+                            <button
+                                className='bg-solabCyan-500 text-solabBlack-500 py-4 px-16 rounded mt-10 hover:opacity-80'
+                                onClick={() => {
+                                    router.push(routes.app.idoSolab);
+                                }}
+                            >
+                                IDO SOLAB
                             </button>
 
                             <div className='mt-9 flex'>
