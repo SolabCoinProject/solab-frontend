@@ -694,7 +694,7 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            <h3 className='w-1/2 mx-auto text-xl text-center py-1 px-5 mt-8 border border-solabCyan-500 rounded'>
+                                            <h3 className='w-1/2 mx-auto text-sm md:text-base lg:text-xl text-center py-1 px-5 mt-8 border border-solabCyan-500 rounded'>
                                                 <span className='text-solabGray-100'>
                                                     Your total lottery tickets:{' '}
                                                 </span>
@@ -1140,7 +1140,7 @@ const SolabIDO: NextPage = () => {
                                                                               ta
                                                                           ) => (
                                                                               <div className='flex items-center justify-between text-sm mt-1'>
-                                                                                  <div className='flex items-center'>
+                                                                                  <div className='flex items-center pr-2'>
                                                                                       <div className='p-2 rounded border border-solabGray-50'>
                                                                                           {getSocialIcon(
                                                                                               ta
@@ -1150,7 +1150,7 @@ const SolabIDO: NextPage = () => {
                                                                                               true
                                                                                           )}
                                                                                       </div>
-                                                                                      <span className='ml-2 text-solabGray-100'>
+                                                                                      <span className='ml-2 text-solabGray-100 text-xs sm:text-base'>
                                                                                           {
                                                                                               ta
                                                                                                   .settings
@@ -1232,10 +1232,10 @@ const SolabIDO: NextPage = () => {
                                                                                       )
                                                                                   ) : (
                                                                                       <div
-                                                                                          className='p-2 rounded border border-solabGray-100 text-solabGray-100 cursor-pointer relative group'
+                                                                                          className='p-1 sm:p-2 rounded border border-solabGray-100 text-solabGray-100 cursor-pointer relative group text-xs whitespace-nowrap'
                                                                                           title='Wallet is not connected'
                                                                                       >
-                                                                                          <span>
+                                                                                          <span className='whitespace-nowrap'>
                                                                                               {' '}
                                                                                               +{' '}
                                                                                               {
