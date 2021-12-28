@@ -1,9 +1,10 @@
-import { IResponseData } from './../../common/types';
+import { IPaginationData, IResponseData } from './../../common/types';
 import {
     ILoginParams,
     ILoginResponse,
     IStaff,
     IUser,
+    IUserFull,
     IUserInfoUpdateParams,
     IUserKycUpdateParams,
     IWalletConnectParams,
@@ -92,6 +93,32 @@ function* updateKyc(
     }
 }
 
+function* fetchUsers(action: PayloadAction<any>) {
+    try {
+        const users: IResponseData<IPaginationData<IUserFull[]>> = yield call(
+            userApi.admin.fetchUsers,
+            action.payload
+        );
+        yield put(userActions.fetchUsersSuccess(users));
+    } catch (error: any) {
+        const { status, data } = error.response;
+        yield put(userActions.fetchUsersFailure({ status, data: data }));
+    }
+}
+
+function* updateUsersKycAdmin(action: PayloadAction<IUserKycUpdateParams>) {
+    try {
+        const res: IResponseData<null> = yield call(
+            userApi.admin.updateUserKyc,
+            action.payload
+        );
+        yield put(userActions.updateKycAdminSuccess(res));
+    } catch (error: any) {
+        const { status, data } = error.response;
+        yield put(userActions.updateKycAdminFailure({ status, data: data }));
+    }
+}
+
 export default function* userSaga() {
     yield takeLatest(userActions.staffLogin.type, staffLogin);
     yield takeLatest(userActions.getCurrentStaff.type, getCurrentStaff);
@@ -101,4 +128,6 @@ export default function* userSaga() {
         updateUserInformation
     );
     yield takeLatest(userActions.updateKyc.type, updateKyc);
+    yield takeLatest(userActions.fetchUsers.type, fetchUsers);
+    yield takeLatest(userActions.updateKycAdmin.type, updateUsersKycAdmin);
 }

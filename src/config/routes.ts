@@ -14,6 +14,7 @@ const routes = {
         login: '/admin-slb/login',
         project: '/admin-slb/project',
         demoEditor: '/admin-slb/editor-demo',
+        user: '/admin-slb/user',
     },
 };
 

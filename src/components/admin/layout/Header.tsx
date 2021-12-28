@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     const dispatch = useAppDispatch();
 
     return (
-        <nav className='border-b border-blue-light fixed z-30 w-full'>
+        <nav className='border-b border-blue-light fixed z-50 w-full'>
             <div className='px-3 py-3 lg:px-5 lg:pl-3'>
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center justify-start'>

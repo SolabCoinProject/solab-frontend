@@ -204,9 +204,7 @@ const MyAccount: NextPage = () => {
                                                                                     dataOnauth={(
                                                                                         user: TelegramUser
                                                                                     ) => {
-                                                                                        console.log(
-                                                                                            user
-                                                                                        );
+                                                                                      
                                                                                         setFieldValue(
                                                                                             'telegram.id',
                                                                                             user.id

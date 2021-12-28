@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { adminSidebarItemOptions } from '../../../features/layout/types';
 import { RiDashboardLine } from 'react-icons/ri';
 import { GiBowTieRibbon } from 'react-icons/gi';
-import { AiOutlineProject } from 'react-icons/ai';
+import { AiOutlineProject, AiOutlineUser } from 'react-icons/ai';
 import { VscEditorLayout } from 'react-icons/vsc';
 const Sidebar: React.FC = () => {
     const isSidebarOpen = useAppSelector(
@@ -143,6 +143,37 @@ const Sidebar: React.FC = () => {
                                                 }`}
                                             >
                                                 Demo Editor
+                                            </span>
+                                        </a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={routes.admin.user}>
+                                        <a
+                                            className={`sidebar-link group ${
+                                                activeSidebarItem ===
+                                                adminSidebarItemOptions.user
+                                                    ? 'sidebar-link-active'
+                                                    : ''
+                                            }`}
+                                        >
+                                            <AiOutlineUser
+                                                className={`sidebar-icon ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.user
+                                                        ? 'sidebar-icon-active'
+                                                        : ''
+                                                }`}
+                                            />
+                                            <span
+                                                className={`sidebar-content ${
+                                                    activeSidebarItem ===
+                                                    adminSidebarItemOptions.user
+                                                        ? 'sidebar-content-active'
+                                                        : ''
+                                                }`}
+                                            >
+                                                User
                                             </span>
                                         </a>
                                     </Link>

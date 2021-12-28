@@ -1,4 +1,8 @@
-import { IResponseData, IResponseFailure } from './../../common/types';
+import {
+    IPaginationData,
+    IResponseData,
+    IResponseFailure,
+} from './../../common/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     IStaff,
@@ -9,6 +13,8 @@ import {
     IUser,
     IUserInfoUpdateParams,
     IUserKycUpdateParams,
+    IUserFull,
+    IUpdateUserKycParams,
 } from './types';
 import { toast } from 'react-toastify';
 import toastConfigs from '../../config/toast';
@@ -21,6 +27,21 @@ const initialState: IUserState = {
         isLoggedIn: false,
         authenticated: true,
         isFetchingStaff: false,
+        users: {
+            docs: [],
+            totalDocs: 0,
+            limit: 0,
+            totalPages: 0,
+            page: 0,
+            pagingCounter: 0,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null,
+        },
+        isFetchingUsers: false,
+        reloadUsers: false,
+        isUpdatingUsersKyc: false,
     },
     app: {
         user: null,
@@ -98,6 +119,64 @@ export const userSlice = createSlice({
             action: PayloadAction<IResponseFailure>
         ) => {
             state.admin.isFetchingStaff = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+                state.admin.authenticated = false;
+                state.admin.isLoggedIn = false;
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        fetchUsers: (state, action: PayloadAction<any>) => {
+            state.admin.isFetchingUsers = true;
+            state.admin.reloadUsers = false;
+        },
+
+        fetchUsersSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IPaginationData<IUserFull[]>>>
+        ) => {
+            state.admin.isFetchingUsers = false;
+            state.admin.reloadUsers = false;
+            state.admin.users = action.payload.data;
+        },
+
+        fetchUsersFailure: (state, action: PayloadAction<IResponseFailure>) => {
+            state.admin.isFetchingUsers = false;
+            state.admin.reloadUsers = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+                state.admin.authenticated = false;
+                state.admin.isLoggedIn = false;
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        updateKycAdmin: (
+            state,
+            action: PayloadAction<IUpdateUserKycParams>
+        ) => {
+            state.admin.isUpdatingUsersKyc = true;
+        },
+
+        updateKycAdminSuccess: (
+            state,
+            action: PayloadAction<IResponseData<null>>
+        ) => {
+            state.admin.isUpdatingUsersKyc = false;
+            state.admin.reloadUsers = true;
+        },
+
+        updateKycAdminFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.admin.isUpdatingUsersKyc = false;
+            state.admin.reloadUsers = true;
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');
