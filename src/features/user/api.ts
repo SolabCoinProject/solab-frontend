@@ -11,6 +11,7 @@ import {
     IUserKycUpdateParams,
     IUserFull,
 } from './types';
+import { parseISO } from 'date-fns';
 
 const userApi = {
     admin: {
@@ -27,13 +28,13 @@ const userApi = {
             if (docsQuery.created_at_from) {
                 docsQuery.created_at = {
                     ...docsQuery.created_at,
-                    $gte: docsQuery.created_at_from,
+                    $gte: parseISO(docsQuery.created_at_from),
                 };
             }
             if (docsQuery.created_at_to) {
                 docsQuery.created_at = {
                     ...docsQuery.created_at,
-                    $lte: docsQuery.created_at_to,
+                    $lte: parseISO(docsQuery.created_at_to),
                 };
             }
             docsQuery = _.omit(docsQuery, ['created_at_from', 'created_at_to']);
