@@ -183,7 +183,7 @@ const SolabIDO: NextPage = () => {
                         <p className='text-solabGray-100 text-center text-base mt-1'>
                             Whitelist registration ends on{' '}
                             {format(
-                                new Date(solabProject.idoStartDate),
+                                new Date(solabProject.idoEndDate),
                                 'MMMM do yyyy, hh:mm a OOOO'
                             )}
                         </p>
