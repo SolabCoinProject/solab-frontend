@@ -429,7 +429,7 @@ const SolabIDO: NextPage = () => {
                                         {getProjectPhraseAndCountDown().status}
                                     </span>
                                 </div>
-                                <div className='w-full text-center mt-4'>
+                                <div className='w-full text-center mt-3'>
                                     {getProjectPhraseAndCountDown().countDown}
 
                                     <div className='mt-2'>

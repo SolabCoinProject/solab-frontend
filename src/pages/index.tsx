@@ -1621,7 +1621,7 @@ const Home: NextPage = () => {
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'
                                         style={{
-                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/pr-news.png')`,
+                                            backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/prn_twitter_sharing_logo.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: '80% auto',
                                             backgroundPosition: 'center',
