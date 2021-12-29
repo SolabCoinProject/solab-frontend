@@ -89,7 +89,14 @@ const SolabIDO: NextPage = () => {
                 })
             );
         }
-    }, [user, reloadRegisterInfo]);
+    }, [user]);
+    useEffect(() => {
+        if (reloadRegisterInfo && user) {
+            dispatch(
+                solabProjectActions.fetchRegisterInfo({ userId: user._id })
+            );
+        }
+    }, [reloadRegisterInfo]);
 
     const countDownRenderFunc = ({
         hours,
@@ -257,6 +264,7 @@ const SolabIDO: NextPage = () => {
                     );
                 }, 4000);
             } catch (err: any) {
+                console.log(err);
                 toast.error(
                     'Please check your wallet connection and USDC balance!',
                     toastConfigs.error
@@ -1001,15 +1009,17 @@ const SolabIDO: NextPage = () => {
                                                                             </ul>
                                                                         </div>
                                                                     ) : (
-                                                                        <p>
-                                                                            Fetching
-                                                                            Whitelist
-                                                                            registration
-                                                                            info
-                                                                        </p>
+                                                                        <div className='w-10 h-10 mx-auto relative'>
+                                                                            <Image
+                                                                                src={
+                                                                                    loaderCyan
+                                                                                }
+                                                                                layout='fill'
+                                                                            />
+                                                                        </div>
                                                                     )
                                                                 ) : (
-                                                                    <p>
+                                                                    <p className='text-center'>
                                                                         Project
                                                                         not
                                                                         founded

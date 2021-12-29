@@ -147,12 +147,14 @@ export const solabProjectSlice = createSlice({
         ) => {
             state.app.isFetchingRegisterInfo = false;
             state.app.solabRegisteredInfo = action.payload.data;
+            state.app.reloadRegisterInfo = false;
         },
         fetchRegisterInfoFailure: (
             state,
             action: PayloadAction<IResponseFailure>
         ) => {
             state.app.isFetchingRegisterInfo = false;
+            state.app.reloadRegisterInfo = false;
             if (action.payload.status !== 500) {
                 toast.error(action.payload.data.message, toastConfigs.error);
             } else {

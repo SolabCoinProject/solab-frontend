@@ -23,7 +23,20 @@ const userApi = {
             return axiosClient.get(url);
         },
         fetchUsers: (query: any): Promise<IPaginationResponse<IUserFull[]>> => {
-            const docsQuery = _.omit(query, ['page', 'limit']);
+            let docsQuery = _.omit(query, ['page', 'limit']);
+            if (docsQuery.created_at_from) {
+                docsQuery.created_at = {
+                    ...docsQuery.created_at,
+                    $gte: docsQuery.created_at_from,
+                };
+            }
+            if (docsQuery.created_at_to) {
+                docsQuery.created_at = {
+                    ...docsQuery.created_at,
+                    $lte: docsQuery.created_at_to,
+                };
+            }
+            docsQuery = _.omit(docsQuery, ['created_at_from', 'created_at_to']);
             const queryParams = {
                 page: query.page,
                 limit: query.limit,
