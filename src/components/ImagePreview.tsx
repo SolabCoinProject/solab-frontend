@@ -45,7 +45,7 @@ const ImagePreview: React.FC = () => {
                         leaveFrom='opacity-100 scale-100'
                         leaveTo='opacity-0 scale-95'
                     >
-                        <div className='inline-block w-full max-w-full p-6 my-8 align-middle transition-all transform bg-white shadow-xl rounded-2xl bg-white-500 text-center'>
+                        <div className='inline-block w-4/5 p-6 my-8 align-middle transition-all transform bg-white shadow-xl rounded-2xl bg-white-500 text-center'>
                             <img src={url} className='w-full h-full' />
                         </div>
                     </Transition.Child>

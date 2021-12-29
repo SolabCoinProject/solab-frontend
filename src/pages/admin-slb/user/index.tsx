@@ -14,6 +14,9 @@ import Image from 'next/image';
 import ImagePreview from '../../../components/ImagePreview';
 import { imagePreviewActions } from '../../../features/imagePreview/imagePreviewSlice';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { formatISO, parseISO } from 'date-fns';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const User: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -70,7 +73,10 @@ const User: NextPage = () => {
                 <h2 className='text-xl'>Filter</h2>
                 <Formik
                     enableReinitialize
-                    initialValues={_.omit(router.query, ['page', 'limit'])}
+                    initialValues={_.omit(router.query as any, [
+                        'page',
+                        'limit',
+                    ])}
                     onSubmit={(values) => {
                         const { query } = router;
                         const newQuery = { ...query, ...values, page: 1 };
@@ -81,50 +87,96 @@ const User: NextPage = () => {
                     }}
                 >
                     {({ values, setFieldValue }) => {
+                        console.log(values);
                         return (
                             <Form>
-                                <Select
-                                    value={
-                                        kycStatuses.filter(
-                                            (item) =>
-                                                item.value ===
-                                                (parseInt(
-                                                    values.isKycVerified as string,
-                                                    10
-                                                ) as any)
-                                        )[0] || ''
-                                    }
-                                    options={kycStatuses}
-                                    onChange={(selected) => {
-                                        if (selected) {
-                                            const { value } = selected;
-                                            if (value || value === 0) {
-                                                setFieldValue(
-                                                    'isKycVerified',
-                                                    value
-                                                );
-                                            }
-                                        } else {
-                                            setFieldValue('kyc', 2);
+                                <div>
+                                    <label>Kyc status</label>
+                                    <Select
+                                        value={
+                                            kycStatuses.filter(
+                                                (item) =>
+                                                    item.value ===
+                                                    (parseInt(
+                                                        values.isKycVerified as string,
+                                                        10
+                                                    ) as any)
+                                            )[0] || ''
                                         }
-                                    }}
-                                    theme={(theme) => {
-                                        return {
-                                            ...theme,
-                                            colors: {
-                                                ...theme.colors,
-                                                neutral0: '#0F1217',
-                                                neutral20: '#1F2733',
-                                                neutral30: '#1F2733',
-                                                primary: '#1EE8BB',
-                                                primary50: '#1EE8BB',
-                                                primary25: '#1EE8BB',
-                                                neutral5: '#1EE8BB',
-                                                neutral80: '#E2E4E9',
-                                            },
-                                        };
-                                    }}
-                                />
+                                        options={kycStatuses}
+                                        onChange={(selected) => {
+                                            if (selected) {
+                                                const { value } = selected;
+                                                if (value || value === 0) {
+                                                    setFieldValue(
+                                                        'isKycVerified',
+                                                        value
+                                                    );
+                                                }
+                                            } else {
+                                                setFieldValue('kyc', 2);
+                                            }
+                                        }}
+                                        theme={(theme) => {
+                                            return {
+                                                ...theme,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    neutral0: '#0F1217',
+                                                    neutral20: '#1F2733',
+                                                    neutral30: '#1F2733',
+                                                    primary: '#1EE8BB',
+                                                    primary50: '#1EE8BB',
+                                                    primary25: '#1EE8BB',
+                                                    neutral5: '#1EE8BB',
+                                                    neutral80: '#E2E4E9',
+                                                },
+                                            };
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Created At (From)</label>
+                                    <DatePicker
+                                        className='input input-cyan text-solabWhite-500'
+                                        selected={
+                                            values.created_at_from
+                                                ? parseISO(
+                                                      values.created_at_from as string
+                                                  )
+                                                : new Date()
+                                        }
+                                        onChange={(date) => {
+                                            setFieldValue(
+                                                'created_at_from',
+                                                formatISO(date, {
+                                                    representation: 'date',
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Created At (To)</label>
+                                    <DatePicker
+                                        className='input input-cyan text-solabWhite-500'
+                                        selected={
+                                            values.created_at_to
+                                                ? parseISO(
+                                                      values.created_at_to as string
+                                                  )
+                                                : new Date()
+                                        }
+                                        onChange={(date) => {
+                                            setFieldValue(
+                                                'created_at_to',
+                                                formatISO(date, {
+                                                    representation: 'date',
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
                                 <button type='submit' className='btn btn-pink'>
                                     Filter
                                 </button>
@@ -185,6 +237,12 @@ const User: NextPage = () => {
                                                             className='p-4 text-left text-xs text-white-500 font-bold uppercase'
                                                         >
                                                             Kyc status
+                                                        </th>
+                                                        <th
+                                                            scope='col'
+                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                        >
+                                                            Wallet address
                                                         </th>
                                                         <th
                                                             scope='col'
@@ -325,6 +383,15 @@ const User: NextPage = () => {
                                                                                         };
                                                                                     }}
                                                                                 />
+                                                                            </td>
+                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                                {
+                                                                                    values
+                                                                                        .kycData[
+                                                                                        index
+                                                                                    ]
+                                                                                        .walletAddress
+                                                                                }
                                                                             </td>
                                                                             <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
                                                                                 <Field

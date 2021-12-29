@@ -46,6 +46,8 @@ export interface IUser {
     };
     isKycVerified: number;
     kycNote?: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface IUserState {
