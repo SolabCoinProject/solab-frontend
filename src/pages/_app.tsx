@@ -44,6 +44,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Head>
                 <title>Solab Finance</title>
                 <link rel='icon' href='/logo-sm.svg' />
+                <meta
+                    name='description'
+                    content='The Solab platform is a decentralized platform on the Solana blockchain. Featuring an industry-leading launchpad with guaranteed allocations, token vesting, token generator, an NFT marketplace, and more.'
+                ></meta>
                 <script
                     async
                     src={`https://www.googletagmanager.com/gtag/js?id=G-DSC6N47KW4`}
