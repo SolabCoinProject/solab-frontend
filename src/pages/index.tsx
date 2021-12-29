@@ -128,6 +128,83 @@ const Home: NextPage = () => {
             </div>
             <div className='mt-32 px-4'>
                 <div className='max-w-7xl mx-auto'>
+                    <h1 className='text-center text-3xl font-bold'>
+                        IDO SOLAB
+                    </h1>
+                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:w-1/3 mx-auto'>
+                        <div
+                            style={{
+                                backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/banner+-solab+space.png')`,
+                            }}
+                            className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                        >
+                            <span className='absolute bg-solabCyan-500 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
+                                Whitelist Registration
+                            </span>
+                        </div>
+                        <div className='m-4 flex gap-x-4'>
+                            <div
+                                className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                style={{
+                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/solab-project/logo-ido.jpg')`,
+                                }}
+                            ></div>
+                            <div className='flex flex-col justify-center'>
+                                <p className='font-bold'>Solab Finance</p>
+                                <p className='text-solabGray-100'>$SOLAB</p>
+                            </div>
+                        </div>
+                        <div className='px-4 text-solabGray-100 text-sm'>
+                            The Solab platform is a decentralized platform on
+                            the Solana blockchain. Featuring an industry-leading
+                            launchpad with guaranteed allocations, token
+                            vesting, token generator, an NFT marketplace, and
+                            more.
+                        </div>
+                        <div className='mt-4 px-4'>
+                            <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                <span className='font-bold'>Raise amount</span>
+                                <span className='text-solabGray-100'>
+                                    <NumberFormat
+                                        thousandsGroupStyle='thousand'
+                                        value={1000000}
+                                        displayType='text'
+                                        thousandSeparator={true}
+                                        prefix='$'
+                                    />
+                                </span>
+                            </div>
+                            <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                <span className='font-bold'>Open date</span>
+                                <span className='text-solabGray-100'>
+                                    December 28th 2021
+                                </span>
+                            </div>
+                            <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                <span className='font-bold'>
+                                    Price per token
+                                </span>
+                                <span className='text-solabGray-100'>
+                                    <NumberFormat
+                                        thousandsGroupStyle='thousand'
+                                        value={0.0044}
+                                        displayType='text'
+                                        thousandSeparator={true}
+                                        prefix='$'
+                                    />
+                                </span>
+                            </div>
+                        </div>
+                        <div className='px-4 mt-4 text-right'>
+                            <Link href={routes.app.idoSolab}>
+                                <a className='text-gradient-1'>View detail</a>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='mt-32 px-4'>
+                <div className='max-w-7xl mx-auto'>
                     <h1 className='text-center text-3xl font-bold'>Projects</h1>
                     <p className='text-center font-light text-solabGray-100'>
                         Check new Solana project launches on our platform.
@@ -1234,7 +1311,7 @@ const Home: NextPage = () => {
                                                         suffix=' LAB'
                                                     />
                                                 </h1>
-                                                <div className='mt-8 px-4'>
+                                                <div className='mt-8 px-4 text-sm lg:text-base'>
                                                     <div className='flex justify-between items-center'>
                                                         <span className='font-bold'>
                                                             Lottery tickets
@@ -1297,7 +1374,7 @@ const Home: NextPage = () => {
                                                         suffix=' LAB'
                                                     />
                                                 </h1>
-                                                <div className='mt-8 px-4'>
+                                                <div className='mt-8 px-4 text-sm lg:text-base'>
                                                     <div className='flex justify-between items-center'>
                                                         <span className='font-bold'>
                                                             Lottery tickets
@@ -1361,7 +1438,7 @@ const Home: NextPage = () => {
                                                         suffix=' LAB'
                                                     />
                                                 </h1>
-                                                <div className='mt-8 px-4'>
+                                                <div className='mt-8 px-4 text-sm lg:text-base'>
                                                     <div className='flex justify-between items-center'>
                                                         <span className='font-bold'>
                                                             Lottery tickets
@@ -1399,6 +1476,40 @@ const Home: NextPage = () => {
                                 );
                             }
                         })}
+                    </div>
+                </div>
+            </div>
+            <div className='mt-32 px-4'>
+                <div className='max-w-7xl mx-auto'>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                        <div>
+                            <h1 className='text-center text-3xl font-bold'>
+                                Our mission
+                            </h1>
+                            <p className='mt-4'>
+                                Our issue with most launchpad projects and
+                                platforms is that they are basically fully
+                                centralized. Acentral entity manages which
+                                projects are allowed on the platform, most of
+                                the time combined with a lot of insider
+                                information and trading.
+                            </p>
+                            <p className='mt-4'>
+                                Solab is an open platform where everyone can
+                                create a pool and raise funds. And we have many
+                                other products in the pipeline. Our token is
+                                integrated into every product on the
+                                platform.ltimate solution to these problems.
+                            </p>
+                        </div>
+                        <div>
+                            <iframe
+                                className='w-full'
+                                height={350}
+                                src='https://www.youtube.com/embed/PQRsR807fS8'
+                                title='YouTube video player'
+                            ></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
