@@ -4,8 +4,15 @@ import Link from 'next/link';
 import { adminSidebarItemOptions } from '../../../features/layout/types';
 import { RiDashboardLine } from 'react-icons/ri';
 import { GiBowTieRibbon } from 'react-icons/gi';
-import { AiOutlineProject, AiOutlineUser } from 'react-icons/ai';
+import {
+    AiOutlineProject,
+    AiOutlineUser,
+    AiOutlineCheck,
+} from 'react-icons/ai';
 import { VscEditorLayout } from 'react-icons/vsc';
+import { CgSelect } from 'react-icons/cg';
+import { Listbox, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 const Sidebar: React.FC = () => {
     const isSidebarOpen = useAppSelector(
         (state) => state.layout.admin.isSidebarOpen
@@ -177,6 +184,9 @@ const Sidebar: React.FC = () => {
                                             </span>
                                         </a>
                                     </Link>
+                                </li>
+                                <li>
+                                    
                                 </li>
                             </li>
                         </ul>
