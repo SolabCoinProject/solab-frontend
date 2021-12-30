@@ -160,6 +160,14 @@ const User: NextPage = () => {
                                         }}
                                     />
                                 </div>
+                                <div className='mt-2'>
+                                    <label>Wallet Address</label>
+                                    <Field
+                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                        type='text'
+                                        name='walletAddress'
+                                    />
+                                </div>
                                 <button type='submit' className='btn btn-pink'>
                                     Filter
                                 </button>

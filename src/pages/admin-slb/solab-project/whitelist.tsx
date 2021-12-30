@@ -10,6 +10,7 @@ import Select from 'react-select';
 import solabProjectConstants from '../../../features/solabProject/contants';
 import { IUserFull } from '../../../features/user/types';
 import NumberFormat from 'react-number-format';
+import { navigate } from '../../../libs/navigation';
 
 const Whitelist: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -435,6 +436,38 @@ const Whitelist: NextPage = () => {
                                 );
                             }}
                         </Formik>
+                    </div>
+                </div>
+            </div>
+            <div className='mt-4'>
+                <div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
+                    <div className='flex-1 flex justify-between'>
+                        <button
+                            onClick={() => {
+                                if (solabRegisteredInfos.prevPage) {
+                                    navigate(
+                                        solabRegisteredInfos.prevPage,
+                                        router
+                                    );
+                                }
+                            }}
+                            className='relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-solabCyan-500 bg-white hover:bg-gray-50'
+                        >
+                            Previous
+                        </button>
+                        <button
+                            onClick={() => {
+                                if (solabRegisteredInfos.nextPage) {
+                                    navigate(
+                                        solabRegisteredInfos.nextPage,
+                                        router
+                                    );
+                                }
+                            }}
+                            className='ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-solabCyan-500 bg-white hover:bg-gray-50'
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </div>
