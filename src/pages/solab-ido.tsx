@@ -1101,7 +1101,27 @@ const SolabIDO: NextPage = () => {
                                                                         </ul>
                                                                     </div>
                                                                 ) : (
-                                                                    'Whitelist is not available'
+                                                                    <>
+                                                                        <h3 className='text-xl'>
+                                                                            Whitelist
+                                                                            registration
+                                                                            is
+                                                                            not
+                                                                            available
+                                                                        </h3>
+                                                                        <h3 className='text-red-500 text-xl'>
+                                                                            Note:
+                                                                            Make
+                                                                            sure
+                                                                            your
+                                                                            kyc
+                                                                            verified
+                                                                            in
+                                                                            order
+                                                                            to
+                                                                            register!
+                                                                        </h3>
+                                                                    </>
                                                                 )
                                                             ) : (
                                                                 <div className='text-center py-32'>
