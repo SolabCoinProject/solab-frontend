@@ -32,6 +32,10 @@ const socialTypeMedium = 8;
 const mediaTypeImage = 1;
 const mediaTypeVideo = 2;
 
+const inWhitelistStatusWaiting = 2;
+const inWhitelistStatusRejected = 3;
+const inWhitelistStatusApproved = 1;
+
 const solabProjectConstants = {
     taskTypeCommunity,
     taskTypeReferral,
@@ -139,6 +143,25 @@ const solabProjectConstants = {
         {
             value: mediaTypeVideo,
             label: 'Video',
+        },
+    ],
+
+    inWhitelistStatusApproved,
+    inWhitelistStatusRejected,
+    inWhitelistStatusWaiting,
+
+    inWhitelistStatuses: [
+        {
+            value: inWhitelistStatusApproved,
+            label: 'Approved',
+        },
+        {
+            value: inWhitelistStatusWaiting,
+            label: 'Waiting',
+        },
+        {
+            value: inWhitelistStatusRejected,
+            label: 'Rejected',
         },
     ],
 };

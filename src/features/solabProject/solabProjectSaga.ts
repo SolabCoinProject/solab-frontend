@@ -7,9 +7,10 @@ import {
     IProcessPurchaseParams,
     IFetchRegisterInfoParams,
     ISolabRegisteredInfo,
+    IUpdateSolabWhitelistParams,
 } from './types';
 import solabProjectApi from './api';
-import { IResponseData } from '../../common/types';
+import { IPaginationData, IResponseData } from '../../common/types';
 import { IFollowProjectParams } from '../user/types';
 
 function* fetchSolabProject() {
@@ -96,6 +97,61 @@ function* getRegisterInfo(action: PayloadAction<IFetchRegisterInfoParams>) {
     }
 }
 
+function* fetchSolabRegisteredInfos(action: PayloadAction<any>) {
+    try {
+        const res: IResponseData<IPaginationData<ISolabRegisteredInfo[]>> =
+            yield call(
+                solabProjectApi.admin.fetchSolabRegisteredInfos,
+                action.payload
+            );
+        yield put(solabProjectActions.fetchSolabRegisteredInfosSuccess(res));
+    } catch (error: any) {
+        const { status, data } = error.response;
+        yield put(
+            solabProjectActions.fetchSolabRegisteredInfosFailure({
+                status,
+                data: data,
+            })
+        );
+    }
+}
+
+function* updateSolabWhitelist(
+    action: PayloadAction<IUpdateSolabWhitelistParams>
+) {
+    try {
+        const res: IResponseData<null> = yield call(
+            solabProjectApi.admin.updateSolabWhitelist,
+            action.payload
+        );
+        yield put(solabProjectActions.updateSolabWhitelistSuccess(res));
+    } catch (error: any) {
+        const { status, data } = error.response;
+        yield put(
+            solabProjectActions.updateSolabWhitelistFailure({
+                status,
+                data: data,
+            })
+        );
+    }
+}
+
+function* fetchTotalTokenPayment() {
+    try {
+        const res: IResponseData<{ _id: string; amount: number }[]> =
+            yield call(solabProjectApi.admin.fetchTotalTokenPayment);
+        yield put(solabProjectActions.fetchTotalTokenPaymentSuccess(res));
+    } catch (error: any) {
+        const { status, data } = error.response;
+        yield put(
+            solabProjectActions.fetchTotalTokenPaymentFailure({
+                status,
+                data: data,
+            })
+        );
+    }
+}
+
 export default function* solabProjectSaga() {
     yield takeLatest(
         solabProjectActions.fetchSolabProject.type,
@@ -110,5 +166,19 @@ export default function* solabProjectSaga() {
     yield takeLatest(
         solabProjectActions.fetchRegisterInfo.type,
         getRegisterInfo
+    );
+
+    yield takeLatest(
+        solabProjectActions.fetchSolabRegisteredInfos.type,
+        fetchSolabRegisteredInfos
+    );
+    yield takeLatest(
+        solabProjectActions.updateSolabWhitelist.type,
+        updateSolabWhitelist
+    );
+
+    yield takeLatest(
+        solabProjectActions.fetchTotalTokenPayment.type,
+        fetchTotalTokenPayment
     );
 }
