@@ -453,7 +453,7 @@ const MyAccount: NextPage = () => {
                                                                         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                                                                             <div className='mt-4'>
                                                                                 <label className='text-solabWhite-500'>
-                                                                                    Personal
+                                                                                    National
                                                                                     ID
                                                                                 </label>
                                                                                 <Field
@@ -765,6 +765,16 @@ const MyAccount: NextPage = () => {
                                                                                 <div className='flex items-center'>
                                                                                     <AiOutlineCheckCircle className='text-solabCyan-500' />
                                                                                     <span className='ml-2 text-solabWhite-500'>
+                                                                                        Identiy
+                                                                                        card,
+                                                                                        passport,
+                                                                                        driver
+                                                                                        license
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className='flex items-center'>
+                                                                                    <AiOutlineCheckCircle className='text-solabCyan-500' />
+                                                                                    <span className='ml-2 text-solabWhite-500'>
                                                                                         Original
                                                                                         full-size,
                                                                                         unedited
@@ -1018,10 +1028,11 @@ const MyAccount: NextPage = () => {
                                                                                     <p className='text-solabWhite-500'>
                                                                                         Sample
                                                                                     </p>
-                                                                                    <div className='relative w-28 h-28'>
+                                                                                    <div className='relative w-full h-full'>
                                                                                         <Image
-                                                                                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-selfie.png'
+                                                                                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-selfie.jpg'
                                                                                             layout='fill'
+                                                                                            className='rounded-lg'
                                                                                         />
                                                                                     </div>
                                                                                 </div>
