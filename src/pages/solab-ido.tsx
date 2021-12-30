@@ -1109,7 +1109,7 @@ const SolabIDO: NextPage = () => {
                                                                             not
                                                                             available
                                                                         </h3>
-                                                                        <h3 className='text-red-500 text-xl'>
+                                                                        <h3 className='text-yellow-500 text-xl'>
                                                                             Note:
                                                                             Make
                                                                             sure
