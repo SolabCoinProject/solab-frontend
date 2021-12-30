@@ -4,11 +4,13 @@ import {
     IProcessPurchaseParams,
     ISolabProject,
     ISolabRegisteredInfo,
+    IUpdateSolabWhitelistParams,
 } from './types';
-import { IResponseData } from '../../common/types';
+import { IPaginationResponse, IResponseData } from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { IFollowProjectParams } from '../user/types';
+import { queryParamsHandler } from '../../libs/queryParams';
 
 const solabProjectApi = {
     app: {
@@ -58,6 +60,36 @@ const solabProjectApi = {
             data: IFetchRegisterInfoParams
         ): Promise<IResponseData<ISolabRegisteredInfo>> => {
             const url = `/app/solab-project/register-info/${data.userId}`;
+            return axiosClient.get(url);
+        },
+    },
+
+    admin: {
+        fetchSolabRegisteredInfos: (
+            query: any
+        ): Promise<IPaginationResponse<ISolabRegisteredInfo[]>> => {
+            const docsQuery = queryParamsHandler(query);
+            const queryParams = {
+                page: query.page,
+                limit: query.limit,
+                q: JSON.stringify(docsQuery),
+            };
+            const url = 'admin/solab-project/register-infos';
+            return axiosClient.get(url, {
+                params: queryParams,
+            });
+        },
+        updateSolabWhitelist: (
+            data: IUpdateSolabWhitelistParams
+        ): Promise<IResponseData<null>> => {
+            const url = 'admin/solab-project/update-whitelist';
+            return axiosClient.put(url, data);
+        },
+
+        fetchTotalTokenPayment: (): Promise<
+            IResponseData<{ _id: string; amount: number }[]>
+        > => {
+            const url = 'admin/solab-project/total-token-payment';
             return axiosClient.get(url);
         },
     },

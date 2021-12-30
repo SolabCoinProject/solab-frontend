@@ -1,7 +1,8 @@
+import { IResponseData, IPaginationData } from './../../common/types';
 import { IFollowProjectParams } from './../user/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { IResponseData, IResponseFailure } from '../../common/types';
+import { IResponseFailure } from '../../common/types';
 import toastConfigs from '../../config/toast';
 import {
     IDoTaskCommunityParams,
@@ -10,6 +11,7 @@ import {
     ISolabProject,
     ISolabProjectState,
     ISolabRegisteredInfo,
+    IUpdateSolabWhitelistParams,
 } from './types';
 
 const initialState: ISolabProjectState = {
@@ -24,6 +26,25 @@ const initialState: ISolabProjectState = {
         isTaskModalOpen: false,
         openTask: null,
         reloadRegisterInfo: false,
+    },
+    admin: {
+        solabRegisteredInfos: {
+            docs: [],
+            totalDocs: 0,
+            limit: 0,
+            totalPages: 0,
+            page: 0,
+            pagingCounter: 0,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null,
+        },
+        isFetchingSolabRegisteredInfos: false,
+        reloadSolabRegisteredInfos: false,
+        isUpdatingSolabWhitelist: false,
+        isFetchingTotalTokenPayment: false,
+        totalTokenPayment: [],
     },
 };
 
@@ -168,6 +189,93 @@ export const solabProjectSlice = createSlice({
         closeTaskModal: (state) => {
             state.app.isTaskModalOpen = false;
             state.app.openTask = null;
+        },
+
+        //Admin
+        fetchSolabRegisteredInfos: (state, action: PayloadAction<any>) => {
+            state.admin.isFetchingSolabRegisteredInfos = true;
+            state.admin.reloadSolabRegisteredInfos = false;
+        },
+
+        fetchSolabRegisteredInfosSuccess: (
+            state,
+            action: PayloadAction<
+                IResponseData<IPaginationData<ISolabRegisteredInfo[]>>
+            >
+        ) => {
+            state.admin.isFetchingSolabRegisteredInfos = false;
+            state.admin.reloadSolabRegisteredInfos = false;
+            state.admin.solabRegisteredInfos = action.payload.data;
+        },
+
+        fetchSolabRegisteredInfosFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.admin.isFetchingSolabRegisteredInfos = false;
+            state.admin.reloadSolabRegisteredInfos = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        updateSolabWhitelist: (
+            state,
+            action: PayloadAction<IUpdateSolabWhitelistParams>
+        ) => {
+            state.admin.isUpdatingSolabWhitelist = true;
+        },
+
+        updateSolabWhitelistSuccess: (
+            state,
+            action: PayloadAction<IResponseData<null>>
+        ) => {
+            state.admin.isUpdatingSolabWhitelist = false;
+            state.admin.reloadSolabRegisteredInfos = true;
+        },
+
+        updateSolabWhitelistFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.admin.isUpdatingSolabWhitelist = false;
+            state.admin.reloadSolabRegisteredInfos = true;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        fetchTotalTokenPayment: (state) => {
+            state.admin.isFetchingTotalTokenPayment = true;
+            state.admin.reloadSolabRegisteredInfos = false;
+        },
+        fetchTotalTokenPaymentSuccess: (
+            state,
+            action: PayloadAction<
+                IResponseData<{ _id: string; amount: number }[]>
+            >
+        ) => {
+            state.admin.isFetchingTotalTokenPayment = false;
+            state.admin.reloadSolabRegisteredInfos = false;
+            state.admin.totalTokenPayment = action.payload.data;
+        },
+        fetchTotalTokenPaymentFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.admin.isFetchingTotalTokenPayment = false;
+            state.admin.reloadSolabRegisteredInfos = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else {
+                toast.error('Something went wrong!');
+            }
         },
     },
 });

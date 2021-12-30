@@ -1,6 +1,5 @@
 import { IPaginationResponse, IResponseData } from './../../common/types';
 import axiosClient from '../../libs/axiosClient';
-import * as _ from 'lodash';
 import {
     IStaff,
     ILoginParams,
@@ -11,7 +10,7 @@ import {
     IUserKycUpdateParams,
     IUserFull,
 } from './types';
-import { parseISO } from 'date-fns';
+import { queryParamsHandler } from '../../libs/queryParams';
 
 const userApi = {
     admin: {
@@ -24,20 +23,7 @@ const userApi = {
             return axiosClient.get(url);
         },
         fetchUsers: (query: any): Promise<IPaginationResponse<IUserFull[]>> => {
-            let docsQuery = _.omit(query, ['page', 'limit']);
-            if (docsQuery.created_at_from) {
-                docsQuery.created_at = {
-                    ...docsQuery.created_at,
-                    $gte: parseISO(docsQuery.created_at_from),
-                };
-            }
-            if (docsQuery.created_at_to) {
-                docsQuery.created_at = {
-                    ...docsQuery.created_at,
-                    $lte: parseISO(docsQuery.created_at_to),
-                };
-            }
-            docsQuery = _.omit(docsQuery, ['created_at_from', 'created_at_to']);
+            const docsQuery = queryParamsHandler(query);
             const queryParams = {
                 page: query.page,
                 limit: query.limit,

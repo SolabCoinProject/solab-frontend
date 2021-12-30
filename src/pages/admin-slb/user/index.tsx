@@ -17,10 +17,10 @@ import * as _ from 'lodash';
 import Image from 'next/image';
 import ImagePreview from '../../../components/ImagePreview';
 import { imagePreviewActions } from '../../../features/imagePreview/imagePreviewSlice';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { formatISO, parseISO } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { navigate } from '../../../libs/navigation';
 
 const User: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -44,26 +44,6 @@ const User: NextPage = () => {
         dispatch(userActions.fetchUsers({ ...query }));
     }, [router]);
 
-    const navigation = (direction: string) => {
-        const { query } = router;
-        if (direction === 'next') {
-            if (users.nextPage) {
-                const newQuery = { ...query, page: users.nextPage };
-                router.push({
-                    pathname: router.pathname,
-                    query: newQuery,
-                });
-            }
-        } else {
-            if (users.prevPage) {
-                const newQuery = { ...query, page: users.prevPage };
-                router.push({
-                    pathname: router.pathname,
-                    query: newQuery,
-                });
-            }
-        }
-    };
     return (
         <Container>
             <div className='p-4 block sm:flex items-center justify-between lg:mt-1.5'>
@@ -91,7 +71,6 @@ const User: NextPage = () => {
                     }}
                 >
                     {({ values, setFieldValue }) => {
-                        console.log(values);
                         return (
                             <Form>
                                 <div>
@@ -243,7 +222,7 @@ const User: NextPage = () => {
                                             Select all
                                         </button>
                                         <button
-                                            className='btn btn-pink'
+                                            className='btn btn-pink ml-2'
                                             onClick={() => {
                                                 setFieldValue(
                                                     'kycData',
@@ -259,7 +238,7 @@ const User: NextPage = () => {
                                             Unselect All
                                         </button>
                                         <button
-                                            className='btn btn-pink'
+                                            className='btn btn-pink ml-2'
                                             onClick={() => {
                                                 setFieldValue(
                                                     'kycData',
@@ -276,7 +255,7 @@ const User: NextPage = () => {
                                             Set All verified
                                         </button>
                                         <button
-                                            className='btn btn-pink'
+                                            className='btn btn-pink ml-2'
                                             onClick={() => {
                                                 setFieldValue(
                                                     'kycData',
@@ -293,7 +272,7 @@ const User: NextPage = () => {
                                             Set All denied
                                         </button>
 
-                                        <div className='shadow overflow-hidden rounded-lg bg-blue-light'>
+                                        <div className='shadow overflow-visible rounded-lg bg-blue-light'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead className='bg-blue-light text-white-500'>
                                                     <tr>
@@ -378,6 +357,7 @@ const User: NextPage = () => {
                                                                                         ]
                                                                                             .isSelected
                                                                                     }
+                                                                                    className='w-5 h-5'
                                                                                 />
                                                                             </td>
                                                                             <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
@@ -652,13 +632,21 @@ const User: NextPage = () => {
                 <div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
                     <div className='flex-1 flex justify-between'>
                         <button
-                            onClick={() => navigation('pre')}
+                            onClick={() => {
+                                if (users.prevPage) {
+                                    navigate(users.prevPage, router);
+                                }
+                            }}
                             className='relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-solabCyan-500 bg-white hover:bg-gray-50'
                         >
                             Previous
                         </button>
                         <button
-                            onClick={() => navigation('next')}
+                            onClick={() => {
+                                if (users.nextPage) {
+                                    navigate(users.nextPage, router);
+                                }
+                            }}
                             className='ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-solabCyan-500 bg-white hover:bg-gray-50'
                         >
                             Next

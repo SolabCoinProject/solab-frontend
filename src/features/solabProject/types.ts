@@ -1,3 +1,6 @@
+import { IUserFull, IUser } from './../user/types';
+import { IPaginationData } from '../../common/types';
+
 export interface ISolabProject {
     _id: string;
     name: string;
@@ -50,10 +53,12 @@ export interface ISolabProject {
 
 export interface ISolabRegisteredInfo {
     _id: string;
-    user: string;
+    user: string | IUser | IUserFull;
     bought: number;
     tickets: number;
     isInWhiteList: number;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface ISolabProjectState {
@@ -68,6 +73,14 @@ export interface ISolabProjectState {
         isTaskModalOpen: boolean;
         openTask: any;
         reloadRegisterInfo: boolean;
+    };
+    admin: {
+        solabRegisteredInfos: IPaginationData<ISolabRegisteredInfo[]>;
+        isFetchingSolabRegisteredInfos: boolean;
+        reloadSolabRegisteredInfos: boolean;
+        isUpdatingSolabWhitelist: boolean;
+        isFetchingTotalTokenPayment: boolean;
+        totalTokenPayment: { _id: string; amount: number }[];
     };
 }
 
@@ -85,4 +98,11 @@ export interface IProcessPurchaseParams {
 
 export interface IFetchRegisterInfoParams {
     userId: string;
+}
+
+export interface IUpdateSolabWhitelistParams {
+    registerData: {
+        _id: string;
+        isInWhitelist: number;
+    }[];
 }

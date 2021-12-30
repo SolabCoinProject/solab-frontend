@@ -15,6 +15,7 @@ const routes = {
         project: '/admin-slb/project',
         demoEditor: '/admin-slb/editor-demo',
         user: '/admin-slb/user',
+        solab_whitelist: '/admin-slb/solab-project/whitelist',
     },
 };
 
