@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 ></meta>
                 <script
                     async
-                    src={`https://www.googletagmanager.com/gtag/js?id=G-DSC6N47KW4`}
+                    src={`https://www.googletagmanager.com/gtag/js?id=UA-130520071-1`}
                 />
                 <script
                     dangerouslySetInnerHTML={{
@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'DSC6N47KW4', {
+            gtag('config', 'UA-130520071-1', {
               page_path: window.location.pathname,
             });
           `,

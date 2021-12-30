@@ -222,6 +222,39 @@ const User: NextPage = () => {
                             {({ values, isSubmitting, setFieldValue }) => {
                                 return (
                                     <Form>
+                                        <button
+                                            className='btn btn-pink'
+                                            onClick={() => {
+                                                setFieldValue(
+                                                    'kycData',
+                                                    values.kycData.map(
+                                                        (item) => ({
+                                                            ...item,
+                                                            isSelected: true,
+                                                        })
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Select all
+                                        </button>
+                                        <button
+                                            className='btn btn-pink'
+                                            onClick={() => {
+                                                setFieldValue(
+                                                    'kycData',
+                                                    values.kycData.map(
+                                                        (item) => ({
+                                                            ...item,
+                                                            isSelected: false,
+                                                        })
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Unselect All
+                                        </button>
+
                                         <div className='shadow overflow-hidden rounded-lg bg-blue-light'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead className='bg-blue-light text-white-500'>
