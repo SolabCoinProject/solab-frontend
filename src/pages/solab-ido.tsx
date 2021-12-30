@@ -1121,6 +1121,26 @@ const SolabIDO: NextPage = () => {
                                                                             to
                                                                             register!
                                                                         </h3>
+                                                                        <button
+                                                                            className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-1/2 mx-auto mt-4'
+                                                                            onClick={() => {
+                                                                                router.push(
+                                                                                    {
+                                                                                        pathname:
+                                                                                            routes
+                                                                                                .app
+                                                                                                .myAccount,
+                                                                                    }
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            Click
+                                                                            here
+                                                                            to
+                                                                            check
+                                                                            your
+                                                                            KYC!
+                                                                        </button>
                                                                     </>
                                                                 )
                                                             ) : (
