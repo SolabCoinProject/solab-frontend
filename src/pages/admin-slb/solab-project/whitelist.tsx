@@ -130,6 +130,9 @@ const Whitelist: NextPage = () => {
                         );
                     }}
                 </Formik>
+                <h1 className='text-xl mt-2'>
+                    Total: {solabRegisteredInfos.totalDocs}
+                </h1>
             </div>
             <div className='p-4'>
                 <h2 className='text-xl'>Total Payment by token pub key</h2>
