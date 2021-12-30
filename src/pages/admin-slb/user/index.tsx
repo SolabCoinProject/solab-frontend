@@ -7,7 +7,11 @@ import Container from '../../../components/admin/layout/Container';
 import { updateActiveSidebarItem } from '../../../features/layout/layoutSlice';
 import { adminSidebarItemOptions } from '../../../features/layout/types';
 import Select from 'react-select';
-import { kycStatuses } from '../../../features/user/constants';
+import {
+    kycStatuses,
+    kycVerified,
+    kycDenied,
+} from '../../../features/user/constants';
 import { userActions } from '../../../features/user/userSlice';
 import * as _ from 'lodash';
 import Image from 'next/image';
@@ -253,6 +257,40 @@ const User: NextPage = () => {
                                             }}
                                         >
                                             Unselect All
+                                        </button>
+                                        <button
+                                            className='btn btn-pink'
+                                            onClick={() => {
+                                                setFieldValue(
+                                                    'kycData',
+                                                    values.kycData.map(
+                                                        (item) => ({
+                                                            ...item,
+                                                            kycStatus:
+                                                                kycVerified,
+                                                        })
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Set All verified
+                                        </button>
+                                        <button
+                                            className='btn btn-pink'
+                                            onClick={() => {
+                                                setFieldValue(
+                                                    'kycData',
+                                                    values.kycData.map(
+                                                        (item) => ({
+                                                            ...item,
+                                                            kycStatus:
+                                                                kycDenied,
+                                                        })
+                                                    )
+                                                );
+                                            }}
+                                        >
+                                            Set All denied
                                         </button>
 
                                         <div className='shadow overflow-hidden rounded-lg bg-blue-light'>
