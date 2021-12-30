@@ -55,7 +55,7 @@ const MyAccount: NextPage = () => {
                         You can check information and kyc here
                     </p>
                     <div className='mt-12'>
-                        <Tab.Group>
+                        <Tab.Group defaultIndex={1}>
                             <Tab.List className='border-b border-solabGray-50 gap-x-6 flex'>
                                 <Tab as={Fragment}>
                                     {({ selected }) => (
