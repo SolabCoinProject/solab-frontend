@@ -170,6 +170,7 @@ const MyAccount: NextPage = () => {
                                                     isSubmitting,
                                                     errors,
                                                     setFieldValue,
+                                                    submitForm,
                                                 }) => {
                                                     return (
                                                         <Form>
@@ -204,7 +205,6 @@ const MyAccount: NextPage = () => {
                                                                                     dataOnauth={(
                                                                                         user: TelegramUser
                                                                                     ) => {
-                                                                                      
                                                                                         setFieldValue(
                                                                                             'telegram.id',
                                                                                             user.id
@@ -217,6 +217,7 @@ const MyAccount: NextPage = () => {
                                                                                             'telegram.avatar',
                                                                                             user.photo_url
                                                                                         );
+                                                                                        submitForm();
                                                                                     }}
                                                                                 />
                                                                             </div>
