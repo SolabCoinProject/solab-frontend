@@ -254,7 +254,7 @@ const Whitelist: NextPage = () => {
                                         >
                                             Reject all
                                         </button>
-                                        <div className='shadow overflow-visible rounded-lg bg-blue-light pb-20'>
+                                        <div className='shadow overflow-hidden rounded-lg bg-blue-light pb-20'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead>
                                                     <tr>
