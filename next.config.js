@@ -39,7 +39,10 @@ const plugins = [
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['solab-media.s3.ap-southeast-1.amazonaws.com'],
+        domains: [
+            'solab-media.s3.ap-southeast-1.amazonaws.com',
+            'test-bucket-longdo.s3.ap-southeast-1.amazonaws.com',
+        ],
     },
     async headers() {
         return [
