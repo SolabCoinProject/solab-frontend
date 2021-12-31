@@ -720,6 +720,9 @@ const MyAccount: NextPage = () => {
                                                                                             <Image
                                                                                                 src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/doc-1.svg'
                                                                                                 layout='fill'
+                                                                                                unoptimized={
+                                                                                                    true
+                                                                                                }
                                                                                             />
                                                                                         </div>
                                                                                         <AiOutlineCheckCircle className='w-3.5 h-3.5 text-solabCyan-500 mt-4' />
@@ -732,6 +735,9 @@ const MyAccount: NextPage = () => {
                                                                                             <Image
                                                                                                 src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/id2-01+(2).svg'
                                                                                                 layout='fill'
+                                                                                                unoptimized={
+                                                                                                    true
+                                                                                                }
                                                                                             />
                                                                                         </div>
                                                                                         <AiOutlineCloseCircle className='w-3.5 h-3.5 text-red-500 mt-4' />
@@ -745,6 +751,9 @@ const MyAccount: NextPage = () => {
                                                                                             <Image
                                                                                                 src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/doc-3.svg'
                                                                                                 layout='fill'
+                                                                                                unoptimized={
+                                                                                                    true
+                                                                                                }
                                                                                             />
                                                                                         </div>
                                                                                         <AiOutlineCheckCircle className='w-3.5 h-3.5 text-solabCyan-500 mt-4' />
@@ -1033,6 +1042,9 @@ const MyAccount: NextPage = () => {
                                                                                             src='https://test-bucket-longdo.s3.ap-southeast-1.amazonaws.com/sample-selfie.jpg'
                                                                                             layout='fill'
                                                                                             className='rounded-lg'
+                                                                                            unoptimized={
+                                                                                                true
+                                                                                            }
                                                                                         />
                                                                                     </div>
                                                                                 </div>

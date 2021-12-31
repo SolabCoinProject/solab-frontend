@@ -124,6 +124,9 @@ const Tier: NextPage = () => {
                                                     <Image
                                                         layout='fill'
                                                         src={tier.thumbnail}
+                                                        unoptimized={
+                                                            true
+                                                        }
                                                     />
                                                 </div>
                                             </td>

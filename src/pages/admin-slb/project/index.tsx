@@ -134,6 +134,9 @@ const Project: NextPage = () => {
                                                             src={
                                                                 project.thumbnail
                                                             }
+                                                            unoptimized={
+                                                                true
+                                                            }
                                                         />
                                                     </div>
                                                 </td>
