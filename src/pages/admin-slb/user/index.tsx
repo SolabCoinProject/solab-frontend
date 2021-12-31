@@ -519,6 +519,9 @@ const User: NextPage = () => {
                                                                                                     ?.docsFront as string
                                                                                             }
                                                                                             layout='fill'
+                                                                                            unoptimized={
+                                                                                                true
+                                                                                            }
                                                                                         />
                                                                                     ) : null}
                                                                                 </div>
@@ -564,6 +567,9 @@ const User: NextPage = () => {
                                                                                                     ?.docsBack as string
                                                                                             }
                                                                                             layout='fill'
+                                                                                            unoptimized={
+                                                                                                true
+                                                                                            }
                                                                                         />
                                                                                     ) : null}
                                                                                 </div>
@@ -609,6 +615,9 @@ const User: NextPage = () => {
                                                                                                     ?.selfie as string
                                                                                             }
                                                                                             layout='fill'
+                                                                                            unoptimized={
+                                                                                                true
+                                                                                            }
                                                                                         />
                                                                                     ) : null}
                                                                                 </div>

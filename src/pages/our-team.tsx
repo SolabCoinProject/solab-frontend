@@ -35,6 +35,9 @@ const OurTeam: NextPage = () => {
                             alt='daniel'
                             layout='fill'
                             className='rounded-lg'
+                            unoptimized={
+                                true
+                            }
                         />
                     </div>
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
@@ -64,6 +67,9 @@ const OurTeam: NextPage = () => {
                             alt='riki'
                             layout='fill'
                             className='rounded-lg'
+                            unoptimized={
+                                true
+                            }
                         />
                     </div>
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
@@ -93,6 +99,9 @@ const OurTeam: NextPage = () => {
                             alt='lucas'
                             layout='fill'
                             className='rounded-lg'
+                            unoptimized={
+                                true
+                            }
                         />
                     </div>
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
@@ -121,6 +130,9 @@ const OurTeam: NextPage = () => {
                             alt='laurie'
                             layout='fill'
                             className='rounded-lg'
+                            unoptimized={
+                                true
+                            }
                         />
                     </div>
                     <div className='sm:ml-6 flex flex-col justify-center sm:justify-between items-center sm:items-start text-center sm:text-left mt-4 sm:mt-0'>
@@ -154,6 +166,9 @@ const OurTeam: NextPage = () => {
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Courtney Henry</h3>
@@ -166,6 +181,9 @@ const OurTeam: NextPage = () => {
                                 alt='Annette Black'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Annette Black</h3>
@@ -178,6 +196,9 @@ const OurTeam: NextPage = () => {
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Theresa Webb</h3>
@@ -192,6 +213,9 @@ const OurTeam: NextPage = () => {
                                 alt='Wade Warren'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Wade Warren</h3>
@@ -204,6 +228,9 @@ const OurTeam: NextPage = () => {
                                 alt='Courtney'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>
@@ -218,6 +245,9 @@ const OurTeam: NextPage = () => {
                                 alt='Jerome Bell'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Jerome Bell</h3>
@@ -230,6 +260,9 @@ const OurTeam: NextPage = () => {
                                 alt='Robert Fox'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Robert Fox</h3>
@@ -242,6 +275,9 @@ const OurTeam: NextPage = () => {
                                 alt='Jacob Jones'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Jacob Jones</h3>
@@ -255,6 +291,9 @@ const OurTeam: NextPage = () => {
                                 alt='Bessie Cooper'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Bessie Cooper</h3>
@@ -267,6 +306,9 @@ const OurTeam: NextPage = () => {
                                 alt='Kathryn Murphy'
                                 layout='fill'
                                 className='rounded-full'
+                                unoptimized={
+                                    true
+                                }
                             />
                         </div>
                         <h3 className='text-xxl font-bold'>Kathryn Murphy</h3>
