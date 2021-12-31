@@ -281,7 +281,7 @@ const User: NextPage = () => {
                                             Set All denied
                                         </button>
 
-                                        <div className='shadow overflow-x-auto rounded-lg bg-blue-light'>
+                                        <div className='shadow overflow-x-auto overflow-y-visible rounded-lg bg-blue-light'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead className='bg-blue-light text-white-500'>
                                                     <tr>
