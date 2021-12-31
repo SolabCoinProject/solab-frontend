@@ -179,7 +179,7 @@ const User: NextPage = () => {
                 <h1 className='text-xl mt-2'>Total Page: {users.totalPages}</h1>
             </div>
             <div className='flex flex-col p-4'>
-                <div className='overflow-hidden'>
+                <div className='overflow-visible'>
                     <div className='align-middle inline-block min-w-full'>
                         <Formik
                             enableReinitialize
