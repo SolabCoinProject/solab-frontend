@@ -178,7 +178,7 @@ const User: NextPage = () => {
                 <h1 className='text-xl mt-2'>Total: {users.totalDocs}</h1>
             </div>
             <div className='flex flex-col p-4'>
-                <div className='overflow-x-auto'>
+                <div className='overflow-hidden'>
                     <div className='align-middle inline-block min-w-full'>
                         <Formik
                             enableReinitialize
@@ -280,7 +280,7 @@ const User: NextPage = () => {
                                             Set All denied
                                         </button>
 
-                                        <div className='shadow overflow-visible rounded-lg bg-blue-light'>
+                                        <div className='shadow overflow-x-auto rounded-lg bg-blue-light'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead className='bg-blue-light text-white-500'>
                                                     <tr>
