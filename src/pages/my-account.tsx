@@ -1039,7 +1039,7 @@ const MyAccount: NextPage = () => {
                                                                                     </p>
                                                                                     <div className='relative w-full h-full'>
                                                                                         <Image
-                                                                                            src='https://test-bucket-longdo.s3.ap-southeast-1.amazonaws.com/sample-selfie.jpg'
+                                                                                            src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/sample-selfie.jpg'
                                                                                             layout='fill'
                                                                                             className='rounded-lg'
                                                                                             unoptimized={
