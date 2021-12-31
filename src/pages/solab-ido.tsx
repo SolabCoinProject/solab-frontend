@@ -105,19 +105,6 @@ const SolabIDO: NextPage = () => {
         completed,
         days,
     }) => {
-        if (completed) {
-            return (
-                <button
-                    type='button'
-                    className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 mx-auto'
-                    onClick={() => {
-                        router.reload();
-                    }}
-                >
-                    Click here to reload
-                </button>
-            );
-        }
         return (
             <div className='w-11/12 mx-auto'>
                 <div className='flex items-center justify-between'>
