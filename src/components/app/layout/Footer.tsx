@@ -189,17 +189,11 @@ const Footer: React.FC = () => {
             </footer>
             <div className='py-4 text-center'>
                 <span
-                    className='text-xs text-solabGray-100 text-center relative px-16 py-1.5 bg-no-repeat bg-center bg-contain mx-auto bg-opacity-80'
+                    className='text-xs text-solabGray-100 text-center relative px-32 py-1.5 bg-no-repeat bg-center bg-contain mx-auto bg-opacity-80'
                     style={{
                         backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/makelove+in+singapore+(2).png')`,
                     }}
-                >
-                    {/* Copyright © 2021 Solab Finance{' '} */}
-                    {/* <Image
-                        src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/makelove+in+singapore+(2).png'
-                        layout='fill'
-                    /> */}
-                </span>
+                ></span>
             </div>
         </div>
     );
