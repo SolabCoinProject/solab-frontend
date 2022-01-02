@@ -247,7 +247,7 @@ const SolabIDO: NextPage = () => {
                             amount: usdcAmount,
                         })
                     );
-                }, 2000);
+                }, 4000);
             } catch (err: any) {
                 toast.error(
                     'Solana network error! Please make sure you have enough funds in your wallet and try again.',
