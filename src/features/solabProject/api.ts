@@ -6,11 +6,10 @@ import {
     ISolabRegisteredInfo,
     IUpdateSolabWhitelistParams,
 } from './types';
-import { IPaginationResponse, IResponseData } from '../../common/types';
+import {IPaginationResponse, IResponseData} from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { IFollowProjectParams } from '../user/types';
-import { queryParamsHandler } from '../../libs/queryParams';
+import {IFollowProjectParams} from '../user/types';
+import {queryParamsHandler} from '../../libs/queryParams';
 
 const solabProjectApi = {
     app: {
@@ -27,7 +26,7 @@ const solabProjectApi = {
         processPurchaseInfo: (
             data: IProcessPurchaseParams
         ): Promise<IResponseData<ISolabProject>> => {
-            const postData = { ...data };
+            const postData = {...data};
             const storedRefs = JSON.parse(
                 localStorage.getItem('storeRefs') ?? JSON.stringify([])
             );
@@ -43,7 +42,7 @@ const solabProjectApi = {
         followProject: (
             data: IFollowProjectParams
         ): Promise<IResponseData<ISolabProject>> => {
-            const putData = { ...data };
+            const putData = {...data};
             const storedRefs = JSON.parse(
                 localStorage.getItem('storeRefs') ?? JSON.stringify([])
             );
@@ -86,12 +85,16 @@ const solabProjectApi = {
             return axiosClient.put(url, data);
         },
 
-        fetchTotalTokenPayment: (): Promise<
-            IResponseData<{ _id: string; amount: number }[]>
-        > => {
+        fetchTotalTokenPayment: (): Promise<IResponseData<{ _id: string; amount: number }[]>> => {
             const url = 'admin/solab-project/total-token-payment';
             return axiosClient.get(url);
         },
+
+        fetchTotalFund: (): Promise<IResponseData<number>> => {
+            const url = 'admin/solab-project/total-fund';
+            return axiosClient.get(url);
+        }
+
     },
 };
 

@@ -1,5 +1,5 @@
-import { IUserFull, IUser } from './../user/types';
-import { IPaginationData } from '../../common/types';
+import {IUser, IUserFull} from './../user/types';
+import {IPaginationData} from '../../common/types';
 
 export interface ISolabProject {
     _id: string;
@@ -81,6 +81,8 @@ export interface ISolabProjectState {
         isUpdatingSolabWhitelist: boolean;
         isFetchingTotalTokenPayment: boolean;
         totalTokenPayment: { _id: string; amount: number }[];
+        totalFund: number;
+        isFetchingTotalFund: boolean;
     };
 }
 

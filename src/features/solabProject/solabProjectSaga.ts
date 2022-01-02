@@ -1,17 +1,17 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { solabProjectActions } from './solabProjectSlice';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {PayloadAction} from '@reduxjs/toolkit';
+import {solabProjectActions} from './solabProjectSlice';
+import {call, put, takeLatest} from 'redux-saga/effects';
 import {
-    ISolabProject,
     IDoTaskCommunityParams,
-    IProcessPurchaseParams,
     IFetchRegisterInfoParams,
+    IProcessPurchaseParams,
+    ISolabProject,
     ISolabRegisteredInfo,
     IUpdateSolabWhitelistParams,
 } from './types';
 import solabProjectApi from './api';
-import { IPaginationData, IResponseData } from '../../common/types';
-import { IFollowProjectParams } from '../user/types';
+import {IPaginationData, IResponseData} from '../../common/types';
+import {IFollowProjectParams} from '../user/types';
 
 function* fetchSolabProject() {
     try {
@@ -21,9 +21,9 @@ function* fetchSolabProject() {
 
         yield put(solabProjectActions.fetchSolabProjectSuccess(solabProject));
     } catch (err: any) {
-        const { status, data } = err.response;
+        const {status, data} = err.response;
         yield put(
-            solabProjectActions.fetchSolabProjectFailure({ status, data: data })
+            solabProjectActions.fetchSolabProjectFailure({status, data: data})
         );
     }
 }
@@ -36,9 +36,9 @@ function* doTaskCommunity(action: PayloadAction<IDoTaskCommunityParams>) {
         );
         yield put(solabProjectActions.doCommunityTaskSuccess(response));
     } catch (err: any) {
-        const { status, data } = err.response;
+        const {status, data} = err.response;
         yield put(
-            solabProjectActions.doCommunityTaskFailure({ status, data: data })
+            solabProjectActions.doCommunityTaskFailure({status, data: data})
         );
     }
 }
@@ -51,7 +51,7 @@ function* processPurchaseInfo(action: PayloadAction<IProcessPurchaseParams>) {
         );
         yield put(solabProjectActions.processPurchaseInfoSuccess(response));
     } catch (err: any) {
-        const { status, data } = err.response;
+        const {status, data} = err.response;
         yield put(
             solabProjectActions.processPurchaseInfoFailure({
                 status,
@@ -69,7 +69,7 @@ function* followProject(action: PayloadAction<IFollowProjectParams>) {
         );
         yield put(solabProjectActions.followProjectSuccess(response));
     } catch (err: any) {
-        const { status, data } = err.response;
+        const {status, data} = err.response;
         yield put(
             solabProjectActions.followProjectFailure({
                 status,
@@ -87,7 +87,7 @@ function* getRegisterInfo(action: PayloadAction<IFetchRegisterInfoParams>) {
         );
         yield put(solabProjectActions.fetchRegisterInfoSuccess(response));
     } catch (err: any) {
-        const { status, data } = err.response;
+        const {status, data} = err.response;
         yield put(
             solabProjectActions.fetchRegisterInfoFailure({
                 status,
@@ -106,7 +106,7 @@ function* fetchSolabRegisteredInfos(action: PayloadAction<any>) {
             );
         yield put(solabProjectActions.fetchSolabRegisteredInfosSuccess(res));
     } catch (error: any) {
-        const { status, data } = error.response;
+        const {status, data} = error.response;
         yield put(
             solabProjectActions.fetchSolabRegisteredInfosFailure({
                 status,
@@ -126,7 +126,7 @@ function* updateSolabWhitelist(
         );
         yield put(solabProjectActions.updateSolabWhitelistSuccess(res));
     } catch (error: any) {
-        const { status, data } = error.response;
+        const {status, data} = error.response;
         yield put(
             solabProjectActions.updateSolabWhitelistFailure({
                 status,
@@ -142,9 +142,26 @@ function* fetchTotalTokenPayment() {
             yield call(solabProjectApi.admin.fetchTotalTokenPayment);
         yield put(solabProjectActions.fetchTotalTokenPaymentSuccess(res));
     } catch (error: any) {
-        const { status, data } = error.response;
+        const {status, data} = error.response;
         yield put(
             solabProjectActions.fetchTotalTokenPaymentFailure({
+                status,
+                data: data,
+            })
+        );
+    }
+}
+
+function* fetchTotalFund() {
+    try {
+        const res: IResponseData<number> = yield call(
+            solabProjectApi.admin.fetchTotalFund
+        );
+        yield  put(solabProjectActions.fetchTotalFundSuccess(res));
+    } catch (error: any) {
+        const {status, data} = error.response;
+        yield put(
+            solabProjectActions.fetchTotalFundFailure({
                 status,
                 data: data,
             })
@@ -181,4 +198,6 @@ export default function* solabProjectSaga() {
         solabProjectActions.fetchTotalTokenPayment.type,
         fetchTotalTokenPayment
     );
+
+    yield  takeLatest(solabProjectActions.fetchTotalFund.type, fetchTotalFund);
 }
