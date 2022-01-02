@@ -747,18 +747,20 @@ const SolabIDO: NextPage = () => {
                                                                                     />
                                                                                 </div>
                                                                             ) : isPurchaseProcessing ? (
-                                                                                <div
-                                                                                    className='w-10 h-10 mx-auto relative'>
-                                                                                    <Image
-                                                                                        src={
-                                                                                            loaderCyan
-                                                                                        }
-                                                                                        layout='fill'
-                                                                                    />
+                                                                                <>
+                                                                                    <div
+                                                                                        className='w-10 h-10 mx-auto relative'>
+                                                                                        <Image
+                                                                                            src={
+                                                                                                loaderCyan
+                                                                                            }
+                                                                                            layout='fill'
+                                                                                        />
+                                                                                    </div>
                                                                                     <h2 className='text-center text-solabCyan-500 text-xxl'>Please
                                                                                         wait while we are processing
                                                                                         your payment! Thank you!</h2>
-                                                                                </div>
+                                                                                </>
                                                                             ) : (
                                                                                 <Formik
                                                                                     enableReinitialize
@@ -1021,7 +1023,7 @@ const SolabIDO: NextPage = () => {
                                                                                 }
                                                                                 layout='fill'
                                                                             />
-                                                                 
+
                                                                         </div>
                                                                     )
                                                                 ) : (
