@@ -755,6 +755,9 @@ const SolabIDO: NextPage = () => {
                                                                                         }
                                                                                         layout='fill'
                                                                                     />
+                                                                                    <h2 className='text-center text-solabCyan-500 text-xxl'>Please
+                                                                                        wait while we are processing
+                                                                                        your payment! Thank you!</h2>
                                                                                 </div>
                                                                             ) : (
                                                                                 <Formik
@@ -1018,6 +1021,7 @@ const SolabIDO: NextPage = () => {
                                                                                 }
                                                                                 layout='fill'
                                                                             />
+                                                                 
                                                                         </div>
                                                                     )
                                                                 ) : (
