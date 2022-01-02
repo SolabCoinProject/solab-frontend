@@ -247,12 +247,13 @@ const SolabIDO: NextPage = () => {
                             amount: usdcAmount,
                         })
                     );
-                }, 4000);
+                }, 2000);
             } catch (err: any) {
                 toast.error(
-                    'Please check your wallet connection and USDC balance!',
+                    'Solana network error! Please make sure you have enough funds in your wallet and try again.',
                     toastConfigs.error
-                );
+                )
+                ;
                 return false;
             }
         },
