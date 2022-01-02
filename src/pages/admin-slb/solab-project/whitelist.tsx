@@ -1,16 +1,16 @@
-import { Field, FieldArray, Form, Formik } from 'formik';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import {Field, FieldArray, Form, Formik} from 'formik';
+import {NextPage} from 'next';
+import {useRouter} from 'next/router';
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import Container from '../../../components/admin/layout/Container';
-import { solabProjectActions } from '../../../features/solabProject/solabProjectSlice';
+import {solabProjectActions} from '../../../features/solabProject/solabProjectSlice';
 import * as _ from 'lodash';
 import Select from 'react-select';
 import solabProjectConstants from '../../../features/solabProject/contants';
-import { IUserFull } from '../../../features/user/types';
+import {IUserFull} from '../../../features/user/types';
 import NumberFormat from 'react-number-format';
-import { navigate } from '../../../libs/navigation';
+import {navigate} from '../../../libs/navigation';
 
 const Whitelist: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -24,21 +24,23 @@ const Whitelist: NextPage = () => {
     const isReloadSolabRegisteredInfos = useAppSelector(
         (state) => state.solabProject.admin.reloadSolabRegisteredInfos
     );
+    const totalFund = useAppSelector(state => state.solabProject.admin.totalFund);
 
     useEffect(() => {
         if (isReloadSolabRegisteredInfos) {
-            const { query } = router;
+            const {query} = router;
             dispatch(
-                solabProjectActions.fetchSolabRegisteredInfos({ ...query })
+                solabProjectActions.fetchSolabRegisteredInfos({...query})
             );
             dispatch(solabProjectActions.fetchTotalTokenPayment());
         }
     }, [isReloadSolabRegisteredInfos]);
 
     useEffect(() => {
-        const { query } = router;
-        dispatch(solabProjectActions.fetchSolabRegisteredInfos({ ...query }));
+        const {query} = router;
+        dispatch(solabProjectActions.fetchSolabRegisteredInfos({...query}));
         dispatch(solabProjectActions.fetchTotalTokenPayment());
+        dispatch(solabProjectActions.fetchTotalFund());
     }, [router]);
 
     return (
@@ -47,6 +49,12 @@ const Whitelist: NextPage = () => {
                 <div className='mb-1 w-full'>
                     <div className='mb-4'>
                         <h1 className='title'>Solab Whitelist</h1>
+                        <h1 className='title'>Total Fund: <NumberFormat
+                            thousandsGroupStyle='thousand'
+                            value={totalFund}
+                            displayType='text'
+                            thousandSeparator={true}
+                        /></h1>
                     </div>
                 </div>
             </div>
@@ -59,15 +67,15 @@ const Whitelist: NextPage = () => {
                         'limit',
                     ])}
                     onSubmit={(values) => {
-                        const { query } = router;
-                        const newQuery = { ...query, ...values, page: 1 };
+                        const {query} = router;
+                        const newQuery = {...query, ...values, page: 1};
                         router.push({
                             pathname: router.pathname,
                             query: newQuery,
                         });
                     }}
                 >
-                    {({ values, setFieldValue }) => {
+                    {({values, setFieldValue}) => {
                         return (
                             <Form>
                                 <div>
@@ -104,7 +112,7 @@ const Whitelist: NextPage = () => {
                                         }}
                                         onChange={(selected) => {
                                             if (selected) {
-                                                const { value } = selected;
+                                                const {value} = selected;
                                                 if (value || value === 0) {
                                                     setFieldValue(
                                                         'isInWhiteList',
@@ -169,7 +177,7 @@ const Whitelist: NextPage = () => {
                                 ),
                             }}
                             onSubmit={(values) => {
-                                const { registerData } = values;
+                                const {registerData} = values;
                                 const registerDataToSend = registerData
                                     .filter((item) => item.isSelected)
                                     .map((data) => ({
@@ -181,14 +189,14 @@ const Whitelist: NextPage = () => {
                                         solabProjectActions.updateSolabWhitelist(
                                             {
                                                 registerData:
-                                                    registerDataToSend,
+                                                registerDataToSend,
                                             }
                                         )
                                     );
                                 }
                             }}
                         >
-                            {({ values, isSubmitting, setFieldValue }) => {
+                            {({values, isSubmitting, setFieldValue}) => {
                                 return (
                                     <Form>
                                         <button
@@ -232,7 +240,7 @@ const Whitelist: NextPage = () => {
                                                         (item) => ({
                                                             ...item,
                                                             isInWhitelist:
-                                                                solabProjectConstants.inWhitelistStatusApproved,
+                                                            solabProjectConstants.inWhitelistStatusApproved,
                                                         })
                                                     )
                                                 );
@@ -249,7 +257,7 @@ const Whitelist: NextPage = () => {
                                                         (item) => ({
                                                             ...item,
                                                             isInWhitelist:
-                                                                item.isInWhitelist,
+                                                            item.isInWhitelist,
                                                         })
                                                     )
                                                 );
@@ -260,174 +268,174 @@ const Whitelist: NextPage = () => {
                                         <div className='shadow overflow-y-visible rounded-lg bg-blue-light pb-20'>
                                             <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                                 <thead>
-                                                    <tr>
-                                                        <th
-                                                            scope='col'
-                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                        >
-                                                            Select
-                                                        </th>
-                                                        <th
-                                                            scope='col'
-                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                        >
-                                                            Whitelist status
-                                                        </th>
-                                                        <th
-                                                            scope='col'
-                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                        >
-                                                            Wallet
-                                                        </th>
-                                                        <th
-                                                            scope='col'
-                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                        >
-                                                            Bought
-                                                        </th>
-                                                        <th
-                                                            scope='col'
-                                                            className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                        >
-                                                            Tickets
-                                                        </th>
-                                                    </tr>
+                                                <tr>
+                                                    <th
+                                                        scope='col'
+                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    >
+                                                        Select
+                                                    </th>
+                                                    <th
+                                                        scope='col'
+                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    >
+                                                        Whitelist status
+                                                    </th>
+                                                    <th
+                                                        scope='col'
+                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    >
+                                                        Wallet
+                                                    </th>
+                                                    <th
+                                                        scope='col'
+                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    >
+                                                        Bought
+                                                    </th>
+                                                    <th
+                                                        scope='col'
+                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    >
+                                                        Tickets
+                                                    </th>
+                                                </tr>
                                                 </thead>
                                                 <tbody className='bg-white divide-y divide-gray-200'>
-                                                    <FieldArray
-                                                        name='registerData'
-                                                        render={(
-                                                            arrayHelpers
-                                                        ) =>
-                                                            values.registerData.map(
-                                                                (
-                                                                    data,
-                                                                    index
-                                                                ) => {
-                                                                    return (
-                                                                        <tr>
-                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                                                <Field
-                                                                                    type='checkbox'
-                                                                                    name={`registerData.${index}.isSelected`}
-                                                                                    value='true'
-                                                                                    checked={
-                                                                                        values
-                                                                                            .registerData[
-                                                                                            index
+                                                <FieldArray
+                                                    name='registerData'
+                                                    render={(
+                                                        arrayHelpers
+                                                    ) =>
+                                                        values.registerData.map(
+                                                            (
+                                                                data,
+                                                                index
+                                                            ) => {
+                                                                return (
+                                                                    <tr>
+                                                                        <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                            <Field
+                                                                                type='checkbox'
+                                                                                name={`registerData.${index}.isSelected`}
+                                                                                value='true'
+                                                                                checked={
+                                                                                    values
+                                                                                        .registerData[
+                                                                                        index
                                                                                         ]
-                                                                                            .isSelected
-                                                                                    }
-                                                                                    className='w-5 h-5'
-                                                                                />
-                                                                            </td>
-                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                                                <Select
-                                                                                    className='w-40'
-                                                                                    value={
-                                                                                        solabProjectConstants.inWhitelistStatuses.filter(
-                                                                                            (
-                                                                                                item
-                                                                                            ) =>
-                                                                                                item.value ===
-                                                                                                values
-                                                                                                    .registerData[
-                                                                                                    index
+                                                                                        .isSelected
+                                                                                }
+                                                                                className='w-5 h-5'
+                                                                            />
+                                                                        </td>
+                                                                        <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                            <Select
+                                                                                className='w-40'
+                                                                                value={
+                                                                                    solabProjectConstants.inWhitelistStatuses.filter(
+                                                                                        (
+                                                                                            item
+                                                                                        ) =>
+                                                                                            item.value ===
+                                                                                            values
+                                                                                                .registerData[
+                                                                                                index
                                                                                                 ]
-                                                                                                    .isInWhitelist
-                                                                                        )[0] ||
-                                                                                        ''
-                                                                                    }
-                                                                                    options={
-                                                                                        solabProjectConstants.inWhitelistStatuses
-                                                                                    }
-                                                                                    onChange={(
+                                                                                                .isInWhitelist
+                                                                                    )[0] ||
+                                                                                    ''
+                                                                                }
+                                                                                options={
+                                                                                    solabProjectConstants.inWhitelistStatuses
+                                                                                }
+                                                                                onChange={(
+                                                                                    selected
+                                                                                ) => {
+                                                                                    if (
                                                                                         selected
-                                                                                    ) => {
-                                                                                        if (
-                                                                                            selected
-                                                                                        ) {
-                                                                                            const {
-                                                                                                value,
-                                                                                            } =
-                                                                                                selected;
+                                                                                    ) {
+                                                                                        const {
+                                                                                            value,
+                                                                                        } =
+                                                                                            selected;
 
-                                                                                            if (
-                                                                                                value ||
-                                                                                                value ===
-                                                                                                    0
-                                                                                            ) {
-                                                                                                setFieldValue(
-                                                                                                    `registerData.${index}.isInWhitelist`,
-                                                                                                    value
-                                                                                                );
-                                                                                            }
+                                                                                        if (
+                                                                                            value ||
+                                                                                            value ===
+                                                                                            0
+                                                                                        ) {
+                                                                                            setFieldValue(
+                                                                                                `registerData.${index}.isInWhitelist`,
+                                                                                                value
+                                                                                            );
                                                                                         }
-                                                                                    }}
-                                                                                    theme={(
-                                                                                        theme
-                                                                                    ) => {
-                                                                                        return {
-                                                                                            ...theme,
-                                                                                            colors: {
-                                                                                                ...theme.colors,
-                                                                                                neutral0:
-                                                                                                    '#0F1217',
-                                                                                                neutral20:
-                                                                                                    '#1F2733',
-                                                                                                neutral30:
-                                                                                                    '#1F2733',
-                                                                                                primary:
-                                                                                                    '#1EE8BB',
-                                                                                                primary50:
-                                                                                                    '#1EE8BB',
-                                                                                                primary25:
-                                                                                                    '#1EE8BB',
-                                                                                                neutral5:
-                                                                                                    '#1EE8BB',
-                                                                                                neutral80:
-                                                                                                    '#E2E4E9',
-                                                                                            },
-                                                                                        };
-                                                                                    }}
-                                                                                />
-                                                                            </td>
-                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                                                {
-                                                                                    (
-                                                                                        values
-                                                                                            .registerData[
-                                                                                            index
+                                                                                    }
+                                                                                }}
+                                                                                theme={(
+                                                                                    theme
+                                                                                ) => {
+                                                                                    return {
+                                                                                        ...theme,
+                                                                                        colors: {
+                                                                                            ...theme.colors,
+                                                                                            neutral0:
+                                                                                                '#0F1217',
+                                                                                            neutral20:
+                                                                                                '#1F2733',
+                                                                                            neutral30:
+                                                                                                '#1F2733',
+                                                                                            primary:
+                                                                                                '#1EE8BB',
+                                                                                            primary50:
+                                                                                                '#1EE8BB',
+                                                                                            primary25:
+                                                                                                '#1EE8BB',
+                                                                                            neutral5:
+                                                                                                '#1EE8BB',
+                                                                                            neutral80:
+                                                                                                '#E2E4E9',
+                                                                                        },
+                                                                                    };
+                                                                                }}
+                                                                            />
+                                                                        </td>
+                                                                        <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                            {
+                                                                                (
+                                                                                    values
+                                                                                        .registerData[
+                                                                                        index
                                                                                         ]
-                                                                                            .user as IUserFull
-                                                                                    )
-                                                                                        .walletAddress
-                                                                                }
-                                                                            </td>
-                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                                                {
-                                                                                    values
-                                                                                        .registerData[
-                                                                                        index
+                                                                                        .user as IUserFull
+                                                                                )
+                                                                                    .walletAddress
+                                                                            }
+                                                                        </td>
+                                                                        <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                            {
+                                                                                values
+                                                                                    .registerData[
+                                                                                    index
                                                                                     ]
-                                                                                        .bought
-                                                                                }
-                                                                            </td>
-                                                                            <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                                                {
-                                                                                    values
-                                                                                        .registerData[
-                                                                                        index
+                                                                                    .bought
+                                                                            }
+                                                                        </td>
+                                                                        <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                                            {
+                                                                                values
+                                                                                    .registerData[
+                                                                                    index
                                                                                     ]
-                                                                                        .tickets
-                                                                                }
-                                                                            </td>
-                                                                        </tr>
-                                                                    );
-                                                                }
-                                                            )
-                                                        }
-                                                    />
+                                                                                    .tickets
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                );
+                                                            }
+                                                        )
+                                                    }
+                                                />
                                                 </tbody>
                                             </table>
                                         </div>
