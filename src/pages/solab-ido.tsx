@@ -1111,48 +1111,48 @@ const SolabIDO: NextPage = () => {
                                                                     </div>
                                                                 ) : (
                                                                     <>
-                                                                        <h3 className='text-solabWhite-500 text-xl'>
-                                                                            {
-                                                                                isAfter(
-                                                                                    new Date(),
-                                                                                    new Date(
-                                                                                        solabProject.idoStartDate
-                                                                                    )
-                                                                                ) ? "Whitelist registration hasn't started yet!" : "Whitelist registration has been ended!"
-                                                                            }
-                                                                        </h3>
-                                                                        <h3 className='text-yellow-500 text-xl'>
-                                                                            Note:
-                                                                            Make
-                                                                            sure
-                                                                            your
-                                                                            kyc
-                                                                            verified
-                                                                            in
-                                                                            order
-                                                                            to
-                                                                            register!
-                                                                        </h3>
-                                                                        <button
-                                                                            className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-1/2 mx-auto mt-4'
-                                                                            onClick={() => {
-                                                                                router.push(
-                                                                                    {
-                                                                                        pathname:
-                                                                                        routes
-                                                                                            .app
-                                                                                            .myAccount,
-                                                                                    }
-                                                                                );
-                                                                            }}
-                                                                        >
-                                                                            Click
-                                                                            here
-                                                                            to
-                                                                            check
-                                                                            your
-                                                                            KYC!
-                                                                        </button>
+                                                                        {
+                                                                            isAfter(new Date(), new Date(
+                                                                                solabProject.idoEndDate
+                                                                            )) ?
+                                                                                <h3 className='text-yellow-500 text-xl'>
+                                                                                    Whitelist registration has ended
+                                                                                </h3> : <> <h3
+                                                                                    className='text-yellow-500 text-xl'>
+                                                                                    Note:
+                                                                                    Make
+                                                                                    sure
+                                                                                    your
+                                                                                    kyc
+                                                                                    verified
+                                                                                    in
+                                                                                    order
+                                                                                    to
+                                                                                    register!
+                                                                                </h3>
+                                                                                    <button
+                                                                                        className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-1/2 mx-auto mt-4'
+                                                                                        onClick={() => {
+                                                                                            router.push(
+                                                                                                {
+                                                                                                    pathname:
+                                                                                                    routes
+                                                                                                        .app
+                                                                                                        .myAccount,
+                                                                                                }
+                                                                                            );
+                                                                                        }}
+                                                                                    >
+                                                                                        Click
+                                                                                        here
+                                                                                        to
+                                                                                        check
+                                                                                        your
+                                                                                        KYC!
+                                                                                    </button>
+                                                                                </>
+                                                                        }
+
                                                                     </>
                                                                 )
                                                             ) : (
