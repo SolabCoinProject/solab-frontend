@@ -294,9 +294,7 @@ const SolabIDO: NextPage = () => {
                                         height={80}
                                         src={solabProject.thumbnail as string}
                                         className='rounded-lg'
-                                        unoptimized={
-                                            true
-                                        }
+                                        unoptimized={true}
                                     />
                                     <h1 className='text-3xl uppercase ml-5'>
                                         {solabProject.name}

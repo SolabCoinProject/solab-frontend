@@ -21,6 +21,7 @@ export interface IUser {
         id: string;
         username: string;
         avatar: string;
+        chatId?: string;
     };
     firstName?: string;
     lastName?: string;

@@ -14,22 +14,28 @@ import { userActions } from '../features/user/userSlice';
 import { formatISO, parseISO } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { resourceActions } from '../features/resources/resourceSlice';
-import Select from 'react-select';
 import { handleUserFileUpload } from '../libs/fileUpload';
 import { toast } from 'react-toastify';
 import toastConfigs from '../config/toast';
 import { Tab as ReactTab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ImageUploading from 'react-images-uploading';
 import { FaPlus } from 'react-icons/fa';
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai';
+import {
+    AiOutlineCheckCircle,
+    AiOutlineCloseCircle,
+    AiOutlineCheck,
+    AiOutlineClockCircle,
+    AiOutlineClose,
+} from 'react-icons/ai';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 import { telegramLoginBot } from '../config/app';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import routes from '../config/routes';
 
 const MyAccount: NextPage = () => {
     const dispatch = useAppDispatch();
     const user = useAppSelector((state) => state.user.app.user);
-    const countries = useAppSelector((state) => state.resource.countries);
     const userConstants = useAppSelector((state) => state.user.app.constants);
     const isUpdatingUserInfo = useAppSelector(
         (state) => state.user.app.isUpdatingInfo
@@ -37,13 +43,19 @@ const MyAccount: NextPage = () => {
     const isUpdatingKyc = useAppSelector(
         (state) => state.user.app.isUpdatingKyc
     );
+    const router = useRouter();
+    const [defaultIndex, setDefaultIndex] = useState<number>(1);
 
     const [personalInfoTabIndex, setPersonalInfoTabIndex] = useState<number>(0);
-
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.myAccount));
-        dispatch(resourceActions.fetchCountries());
     }, [dispatch]);
+    useEffect(() => {
+        const defaultIndex = router.query.tabIndex
+            ? parseInt(router.query.tabIndex as string)
+            : 1;
+        setDefaultIndex(defaultIndex);
+    }, [router]);
     return (
         <Container>
             <div className='mt-32 px-4'>
@@ -55,7 +67,7 @@ const MyAccount: NextPage = () => {
                         You can check information and kyc here
                     </p>
                     <div className='mt-12'>
-                        <Tab.Group defaultIndex={1}>
+                        <Tab.Group defaultIndex={defaultIndex}>
                             <Tab.List className='border-b border-solabGray-50 gap-x-6 flex'>
                                 <Tab as={Fragment}>
                                     {({ selected }) => (
@@ -198,7 +210,35 @@ const MyAccount: NextPage = () => {
                                                                             .id ? (
                                                                             user
                                                                                 .telegram
-                                                                                .username
+                                                                                .chatId ? (
+                                                                                user
+                                                                                    .telegram
+                                                                                    .username
+                                                                            ) : (
+                                                                                <>
+                                                                                    <span>
+                                                                                        {
+                                                                                            user
+                                                                                                .telegram
+                                                                                                .username
+                                                                                        }
+                                                                                    </span>
+                                                                                    <Link href='http://t.me/SolabbBot'>
+                                                                                        <a className='ml-2 text-solabCyan-500'>
+                                                                                            Chat
+                                                                                            with
+                                                                                            bot
+                                                                                            to
+                                                                                            get
+                                                                                            5
+                                                                                            more
+                                                                                            Solab
+                                                                                            IDO
+                                                                                            tickets
+                                                                                        </a>
+                                                                                    </Link>
+                                                                                </>
+                                                                            )
                                                                         ) : (
                                                                             <div>
                                                                                 <TelegramLoginButton
@@ -282,6 +322,25 @@ const MyAccount: NextPage = () => {
                                                                     )}
                                                                 </div>
                                                             </div>
+                                                            <div className='mt-4'>
+                                                                <Link
+                                                                    href={
+                                                                        routes
+                                                                            .app
+                                                                            .idoSolab
+                                                                    }
+                                                                >
+                                                                    <a className='mt-2 text-solabCyan-500'>
+                                                                        Click
+                                                                        here to
+                                                                        check
+                                                                        your
+                                                                        Solab
+                                                                        IDO
+                                                                        tickets
+                                                                    </a>
+                                                                </Link>
+                                                            </div>
                                                         </Form>
                                                     );
                                                 }}
@@ -296,24 +355,89 @@ const MyAccount: NextPage = () => {
                                         {user ? (
                                             user.isKycVerified ===
                                             userConstants.kycVerified ? (
-                                                <p className='text-center font-light text-green-500'>
-                                                    Kyc verified
-                                                </p>
+                                                <>
+                                                    <div className='text-center font-light flex flex-col align-center items-center'>
+                                                        <div className='h-12 w-12 rounded-full bg-solabCyan-500 flex items-center justify-center'>
+                                                            <AiOutlineCheck className='text-solabGray-900' />
+                                                        </div>
+                                                        <span className='mt-4 text-solabCyan-500'>
+                                                            Your documents have
+                                                            been verified
+                                                        </span>
+                                                    </div>
+                                                    <div className='w-full rounded-lg bg-solabGray-300 py-16 px-10 mt-10 gap-16'>
+                                                        <div className='grid grid-cols-1 lg:grid-cols-2'>
+                                                            <div className='text-center'>
+                                                                <img
+                                                                    src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/subscribe-update.svg'
+                                                                    className='mx-auto w-3/4'
+                                                                />
+                                                            </div>
+                                                            <div className='mt-4 lg:mt-0'>
+                                                                <h2 className='text-2xl text-solabWhite-500'>
+                                                                    Want more
+                                                                    tickets?
+                                                                </h2>
+                                                                <p className='mt-4 text-solabGray-100'>
+                                                                    Get more 5
+                                                                    tickets by
+                                                                    following
+                                                                    these steps
+                                                                    bellow:
+                                                                </p>
+                                                                <p className='text-solabGray-100'>
+                                                                    1. Connect
+                                                                    Telegram
+                                                                    account in
+                                                                    General
+                                                                    Information
+                                                                    section
+                                                                </p>
+                                                                <p className='text-solabGray-100'>
+                                                                    2. Chat with
+                                                                    our bot
+                                                                    Telegram
+                                                                </p>
+                                                                <div className='mt-6'>
+                                                                    <Link href='http://t.me/SolabbBot'>
+                                                                        <a
+                                                                            target='_blank'
+                                                                            className='py-3 mt-4 px-6 bg-solabCyan-500 rounded text-solabBlack-500 text-right ml-auto mr-0 disabled:opacity-50'
+                                                                        >
+                                                                            I'm
+                                                                            ready.
+                                                                            Let's
+                                                                            start!
+                                                                        </a>
+                                                                    </Link>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
                                             ) : user.isKycVerified ===
                                               userConstants.kycVerifying ? (
-                                                <p className='text-center font-light text-yellow-500'>
-                                                    Kyc verifying
-                                                </p>
+                                                <div className='text-center font-light flex flex-col align-center items-center'>
+                                                    <div className='h-12 w-12 rounded-full bg-yellow-500 flex items-center justify-center'>
+                                                        <AiOutlineClockCircle className='text-solabGray-900' />
+                                                    </div>
+                                                    <span className='mt-4 text-yellow-500'>
+                                                        Your documents are being
+                                                        verified
+                                                    </span>
+                                                </div>
                                             ) : user.isKycVerified ===
                                               userConstants.kycDenied ? (
-                                                <>
-                                                    <p className='text-center font-light text-red-500'>
-                                                        Kyc denied
-                                                    </p>
-                                                    <p className='text-center font-light text-solabGray-100'>
-                                                        {user.kycNote ?? ''}
-                                                    </p>
-                                                </>
+                                                <div className='text-center font-light flex flex-col align-center items-center'>
+                                                    <div className='h-12 w-12 rounded-full bg-red-500 flex items-center justify-center'>
+                                                        <AiOutlineClose className='text-solabGray-900' />
+                                                    </div>
+                                                    <span className='mt-4 text-red-500'>
+                                                        Your documents have been
+                                                        denied, please submit
+                                                        again
+                                                    </span>
+                                                </div>
                                             ) : null
                                         ) : (
                                             <WalletMultiButton className='mx-auto' />
