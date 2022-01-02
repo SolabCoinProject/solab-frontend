@@ -539,7 +539,7 @@ const MyAccount: NextPage = () => {
                                                                         index
                                                                     )
                                                                 }
-                                                                className='text-solabGray-100'
+                                                                className='text-solabGray-100 mt-4'
                                                                 selectedTabClassName='font-bold text-solabWhite-500'
                                                             >
                                                                 <TabList className='flex flex-col md:flex-row'>
