@@ -438,7 +438,20 @@ const MyAccount: NextPage = () => {
                                                         again
                                                     </span>
                                                 </div>
-                                            ) : null
+                                            ) : (
+                                                <div className='text-center font-light flex flex-col align-center items-center'>
+                                                    <div className='h-12 w-12 rounded-full bg-red-500 flex items-center justify-center'>
+                                                        <AiOutlineClose className='text-solabGray-900' />
+                                                    </div>
+                                                    <span className='mt-4 text-red-500'>
+                                                        You have not provided
+                                                        any documents for
+                                                        verification yet. Please
+                                                        follow these steps below
+                                                        to KYC.
+                                                    </span>
+                                                </div>
+                                            )
                                         ) : (
                                             <WalletMultiButton className='mx-auto' />
                                         )}
