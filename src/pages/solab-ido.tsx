@@ -1090,13 +1090,7 @@ const SolabIDO: NextPage = () => {
                                                                     </div>
                                                                 ) : (
                                                                     <>
-                                                                        <h3 className='text-xl'>
-                                                                            Whitelist
-                                                                            registration
-                                                                            is
-                                                                            not
-                                                                            available
-                                                                        </h3>
+                                                                      
                                                                         <h3 className='text-yellow-500 text-xl'>
                                                                             Note:
                                                                             Make
