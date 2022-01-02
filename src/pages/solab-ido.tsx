@@ -1111,7 +1111,16 @@ const SolabIDO: NextPage = () => {
                                                                     </div>
                                                                 ) : (
                                                                     <>
-
+                                                                        <h3 className='text-solabWhite-500 text-xl'>
+                                                                            {
+                                                                                isAfter(
+                                                                                    new Date(),
+                                                                                    new Date(
+                                                                                        solabProject.idoStartDate
+                                                                                    )
+                                                                                ) ? "Whitelist registration hasn't started yet!" : "Whitelist registration has been ended!"
+                                                                            }
+                                                                        </h3>
                                                                         <h3 className='text-yellow-500 text-xl'>
                                                                             Note:
                                                                             Make
