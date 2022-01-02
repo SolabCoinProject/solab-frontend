@@ -192,7 +192,10 @@ const MyAccount: NextPage = () => {
                                                                         Telegram
                                                                     </div>
                                                                     <div className='lg:ml-2 text-left col-span-3'>
-                                                                        {user.telegram ? (
+                                                                        {user.telegram &&
+                                                                        user
+                                                                            .telegram
+                                                                            .id ? (
                                                                             user
                                                                                 .telegram
                                                                                 .username
