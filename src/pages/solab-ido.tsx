@@ -888,6 +888,7 @@ const SolabIDO: NextPage = () => {
                                                                                                         }}
                                                                                                         className='w-full mt-1'
                                                                                                     />
+                                                                                                    <p className='text-xs italic text-solabGray-100'>{`You will receive ${values.usdcAmount == 100 ? 10 : values.usdcAmount == 200 ? 25 : values.usdcAmount == 300 ? 50 : 0} lottery tickets. More tickets, more chance to win whitelist`}</p>
                                                                                                     <ErrorMessage
                                                                                                         name='usdcAmount'
                                                                                                         render={(
