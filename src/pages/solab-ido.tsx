@@ -1007,7 +1007,7 @@ const SolabIDO: NextPage = () => {
                                                                                         on:{' '}
                                                                                         {format(
                                                                                             new Date(
-                                                                                                solabProject.idoStartDate
+                                                                                                '2022-01-12T02:00:00.000Z'
                                                                                             ),
                                                                                             'MMMM do yyyy, hh:mm a OOOO'
                                                                                         )}
