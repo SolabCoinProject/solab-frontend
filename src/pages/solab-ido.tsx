@@ -275,10 +275,17 @@ const SolabIDO: NextPage = () => {
                 }, 4000);
             } catch (err: any) {
                 toast.error(
-                    'Solana network error! Please make sure you have enough funds in your wallet and try again.',
+                    'Can not confirm transaction! Please make sure you have enough funds in your wallet and try again.',
                     toastConfigs.error
                 )
                 ;
+                dispatch(solabProjectActions.processPurchaseInfoFailure({
+                    status: 422,
+                    data: {
+                        message: 'Can not confirm transaction! Please make sure you have enough funds in your wallet and try again.',
+                        error: null
+                    }
+                }))
                 return false;
             }
         },
