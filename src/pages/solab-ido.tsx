@@ -186,7 +186,7 @@ const SolabIDO: NextPage = () => {
                     new Date(solabProject.idoEndDate),
                     new Date()
                 );
-                result.status = 'Whitelist registration';
+                result.status = 'Prefunding';
                 result.countDown = (
                     <>
                         <h3 className='text-center text-solabGray-100 text-lg md:text-xl'>
