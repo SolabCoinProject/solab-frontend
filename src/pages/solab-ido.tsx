@@ -65,7 +65,7 @@ const SolabIDO: NextPage = () => {
     );
 
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-    const [isCaptchaDone, setIsCaptchaDone] = useState<boolean>(false);
+    const [isCaptchaDone, setIsCaptchaDone] = useState<boolean>(true);
 
     const {publicKey, sendTransaction, signTransaction} = useWallet();
     const {connection} = useConnection();
