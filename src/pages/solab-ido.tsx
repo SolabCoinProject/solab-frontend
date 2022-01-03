@@ -845,14 +845,14 @@ const SolabIDO: NextPage = () => {
                                                                                                     </label>
                                                                                                     <Select
                                                                                                         value={{
-                                                                                                            label: values.usdcAmount,
+                                                                                                            label: `${values.usdcAmount} USDC`,
                                                                                                             value: values.usdcAmount,
                                                                                                         }}
                                                                                                         options={solabProject.buyAmountOptions.map(
                                                                                                             (
                                                                                                                 option
                                                                                                             ) => ({
-                                                                                                                label: option,
+                                                                                                                label: `${option} USDC`,
                                                                                                                 value: option,
                                                                                                             })
                                                                                                         )}
@@ -910,39 +910,57 @@ const SolabIDO: NextPage = () => {
                                                                                                         )}
                                                                                                     />
                                                                                                 </div>
-                                                                                                <p className='text-sm mt-4'>
-                                                                                                    Based
-                                                                                                    on
-                                                                                                    Whitelist
-                                                                                                    subscriptions,
-                                                                                                    your
-                                                                                                    investment
-                                                                                                    limit
-                                                                                                    will
-                                                                                                    depend
-                                                                                                    on
-                                                                                                    Solab's
-                                                                                                    allocation
-                                                                                                    structure
-                                                                                                    with
-                                                                                                    random
-                                                                                                    selection.
-                                                                                                </p>
-                                                                                                <p className='text-sm mt-4'>
-                                                                                                    The
-                                                                                                    system
-                                                                                                    will
-                                                                                                    automatically
-                                                                                                    refund
-                                                                                                    the
-                                                                                                    prefunded
-                                                                                                    USDC
-                                                                                                    to
-                                                                                                    your
-                                                                                                    registered
-                                                                                                    wallet
-                                                                                                    address.
-                                                                                                </p>
+                                                                                                <ul className='list-disc p-4'>
+                                                                                                    <li>
+                                                                                                        <span>This prefund amount will be used for 2 purpose: </span>
+                                                                                                        <ul className='list-disc px-4'>
+                                                                                                            <li> 1: More
+                                                                                                                chance
+                                                                                                                to win
+                                                                                                                whilelist
+                                                                                                                (by
+                                                                                                                earning
+                                                                                                                lottery
+                                                                                                                tickets)
+                                                                                                            </li>
+                                                                                                            <li>
+                                                                                                                <span>2: When you win the whilelist, the Solab system will automatically exchange your prefund to SOLAB tokens and transfer to your wallet:</span>
+                                                                                                                <ul className='list-disc px-4'>
+                                                                                                                    <li>$100
+                                                                                                                        USDC
+                                                                                                                        equals
+                                                                                                                        22,727
+                                                                                                                        SOLAB
+                                                                                                                    </li>
+                                                                                                                    <li>$200
+                                                                                                                        USDC
+                                                                                                                        equals
+                                                                                                                        45,454
+                                                                                                                        SOLAB
+                                                                                                                    </li>
+                                                                                                                    <li>$300
+                                                                                                                        USDC
+                                                                                                                        equals
+                                                                                                                        68,181
+                                                                                                                        SOLAB
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </li>
+                                                                                                        </ul>
+                                                                                                    </li>
+                                                                                                    <li className='mt-4'>
+                                                                                                        If you don’t win
+                                                                                                        the whitelist,
+                                                                                                        the system will
+                                                                                                        automatically
+                                                                                                        refund all of
+                                                                                                        your prefund in
+                                                                                                        USDC to your
+                                                                                                        registered
+                                                                                                        wallet address.
+
+                                                                                                    </li>
+                                                                                                </ul>
                                                                                                 <div
                                                                                                     className='text-center mt-10'>
                                                                                                     {user.isKycVerified !==
