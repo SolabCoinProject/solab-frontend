@@ -154,8 +154,33 @@ const SolabIDO: NextPage = () => {
         if (solabProject) {
             if (solabProject.isClosed) {
                 result.status = 'Closed';
+            } else if (isBefore(new Date(), new Date(solabProject.idoStartDate))) {
+                const seconds = differenceInSeconds(
+                    new Date(solabProject.idoStartDate),
+                    new Date()
+                );
+                result.status = 'Social Task';
+                result.countDown = (
+                    <>
+                        <h3 className='text-center text-solabGray-100 text-lg md:text-xl'>
+                            Prefunding starts in
+                        </h3>
+                        <Countdown
+                            date={Date.now() + seconds * 1000}
+                            autoStart={true}
+                            renderer={countDownRenderFunc}
+                        />
+                        <p className='text-solabGray-100 text-center text-base mt-1'>
+                            Prefunding starts on{' '}
+                            {format(
+                                new Date(solabProject.idoEndDate),
+                                'MMMM do yyyy, hh:mm a OOOO'
+                            )}
+                        </p>
+                    </>
+                );
             } else if (
-                isBefore(new Date(), new Date(solabProject.idoEndDate))
+                isBefore(new Date(), new Date(solabProject.idoEndDate)) && isAfter(new Date(), new Date(solabProject.idoStartDate))
             ) {
                 const seconds = differenceInSeconds(
                     new Date(solabProject.idoEndDate),
