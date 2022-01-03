@@ -264,15 +264,13 @@ const SolabIDO: NextPage = () => {
                     signed.serialize()
                 );
                 await connection.confirmTransaction(signature, 'processed');
-                setTimeout(() => {
-                    dispatch(
-                        solabProjectActions.processPurchaseInfo({
-                            walletAddress: user.walletAddress,
-                            signature,
-                            amount: usdcAmount,
-                        })
-                    );
-                }, 4000);
+                dispatch(
+                    solabProjectActions.processPurchaseInfo({
+                        walletAddress: user.walletAddress,
+                        signature,
+                        amount: usdcAmount,
+                    })
+                );
             } catch (err: any) {
                 toast.error(
                     'Can not confirm transaction! Please make sure you have enough funds in your wallet and try again.',
