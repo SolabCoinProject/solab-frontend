@@ -279,6 +279,13 @@ const SolabIDO: NextPage = () => {
                     toastConfigs.error
                 )
                 ;
+                dispatch(solabProjectActions.processPurchaseInfoFailure({
+                    status: 422,
+                    data: {
+                        message: 'Solana network error! Please make sure you have enough funds in your wallet and try again.',
+                        error: null
+                    }
+                }))
                 return false;
             }
         },
