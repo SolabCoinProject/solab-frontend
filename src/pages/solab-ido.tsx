@@ -104,40 +104,40 @@ const SolabIDO: NextPage = () => {
                                      days,
                                  }) => {
         return (
-            <div className='w-11/12 mx-auto'>
-                <div className='flex items-center justify-between'>
-                    <div className='flex flex-col items-center justify-center'>
-                        <h2 className='text-center text-xl lg:text-2xl font-bold'>
+            <div className="w-11/12 mx-auto">
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-center justify-center">
+                        <h2 className="text-center text-xl lg:text-2xl font-bold">
                             {days}
                         </h2>
-                        <span className='text-solabGray-100 text-xs lg:text-base'>
+                        <span className="text-solabGray-100 text-xs lg:text-base">
                             Days
                         </span>
                     </div>
-                    <span className='font-bold text-xl lg:text-2xl'>:</span>
-                    <div className='flex flex-col items-center justify-center'>
-                        <h2 className='text-center text-xl lg:text-2xl font-bold'>
+                    <span className="font-bold text-xl lg:text-2xl">:</span>
+                    <div className="flex flex-col items-center justify-center">
+                        <h2 className="text-center text-xl lg:text-2xl font-bold">
                             {hours}
                         </h2>
-                        <span className='text-solabGray-100 text-xs lg:text-base'>
+                        <span className="text-solabGray-100 text-xs lg:text-base">
                             Hours
                         </span>
                     </div>
-                    <span className='font-bold text-xl lg:text-2xl'>:</span>
-                    <div className='flex flex-col items-center justify-center'>
-                        <h2 className='text-center text-xl lg:text-2xl font-bold'>
+                    <span className="font-bold text-xl lg:text-2xl">:</span>
+                    <div className="flex flex-col items-center justify-center">
+                        <h2 className="text-center text-xl lg:text-2xl font-bold">
                             {minutes}
                         </h2>
-                        <span className='text-solabGray-100 text-xs lg:text-base'>
+                        <span className="text-solabGray-100 text-xs lg:text-base">
                             Minutes
                         </span>
                     </div>
-                    <span className='font-bold text-xl lg:text-2xl'>:</span>
-                    <div className='flex flex-col items-center justify-center'>
-                        <h2 className='text-center text-xl lg:text-2xl font-bold'>
+                    <span className="font-bold text-xl lg:text-2xl">:</span>
+                    <div className="flex flex-col items-center justify-center">
+                        <h2 className="text-center text-xl lg:text-2xl font-bold">
                             {seconds}
                         </h2>
-                        <span className='text-solabGray-100 text-xs lg:text-base'>
+                        <span className="text-solabGray-100 text-xs lg:text-base">
                             Sec
                         </span>
                     </div>
@@ -162,7 +162,7 @@ const SolabIDO: NextPage = () => {
                 result.status = 'Social Task';
                 result.countDown = (
                     <>
-                        <h3 className='text-center text-solabGray-100 text-lg md:text-xl'>
+                        <h3 className="text-center text-solabGray-100 text-lg md:text-xl">
                             Prefunding starts in
                         </h3>
                         <Countdown
@@ -170,7 +170,7 @@ const SolabIDO: NextPage = () => {
                             autoStart={true}
                             renderer={countDownRenderFunc}
                         />
-                        <p className='text-solabGray-100 text-center text-base mt-1'>
+                        <p className="text-solabGray-100 text-center text-base mt-1">
                             Prefunding starts on{' '}
                             {format(
                                 new Date(solabProject.idoEndDate),
@@ -189,7 +189,7 @@ const SolabIDO: NextPage = () => {
                 result.status = 'Prefunding';
                 result.countDown = (
                     <>
-                        <h3 className='text-center text-solabGray-100 text-lg md:text-xl'>
+                        <h3 className="text-center text-solabGray-100 text-lg md:text-xl">
                             Whitelist registration ends in
                         </h3>
                         <Countdown
@@ -197,7 +197,7 @@ const SolabIDO: NextPage = () => {
                             autoStart={true}
                             renderer={countDownRenderFunc}
                         />
-                        <p className='text-solabGray-100 text-center text-base mt-1'>
+                        <p className="text-solabGray-100 text-center text-base mt-1">
                             Whitelist registration ends on{' '}
                             {format(
                                 new Date(solabProject.idoEndDate),
@@ -283,7 +283,7 @@ const SolabIDO: NextPage = () => {
                         message: 'Can not confirm transaction! Please make sure you have enough funds in your wallet and try again.',
                         error: null
                     }
-                }))
+                }));
                 return false;
             }
         },
@@ -312,32 +312,32 @@ const SolabIDO: NextPage = () => {
 
     return (
         <Container>
-            <div className='mt-8 p-4 max-w-7xl mx-auto'>
+            <div className="mt-8 p-4 max-w-7xl mx-auto">
                 {solabProject ? (
                     <>
-                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <div>
-                                <div className='flex items-center'>
+                                <div className="flex items-center">
                                     <Image
                                         width={80}
                                         height={80}
                                         src={solabProject.thumbnail as string}
-                                        className='rounded-lg'
+                                        className="rounded-lg"
                                         unoptimized={true}
                                     />
-                                    <h1 className='text-3xl uppercase ml-5'>
+                                    <h1 className="text-3xl uppercase ml-5">
                                         {solabProject.name}
                                     </h1>
                                 </div>
-                                <p className='mt-4 text-solabGray-100'>
+                                <p className="mt-4 text-solabGray-100">
                                     {solabProject.description}
                                 </p>
-                                <div className='mt-6 flex gap-4'>
+                                <div className="mt-6 flex gap-4">
                                     {solabProject.social?.map((item) => (
                                         <Link href={item.link}>
                                             <a>
                                                 <div
-                                                    className='w-10 h-10 flex items-center justify-center bg-solabGray-300 rounded'>
+                                                    className="w-10 h-10 flex items-center justify-center bg-solabGray-300 rounded">
                                                     {getSocialIcon(
                                                         item.socialType,
                                                         'w-4 h-4'
@@ -347,7 +347,7 @@ const SolabIDO: NextPage = () => {
                                         </Link>
                                     ))}
                                 </div>
-                                <div className='mt-6 p-4 bg-solabGray-300 rounded-lg'>
+                                <div className="mt-6 p-4 bg-solabGray-300 rounded-lg">
                                     <Swiper
                                         style={
                                             {
@@ -361,26 +361,26 @@ const SolabIDO: NextPage = () => {
                                         navigation={true}
                                         pagination={true}
                                         thumbs={{swiper: thumbsSwiper}}
-                                        className='mySwiper2'
+                                        className="mySwiper2"
                                         loop={true}
                                     >
                                         {solabProject.media.map((md) => (
-                                            <SwiperSlide className='h-48 md:h-72 lg:h-96 rounded-lg'>
+                                            <SwiperSlide className="h-48 md:h-72 lg:h-96 rounded-lg">
                                                 {md.mediaType ===
                                                 solabProjectConstants.mediaTypeImage ? (
                                                     <div
                                                         style={{
                                                             backgroundImage: `url(${md.link})`,
                                                         }}
-                                                        className='w-full h-full bg-no-repeat bg-cover bg-center rounded-lg'
+                                                        className="w-full h-full bg-no-repeat bg-cover bg-center rounded-lg"
                                                     ></div>
                                                 ) : md.mediaType ===
                                                 solabProjectConstants.mediaTypeVideo ? (
                                                     <iframe
-                                                        className='w-full h-full rounded-lg'
+                                                        className="w-full h-full rounded-lg"
                                                         src={md.link}
-                                                        title='YouTube video player'
-                                                        allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                                                        title="YouTube video player"
+                                                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                     ></iframe>
                                                 ) : (
                                                     ''
@@ -394,49 +394,49 @@ const SolabIDO: NextPage = () => {
                                         slidesPerView={3}
                                         freeMode={true}
                                         watchSlidesProgress={true}
-                                        className='mySwiper mt-4 mx-auto'
+                                        className="mySwiper mt-4 mx-auto"
                                     >
                                         {solabProject.media.map((md) => (
-                                            <SwiperSlide className='h-12 md:h-14 lg:h-20'>
+                                            <SwiperSlide className="h-12 md:h-14 lg:h-20">
                                                 <div
                                                     style={{
                                                         backgroundImage: `url(${md.thumbnail})`,
                                                     }}
-                                                    className='w-full h-full bg-no-repeat bg-cover bg-center rounded-lg'
+                                                    className="w-full h-full bg-no-repeat bg-cover bg-center rounded-lg"
                                                 ></div>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
                                 </div>
                             </div>
-                            <div className='bg-solabGray-300 p-4 rounded-lg'>
-                                <h2 className='text-xl md:text-2xl font-bold'>
+                            <div className="bg-solabGray-300 p-4 rounded-lg">
+                                <h2 className="text-xl md:text-2xl font-bold">
                                     Project Key Metrics
                                 </h2>
                                 {solabProject.keyMetrics?.map((item) => (
                                     <div
-                                        className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                        <span className='text-solabGray-100 text-sm'>
+                                        className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                        <span className="text-solabGray-100 text-sm">
                                             {item.label}
                                         </span>
-                                        <span className='font-bold text-sm'>
+                                        <span className="font-bold text-sm">
                                             {item.valueType ===
                                             solabProjectConstants.keyMetricTypeNumber ? (
                                                 item.unitPosition ===
                                                 solabProjectConstants.keyMetricUnitPositionLeft &&
                                                 item.unit ? (
                                                     <NumberFormat
-                                                        thousandsGroupStyle='thousand'
+                                                        thousandsGroupStyle="thousand"
                                                         value={item.value}
-                                                        displayType='text'
+                                                        displayType="text"
                                                         thousandSeparator={true}
                                                         prefix={item.unit}
                                                     />
                                                 ) : (
                                                     <NumberFormat
-                                                        thousandsGroupStyle='thousand'
+                                                        thousandsGroupStyle="thousand"
                                                         value={item.value}
-                                                        displayType='text'
+                                                        displayType="text"
                                                         thousandSeparator={true}
                                                         suffix={item.unit}
                                                     />
@@ -448,26 +448,26 @@ const SolabIDO: NextPage = () => {
                                     </div>
                                 ))}
                                 <div
-                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                    <span className='text-solabGray-100 text-sm'>
+                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                    <span className="text-solabGray-100 text-sm">
                                         Status
                                     </span>
                                     <span
-                                        className='font-bold py-1 px-2 bg-solabWhite-700 text-solabBlack-500 rounded text-sm'>
+                                        className="font-bold py-1 px-2 bg-solabWhite-700 text-solabBlack-500 rounded text-sm">
                                         {getProjectPhraseAndCountDown().status}
                                     </span>
                                 </div>
-                                <div className='w-full text-center mt-3'>
+                                <div className="w-full text-center mt-3">
                                     {getProjectPhraseAndCountDown().countDown}
 
-                                    <div className='mt-2'>
+                                    <div className="mt-2">
                                         {user ? (
                                             !solabProject.followers.includes(
                                                 user._id
                                             ) ? (
                                                 <button
-                                                    type='button'
-                                                    className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 text-sm'
+                                                    type="button"
+                                                    className="py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 text-sm"
                                                     onClick={() =>
                                                         dispatch(
                                                             solabProjectActions.followProject(
@@ -484,23 +484,23 @@ const SolabIDO: NextPage = () => {
                                                 </button>
                                             ) : (
                                                 <div
-                                                    className='w-min py-3 px-4 bg-solab bg-solabGray-900 border border-solabCyan-500 rounded text-solabCyan-500 mx-auto flex items-center justify-center'>
-                                                    <AiOutlineCheckCircle className='w-3.5 h-3.5 mr-0.5'/>{' '}
-                                                    <span className='ml-0.5'>
+                                                    className="w-min py-3 px-4 bg-solab bg-solabGray-900 border border-solabCyan-500 rounded text-solabCyan-500 mx-auto flex items-center justify-center">
+                                                    <AiOutlineCheckCircle className="w-3.5 h-3.5 mr-0.5"/>{' '}
+                                                    <span className="ml-0.5">
                                                         Registered
                                                     </span>
                                                 </div>
                                             )
                                         ) : (
-                                            <WalletMultiButton className='mx-auto'/>
+                                            <WalletMultiButton className="mx-auto"/>
                                         )}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='mt-8'>
+                        <div className="mt-8">
                             <Tab.Group>
-                                <Tab.List className='border-b border-solabGray-50 gap-x-6 flex overflow-x-auto'>
+                                <Tab.List className="border-b border-solabGray-50 gap-x-6 flex overflow-x-auto">
                                     <Tab as={Fragment}>
                                         {({selected}) => (
                                             <div
@@ -516,7 +516,7 @@ const SolabIDO: NextPage = () => {
                                                     YOUR TICKETS
                                                 </span>
                                                 {selected ? (
-                                                    <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                                    <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                                 ) : null}
                                             </div>
                                         )}
@@ -536,7 +536,7 @@ const SolabIDO: NextPage = () => {
                                                     DESCRIPTION
                                                 </span>
                                                 {selected ? (
-                                                    <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                                    <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                                 ) : null}
                                             </div>
                                         )}
@@ -556,40 +556,40 @@ const SolabIDO: NextPage = () => {
                                                     IDO SCHEDULE
                                                 </span>
                                                 {selected ? (
-                                                    <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                                    <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                                 ) : null}
                                             </div>
                                         )}
                                     </Tab>
                                 </Tab.List>
-                                <Tab.Panels className='mt-8'>
-                                    <Tab.Panel className='overflow-x-auto'>
-                                        <div className='w-full mx-auto'>
-                                            <div className='flex justify-between items-end relative'>
-                                                <hr className='absolute w-1/3 border border-solabCyan-500 bottom-9 z-0 hidden lg:block'/>
+                                <Tab.Panels className="mt-8">
+                                    <Tab.Panel className="overflow-x-auto">
+                                        <div className="w-full mx-auto">
+                                            <div className="flex justify-between items-end relative">
+                                                <hr className="absolute w-1/3 border border-solabCyan-500 bottom-9 z-0 hidden lg:block"/>
                                                 <div
-                                                    className='flex flex-col items-center justify-center text-center text-sm'>
-                                                    <ul className='text-solabCyan-500'>
-                                                        <li className='flex items-center justify-center'>
-                                                            <GoPrimitiveDot className='color-bg-solabCyan-500 mr-0.5'/>
-                                                            <span className='ml-0.5'>
+                                                    className="flex flex-col items-center justify-center text-center text-sm">
+                                                    <ul className="text-solabCyan-500">
+                                                        <li className="flex items-center justify-center">
+                                                            <GoPrimitiveDot className="color-bg-solabCyan-500 mr-0.5"/>
+                                                            <span className="ml-0.5">
                                                                 Whitelist
                                                                 Registration
                                                                 Start
                                                             </span>
                                                         </li>
-                                                        <li className='flex items-center justify-center'>
-                                                            <GoPrimitiveDot className='color-bg-solabCyan-500 mr-0.5'/>
-                                                            <span className='ml-0.5'>
+                                                        <li className="flex items-center justify-center">
+                                                            <GoPrimitiveDot className="color-bg-solabCyan-500 mr-0.5"/>
+                                                            <span className="ml-0.5">
                                                                 Social Task
                                                             </span>
                                                         </li>
                                                     </ul>
                                                     <div
-                                                        className='z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center'>
-                                                        <AiOutlineCheck className=' text-solabWhite-500 w-4 h-4'/>
+                                                        className="z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center">
+                                                        <AiOutlineCheck className=" text-solabWhite-500 w-4 h-4"/>
                                                     </div>
-                                                    <span className='text-solabCyan-500'>
+                                                    <span className="text-solabCyan-500">
                                                         {' '}
                                                         {format(
                                                             new Date(
@@ -628,15 +628,15 @@ const SolabIDO: NextPage = () => {
                                                     }`}
                                                 >
                                                     <ul>
-                                                        <li className='flex items-center justify-center'>
-                                                            <GoPrimitiveDot className='mr-0.5'/>
-                                                            <span className='ml-0.5'>
+                                                        <li className="flex items-center justify-center">
+                                                            <GoPrimitiveDot className="mr-0.5"/>
+                                                            <span className="ml-0.5">
                                                                 Prefunding
                                                             </span>
                                                         </li>
-                                                        <li className='flex items-center justify-center'>
-                                                            <GoPrimitiveDot className='mr-0.5'/>
-                                                            <span className='ml-0.5'>
+                                                        <li className="flex items-center justify-center">
+                                                            <GoPrimitiveDot className="mr-0.5"/>
+                                                            <span className="ml-0.5">
                                                                 Social Task
                                                             </span>
                                                         </li>
@@ -649,13 +649,13 @@ const SolabIDO: NextPage = () => {
                                                         )
                                                     ) ? (
                                                         <div
-                                                            className='z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center'>
-                                                            <AiOutlineCheck className=' text-solabWhite-500 w-4 h-4'/>
+                                                            className="z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center">
+                                                            <AiOutlineCheck className=" text-solabWhite-500 w-4 h-4"/>
                                                         </div>
                                                     ) : (
                                                         <div
-                                                            className='z-10 w-8 h-8 rounded-full bg-solabGray-100 flex items-center justify-center'>
-                                                            <GoPrimitiveDot className=' text-solabWhite-500  w-4 h-4'/>
+                                                            className="z-10 w-8 h-8 rounded-full bg-solabGray-100 flex items-center justify-center">
+                                                            <GoPrimitiveDot className=" text-solabWhite-500  w-4 h-4"/>
                                                         </div>
                                                     )}
                                                     <span>
@@ -693,9 +693,9 @@ const SolabIDO: NextPage = () => {
                                                     }`}
                                                 >
                                                     <ul>
-                                                        <li className='flex items-center justify-center'>
-                                                            <GoPrimitiveDot className='mr-0.5'/>
-                                                            <span className='ml-0.5'>
+                                                        <li className="flex items-center justify-center">
+                                                            <GoPrimitiveDot className="mr-0.5"/>
+                                                            <span className="ml-0.5">
                                                                 Whitelist
                                                                 Registration End
                                                             </span>
@@ -709,13 +709,13 @@ const SolabIDO: NextPage = () => {
                                                         )
                                                     ) ? (
                                                         <div
-                                                            className='z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center'>
-                                                            <AiOutlineCheck className=' text-solabWhite-500 w-4 h-4'/>
+                                                            className="z-10 w-8 h-8 rounded-full bg-solabCyan-500 flex items-center justify-center">
+                                                            <AiOutlineCheck className=" text-solabWhite-500 w-4 h-4"/>
                                                         </div>
                                                     ) : (
                                                         <div
-                                                            className='z-10 w-8 h-8 rounded-full bg-solabGray-100 flex items-center justify-center'>
-                                                            <GoPrimitiveDot className=' text-solabWhite-500  w-4 h-4'/>
+                                                            className="z-10 w-8 h-8 rounded-full bg-solabGray-100 flex items-center justify-center">
+                                                            <GoPrimitiveDot className=" text-solabWhite-500  w-4 h-4"/>
                                                         </div>
                                                     )}
                                                     <span>
@@ -729,11 +729,11 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            <h3 className='w-1/2 mx-auto text-sm md:text-base lg:text-xl text-center py-1 px-5 mt-8 border border-solabCyan-500 rounded'>
-                                                <span className='text-solabGray-100'>
+                                            <h3 className="w-1/2 mx-auto text-sm md:text-base lg:text-xl text-center py-1 px-5 mt-8 border border-solabCyan-500 rounded">
+                                                <span className="text-solabGray-100">
                                                     Your total lottery tickets:{' '}
                                                 </span>
-                                                <span className='text-solabWhite-500'>
+                                                <span className="text-solabWhite-500">
                                                     {solabRegisterInfo
                                                         ? solabRegisterInfo.tickets
                                                         : 0}
@@ -751,8 +751,8 @@ const SolabIDO: NextPage = () => {
                                                     solabProject.idoEndDate
                                                 )
                                             ) ? (
-                                                <div className='bg-solabGray-300 py-6 rounded-lg mt-8'>
-                                                    <div className='w-4/5 mx-auto'>
+                                                <div className="bg-solabGray-300 py-6 rounded-lg mt-8">
+                                                    <div className="w-4/5 mx-auto">
                                                         <div>
                                                             {user ? (
                                                                 solabProject ? (
@@ -760,12 +760,12 @@ const SolabIDO: NextPage = () => {
                                                                         user._id
                                                                     ) ? (
                                                                         <div>
-                                                                            <h2 className='text-2xl font-bold text-center'>
+                                                                            <h2 className="text-2xl font-bold text-center">
                                                                                 Prefunding
                                                                             </h2>
                                                                             {!isCaptchaDone ? (
                                                                                 <div
-                                                                                    className='mx-auto text-center w-min'>
+                                                                                    className="mx-auto text-center w-min">
                                                                                     <ReCAPTCHA
                                                                                         sitekey={
                                                                                             recaptchaSiteKey
@@ -780,15 +780,15 @@ const SolabIDO: NextPage = () => {
                                                                             ) : isPurchaseProcessing ? (
                                                                                 <>
                                                                                     <div
-                                                                                        className='w-10 h-10 mx-auto relative'>
+                                                                                        className="w-10 h-10 mx-auto relative">
                                                                                         <Image
                                                                                             src={
                                                                                                 loaderCyan
                                                                                             }
-                                                                                            layout='fill'
+                                                                                            layout="fill"
                                                                                         />
                                                                                     </div>
-                                                                                    <h2 className='text-center text-solabCyan-500 text-xxl'>Please
+                                                                                    <h2 className="text-center text-solabCyan-500 text-xxl">Please
                                                                                         wait while we are processing
                                                                                         your payment! Thank you!</h2>
                                                                                 </>
@@ -835,7 +835,7 @@ const SolabIDO: NextPage = () => {
                                                                                         return (
                                                                                             <Form>
                                                                                                 <div
-                                                                                                    className='text-left'>
+                                                                                                    className="text-left">
                                                                                                     <label>
                                                                                                         Select
                                                                                                         prefund
@@ -891,16 +891,16 @@ const SolabIDO: NextPage = () => {
                                                                                                                         .buyAmountOptions[0]
                                                                                                             );
                                                                                                         }}
-                                                                                                        className='w-full mt-1'
+                                                                                                        className="w-full mt-1"
                                                                                                     />
-                                                                                                    <p className='text-xs italic text-solabGray-100'>{`You will receive ${values.usdcAmount == 100 ? 10 : values.usdcAmount == 200 ? 25 : values.usdcAmount == 300 ? 50 : 0} lottery tickets. More tickets, more chance to win whitelist`}</p>
+                                                                                                    <p className="text-xs italic text-solabGray-100">{`You will receive ${values.usdcAmount == 100 ? 10 : values.usdcAmount == 200 ? 25 : values.usdcAmount == 300 ? 50 : 0} lottery tickets. More tickets, more chance to win whitelist`}</p>
                                                                                                     <ErrorMessage
-                                                                                                        name='usdcAmount'
+                                                                                                        name="usdcAmount"
                                                                                                         render={(
                                                                                                             msg
                                                                                                         ) => (
                                                                                                             <span
-                                                                                                                className='text-xs text-red-500'>
+                                                                                                                className="text-xs text-red-500">
                                                                                                                 {
                                                                                                                     msg
                                                                                                                 }
@@ -908,22 +908,22 @@ const SolabIDO: NextPage = () => {
                                                                                                         )}
                                                                                                     />
                                                                                                 </div>
-                                                                                                <ul className='list-disc p-4'>
+                                                                                                <ul className="list-disc p-4">
                                                                                                     <li>
                                                                                                         <span>This prefund amount will be used for 2 purpose: </span>
-                                                                                                        <ul className='list-disc px-4'>
+                                                                                                        <ul className="list-disc px-4">
                                                                                                             <li> 1: More
                                                                                                                 chance
                                                                                                                 to win
-                                                                                                                whilelist
+                                                                                                                whitelist
                                                                                                                 (by
                                                                                                                 earning
                                                                                                                 lottery
                                                                                                                 tickets)
                                                                                                             </li>
                                                                                                             <li>
-                                                                                                                <span>2: When you win the whilelist, the Solab system will automatically exchange your prefund to SOLAB tokens and transfer to your wallet:</span>
-                                                                                                                <ul className='list-disc px-4'>
+                                                                                                                <span>2: When you win the whitelist, the Solab system will automatically exchange your prefund to SOLAB tokens and transfer to your wallet:</span>
+                                                                                                                <ul className="list-disc px-4">
                                                                                                                     <li>$100
                                                                                                                         USDC
                                                                                                                         equals
@@ -946,7 +946,7 @@ const SolabIDO: NextPage = () => {
                                                                                                             </li>
                                                                                                         </ul>
                                                                                                     </li>
-                                                                                                    <li className='mt-4'>
+                                                                                                    <li className="mt-4">
                                                                                                         If you don’t win
                                                                                                         the whitelist,
                                                                                                         the system will
@@ -960,11 +960,11 @@ const SolabIDO: NextPage = () => {
                                                                                                     </li>
                                                                                                 </ul>
                                                                                                 <div
-                                                                                                    className='text-center mt-10'>
+                                                                                                    className="text-center mt-10">
                                                                                                     {user.isKycVerified !==
                                                                                                     kycVerified ? (
                                                                                                         <>
-                                                                                                            <p className='text-red-500'>
+                                                                                                            <p className="text-red-500">
                                                                                                                 KYC
                                                                                                                 not
                                                                                                                 yet
@@ -978,7 +978,7 @@ const SolabIDO: NextPage = () => {
                                                                                                                 }
                                                                                                             >
                                                                                                                 <button
-                                                                                                                    className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-4/5'>
+                                                                                                                    className="py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-4/5">
                                                                                                                     KYC
                                                                                                                     now!
                                                                                                                 </button>
@@ -986,8 +986,8 @@ const SolabIDO: NextPage = () => {
                                                                                                         </>
                                                                                                     ) : (
                                                                                                         <button
-                                                                                                            type='submit'
-                                                                                                            className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-4/5'
+                                                                                                            type="submit"
+                                                                                                            className="py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-4/5"
                                                                                                             disabled={
                                                                                                                 isPurchaseProcessing
                                                                                                             }
@@ -1003,8 +1003,8 @@ const SolabIDO: NextPage = () => {
                                                                             )}
                                                                         </div>
                                                                     ) : solabRegisterInfo ? (
-                                                                        <div className='text-center py-32'>
-                                                                            <h2 className='text-solabCyan-500 text-2xl flex text-center items-center justify-center'>
+                                                                        <div className="text-center py-32">
+                                                                            <h2 className="text-solabCyan-500 text-2xl flex text-center items-center justify-center">
                                                                                 <AiOutlineCheckCircle/>
                                                                                 <span>
                                                                                     {' '}
@@ -1016,8 +1016,8 @@ const SolabIDO: NextPage = () => {
                                                                                     USDC{' '}
                                                                                 </span>
                                                                             </h2>
-                                                                            <ul className='text-center mt-12'>
-                                                                                <li className='flex items-center justify-center'>
+                                                                            <ul className="text-center mt-12">
+                                                                                <li className="flex items-center justify-center">
                                                                                     <GoPrimitiveDot/>
                                                                                     <span>
                                                                                         The
@@ -1036,7 +1036,7 @@ const SolabIDO: NextPage = () => {
                                                                                         )}
                                                                                     </span>
                                                                                 </li>
-                                                                                <li className='flex items-center justify-center'>
+                                                                                <li className="flex items-center justify-center">
                                                                                     <GoPrimitiveDot/>
                                                                                     <span>
                                                                                         The
@@ -1052,7 +1052,7 @@ const SolabIDO: NextPage = () => {
                                                                                         wallet.
                                                                                     </span>
                                                                                 </li>
-                                                                                <li className='flex items-center justify-center'>
+                                                                                <li className="flex items-center justify-center">
                                                                                     <GoPrimitiveDot/>
                                                                                     <span>
                                                                                         Follow
@@ -1066,39 +1066,39 @@ const SolabIDO: NextPage = () => {
                                                                             </ul>
                                                                         </div>
                                                                     ) : (
-                                                                        <div className='w-10 h-10 mx-auto relative'>
+                                                                        <div className="w-10 h-10 mx-auto relative">
                                                                             <Image
                                                                                 src={
                                                                                     loaderCyan
                                                                                 }
-                                                                                layout='fill'
+                                                                                layout="fill"
                                                                             />
 
                                                                         </div>
                                                                     )
                                                                 ) : (
-                                                                    <p className='text-center'>
+                                                                    <p className="text-center">
                                                                         Project
                                                                         not
                                                                         founded
                                                                     </p>
                                                                 )
                                                             ) : (
-                                                                <WalletMultiButton className='mx-auto'/>
+                                                                <WalletMultiButton className="mx-auto"/>
                                                             )}
                                                         </div>
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className='bg-solabGray-300 py-6 rounded-lg mt-8'>
-                                                    <div className='text-center py-32'>
+                                                <div className="bg-solabGray-300 py-6 rounded-lg mt-8">
+                                                    <div className="text-center py-32">
                                                         {user ? (
                                                             solabProject ? (
                                                                 solabRegisterInfo &&
                                                                 solabRegisterInfo.bought >
                                                                 0 ? (
-                                                                    <div className='text-center py-32'>
-                                                                        <h2 className='text-solabCyan-500 text-2xl flex text-center items-center justify-center'>
+                                                                    <div className="text-center py-32">
+                                                                        <h2 className="text-solabCyan-500 text-2xl flex text-center items-center justify-center">
                                                                             <AiOutlineCheckCircle/>
                                                                             <span>
                                                                                 {' '}
@@ -1110,8 +1110,8 @@ const SolabIDO: NextPage = () => {
                                                                                 USDC{' '}
                                                                             </span>
                                                                         </h2>
-                                                                        <ul className='text-center mt-12'>
-                                                                            <li className='flex items-center justify-center'>
+                                                                        <ul className="text-center mt-12">
+                                                                            <li className="flex items-center justify-center">
                                                                                 <GoPrimitiveDot/>
                                                                                 <span>
                                                                                     The
@@ -1130,7 +1130,7 @@ const SolabIDO: NextPage = () => {
                                                                                     )}
                                                                                 </span>
                                                                             </li>
-                                                                            <li className='flex items-center justify-center'>
+                                                                            <li className="flex items-center justify-center">
                                                                                 <GoPrimitiveDot/>
                                                                                 <span>
                                                                                     The
@@ -1146,7 +1146,7 @@ const SolabIDO: NextPage = () => {
                                                                                     wallet.
                                                                                 </span>
                                                                             </li>
-                                                                            <li className='flex items-center justify-center'>
+                                                                            <li className="flex items-center justify-center">
                                                                                 <GoPrimitiveDot/>
                                                                                 <span>
                                                                                     Follow
@@ -1165,10 +1165,10 @@ const SolabIDO: NextPage = () => {
                                                                             isAfter(new Date(), new Date(
                                                                                 solabProject.idoEndDate
                                                                             )) ?
-                                                                                <h3 className='text-yellow-500 text-xl'>
+                                                                                <h3 className="text-yellow-500 text-xl">
                                                                                     Whitelist registration has ended
                                                                                 </h3> : <> <h3
-                                                                                    className='text-yellow-500 text-xl'>
+                                                                                    className="text-yellow-500 text-xl">
                                                                                     Note:
                                                                                     Make
                                                                                     sure
@@ -1181,7 +1181,7 @@ const SolabIDO: NextPage = () => {
                                                                                     register!
                                                                                 </h3>
                                                                                     <button
-                                                                                        className='py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-1/2 mx-auto mt-4'
+                                                                                        className="py-3 px-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-1/2 mx-auto mt-4"
                                                                                         onClick={() => {
                                                                                             router.push(
                                                                                                 {
@@ -1206,8 +1206,8 @@ const SolabIDO: NextPage = () => {
                                                                     </>
                                                                 )
                                                             ) : (
-                                                                <div className='text-center py-32'>
-                                                                    <h2 className='text-solabCyan-500 text-2xl flex text-center items-center justify-center'>
+                                                                <div className="text-center py-32">
+                                                                    <h2 className="text-solabCyan-500 text-2xl flex text-center items-center justify-center">
                                                                         Project
                                                                         not
                                                                         founded
@@ -1215,7 +1215,7 @@ const SolabIDO: NextPage = () => {
                                                                 </div>
                                                             )
                                                         ) : (
-                                                            <WalletMultiButton className='mx-auto'/>
+                                                            <WalletMultiButton className="mx-auto"/>
                                                         )}
                                                     </div>
                                                 </div>
@@ -1226,18 +1226,18 @@ const SolabIDO: NextPage = () => {
                                                     solabProject.idoEndDate
                                                 )
                                             ) ? (
-                                                <div className='mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                                                    <div className='rounded-lg bg-solabGray-300 p-4'>
-                                                        <h2 className='text-2xl font-bold'>
+                                                <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                                    <div className="rounded-lg bg-solabGray-300 p-4">
+                                                        <h2 className="text-2xl font-bold">
                                                             Social Tasks
                                                         </h2>
-                                                        <p className='mt-4 test-sm'>
+                                                        <p className="mt-4 test-sm">
                                                             You can collect
                                                             social ticket by
                                                             performing various
                                                             social task:
                                                         </p>
-                                                        <div className='mt-4'>
+                                                        <div className="mt-4">
                                                             {solabProject &&
                                                             solabProject.task
                                                                 ? solabProject.task
@@ -1251,10 +1251,10 @@ const SolabIDO: NextPage = () => {
                                                                             ta
                                                                         ) => (
                                                                             <div
-                                                                                className='flex items-center justify-between text-sm mt-1'>
-                                                                                <div className='flex items-center pr-2'>
+                                                                                className="flex items-center justify-between text-sm mt-1">
+                                                                                <div className="flex items-center pr-2">
                                                                                     <div
-                                                                                        className='p-2 rounded border border-solabGray-50'>
+                                                                                        className="p-2 rounded border border-solabGray-50">
                                                                                         {getSocialIcon(
                                                                                             ta
                                                                                                 .settings
@@ -1264,7 +1264,7 @@ const SolabIDO: NextPage = () => {
                                                                                         )}
                                                                                     </div>
                                                                                     <span
-                                                                                        className='ml-2 text-solabGray-100 text-xs sm:text-base'>
+                                                                                        className="ml-2 text-solabGray-100 text-xs sm:text-base">
                                                                                           {
                                                                                               ta
                                                                                                   .settings
@@ -1289,15 +1289,15 @@ const SolabIDO: NextPage = () => {
                                                                                         user._id
                                                                                     ) ? (
                                                                                         <div
-                                                                                            className='p-2 rounded border border-solabCyan-500'>
+                                                                                            className="p-2 rounded border border-solabCyan-500">
                                                                                             <AiOutlineCheckCircle
-                                                                                                className='h-5 w-5 text-solabCyan-500'/>
+                                                                                                className="h-5 w-5 text-solabCyan-500"/>
                                                                                         </div>
                                                                                     ) : ta
                                                                                         .settings
                                                                                         .requireUserLink ? (
                                                                                         <button
-                                                                                            className='p-2 rounded border border-solabCyan-500 text-solabCyan-500'
+                                                                                            className="p-2 rounded border border-solabCyan-500 text-solabCyan-500"
                                                                                             onClick={() => {
                                                                                                 dispatch(
                                                                                                     solabProjectActions.openTaskModal(
@@ -1323,7 +1323,7 @@ const SolabIDO: NextPage = () => {
                                                                                             }
                                                                                         >
                                                                                             <a
-                                                                                                target='_blank'
+                                                                                                target="_blank"
                                                                                                 onClick={() => {
                                                                                                     dispatch(
                                                                                                         solabProjectActions.doCommunityTask(
@@ -1338,7 +1338,7 @@ const SolabIDO: NextPage = () => {
                                                                                                 }}
                                                                                             >
                                                                                                 <div
-                                                                                                    className='p-2 rounded border border-solabCyan-500 text-solabCyan-500'>
+                                                                                                    className="p-2 rounded border border-solabCyan-500 text-solabCyan-500">
                                                                                                     +{' '}
                                                                                                     {
                                                                                                         ta.rewardTickets
@@ -1349,11 +1349,11 @@ const SolabIDO: NextPage = () => {
                                                                                     )
                                                                                 ) : (
                                                                                     <div
-                                                                                        className='p-1 sm:p-2 rounded border border-solabGray-100 text-solabGray-100 cursor-pointer relative group text-xs whitespace-nowrap'
-                                                                                        title='Wallet is not connected'
+                                                                                        className="p-1 sm:p-2 rounded border border-solabGray-100 text-solabGray-100 cursor-pointer relative group text-xs whitespace-nowrap"
+                                                                                        title="Wallet is not connected"
                                                                                     >
                                                                                           <span
-                                                                                              className='whitespace-nowrap'>
+                                                                                              className="whitespace-nowrap">
                                                                                               {' '}
                                                                                               +{' '}
                                                                                               {
@@ -1361,7 +1361,7 @@ const SolabIDO: NextPage = () => {
                                                                                               }
                                                                                           </span>
                                                                                         <span
-                                                                                            className='bg-solabGray-300 absolute hidden group-hover:inline-block whitespace-nowrap text-xxs px-2 py-1 -top-3 right-0'>
+                                                                                            className="bg-solabGray-300 absolute hidden group-hover:inline-block whitespace-nowrap text-xxs px-2 py-1 -top-3 right-0">
                                                                                               Wallet
                                                                                               is
                                                                                               not
@@ -1375,23 +1375,23 @@ const SolabIDO: NextPage = () => {
                                                                 : null}
                                                         </div>
                                                     </div>
-                                                    <div className='rounded-lg bg-solabGray-300 p-4'>
-                                                        <h2 className='text-2xl font-bold'>
+                                                    <div className="rounded-lg bg-solabGray-300 p-4">
+                                                        <h2 className="text-2xl font-bold">
                                                             Invite your friends
                                                         </h2>
-                                                        <p className='mt-4 test-sm'>
+                                                        <p className="mt-4 test-sm">
                                                             You can collect
                                                             tickets by inviting
                                                             your friends to join
                                                             this project:
                                                         </p>
-                                                        <div className='flex items-center mt-4 gap-4'>
+                                                        <div className="flex items-center mt-4 gap-4">
                                                             <input
                                                                 disabled={
                                                                     !getRefLink()
                                                                 }
-                                                                type='text'
-                                                                className='input input-cyan w-3/4 text-sm'
+                                                                type="text"
+                                                                className="input input-cyan w-3/4 text-sm"
                                                                 value={`${
                                                                     !getRefLink()
                                                                         ? 'Wallet is not connected'
@@ -1402,8 +1402,8 @@ const SolabIDO: NextPage = () => {
                                                                 disabled={
                                                                     !getRefLink()
                                                                 }
-                                                                type='button'
-                                                                className='py-2 px-4 border text-solabWhite-500 border-solabCyan-500 rounded-lg inline text-sm'
+                                                                type="button"
+                                                                className="py-2 px-4 border text-solabWhite-500 border-solabCyan-500 rounded-lg inline text-sm"
                                                                 onClick={() => {
                                                                     copy(
                                                                         getRefLink()
@@ -1419,10 +1419,10 @@ const SolabIDO: NextPage = () => {
                                                                 Copy Link
                                                             </button>
                                                         </div>
-                                                        <p className='mt-6 text-sm'>
+                                                        <p className="mt-6 text-sm">
                                                             Rules
                                                         </p>
-                                                        <ul className='list-disc px-4 text-sm'>
+                                                        <ul className="list-disc px-4 text-sm">
                                                             <li>
                                                                 Get 3 tickets
                                                                 when your
@@ -1445,14 +1445,14 @@ const SolabIDO: NextPage = () => {
                                             ) : null}
                                         </div>
                                     </Tab.Panel>
-                                    <Tab.Panel className='overflow-x-auto'>
+                                    <Tab.Panel className="overflow-x-auto">
                                         <Tabs
-                                            className='lg:flex text-solabGray-100 gap-x-8 overflow-x-auto'
-                                            selectedTabClassName='font-bold text-solabCyan-500 active-dot'
-                                            selectedTabPanelClassName='py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500'
+                                            className="lg:flex text-solabGray-100 gap-x-8 overflow-x-auto"
+                                            selectedTabClassName="font-bold text-solabCyan-500 active-dot"
+                                            selectedTabPanelClassName="py-8 px-10 bg-solabGray-300 rounded-lg text-solabWhite-500"
                                         >
                                             <TabList
-                                                className='lg:block flex gap-x-4 overflow-x-auto lg:overflow-x-visible'>
+                                                className="lg:block flex gap-x-4 overflow-x-auto lg:overflow-x-visible">
                                                 {solabProject.details?.map(
                                                     (detail) => (
                                                         <ReactTab
@@ -1464,10 +1464,10 @@ const SolabIDO: NextPage = () => {
                                                 )}
                                             </TabList>
 
-                                            <div className='w-full'>
+                                            <div className="w-full">
                                                 {solabProject.details?.map(
                                                     (detail) => (
-                                                        <TabPanel className='mt-8 lg:mt-0 overflow-x-auto'>
+                                                        <TabPanel className="mt-8 lg:mt-0 overflow-x-auto">
                                                             {ReactHtmlParser(
                                                                 detail.content
                                                             )}
@@ -1477,19 +1477,19 @@ const SolabIDO: NextPage = () => {
                                             </div>
                                         </Tabs>
                                     </Tab.Panel>
-                                    <Tab.Panel className='overflow-x-auto'>
-                                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                                            <div className='rounded-lg bg-solabGray-300 p-4'>
-                                                <h2 className='text-2xl font-bold'>
+                                    <Tab.Panel className="overflow-x-auto">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                            <div className="rounded-lg bg-solabGray-300 p-4">
+                                                <h2 className="text-2xl font-bold">
                                                     IDO Schedule
                                                 </h2>
                                                 <div
-                                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Whitelist Registration
                                                         Start
                                                     </span>
-                                                    <span className='text-sm'>
+                                                    <span className="text-sm">
                                                         {format(
                                                             new Date(
                                                                 '2021-12-28T02:00:00.000+00:00'
@@ -1499,11 +1499,11 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                                 <div
-                                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Social Task Start
                                                     </span>
-                                                    <span className='text-sm'>
+                                                    <span className="text-sm">
                                                         {format(
                                                             new Date(
                                                                 '2021-12-28T02:00:00.000+00:00'
@@ -1513,11 +1513,11 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                                 <div
-                                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Commit USDC
                                                     </span>
-                                                    <span className='text-sm'>
+                                                    <span className="text-sm">
                                                         {format(
                                                             new Date(
                                                                 solabProject.idoStartDate
@@ -1527,12 +1527,12 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                                 <div
-                                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Whitelist Registration
                                                         End
                                                     </span>
-                                                    <span className='text-sm'>
+                                                    <span className="text-sm">
                                                         {format(
                                                             new Date(
                                                                 solabProject.idoEndDate
@@ -1542,11 +1542,11 @@ const SolabIDO: NextPage = () => {
                                                     </span>
                                                 </div>
                                                 <div
-                                                    className='mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4'>
-                                                    <span className='text-solabGray-100 text-sm'>
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Token distribution
                                                     </span>
-                                                    <span className='text-sm'>
+                                                    <span className="text-sm">
                                                         {format(
                                                             new Date(
                                                                 solabProject.firstPayment.date
@@ -1563,7 +1563,7 @@ const SolabIDO: NextPage = () => {
                         </div>
                     </>
                 ) : (
-                    <div className='text-center mx-auto'>
+                    <div className="text-center mx-auto">
                         <Image src={loaderCyan} height={100} width={100}/>
                     </div>
                 )}
