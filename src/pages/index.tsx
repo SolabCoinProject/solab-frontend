@@ -1,27 +1,31 @@
-import type { NextPage } from 'next';
+import type {NextPage} from 'next';
 import Container from '../components/app/layout/Container';
 import Link from 'next/link';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { BsTwitter } from 'react-icons/bs';
+import {FaTelegramPlane} from 'react-icons/fa';
+import {BsTwitter} from 'react-icons/bs';
 
 import {
     VerticalTimeline,
     VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
 import NumberFormat from 'react-number-format';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
-import { appHeaderOptions } from '../features/layout/types';
-import { Fragment, useEffect } from 'react';
-import { Tab } from '@headlessui/react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Pagination, Autoplay } from 'swiper';
-import { tierActions } from '../features/tier/tierSlice';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {updateActiveHeaderItem} from '../features/layout/layoutSlice';
+import {appHeaderOptions} from '../features/layout/types';
+import {Fragment, useEffect} from 'react';
+import {Tab} from '@headlessui/react';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import SwiperCore, {Pagination, Autoplay} from 'swiper';
+import {tierActions} from '../features/tier/tierSlice';
+import {getProjectPhraseStatusTag} from '../features/project/components';
+import {format} from 'date-fns'
+
 SwiperCore.use([Pagination, Autoplay]);
 
-import { ITier } from '../features/tier/types';
-import { useRouter } from 'next/router';
+import {ITier} from '../features/tier/types';
+import {useRouter} from 'next/router';
 import routes from '../config/routes';
+import {projectActions} from "../features/project/projectSlice";
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -31,9 +35,11 @@ const Home: NextPage = () => {
     }, [dispatch]);
     useEffect(() => {
         dispatch(tierActions.fetchTiersApp());
+        dispatch(projectActions.fetchProjectsByPhrase());
     }, []);
 
     const tiers = useAppSelector((state) => state.tier.app.tiers);
+    const projectsByPhrase = useAppSelector(state => state.project.app.projectsByPhrase);
     const getTiersSlice = () => {
         const chunkedTiers: ITier[][] = [];
         const copyTier: ITier[] = [...tiers];
@@ -77,7 +83,7 @@ const Home: NextPage = () => {
                             <div className='mt-9 flex'>
                                 <Link href='https://t.me/solabcommunity'>
                                     <a className='flex items-center group'>
-                                        <FaTelegramPlane className='text-2xl text-solabBlue-500' />
+                                        <FaTelegramPlane className='text-2xl text-solabBlue-500'/>
                                         <span className='ml-2 group-hover:text-solabBlue-500 text-xs underline'>
                                             Join us on Telegram
                                         </span>
@@ -85,7 +91,7 @@ const Home: NextPage = () => {
                                 </Link>
                                 <Link href='https://twitter.com/solablaunchpad'>
                                     <a className='flex items-center ml-2 group'>
-                                        <BsTwitter className='text-2xl text-solabBlue-500' />
+                                        <BsTwitter className='text-2xl text-solabBlue-500'/>
                                         <span className='ml-2 group-hover:text-solabBlue-500 text-xs underline'>
                                             Follow our Twitter
                                         </span>
@@ -138,7 +144,8 @@ const Home: NextPage = () => {
                             }}
                             className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
                         >
-                            <span className='absolute bg-solabCyan-500 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
+                            <span
+                                className='absolute bg-solabCyan-500 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
                                 Whitelist Registration
                             </span>
                         </div>
@@ -211,9 +218,9 @@ const Home: NextPage = () => {
                     </p>
                     <div className='mt-12'>
                         <Tab.Group>
-                            <Tab.List className='border-b border-solabGray-50 gap-x-6 flex'>
+                            <Tab.List className='border-b border-solabGray-50 gap-x-6 flex overflow-x-auto'>
                                 <Tab as={Fragment}>
-                                    {({ selected }) => (
+                                    {({selected}) => (
                                         <div
                                             className={`w-min whitespace-nowrap cursor-pointer`}
                                         >
@@ -227,13 +234,13 @@ const Home: NextPage = () => {
                                                 ALL
                                             </span>
                                             {selected ? (
-                                                <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
                                             ) : null}
                                         </div>
                                     )}
                                 </Tab>
                                 <Tab as={Fragment}>
-                                    {({ selected }) => (
+                                    {({selected}) => (
                                         <div
                                             className={`w-min whitespace-nowrap cursor-pointer`}
                                         >
@@ -247,7 +254,107 @@ const Home: NextPage = () => {
                                                 UPCOMING
                                             </span>
                                             {selected ? (
-                                                <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({selected}) => (
+                                        <div
+                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                        >
+                                            <span
+                                                className={`${
+                                                    selected
+                                                        ? 'font-bold'
+                                                        : 'text-solabGray-100'
+                                                }`}
+                                            >
+                                                WHITELIST REGISTRATION
+                                            </span>
+                                            {selected ? (
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({selected}) => (
+                                        <div
+                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                        >
+                                            <span
+                                                className={`${
+                                                    selected
+                                                        ? 'font-bold'
+                                                        : 'text-solabGray-100'
+                                                }`}
+                                            >
+                                                SALE
+                                            </span>
+                                            {selected ? (
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({selected}) => (
+                                        <div
+                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                        >
+                                            <span
+                                                className={`${
+                                                    selected
+                                                        ? 'font-bold'
+                                                        : 'text-solabGray-100'
+                                                }`}
+                                            >
+                                                DISTRIBUTION
+                                            </span>
+                                            {selected ? (
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({selected}) => (
+                                        <div
+                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                        >
+                                            <span
+                                                className={`${
+                                                    selected
+                                                        ? 'font-bold'
+                                                        : 'text-solabGray-100'
+                                                }`}
+                                            >
+                                                TBA
+                                            </span>
+                                            {selected ? (
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </Tab>
+                                <Tab as={Fragment}>
+                                    {({selected}) => (
+                                        <div
+                                            className={`w-min whitespace-nowrap cursor-pointer`}
+                                        >
+                                            <span
+                                                className={`${
+                                                    selected
+                                                        ? 'font-bold'
+                                                        : 'text-solabGray-100'
+                                                }`}
+                                            >
+                                                CLOSED
+                                            </span>
+                                            {selected ? (
+                                                <hr className='gradient-background-1 mt-1 py-px border-0'/>
                                             ) : null}
                                         </div>
                                     )}
@@ -256,1020 +363,667 @@ const Home: NextPage = () => {
                             <Tab.Panels className='mt-8'>
                                 <Tab.Panel>
                                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                        {
+                                            projectsByPhrase.all.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-thumnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Dark Age
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $DAGE
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Build a new planet. Let's fight
-                                                all the space monsters.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-main-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
-                                                <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Salvor
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $SAL
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Dinosaur farming game. Build
-                                                your own dinosaur island.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Raise amount
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Open date
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Price per token
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
-                                                <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-thumbnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        The Destiny
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $DES
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Look for everything useful on
-                                                the island to help you survive.
-                                                The strongest is the last one
-                                                standing.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Raise amount
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Open date
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Price per token
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/azura-thumbnail-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
-                                                <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Azura
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $AZR
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                With a limited military force,
-                                                defend the base until
-                                                reinforcements arrive. The
-                                                country will honor you
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Raise amount
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Open date
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Price per token
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
-                                                <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-thumbnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Pharawin
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $PHAR
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                As loyal soldiers, protect the
-                                                peace of the earth against
-                                                hostile forces in space.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Raise amount
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Open date
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Price per token
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
-                                                <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        GUERRERO
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $GUE
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                The strength of the super
-                                                monsters will show the level of
-                                                the player. Build your own
-                                                monster island.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Raise amount
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Open date
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
-                                                    <span className='font-bold'>
-                                                        Price per token
-                                                    </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
+                                            ))
+                                        }
                                     </div>
                                 </Tab.Panel>
                                 <Tab.Panel>
                                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                        {
+                                            projectsByPhrase.upcoming.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/press/syzy-thumnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Dark Age
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $DAGE
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Build a new planet. Let's fight
-                                                all the space monsters.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-main-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                            ))
+                                        }
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                        {
+                                            projectsByPhrase.whitelist.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/salvor-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Salvor
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $SAL
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Dinosaur farming game. Build
-                                                your own dinosaur island.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                            ))
+                                        }
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                        {
+                                            projectsByPhrase.sale.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/destiny-thumbnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        The Destiny
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $DES
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                Look for everything useful on
-                                                the island to help you survive.
-                                                The strongest is the last one
-                                                standing.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/azura-thumbnail-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                            ))
+                                        }
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                        {
+                                            projectsByPhrase.distribution.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Azura
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $AZR
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                With a limited military force,
-                                                defend the base until
-                                                reinforcements arrive. The
-                                                country will honor you
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-main.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                            ))
+                                        }
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                        {
+                                            projectsByPhrase.tba.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/projects/phara-thumbnail.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        Pharawin
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $PHAR
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                As loyal soldiers, protect the
-                                                peace of the earth against
-                                                hostile forces in space.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
-                                            <div
-                                                style={{
-                                                    backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-product.jpeg')`,
-                                                }}
-                                                className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
-                                            >
-                                                <span className='absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium'>
-                                                    Upcoming
-                                                </span>
-                                            </div>
-                                            <div className='m-4 flex gap-x-4'>
+                                            ))
+                                        }
+                                    </div>
+                                </Tab.Panel>
+                                <Tab.Panel>
+                                    <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+                                        {
+                                            projectsByPhrase.closed.map((project) => (
                                                 <div
-                                                    className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
-                                                    style={{
-                                                        backgroundImage: `url('https://solab-media.s3.ap-southeast-1.amazonaws.com/content/guerredo-icon-product.png')`,
-                                                    }}
-                                                ></div>
-                                                <div className='flex flex-col justify-center'>
-                                                    <p className='font-bold'>
-                                                        GUERRERO
-                                                    </p>
-                                                    <p className='text-solabGray-100'>
-                                                        $GUE
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='px-4 text-solabGray-100 text-sm'>
-                                                The strength of the super
-                                                monsters will show the level of
-                                                the player. Build your own
-                                                monster island.
-                                            </div>
-                                            <div className='mt-4 px-4'>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                    className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                                    <div
+                                                        style={{
+                                                            backgroundImage: `url('${project.thumbnail}')`,
+                                                        }}
+                                                        className='bg-no-repeat bg-center bg-cover h-56 rounded-t-lg relative'
+                                                    >
+                                                        {
+                                                            getProjectPhraseStatusTag(project)
+                                                        }
+                                                    </div>
+                                                    <div className='m-4 flex gap-x-4'>
+                                                        <div
+                                                            className='h-16 w-16 bg-no-repeat bg-center bg-cover rounded'
+                                                            style={{
+                                                                backgroundImage: `url('${project.token.thumbnail}')`,
+                                                            }}
+                                                        ></div>
+                                                        <div className='flex flex-col justify-center'>
+                                                            <p className='font-bold'>
+                                                                {project.name}
+                                                            </p>
+                                                            <p className='text-solabGray-100'>
+                                                                ${project.token.symbol}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 text-solabGray-100 text-sm'>
+                                                        {project.description}
+                                                    </div>
+                                                    <div className='mt-4 px-4'>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Raise amount
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={500000}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.raiseAmount}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Open date
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                        {
+                                                            project.isPhraseTBA ? 'TBA' : format(new Date(project.phrases.whitelist.startDate), 'LLL dd, yyyy')
+                                                        }
                                                     </span>
-                                                </div>
-                                                <div className='flex justify-between items-center mt-0.5 mb-0.5'>
+                                                        </div>
+                                                        <div
+                                                            className='flex justify-between items-center mt-0.5 mb-0.5'>
                                                     <span className='font-bold'>
                                                         Price per token
                                                     </span>
-                                                    <span className='text-solabGray-100'>
-                                                        {/* <NumberFormat
-                                                            thousandsGroupStyle='thousand'
-                                                            value={0.00012}
-                                                            displayType='text'
-                                                            thousandSeparator={
-                                                                true
-                                                            }
-                                                            prefix='$'
-                                                        /> */}
-                                                        TBA
+                                                            <span className='text-solabGray-100'>
+                                                         <NumberFormat
+                                                             thousandsGroupStyle='thousand'
+                                                             value={project.idoPrice}
+                                                             displayType='text'
+                                                             thousandSeparator={
+                                                                 true
+                                                             }
+                                                             prefix='$'
+                                                         />
                                                     </span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='px-4 mt-4 text-right'>
+                                                        <Link
+                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                            <a className='text-gradient-1'>
+                                                                View detail
+                                                            </a>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='px-4 mt-4 text-right'>
-                                                <Link href='#'>
-                                                    <a className='text-gradient-1'>
-                                                        View detail
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
+                                            ))
+                                        }
                                     </div>
                                 </Tab.Panel>
                             </Tab.Panels>
@@ -1288,11 +1042,13 @@ const Home: NextPage = () => {
                                 return (
                                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 auto-cols-max'>
                                         {chunkTier.map((tier) => (
-                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                            <div
+                                                className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                                 <p className='text-center font-bold mt-10 text-xxl'>
                                                     {tier.name}
                                                 </p>
-                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                <div
+                                                    className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
                                                     <div
                                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                                         style={{
@@ -1351,11 +1107,13 @@ const Home: NextPage = () => {
                                     <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:mt-12 mt-8'>
                                         <div className='hidden lg:col-span-2 lg:block'></div>
                                         {chunkTier.map((tier) => (
-                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:col-span-4'>
+                                            <div
+                                                className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5 lg:col-span-4'>
                                                 <p className='text-center font-bold mt-10 text-xxl'>
                                                     {tier.name}
                                                 </p>
-                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                <div
+                                                    className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
                                                     <div
                                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                                         style={{
@@ -1415,11 +1173,13 @@ const Home: NextPage = () => {
                                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 lg:mt-12 mt-8'>
                                         <div className='hidden  lg:block'></div>
                                         {chunkTier.map((tier) => (
-                                            <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
+                                            <div
+                                                className='bg-solabGray-300 rounded-lg border border-solabGray-50 pb-5'>
                                                 <p className='text-center font-bold mt-10 text-xxl'>
                                                     {tier.name}
                                                 </p>
-                                                <div className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
+                                                <div
+                                                    className='mt-8 mx-auto w-44 h-44 p-px gradient-background-1 rounded-lg'>
                                                     <div
                                                         className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
                                                         style={{
@@ -1571,7 +1331,8 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='https://www.benzinga.com/pressreleases/21/12/n24758980/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
+                            <Link
+                                href='https://www.benzinga.com/pressreleases/21/12/n24758980/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
                                 <a>
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'
@@ -1586,7 +1347,8 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='https://www.morningstar.com/news/pr-newswire/20211223hk15705/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
+                            <Link
+                                href='https://www.morningstar.com/news/pr-newswire/20211223hk15705/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token'>
                                 <a>
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'
@@ -1601,7 +1363,8 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='https://www.marketwatch.com/press-release/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-2021-12-23'>
+                            <Link
+                                href='https://www.marketwatch.com/press-release/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-2021-12-23'>
                                 <a>
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'
@@ -1616,7 +1379,8 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='https://www.prnewswire.com/news-releases/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-301450469.html'>
+                            <Link
+                                href='https://www.prnewswire.com/news-releases/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-301450469.html'>
                                 <a>
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'
@@ -1631,7 +1395,8 @@ const Home: NextPage = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <Link href='https://markets.businessinsider.com/news/stocks/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-1031064521'>
+                            <Link
+                                href='https://markets.businessinsider.com/news/stocks/solab-finance-solab-a-2022-game-changing-launchpad-is-launching-an-ido-for-their-native-token-1031064521'>
                                 <a>
                                     <div
                                         className='sm:w-64 h-24 bg-solabWhite-700 rounded'

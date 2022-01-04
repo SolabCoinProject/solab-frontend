@@ -3,9 +3,9 @@ import {
     IResponseData,
     IResponseFailure,
 } from './../../common/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IProject, IProjectState, IProjectFieldOptions } from './types';
-import { toast } from 'react-toastify';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {IProject, IProjectState, IProjectFieldOptions, IProjectsByPhrase} from './types';
+import {toast} from 'react-toastify';
 
 const initialState: IProjectState = {
     admin: {
@@ -36,12 +36,27 @@ const initialState: IProjectState = {
         editingProject: null,
         isEditingProject: false,
     },
+    app: {
+        projectsByPhrase: {
+            all: [],
+            whitelist: [],
+            upcoming: [],
+            sale: [],
+            distribution: [],
+            closed: [],
+            tba: []
+        },
+        isFetchingProjectByPhrase: false,
+        isFetchingProjectBySlug: false,
+        project: null
+    }
 };
 
 export const projectSlice = createSlice({
     name: 'project',
     initialState,
     reducers: {
+        // Admin
         openCreateProjectModal: (state) => {
             state.admin.isCreateProjectModalOpen = true;
         },
@@ -157,6 +172,54 @@ export const projectSlice = createSlice({
             action: PayloadAction<IResponseFailure>
         ) => {
             state.admin.isCreatingProject = false;
+            if (action.payload.status === 401) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        // App
+
+        fetchProjectsByPhrase: (state) => {
+            state.app.isFetchingProjectByPhrase = true;
+        },
+
+        fetchProjectsByPhraseSuccess: (state, action: PayloadAction<IResponseData<IProjectsByPhrase>>) => {
+            state.app.isFetchingProjectByPhrase = false;
+            state.app.projectsByPhrase = action.payload.data
+        },
+        fetchProjectsByPhraseFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isFetchingProjectByPhrase = false;
+            if (action.payload.status === 401) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
+        fetchProjectBySlug: (state, action: PayloadAction<{ slug: string }>) => {
+            state.app.isFetchingProjectBySlug = true;
+        },
+
+        fetchProjectBySlugSuccess: (state, action: PayloadAction<IResponseData<IProject>>) => {
+            state.app.isFetchingProjectBySlug = false;
+            state.app.project = action.payload.data;
+        },
+        fetchProjectBySlugFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isFetchingProjectBySlug = false;
             if (action.payload.status === 401) {
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');

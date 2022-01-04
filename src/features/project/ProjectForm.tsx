@@ -1,12 +1,16 @@
-import { format } from 'date-fns';
-import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
-import { FaTimes } from 'react-icons/fa';
+import {format} from 'date-fns';
+import {ErrorMessage, Field, FieldArray, Form, Formik} from 'formik';
+import {FaTimes} from 'react-icons/fa';
 import DatetimePicker from '../../components/DatetimePicker';
 import RichTextEditor from '../../components/RichTextEditor';
 import * as Yup from 'yup';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { useEffect } from 'react';
-import { projectActions } from './projectSlice';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {useEffect} from 'react';
+import {projectActions} from './projectSlice';
+import {v4 as uuid} from 'uuid';
+import Select from "react-select";
+import {kycStatuses} from "../user/constants";
+import {socialTypes} from "./constants";
 
 interface Props {
     initialValues: any;
@@ -17,6 +21,7 @@ const projectValidationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     slug: Yup.string().required('Slug is required'),
     description: Yup.string().required('Description is required'),
+    pubKey: Yup.string().required('Description is required'),
     thumbnail: Yup.string()
         .required('Thumbnail is required')
         .url('Thumbnail must be a valid URL'),
@@ -25,6 +30,7 @@ const projectValidationSchema = Yup.object().shape({
             .required('Token thumbnail is required')
             .url('Token thumbnail must be a valid URL'),
         symbol: Yup.string().required('Token symbol is required'),
+        decimals: Yup.number().min(1, 'Decimals must be greater than 0').required('Decimals is required'),
     }),
     keyMetrics: Yup.array()
         .notRequired()
@@ -66,12 +72,6 @@ const projectValidationSchema = Yup.object().shape({
             title: Yup.string().required('Title is required'),
             description: Yup.string().required('Description is required'),
         }),
-        lottery: Yup.object().shape({
-            startDate: Yup.string().required('Start date is required'),
-            endDate: Yup.string().required('End date is required'),
-            title: Yup.string().required('Title is required'),
-            description: Yup.string().required('Description is required'),
-        }),
         sale: Yup.object().shape({
             startDate: Yup.string().required('Start date is required'),
             endDate: Yup.string().required('End date is required'),
@@ -97,17 +97,20 @@ const projectValidationSchema = Yup.object().shape({
             .min(0, 'Token payment percent must be greater than 0')
             .max(100, 'Token payment percent must be less than 100'),
     }),
-    task: Yup.array()
+    communityTasks: Yup.array()
         .notRequired()
         .nullable()
         .of(
             Yup.object().shape({
-                taskType: Yup.number().required('Task type is required'),
+                uuid: Yup.string().required('Task uuid is required!'),
+                userLinkRequired: Yup.bool(),
+                socialType: Yup.number().required('Task social type is required'),
+                url: Yup.string().required('Task url is required'),
             })
         ),
 });
 
-const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
+const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
     const fieldOptions = useAppSelector(
         (state) => state.project.admin.fieldOptions
     );
@@ -123,7 +126,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
             onSubmit={onSubmit}
             validationSchema={projectValidationSchema}
         >
-            {({ values, isSubmitting, setFieldValue, errors }) => {
+            {({values, isSubmitting, setFieldValue, errors}) => {
                 return (
                     <Form>
                         <div className='grid grid-cols-3 gap-x-8'>
@@ -187,6 +190,20 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                     />
                                     <ErrorMessage
                                         name='token.category'
+                                        render={(msg) => (
+                                            <span className='font-bold text-red-500'>
+                                                {msg}
+                                            </span>
+                                        )}
+                                    />
+                                    <Field
+                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                        type='number'
+                                        placeholder='Enter token decimals'
+                                        name='token.decimals'
+                                    />
+                                    <ErrorMessage
+                                        name='token.decimals'
                                         render={(msg) => (
                                             <span className='font-bold text-red-500'>
                                                 {msg}
@@ -257,7 +274,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                         }
                                                                         type='button'
                                                                     >
-                                                                        <FaTimes />
+                                                                        <FaTimes/>
                                                                     </button>
                                                                 </div>
                                                             </>
@@ -339,6 +356,25 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                         )}
                                     />
                                 </div>
+                                <div className='mt-3'>
+                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        Raise amount
+                                    </label>
+                                    <Field
+                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                        type='number'
+                                        placeholder='Enter project raise amount'
+                                        name='raiseAmount'
+                                    />
+                                    <ErrorMessage
+                                        name='raiseAmount'
+                                        render={(msg) => (
+                                            <span className='font-bold text-red-500'>
+                                                {msg}
+                                            </span>
+                                        )}
+                                    />
+                                </div>
                             </div>
                             <div>
                                 <div className='mt-3'>
@@ -379,6 +415,25 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                         )}
                                     />
                                 </div>
+                                <div className='mt-3'>
+                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        Receive USDC wallet pub key
+                                    </label>
+                                    <Field
+                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                        type='text'
+                                        placeholder='Enter receive USDC wallet pub key'
+                                        name='pubKey'
+                                    />
+                                    <ErrorMessage
+                                        name='pubKey'
+                                        render={(msg) => (
+                                            <span className='font-bold text-red-500'>
+                                                {msg}
+                                            </span>
+                                        )}
+                                    />
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -390,449 +445,353 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                     <div className='shadow overflow-hidden rounded-lg bg-blue-light'>
                                         <table className='table-fixed min-w-full divide-y divide-gray-200'>
                                             <thead className='bg-blue-light text-white-500'>
-                                                <tr>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    ></th>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    >
-                                                        Preparation
-                                                    </th>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    >
-                                                        Whitelist
-                                                    </th>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    >
-                                                        Lottery
-                                                    </th>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    >
-                                                        Sale
-                                                    </th>
-                                                    <th
-                                                        scope='col'
-                                                        className='p-4 text-left text-xs text-white-500 font-bold uppercase'
-                                                    >
-                                                        Distribution
-                                                    </th>
-                                                </tr>
+                                            <tr>
+                                                <th
+                                                    scope='col'
+                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                ></th>
+                                                <th
+                                                    scope='col'
+                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                >
+                                                    Preparation
+                                                </th>
+                                                <th
+                                                    scope='col'
+                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                >
+                                                    Whitelist
+                                                </th>
+
+                                                <th
+                                                    scope='col'
+                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                >
+                                                    Sale
+                                                </th>
+                                                <th
+                                                    scope='col'
+                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                >
+                                                    Distribution
+                                                </th>
+                                            </tr>
                                             </thead>
                                             <tbody className='bg-white divide-y divide-gray-200'>
-                                                <tr>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        Start Date
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .whitelist
-                                                                    .startDate
-                                                                    ? new Date(
-                                                                          values.phrases.whitelist.startDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.whitelist.startDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                            <tr>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    Start Date
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <DatetimePicker
+                                                        value={
+                                                            values.phrases
+                                                                .whitelist
+                                                                .startDate
+                                                                ? new Date(
+                                                                    values.phrases.whitelist.startDate
+                                                                )
+                                                                : new Date()
+                                                        }
+                                                        onChange={(
+                                                            value
+                                                        ) => {
+                                                            setFieldValue(
+                                                                'phrases.whitelist.startDate',
+                                                                format(
+                                                                    new Date(
+                                                                        value
+                                                                    ),
+                                                                    'yyyy-MM-dd HH:mm:ss'
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <DatetimePicker
+                                                        value={
+                                                            values.phrases
+                                                                .sale
+                                                                .startDate
+                                                                ? new Date(
+                                                                    values.phrases.sale.startDate
+                                                                )
+                                                                : new Date()
+                                                        }
+                                                        onChange={(
+                                                            value
+                                                        ) => {
+                                                            setFieldValue(
+                                                                'phrases.sale.startDate',
+                                                                format(
+                                                                    new Date(
+                                                                        value
+                                                                    ),
+                                                                    'yyyy-MM-dd HH:mm:ss'
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <DatetimePicker
+                                                        value={
+                                                            values.phrases
+                                                                .distribution
+                                                                .startDate
+                                                                ? new Date(
+                                                                    values.phrases.distribution.startDate
+                                                                )
+                                                                : new Date()
+                                                        }
+                                                        onChange={(
+                                                            value
+                                                        ) => {
+                                                            setFieldValue(
+                                                                'phrases.distribution.startDate',
+                                                                format(
+                                                                    new Date(
+                                                                        value
+                                                                    ),
+                                                                    'yyyy-MM-dd HH:mm:ss'
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    End Date
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <DatetimePicker
+                                                        value={
+                                                            values.phrases
+                                                                .whitelist
+                                                                .endDate
+                                                                ? new Date(
+                                                                    values.phrases.whitelist.endDate
+                                                                )
+                                                                : new Date()
+                                                        }
+                                                        onChange={(
+                                                            value
+                                                        ) => {
+                                                            setFieldValue(
+                                                                'phrases.whitelist.endDate',
+                                                                format(
+                                                                    new Date(
+                                                                        value
+                                                                    ),
+                                                                    'yyyy-MM-dd HH:mm:ss'
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <DatetimePicker
+                                                        value={
+                                                            values.phrases
+                                                                .sale
+                                                                .endDate
+                                                                ? new Date(
+                                                                    values.phrases.sale.endDate
+                                                                )
+                                                                : new Date()
+                                                        }
+                                                        onChange={(
+                                                            value
+                                                        ) => {
+                                                            setFieldValue(
+                                                                'phrases.sale.endDate',
+                                                                format(
+                                                                    new Date(
+                                                                        value
+                                                                    ),
+                                                                    'yyyy-MM-dd HH:mm:ss'
+                                                                )
+                                                            );
+                                                        }}
+                                                    />
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
+                                            </tr>
+                                            <tr>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    Title
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter preparation title'
+                                                            name='phrases.preparation.title'
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .lottery
-                                                                    .startDate
-                                                                    ? new Date(
-                                                                          values.phrases.lottery.startDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.lottery.startDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                        <ErrorMessage
+                                                            name='phrases.preparation.title'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
+                                                                        {msg}
+                                                                    </span>
+                                                            )}
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .sale
-                                                                    .startDate
-                                                                    ? new Date(
-                                                                          values.phrases.sale.startDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.sale.startDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                    </div>
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter preparation title'
+                                                            name='phrases.whitelist.title'
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .distribution
-                                                                    .startDate
-                                                                    ? new Date(
-                                                                          values.phrases.distribution.startDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.distribution.startDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                        <ErrorMessage
+                                                            name='phrases.whitelist.title'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
+                                                                        {msg}
+                                                                    </span>
+                                                            )}
                                                         />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        End Date
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .whitelist
-                                                                    .endDate
-                                                                    ? new Date(
-                                                                          values.phrases.whitelist.endDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.whitelist.endDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                    </div>
+                                                </td>
+
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter sale title'
+                                                            name='phrases.sale.title'
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .lottery
-                                                                    .endDate
-                                                                    ? new Date(
-                                                                          values.phrases.lottery.endDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.lottery.endDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                        <ErrorMessage
+                                                            name='phrases.sale.title'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
+                                                                        {msg}
+                                                                    </span>
+                                                            )}
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <DatetimePicker
-                                                            value={
-                                                                values.phrases
-                                                                    .sale
-                                                                    .endDate
-                                                                    ? new Date(
-                                                                          values.phrases.sale.endDate
-                                                                      )
-                                                                    : new Date()
-                                                            }
-                                                            onChange={(
-                                                                value
-                                                            ) => {
-                                                                setFieldValue(
-                                                                    'phrases.sale.endDate',
-                                                                    format(
-                                                                        new Date(
-                                                                            value
-                                                                        ),
-                                                                        'yyyy-MM-dd HH:mm:ss'
-                                                                    )
-                                                                );
-                                                            }}
+                                                    </div>
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter distribution title'
+                                                            name='phrases.distribution.title'
                                                         />
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
-                                                </tr>
-                                                <tr>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        Title
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation title'
-                                                                name='phrases.preparation.title'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.preparation.title'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
+                                                        <ErrorMessage
+                                                            name='phrases.distribution.title'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
                                                                         {msg}
                                                                     </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation title'
-                                                                name='phrases.whitelist.title'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.whitelist.title'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    Description
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter preparation description'
+                                                            name='phrases.preparation.description'
+                                                        />
+                                                        <ErrorMessage
+                                                            name='phrases.preparation.description'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
                                                                         {msg}
                                                                     </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation title'
-                                                                name='phrases.lottery.title'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.lottery.title'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter preparation description'
+                                                            name='phrases.whitelist.description'
+                                                        />
+                                                        <ErrorMessage
+                                                            name='phrases.whitelist.description'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
                                                                         {msg}
                                                                     </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter sale title'
-                                                                name='phrases.sale.title'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.sale.title'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter sale description'
+                                                            name='phrases.sale.description'
+                                                        />
+                                                        <ErrorMessage
+                                                            name='phrases.sale.description'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
                                                                         {msg}
                                                                     </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter distribution title'
-                                                                name='phrases.distribution.title'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.distribution.title'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                    <div>
+                                                        <Field
+                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                            type='text'
+                                                            placeholder='Enter distribution description'
+                                                            name='phrases.distribution.description'
+                                                        />
+                                                        <ErrorMessage
+                                                            name='phrases.distribution.description'
+                                                            render={(
+                                                                msg
+                                                            ) => (
+                                                                <span className='font-bold text-red-500'>
                                                                         {msg}
                                                                     </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        Description
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation description'
-                                                                name='phrases.preparation.description'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.preparation.description'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
-                                                                        {msg}
-                                                                    </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation description'
-                                                                name='phrases.whitelist.description'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.whitelist.description'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
-                                                                        {msg}
-                                                                    </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter preparation description'
-                                                                name='phrases.lottery.description'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.lottery.description'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
-                                                                        {msg}
-                                                                    </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter sale description'
-                                                                name='phrases.sale.description'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.sale.description'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
-                                                                        {msg}
-                                                                    </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
-                                                        <div>
-                                                            <Field
-                                                                className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                type='text'
-                                                                placeholder='Enter distribution description'
-                                                                name='phrases.distribution.description'
-                                                            />
-                                                            <ErrorMessage
-                                                                name='phrases.distribution.description'
-                                                                render={(
-                                                                    msg
-                                                                ) => (
-                                                                    <span className='font-bold text-red-500'>
-                                                                        {msg}
-                                                                    </span>
-                                                                )}
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                            )}
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -846,7 +805,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                             <div className='grid grid-cols-3 gap-x-8'>
                                 <div>
                                     <div className='mt-3'>
-                                        <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        <label
+                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                             Name
                                         </label>
                                         <Field
@@ -865,7 +825,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                         />
                                     </div>
                                     <div className='mt-3'>
-                                        <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        <label
+                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                             Token payment percent each interval
                                         </label>
                                         <Field
@@ -886,7 +847,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                 </div>
                                 <div>
                                     <div className='mt-3'>
-                                        <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        <label
+                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                             Payment amount at distribution
                                         </label>
                                         <Field
@@ -905,7 +867,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                         />
                                     </div>
                                     <div className='mt-3'>
-                                        <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        <label
+                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                             Token payment all date
                                         </label>
                                         <DatetimePicker
@@ -913,8 +876,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                 values.launchType
                                                     .tokenPaymentAllDate
                                                     ? new Date(
-                                                          values.launchType.tokenPaymentAllDate
-                                                      )
+                                                        values.launchType.tokenPaymentAllDate
+                                                    )
                                                     : new Date()
                                             }
                                             onChange={(value) => {
@@ -939,7 +902,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                 </div>
                                 <div>
                                     <div className='mt-3'>
-                                        <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        <label
+                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                             Token payment interval (days)
                                         </label>
                                         <Field
@@ -978,7 +942,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                         return (
                                                             <div className='grid grid-cols-2 gap-x-4'>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Label
                                                                     </label>
                                                                     <Field
@@ -1001,7 +966,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     />
                                                                 </div>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Value
                                                                     </label>
                                                                     <Field
@@ -1024,7 +990,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     />
                                                                 </div>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Unit
                                                                     </label>
                                                                     <Field
@@ -1047,48 +1014,43 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     />
                                                                 </div>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Unit
                                                                         position
                                                                     </label>
-                                                                    <select
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        placeholder='Enter key metrics unit'
-                                                                        name={`keyMetrics.${index}.unitPosition`}
+                                                                    <Select
+                                                                        options={fieldOptions.keyMetricUnitPoses}
+
+                                                                        value={fieldOptions.keyMetricUnitPoses.find(item => item.value === keyMetric.unitPosition)}
                                                                         onChange={(
-                                                                            e
+                                                                            selected
                                                                         ) => {
-                                                                            setFieldValue(
-                                                                                `keyMetrics.${index}.unitPosition`,
-                                                                                parseInt(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
+                                                                            if (selected) {
+                                                                                setFieldValue(
+                                                                                    `keyMetrics.${index}.unitPosition`,
+                                                                                    selected.value
                                                                                 )
-                                                                            );
+                                                                            }
                                                                         }}
-                                                                    >
-                                                                        <option value=''>
-                                                                            Unset
-                                                                        </option>
-                                                                        {fieldOptions.keyMetricUnitPoses
-                                                                            ? fieldOptions.keyMetricUnitPoses.map(
-                                                                                  (
-                                                                                      keyMeticUnitPos
-                                                                                  ) => (
-                                                                                      <option
-                                                                                          value={
-                                                                                              keyMeticUnitPos.value
-                                                                                          }
-                                                                                      >
-                                                                                          {
-                                                                                              keyMeticUnitPos.label
-                                                                                          }
-                                                                                      </option>
-                                                                                  )
-                                                                              )
-                                                                            : null}
-                                                                    </select>
+
+                                                                        theme={(theme) => {
+                                                                            return {
+                                                                                ...theme,
+                                                                                colors: {
+                                                                                    ...theme.colors,
+                                                                                    neutral0: '#0F1217',
+                                                                                    neutral20: '#1F2733',
+                                                                                    neutral30: '#1F2733',
+                                                                                    primary: '#1EE8BB',
+                                                                                    primary50: '#1EE8BB',
+                                                                                    primary25: '#1EE8BB',
+                                                                                    neutral5: '#1EE8BB',
+                                                                                    neutral80: '#E2E4E9',
+                                                                                },
+                                                                            };
+                                                                        }}
+                                                                    />
 
                                                                     <ErrorMessage
                                                                         name={`keyMetrics.${index}.unitPosition`}
@@ -1104,45 +1066,46 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     />
                                                                 </div>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Key
                                                                         metric
                                                                         value
                                                                         type
                                                                     </label>
-                                                                    <select
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        placeholder='Enter key metrics unit'
-                                                                        name={`keyMetrics.${index}.valueType`}
+
+                                                                    <Select
+                                                                        options={fieldOptions.keyMetricTypes}
+
+                                                                        value={fieldOptions.keyMetricTypes.find(item => item.value === keyMetric.valueType)}
                                                                         onChange={(
-                                                                            e
+                                                                            selected
                                                                         ) => {
-                                                                            setFieldValue(
-                                                                                `keyMetrics.${index}.valueType`,
-                                                                                parseInt(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
+                                                                            if (selected) {
+                                                                                setFieldValue(
+                                                                                    `keyMetrics.${index}.valueType`,
+                                                                                    selected.value
                                                                                 )
-                                                                            );
+                                                                            }
                                                                         }}
-                                                                    >
-                                                                        {fieldOptions.keyMetricTypes.map(
-                                                                            (
-                                                                                keyMetricType
-                                                                            ) => (
-                                                                                <option
-                                                                                    value={
-                                                                                        keyMetricType.value
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        keyMetricType.label
-                                                                                    }
-                                                                                </option>
-                                                                            )
-                                                                        )}
-                                                                    </select>
+
+                                                                        theme={(theme) => {
+                                                                            return {
+                                                                                ...theme,
+                                                                                colors: {
+                                                                                    ...theme.colors,
+                                                                                    neutral0: '#0F1217',
+                                                                                    neutral20: '#1F2733',
+                                                                                    neutral30: '#1F2733',
+                                                                                    primary: '#1EE8BB',
+                                                                                    primary50: '#1EE8BB',
+                                                                                    primary25: '#1EE8BB',
+                                                                                    neutral5: '#1EE8BB',
+                                                                                    neutral80: '#E2E4E9',
+                                                                                },
+                                                                            };
+                                                                        }}
+                                                                    />
 
                                                                     <ErrorMessage
                                                                         name={`keyMetrics.${index}.valueType`}
@@ -1167,7 +1130,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                         }
                                                                         type='button'
                                                                     >
-                                                                        <FaTimes />
+                                                                        <FaTimes/>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1211,7 +1174,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                         return (
                                                             <div className='grid grid-cols-3 items-center gap-x-4'>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Type
                                                                     </label>
                                                                     <select
@@ -1261,7 +1225,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     />
                                                                 </div>
                                                                 <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                         Link
                                                                     </label>
                                                                     <Field
@@ -1293,7 +1258,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                         }
                                                                         type='button'
                                                                     >
-                                                                        <FaTimes />
+                                                                        <FaTimes/>
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1304,19 +1269,19 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                     className='btn btn-pink'
                                                     type='button'
                                                     onClick={() => {
-                                                     
+
                                                         arrayHelpers.push({
                                                             socialType:
                                                                 fieldOptions
                                                                     .socialTypes
                                                                     .length >
-                                                                    0 &&
+                                                                0 &&
                                                                 fieldOptions.socialTypes
                                                                     ? fieldOptions
-                                                                          .socialTypes[0]
+                                                                        .socialTypes[0]
                                                                         ? fieldOptions
-                                                                              .socialTypes[0]
-                                                                              .value
+                                                                            .socialTypes[0]
+                                                                            .value
                                                                         : 0
                                                                     : 0,
                                                             link: '',
@@ -1331,59 +1296,36 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                 />
                             </div>
                             <div>
-                                <h2 className='text-xl text-gray-900'>Task</h2>
+                                <h2 className='text-xl text-gray-900'>Community Task</h2>
                                 <FieldArray
-                                    name='task'
+                                    name='communityTasks'
                                     render={(arrayHelpers) => {
                                         return (
                                             <>
-                                                {values.task?.map(
+                                                {values.communityTasks?.map(
                                                     (
                                                         task: any,
                                                         taskIndex: any
                                                     ) => {
                                                         return (
-                                                            <>
-                                                                <div className='mt-3'>
-                                                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
-                                                                        Task
-                                                                        Type
+                                                            <div className='mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4'>
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        UUID
                                                                     </label>
-                                                                    <select
+                                                                    <Field
                                                                         className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        placeholder='Enter social type'
-                                                                        name={`task.${taskIndex}.taskType`}
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            setFieldValue(
-                                                                                `task.${taskIndex}.taskType`,
-                                                                                parseInt(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
-                                                                            )
+                                                                        type='text'
+                                                                        placeholder='Enter task uuid'
+                                                                        name={`communityTasks.${taskIndex}.uuid`}
+                                                                        value={
+                                                                            task.uuid ? task.uuid : uuid()
                                                                         }
-                                                                    >
-                                                                        {fieldOptions.taskTypes.map(
-                                                                            (
-                                                                                taskType
-                                                                            ) => (
-                                                                                <option
-                                                                                    value={
-                                                                                        taskType.value
-                                                                                    }
-                                                                                >
-                                                                                    {
-                                                                                        taskType.label
-                                                                                    }
-                                                                                </option>
-                                                                            )
-                                                                        )}
-                                                                    </select>
+                                                                        disabled
+                                                                    />
                                                                     <ErrorMessage
-                                                                        name={`task.${taskIndex}.taskType`}
+                                                                        name={`communityTasks.${taskIndex}.uuid`}
                                                                         render={(
                                                                             msg
                                                                         ) => (
@@ -1395,74 +1337,197 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='grid grid-cols-3 items-center gap-x-4'>
-                                                                    {task.taskType ==
-                                                                    1 ? (
-                                                                        <>
-                                                                            <div className='mt-3'>
-                                                                                <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
-                                                                                    Description
-                                                                                </label>
-                                                                                <Field
-                                                                                    className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                                    type='text'
-                                                                                    placeholder='Enter task description'
-                                                                                    name={`task.${taskIndex}.settings.description`}
-                                                                                />
-                                                                                <ErrorMessage
-                                                                                    name={`task.${taskIndex}.settings.description`}
-                                                                                    render={(
-                                                                                        msg
-                                                                                    ) => (
-                                                                                        <span className='font-bold text-red-500'>
-                                                                                            {
-                                                                                                msg
-                                                                                            }
-                                                                                        </span>
-                                                                                    )}
-                                                                                />
-                                                                            </div>
-                                                                            <div className='mt-3'>
-                                                                                <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
-                                                                                    Link
-                                                                                </label>
-                                                                                <Field
-                                                                                    className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                                    type='text'
-                                                                                    placeholder='Enter task link'
-                                                                                    name={`task.${taskIndex}.settings.link`}
-                                                                                />
-                                                                                <ErrorMessage
-                                                                                    name={`task.${taskIndex}.settings.link`}
-                                                                                    render={(
-                                                                                        msg
-                                                                                    ) => (
-                                                                                        <span className='font-bold text-red-500'>
-                                                                                            {
-                                                                                                msg
-                                                                                            }
-                                                                                        </span>
-                                                                                    )}
-                                                                                />
-                                                                            </div>
-                                                                        </>
-                                                                    ) : null}
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        Is User Link required?
+                                                                    </label>
+                                                                    <Select
+                                                                        options={[
+                                                                            {
+                                                                                value: true,
+                                                                                label: "Yes"
+                                                                            },
+                                                                            {
+                                                                                value: false,
+                                                                                label: "No"
+                                                                            }
+                                                                        ]}
 
-                                                                    <div className='mt-3'>
-                                                                        <button
-                                                                            className='btn btn-pink'
-                                                                            onClick={() =>
-                                                                                arrayHelpers.remove(
-                                                                                    taskIndex
+                                                                        value={[
+                                                                            {
+                                                                                value: true,
+                                                                                label: "Yes"
+                                                                            },
+                                                                            {
+                                                                                value: false,
+                                                                                label: "No"
+                                                                            }
+                                                                        ].filter(item => item.value === task.userLinkRequired)[0]}
+                                                                        onChange={(
+                                                                            selected
+                                                                        ) => {
+                                                                            if (selected) {
+                                                                                setFieldValue(
+                                                                                    `communityTasks.${taskIndex}.userLinkRequired`,
+                                                                                    selected.value
                                                                                 )
                                                                             }
-                                                                            type='button'
-                                                                        >
-                                                                            <FaTimes />
-                                                                        </button>
-                                                                    </div>
+                                                                        }}
+
+                                                                        theme={(theme) => {
+                                                                            return {
+                                                                                ...theme,
+                                                                                colors: {
+                                                                                    ...theme.colors,
+                                                                                    neutral0: '#0F1217',
+                                                                                    neutral20: '#1F2733',
+                                                                                    neutral30: '#1F2733',
+                                                                                    primary: '#1EE8BB',
+                                                                                    primary50: '#1EE8BB',
+                                                                                    primary25: '#1EE8BB',
+                                                                                    neutral5: '#1EE8BB',
+                                                                                    neutral80: '#E2E4E9',
+                                                                                },
+                                                                            };
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.uuid`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
                                                                 </div>
-                                                            </>
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        Social Type
+                                                                    </label>
+                                                                    <Select
+                                                                        options={socialTypes}
+
+                                                                        value={socialTypes.find(item => item.value === task.socialType)}
+                                                                        onChange={(
+                                                                            selected
+                                                                        ) => {
+                                                                            if (selected) {
+                                                                                setFieldValue(
+                                                                                    `communityTasks.${taskIndex}.socialType`,
+                                                                                    selected.value
+                                                                                )
+                                                                            }
+                                                                        }}
+
+                                                                        theme={(theme) => {
+                                                                            return {
+                                                                                ...theme,
+                                                                                colors: {
+                                                                                    ...theme.colors,
+                                                                                    neutral0: '#0F1217',
+                                                                                    neutral20: '#1F2733',
+                                                                                    neutral30: '#1F2733',
+                                                                                    primary: '#1EE8BB',
+                                                                                    primary50: '#1EE8BB',
+                                                                                    primary25: '#1EE8BB',
+                                                                                    neutral5: '#1EE8BB',
+                                                                                    neutral80: '#E2E4E9',
+                                                                                },
+                                                                            };
+                                                                        }}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.socialType`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        Description
+                                                                    </label>
+                                                                    <Field
+                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                                        type='text'
+                                                                        placeholder='Enter task description'
+                                                                        name={`communityTasks.${taskIndex}.description`}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.description`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        Url
+                                                                    </label>
+                                                                    <Field
+                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                                        type='text'
+                                                                        placeholder='Enter task url'
+                                                                        name={`communityTasks.${taskIndex}.url`}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.url`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        Content
+                                                                    </label>
+                                                                    <Field
+                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
+                                                                        type='text'
+                                                                        placeholder='Enter task content'
+                                                                        name={`communityTasks.${taskIndex}.content`}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.content`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                            </div>
                                                         );
                                                     }
                                                 )}
@@ -1471,11 +1536,12 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                     type='button'
                                                     onClick={() => {
                                                         arrayHelpers.push({
-                                                            taskType: 1,
-                                                            settings: {
-                                                                description: '',
-                                                                link: '',
-                                                            },
+                                                            uuid: uuid(),
+                                                            userLinkRequired: false,
+                                                            socialType: '',
+                                                            description: '',
+                                                            url: '',
+                                                            content: '',
                                                         });
                                                     }}
                                                 >
@@ -1486,7 +1552,221 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                     }}
                                 />
                             </div>
+                            <div>
+                                <div className='mt-3'>
+                                    <label
+                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        Is closed
+                                    </label>
+                                    <Select
+                                        options={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ]}
+
+                                        value={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ].find(item => item.value === values.isClosed)}
+                                        onChange={(
+                                            selected
+                                        ) => {
+                                            if (selected) {
+                                                setFieldValue(
+                                                    `isClosed`,
+                                                    selected.value
+                                                )
+                                            }
+                                        }}
+
+                                        theme={(theme) => {
+                                            return {
+                                                ...theme,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    neutral0: '#0F1217',
+                                                    neutral20: '#1F2733',
+                                                    neutral30: '#1F2733',
+                                                    primary: '#1EE8BB',
+                                                    primary50: '#1EE8BB',
+                                                    primary25: '#1EE8BB',
+                                                    neutral5: '#1EE8BB',
+                                                    neutral80: '#E2E4E9',
+                                                },
+                                            };
+                                        }}
+                                    />
+
+                                    <ErrorMessage
+                                        name={`isClosed`}
+                                        render={(
+                                            msg
+                                        ) => (
+                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <div className='mt-3'>
+                                    <label
+                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        Is TBA
+                                    </label>
+                                    <Select
+                                        options={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ]}
+
+                                        value={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ].find(item => item.value === values.isTBA)}
+                                        onChange={(
+                                            selected
+                                        ) => {
+                                            if (selected) {
+                                                setFieldValue(
+                                                    `isTBA`,
+                                                    selected.value
+                                                )
+                                            }
+                                        }}
+
+                                        theme={(theme) => {
+                                            return {
+                                                ...theme,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    neutral0: '#0F1217',
+                                                    neutral20: '#1F2733',
+                                                    neutral30: '#1F2733',
+                                                    primary: '#1EE8BB',
+                                                    primary50: '#1EE8BB',
+                                                    primary25: '#1EE8BB',
+                                                    neutral5: '#1EE8BB',
+                                                    neutral80: '#E2E4E9',
+                                                },
+                                            };
+                                        }}
+                                    />
+
+                                    <ErrorMessage
+                                        name={`isTBA`}
+                                        render={(
+                                            msg
+                                        ) => (
+                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <div className='mt-3'>
+                                    <label
+                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        Is Phrase TBA
+                                    </label>
+                                    <Select
+                                        options={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ]}
+
+                                        value={[
+                                            {
+                                                value: true,
+                                                label: "YES"
+                                            },
+                                            {
+                                                value: false,
+                                                label: "No"
+                                            }
+                                        ].find(item => item.value === values.isPhraseTBA)}
+                                        onChange={(
+                                            selected
+                                        ) => {
+                                            if (selected) {
+                                                setFieldValue(
+                                                    `isPhraseTBA`,
+                                                    selected.value
+                                                )
+                                            }
+                                        }}
+
+                                        theme={(theme) => {
+                                            return {
+                                                ...theme,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    neutral0: '#0F1217',
+                                                    neutral20: '#1F2733',
+                                                    neutral30: '#1F2733',
+                                                    primary: '#1EE8BB',
+                                                    primary50: '#1EE8BB',
+                                                    primary25: '#1EE8BB',
+                                                    neutral5: '#1EE8BB',
+                                                    neutral80: '#E2E4E9',
+                                                },
+                                            };
+                                        }}
+                                    />
+
+                                    <ErrorMessage
+                                        name={`isTBA`}
+                                        render={(
+                                            msg
+                                        ) => (
+                                            <span className='font-bold text-red-500'>
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                        )}
+                                    />
+                                </div>
+                            </div>
                         </div>
+
                         <div>
                             <h1 className='text-blue-900 text-2xl text-center'>
                                 Details
@@ -1501,7 +1781,8 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                     return (
                                                         <>
                                                             <div className='mt-3'>
-                                                                <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                <label
+                                                                    className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
                                                                     Title
                                                                 </label>
                                                                 <Field
@@ -1527,10 +1808,10 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                 value={
                                                                     values.details
                                                                         ? values
-                                                                              .details[
-                                                                              index
-                                                                          ]
-                                                                              .content
+                                                                            .details[
+                                                                            index
+                                                                            ]
+                                                                            .content
                                                                         : ''
                                                                 }
                                                                 onChange={(
@@ -1553,7 +1834,7 @@ const ProjectFrom: React.FC<Props> = ({ initialValues, onSubmit }) => {
                                                                     }
                                                                     type='button'
                                                                 >
-                                                                    <FaTimes />
+                                                                    <FaTimes/>
                                                                 </button>
                                                             </div>
                                                         </>

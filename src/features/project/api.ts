@@ -1,6 +1,6 @@
-import { IResponseData } from '../../common/types';
+import {IResponseData} from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
-import { IProject, IProjectFieldOptions } from './types';
+import {IProject, IProjectFieldOptions, IProjectsByPhrase} from './types';
 
 const projectApi = {
     admin: {
@@ -29,6 +29,16 @@ const projectApi = {
             return axiosClient.put(url, data);
         },
     },
+    app: {
+        fetchProjectsByPhrase: (): Promise<IResponseData<IProjectsByPhrase>> => {
+            const url = 'app/project/projects-by-phrase';
+            return axiosClient.get(url);
+        },
+        fetchProjectBySlug: (slug: string): Promise<IResponseData<IProject>> => {
+            const url = `app/project/${slug}`;
+            return axiosClient.get(url);
+        }
+    }
 };
 
 export default projectApi;

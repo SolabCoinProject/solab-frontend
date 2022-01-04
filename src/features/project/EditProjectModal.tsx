@@ -1,26 +1,26 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import { FaTimes } from 'react-icons/fa';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {Dialog, Transition} from '@headlessui/react';
+import {Fragment} from 'react';
+import {FaTimes} from 'react-icons/fa';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import ProjectFrom from './ProjectForm';
-import { projectActions } from './projectSlice';
+import {projectActions} from './projectSlice';
+import {format} from 'date-fns';
 
 const EditProjectModal: React.FC = () => {
     const isOpen = useAppSelector(
         (state) => state.project.admin.isEditProjectModalOpen
     );
-
     const dispatch = useAppDispatch();
     const editingProject = useAppSelector(
         (state) => state.project.admin.editingProject
     );
-
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog
                 as='div'
                 className='fixed inset-0 overflow-x-auto bg-blue-300 z-50 bg-opacity-80'
-                onClose={() => {}}
+                onClose={() => {
+                }}
             >
                 <div className='min-h-screen px-4 text-center'>
                     <Transition.Child
@@ -32,7 +32,7 @@ const EditProjectModal: React.FC = () => {
                         leaveFrom='opacity-100'
                         leaveTo='opacity-0'
                     >
-                        <Dialog.Overlay className='fixed inset-0' />
+                        <Dialog.Overlay className='fixed inset-0'/>
                     </Transition.Child>
                     <span
                         className='inline-block h-screen align-middle'
@@ -49,7 +49,8 @@ const EditProjectModal: React.FC = () => {
                         leaveFrom='opacity-100 scale-100'
                         leaveTo='opacity-0 scale-95'
                     >
-                        <div className='inline-block w-full max-w-full p-6 my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl bg-white-500'>
+                        <div
+                            className='inline-block w-full max-w-full p-6 my-8 text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl bg-white-500'>
                             <Dialog.Title
                                 as='h3'
                                 className='text-lg font-medium leading-6 text-gray-900 flex items-center justify-between'
@@ -65,17 +66,41 @@ const EditProjectModal: React.FC = () => {
                                         )
                                     }
                                 >
-                                    <FaTimes />
+                                    <FaTimes/>
                                 </button>
                             </Dialog.Title>
-                            <ProjectFrom
-                                initialValues={editingProject}
-                                onSubmit={(values) => {
-                                    dispatch(
-                                        projectActions.createProject(values)
-                                    );
-                                }}
-                            />
+                            {
+                                editingProject ? <ProjectFrom
+                                    initialValues={{
+                                        ...editingProject
+                                        , phrases: {
+                                            ...editingProject?.phrases,
+                                            whitelist: {
+                                                ...editingProject?.phrases.whitelist,
+                                                startDate: format(new Date(editingProject?.phrases.whitelist.startDate as string), 'yyyy-MM-dd HH:mm:ss'),
+                                                endDate: format(new Date(editingProject?.phrases.whitelist.endDate as string), 'yyyy-MM-dd HH:mm:ss'),
+                                            },
+                                            sale: {
+                                                ...editingProject?.phrases.sale,
+                                                startDate: format(new Date(editingProject?.phrases.sale.startDate as string), 'yyyy-MM-dd HH:mm:ss'),
+                                                endDate: format(new Date(editingProject?.phrases.sale.endDate as string), 'yyyy-MM-dd HH:mm:ss'),
+                                            },
+                                            distribution: {
+                                                ...editingProject?.phrases.distribution,
+                                                startDate: format(new Date(editingProject?.phrases.distribution.startDate as string), 'yyyy-MM-dd HH:mm:ss'),
+                                            },
+                                        }
+                                    }}
+                                    onSubmit={(values) => {
+                                        dispatch(
+                                            projectActions.editProject({
+                                                id: editingProject._id,
+                                                data: values
+                                            })
+                                        );
+                                    }}
+                                /> : null
+                            }
                         </div>
                     </Transition.Child>
                 </div>
