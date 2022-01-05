@@ -908,6 +908,13 @@ const SolabIDO: NextPage = () => {
                                                                                                         )}
                                                                                                     />
                                                                                                 </div>
+                                                                                                <div
+                                                                                                    className="py-3 border border-yellow-500 mt-4 rounded-lg text-center">
+                                                                                                    You need at least
+                                                                                                    0.000005 (SOL) to
+                                                                                                    process the
+                                                                                                    transaction!
+                                                                                                </div>
                                                                                                 <ul className="list-disc p-4">
                                                                                                     <li>
                                                                                                         <span>This prefund amount will be used for 2 purpose: </span>
