@@ -102,6 +102,7 @@ const ProjectDetail: NextPage = () => {
                                                             src={md.link}
                                                             title="YouTube video player"
                                                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowFullScreen={true}
                                                         ></iframe>
                                                     ) : (
                                                         ''
