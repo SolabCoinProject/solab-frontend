@@ -28,6 +28,10 @@ const projectApi = {
             const url = `admin/project/${id}`;
             return axiosClient.put(url, data);
         },
+        fetchById: (id: string): Promise<IResponseData<IProject>> => {
+            const url = `admin/project/${id}`;
+            return axiosClient.get(url);
+        },
     },
     app: {
         fetchProjectsByPhrase: (): Promise<IResponseData<IProjectsByPhrase>> => {

@@ -121,11 +121,12 @@ export interface IProjectState {
         isEditProjectModalOpen: boolean;
         editingProject: IProject | null;
         isEditingProject: boolean;
+        isFetchingProjectById: boolean;
     };
     app: {
         projectsByPhrase: IProjectsByPhrase;
         isFetchingProjectByPhrase: boolean;
         isFetchingProjectBySlug: boolean;
         project: IProject | null
-    }
+    };
 }

@@ -35,6 +35,7 @@ const initialState: IProjectState = {
         isEditProjectModalOpen: false,
         editingProject: null,
         isEditingProject: false,
+        isFetchingProjectById: false
     },
     app: {
         projectsByPhrase: {
@@ -182,6 +183,33 @@ export const projectSlice = createSlice({
             }
         },
 
+        fetchProjectById: (state, action: PayloadAction<string>) => {
+            state.admin.isFetchingProjectById = true;
+        },
+
+        fetchProjectByIdSuccess: (
+            state,
+            action: PayloadAction<IResponseData<IProject>>
+        ) => {
+            state.admin.isFetchingProjectById = false;
+            state.admin.editingProject = action.payload.data;
+        },
+
+        fetchProjectByIdFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.admin.isFetchingProjectById = false;
+            if (action.payload.status === 401) {
+                toast.error(action.payload.data.message);
+                localStorage.removeItem('accessToken');
+            } else if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message);
+            } else {
+                toast.error('Something went wrong!');
+            }
+        },
+
         // App
 
         fetchProjectsByPhrase: (state) => {
@@ -190,7 +218,7 @@ export const projectSlice = createSlice({
 
         fetchProjectsByPhraseSuccess: (state, action: PayloadAction<IResponseData<IProjectsByPhrase>>) => {
             state.app.isFetchingProjectByPhrase = false;
-            state.app.projectsByPhrase = action.payload.data
+            state.app.projectsByPhrase = action.payload.data;
         },
         fetchProjectsByPhraseFailure: (
             state,

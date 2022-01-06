@@ -4,6 +4,7 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import projectApi from './api';
 import {IProject, IProjectFieldOptions, IProjectsByPhrase} from './types';
 import {projectActions} from './projectSlice';
+import {Payload} from '@hapi/boom';
 
 function* fetchProjects(action: PayloadAction<any>) {
     try {
@@ -85,6 +86,17 @@ function* fetchProjectBySlug(action: PayloadAction<{ slug: string }>) {
     }
 }
 
+function* fetchProjectById(action: PayloadAction<string>) {
+    try {
+        const response: IResponseData<IProject> = yield call(
+            projectApi.admin.fetchById, action.payload
+        );
+        yield put(projectActions.fetchProjectByIdSuccess(response));
+    } catch (err: any) {
+        const {status, data} = err.response;
+        yield put(projectActions.fetchProjectByIdFailure({status, data: data}));
+    }
+}
 
 export default function* projectSaga() {
     yield takeLatest(projectActions.fetchProjects.type, fetchProjects);
@@ -93,4 +105,5 @@ export default function* projectSaga() {
     yield takeLatest(projectActions.editProject.type, editProject);
     yield takeLatest(projectActions.fetchProjectsByPhrase.type, fetchProjectsByPhrase);
     yield takeLatest(projectActions.fetchProjectBySlug.type, fetchProjectBySlug);
+    yield takeLatest(projectActions.fetchProjectById.type, fetchProjectById);
 }
