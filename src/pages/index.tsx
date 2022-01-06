@@ -445,14 +445,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -540,14 +542,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -635,14 +639,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -730,14 +736,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -825,14 +833,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -920,14 +930,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
@@ -1015,14 +1027,16 @@ const Home: NextPage = () => {
                                                     </span>
                                                         </div>
                                                     </div>
-                                                    <div className="px-4 mt-4 text-right">
-                                                        <Link
-                                                            href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
-                                                            <a className="text-gradient-1">
-                                                                View detail
-                                                            </a>
-                                                        </Link>
-                                                    </div>
+                                                    {
+                                                        !project.isTBA ? <div className="px-4 mt-4 text-right">
+                                                            <Link
+                                                                href={`${!project.isTBA ? `/project/${project.slug}` : '#'}`}>
+                                                                <a className="text-gradient-1">
+                                                                    View detail
+                                                                </a>
+                                                            </Link>
+                                                        </div> : null
+                                                    }
                                                 </div>
                                             ))
                                         }
