@@ -41,7 +41,7 @@ const ProjectDetail: NextPage = () => {
                                     <Image
                                         width={80}
                                         height={80}
-                                        src={project.thumbnail as string}
+                                        src={project.token.thumbnail as string}
                                         className="rounded-lg"
                                         unoptimized={true}
                                     />
