@@ -164,12 +164,19 @@ const projectConstants = {
 };
 
 export const getProjectPhraseStatusTag = (project: IProject) => {
+    if (project.isTBA) {
+        return <span
+            className="absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium">
+                                                TBA
+                                                </span>;
+    }
     if (project.isPhraseTBA) {
         return <span
             className="absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium">
                                                 Upcoming
                                                 </span>;
     }
+
     if (project.isClosed) {
         return <span
             className="absolute bg-solabWhite-700 text-solabBlack-500 top-3 left-2 px-0.5 rounded font-medium">
