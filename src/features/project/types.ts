@@ -1,14 +1,11 @@
-import {
-    IPaginationResponse,
-    IPaginationData,
-    IOptionNumber,
-} from '../../common/types';
+import {IOptionNumber, IPaginationData,} from '../../common/types';
 
 export interface IProject {
     _id: string;
     name: string;
     slug: string;
     description: string;
+    pubKey: string;
     thumbnail: string;
     token: {
         thumbnail: string;
@@ -20,6 +17,7 @@ export interface IProject {
                 value: string;
             }
         ];
+        decimals: number;
     };
     keyMetrics?: [
         {
@@ -32,7 +30,7 @@ export interface IProject {
     ];
     social?: [
         {
-            type: number;
+            socialType: number;
             link: string;
         }
     ];
@@ -50,12 +48,6 @@ export interface IProject {
             description: string;
         };
         whitelist: {
-            startDate: string;
-            endDate: string;
-            title: string;
-            description: string;
-        };
-        lottery: {
             startDate: string;
             endDate: string;
             title: string;
@@ -80,14 +72,24 @@ export interface IProject {
         tokenPaymentPercent: number;
         tokenPaymentAllDate?: string;
     };
-    task?: [
+    communityTasks?: [
         {
-            taskType: number;
-            settings: any;
+            uuid: string;
+            userLinkRequired: boolean;
+            socialType: number;
+            description: string;
+            url: string;
+            content?: string;
         }
     ];
+    media: { mediaType: number; link: string; thumbnail: string }[];
+    isClosed: boolean;
+    isTBA: boolean;
+    isPhraseTBA: boolean;
+    raiseAmount: number;
     createdAt?: string;
     updatedAt?: string;
+
 }
 
 export interface IProjectFieldOptions {
@@ -95,6 +97,16 @@ export interface IProjectFieldOptions {
     keyMetricUnitPoses: [IOptionNumber] | [];
     socialTypes: [IOptionNumber] | [];
     keyMetricTypes: [IOptionNumber] | [];
+}
+
+export interface IProjectsByPhrase {
+    all: IProject[],
+    whitelist: IProject[],
+    upcoming: IProject[],
+    sale: IProject[],
+    distribution: IProject[],
+    closed: IProject[],
+    tba: IProject[],
 }
 
 export interface IProjectState {
@@ -109,5 +121,12 @@ export interface IProjectState {
         isEditProjectModalOpen: boolean;
         editingProject: IProject | null;
         isEditingProject: boolean;
+        isFetchingProjectById: boolean;
+    };
+    app: {
+        projectsByPhrase: IProjectsByPhrase;
+        isFetchingProjectByPhrase: boolean;
+        isFetchingProjectBySlug: boolean;
+        project: IProject | null
     };
 }
