@@ -143,7 +143,7 @@ const ProjectDetail: NextPage = () => {
                                             <span className="text-solabGray-100 text-sm">
                                                 {item.label}
                                             </span>
-                                            <span className="font-bold text-sm">
+                                            <span className="font-bold text-sm text-right">
                                                 {
                                                     item.valueType === projectConstants.keyMetricTypeNumber ? (
                                                         item.unitPosition === projectConstants.keyMetricUnitPositionLeft && item.unit ? (
