@@ -14,7 +14,7 @@ import {useRouter} from 'next/router';
 import {Fragment, useCallback, useEffect, useState} from 'react';
 import Countdown from 'react-countdown';
 import ReactHtmlParser from 'react-html-parser';
-import {AiOutlineCheck, AiOutlineCheckCircle} from 'react-icons/ai';
+import {AiOutlineCheck, AiOutlineCheckCircle, AiOutlineInfoCircle} from 'react-icons/ai';
 import {GoPrimitiveDot} from 'react-icons/go';
 import NumberFormat from 'react-number-format';
 import Select from 'react-select';
@@ -909,11 +909,14 @@ const SolabIDO: NextPage = () => {
                                                                                                     />
                                                                                                 </div>
                                                                                                 <div
-                                                                                                    className="py-3 border border-yellow-500 mt-4 rounded-lg text-center">
-                                                                                                    You need at least
+                                                                                                    className="py-3 mt-4 rounded-lg text-center text-solabCyan-500 flex items-center justify-center gap-4">
+                                                                                                    <AiOutlineInfoCircle
+                                                                                                        className="h-6 w-6"/>
+                                                                                                    <span>You need at
+                                                                                                    least
                                                                                                     0.000005 (SOL) to
                                                                                                     process the
-                                                                                                    transaction!
+                                                                                                    transaction!</span>
                                                                                                 </div>
                                                                                                 <ul className="list-disc p-4">
                                                                                                     <li>
