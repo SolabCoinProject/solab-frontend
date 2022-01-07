@@ -893,7 +893,7 @@ const SolabIDO: NextPage = () => {
                                                                                                         }}
                                                                                                         className="w-full mt-1"
                                                                                                     />
-                                                                                                    <p className="text-xs italic text-solabGray-100">{`You will receive ${values.usdcAmount == 100 ? 10 : values.usdcAmount == 200 ? 25 : values.usdcAmount == 300 ? 50 : 0} lottery tickets. More tickets, more chance to win whitelist`}</p>
+                                                                                                    <p className="text-xs italic text-solabGray-100">{`You will receive ${values.usdcAmount == 100 ? 10 : values.usdcAmount == 200 ? 25 : values.usdcAmount == 300 ? 50 : 0} lottery tickets. More tickets, more chance to win whitelist!`}</p>
                                                                                                     <ErrorMessage
                                                                                                         name="usdcAmount"
                                                                                                         render={(
@@ -938,19 +938,28 @@ const SolabIDO: NextPage = () => {
                                                                                                                         USDC
                                                                                                                         equals
                                                                                                                         22,727
-                                                                                                                        SOLAB
+                                                                                                                        SOLAB,
+                                                                                                                        bonus
+                                                                                                                        10
+                                                                                                                        tickets.
                                                                                                                     </li>
                                                                                                                     <li>$200
                                                                                                                         USDC
                                                                                                                         equals
                                                                                                                         45,454
-                                                                                                                        SOLAB
+                                                                                                                        SOLAB,
+                                                                                                                        bonus
+                                                                                                                        25
+                                                                                                                        tickets.
                                                                                                                     </li>
                                                                                                                     <li>$300
                                                                                                                         USDC
                                                                                                                         equals
                                                                                                                         68,181
-                                                                                                                        SOLAB
+                                                                                                                        SOLAB,
+                                                                                                                        bonus
+                                                                                                                        50
+                                                                                                                        tickets.
                                                                                                                     </li>
                                                                                                                 </ul>
                                                                                                             </li>
