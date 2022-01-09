@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import layoutReducer from '../features/layout/layoutSlice';
@@ -8,6 +8,7 @@ import projectReducer from '../features/project/projectSlice';
 import resourceReducer from '../features/resources/resourceSlice';
 import solabProjectReducer from '../features/solabProject/solabProjectSlice';
 import imagePreviewReducer from '../features/imagePreview/imagePreviewSlice';
+import configReducer from '../features/config/configSlice';
 
 const sageMiddleware = createSagaMiddleware();
 export const store = configureStore({
@@ -19,10 +20,11 @@ export const store = configureStore({
         resource: resourceReducer,
         solabProject: solabProjectReducer,
         imagePreview: imagePreviewReducer,
+        config: configReducer
     },
     devTools: process.env.NODE_ENV === 'development' ? true : false,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({ thunk: false }).concat(sageMiddleware),
+        getDefaultMiddleware({thunk: false}).concat(sageMiddleware),
 });
 
 sageMiddleware.run(rootSaga);

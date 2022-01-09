@@ -13,6 +13,7 @@ export enum adminSidebarItemOptions {
     project = 'project',
     demoEditor = 'demoEditor',
     user = 'user',
+    config = 'config'
 }
 
 export interface LayoutState {
