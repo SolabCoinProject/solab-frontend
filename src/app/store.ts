@@ -10,7 +10,7 @@ import solabProjectReducer from '../features/solabProject/solabProjectSlice';
 import imagePreviewReducer from '../features/imagePreview/imagePreviewSlice';
 import configReducer from '../features/config/configSlice';
 
-const sageMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
     reducer: {
         layout: layoutReducer,
@@ -22,12 +22,12 @@ export const store = configureStore({
         imagePreview: imagePreviewReducer,
         config: configReducer
     },
-    devTools: process.env.NODE_ENV === 'development' ? true : false,
+    devTools: process.env.NODE_ENV === 'development',
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({thunk: false}).concat(sageMiddleware),
+        getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
 });
 
-sageMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

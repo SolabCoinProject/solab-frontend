@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
-import {IConfig, IConfigState} from "./types";
-import {solabPriceSlug} from "./constants";
-import {IResponseData, IResponseFailure} from "../../common/types";
+import {IConfig, IConfigState} from './types';
+import {solabPriceSlug} from './constants';
+import {IResponseData, IResponseFailure} from '../../common/types';
 
 const initialState: IConfigState = {
     admin: {
@@ -13,7 +13,7 @@ const initialState: IConfigState = {
         isFetchingSolabPriceConfig: false,
         isUpdatingConfig: false
     }
-}
+};
 
 export const configSlice = createSlice({
     name: 'config',
@@ -42,11 +42,12 @@ export const configSlice = createSlice({
             }
         },
         updateConfigBySlug: (state, action: PayloadAction<{ slug: string, value: string | number }>) => {
-            state.admin.isUpdatingConfig = true
+            state.admin.isUpdatingConfig = true;
         },
         updateConfigBySlugSuccessfully: (state, action: PayloadAction<IResponseData<IConfig>>) => {
             state.admin.isUpdatingConfig = false;
             state.admin.solabPriceConfig = action.payload.data;
+            toast.success('Updated successfully!');
         },
         updateConfigBySlugFailure: (
             state,
@@ -63,7 +64,7 @@ export const configSlice = createSlice({
             }
         },
     }
-})
+});
 
 export const configActions = configSlice.actions;
 export default configSlice.reducer;

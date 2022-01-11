@@ -1,7 +1,7 @@
 const routes = {
     app: {
         home: '/',
-        stake: '#',
+        stake: '/stake',
         projects: '#',
         ourTeam: '/our-team',
         myAccount: '/my-account',

@@ -3,7 +3,7 @@ import {
     IResponseData,
     IResponseFailure,
 } from './../../common/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
     IStaff,
     IUserState,
@@ -14,9 +14,9 @@ import {
     IUserInfoUpdateParams,
     IUserKycUpdateParams,
     IUserFull,
-    IUpdateUserKycParams,
+    IUpdateUserKycParams, IStakeParams,
 } from './types';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import toastConfigs from '../../config/toast';
 
 const initialState: IUserState = {
@@ -48,6 +48,9 @@ const initialState: IUserState = {
         isFetchingUser: false,
         isUpdatingInfo: false,
         isUpdatingKyc: false,
+        isStaking: false,
+        isClaimingInterest: false,
+        isUnstaking: false,
         constants: {
             kycVerified: 1,
             kycDenied: 0,
@@ -88,7 +91,7 @@ export const userSlice = createSlice({
             state.admin.isLoggingIn = true;
         },
         staffLoginSuccess: (state, action: PayloadAction<ILoginResponse>) => {
-            const { accessToken } = action.payload;
+            const {accessToken} = action.payload;
             localStorage.setItem('accessToken', accessToken);
             state.admin.isLoggingIn = false;
             state.admin.isLoggedIn = true;
@@ -268,6 +271,58 @@ export const userSlice = createSlice({
                 toast.error('Something went wrong!', toastConfigs.error);
             }
         },
+
+        stake: (state, action: PayloadAction<IStakeParams>) => {
+            state.app.isStaking = true;
+        },
+        stakeSuccessfully: (state, action: PayloadAction<IResponseData<IUser>>) => {
+            state.app.isStaking = false;
+            state.app.user = action.payload.data;
+            toast.success('Stake successfully', toastConfigs.success);
+        },
+        stakeFailure: (state, action: PayloadAction<IResponseFailure>) => {
+            state.app.isStaking = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message || 'Something went wrong!', toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+
+        claimInterest: (state, action: PayloadAction<{ userId: string, claimDate: string }>) => {
+            state.app.isClaimingInterest = true;
+        },
+        claimInterestSuccessfully: (state, action: PayloadAction<IResponseData<IUser>>) => {
+            state.app.isClaimingInterest = false;
+            state.app.user = action.payload.data;
+            toast.success('Claim successfully', toastConfigs.success);
+        },
+        claimInterestFailure: (state, action: PayloadAction<IResponseFailure>) => {
+            state.app.isClaimingInterest = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message || 'Something went wrong!', toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+
+        unstake: (state, action: PayloadAction<{ userId: string }>) => {
+            state.app.isUnstaking = true;
+        },
+        unstakeSuccessfully: (state, action: PayloadAction<IResponseData<IUser>>) => {
+            state.app.isUnstaking = false;
+            state.app.user = action.payload.data;
+            toast.success('Unstake successfully', toastConfigs.success);
+        },
+        unstakeFailure: (state, action: PayloadAction<IResponseFailure>) => {
+            state.app.isUnstaking = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message || 'Something went wrong!', toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+
     },
 });
 

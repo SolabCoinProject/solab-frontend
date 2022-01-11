@@ -1,21 +1,21 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
+import {Fragment} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Popover, Transition } from '@headlessui/react';
+import {Popover, Transition} from '@headlessui/react';
 
-import { FaTimes, FaBars } from 'react-icons/fa';
-import { AiOutlineHome, AiOutlineFundProjectionScreen } from 'react-icons/ai';
-import { SiDatabricks } from 'react-icons/si';
-import { RiAccountCircleLine } from 'react-icons/ri';
-import { BsShop } from 'react-icons/bs';
+import {FaTimes, FaBars} from 'react-icons/fa';
+import {AiOutlineHome, AiOutlineFundProjectionScreen} from 'react-icons/ai';
+import {SiDatabricks} from 'react-icons/si';
+import {RiAccountCircleLine} from 'react-icons/ri';
+import {BsShop} from 'react-icons/bs';
 
 import logo from '../../../assets/images/logo.svg';
-import { useAppSelector } from '../../../app/hooks';
+import {useAppSelector} from '../../../app/hooks';
 import routes from '../../../config/routes';
-import { appHeaderOptions } from '../../../features/layout/types';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { GiToken } from 'react-icons/gi';
+import {appHeaderOptions} from '../../../features/layout/types';
+import {WalletMultiButton} from '@solana/wallet-adapter-react-ui';
+import {GiToken} from 'react-icons/gi';
 
 const headerItems = [
     {
@@ -24,7 +24,7 @@ const headerItems = [
         option: appHeaderOptions.home,
         isComingSoon: false,
         icon: (
-            <AiOutlineHome className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+            <AiOutlineHome className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>
         ),
     },
     {
@@ -32,15 +32,15 @@ const headerItems = [
         content: 'IDO SOLAB',
         option: appHeaderOptions.idoSolab,
         isComingSoon: false,
-        icon: <GiToken className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />,
+        icon: <GiToken className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>,
     },
     {
         href: routes.app.stake,
         content: 'Stake',
         option: appHeaderOptions.stake,
-        isComingSoon: true,
+        isComingSoon: false,
         icon: (
-            <SiDatabricks className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+            <SiDatabricks className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>
         ),
     },
     {
@@ -49,7 +49,7 @@ const headerItems = [
         option: appHeaderOptions.projects,
         isComingSoon: true,
         icon: (
-            <AiOutlineFundProjectionScreen className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+            <AiOutlineFundProjectionScreen className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>
         ),
     },
     {
@@ -57,7 +57,7 @@ const headerItems = [
         content: 'Marketplace',
         option: appHeaderOptions.marketplace,
         isComingSoon: true,
-        icon: <BsShop className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />,
+        icon: <BsShop className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>,
     },
 ];
 
@@ -68,7 +68,7 @@ const headerItemsRight = [
         option: appHeaderOptions.myAccount,
         isComingSoon: false,
         icon: (
-            <RiAccountCircleLine className='flex-shrink-0 h-6 w-6 text-solabWhite-500' />
+            <RiAccountCircleLine className="flex-shrink-0 h-6 w-6 text-solabWhite-500"/>
         ),
     },
 ];
@@ -78,34 +78,34 @@ const Header: React.FC = () => {
         (state) => state.layout.app.activeHeaderItem
     );
     return (
-        <Popover className='sticky top-0 bg-solabGray-300 z-50'>
-            <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-                <div className='flex items-center py-4 lg:justify-start justify-between md:space-x-4'>
-                    <div className='flex justify-start'>
+        <Popover className="sticky top-0 bg-solabGray-300 z-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="flex items-center py-4 lg:justify-start justify-between md:space-x-4">
+                    <div className="flex justify-start">
                         <Link href={`${routes.app.home}`}>
-                            <a className='leading-none'>
-                                <span className='sr-only'>Solab</span>
+                            <a className="leading-none">
+                                <span className="sr-only">Solab</span>
                                 <Image
                                     src={logo}
-                                    alt='Solab logo'
-                                    className='h-8 w-auto sm:h-10'
+                                    alt="Solab logo"
+                                    className="h-8 w-auto sm:h-10"
                                 />
                             </a>
                         </Link>
                     </div>
-                    <div className='-mr-2 -my-2 lg:hidden'>
-                        <Popover.Button className='inline-flex items-center justify-center text-solabWhite-500'>
-                            <span className='sr-only'>Open menu</span>
-                            <FaBars className='h-6 w-6' />
+                    <div className="-mr-2 -my-2 lg:hidden">
+                        <Popover.Button className="inline-flex items-center justify-center text-solabWhite-500">
+                            <span className="sr-only">Open menu</span>
+                            <FaBars className="h-6 w-6"/>
                         </Popover.Button>
                     </div>
                     <Popover.Group
-                        as='nav'
-                        className='hidden lg:flex space-x-10'
+                        as="nav"
+                        className="hidden lg:flex space-x-10"
                     >
                         {headerItems.map((item, index) => (
                             <Link href={item.href}>
-                                <a className='relative'>
+                                <a className="relative">
                                     <div
                                         className={`font-bold mt-1 ${
                                             item.option === activeHeader
@@ -119,11 +119,12 @@ const Header: React.FC = () => {
                                     >
                                         {item.content}
                                         {item.option === activeHeader ? (
-                                            <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                            <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                         ) : null}
                                     </div>
                                     {item.isComingSoon ? (
-                                        <span className='absolute text-xxs w-max text-gradient-1 -top-1.5 left-full cursor-not-allowed'>
+                                        <span
+                                            className="absolute text-xxs w-max text-gradient-1 -top-1.5 left-full cursor-not-allowed">
                                             Coming soon
                                         </span>
                                     ) : null}
@@ -131,14 +132,14 @@ const Header: React.FC = () => {
                             </Link>
                         ))}
                     </Popover.Group>
-                    <div className='hidden lg:flex items-center justify-end md:flex-1 lg:w-0'>
+                    <div className="hidden lg:flex items-center justify-end md:flex-1 lg:w-0">
                         {/* <button className='btn btn-pink'>
                             Connect to wallet
                         </button> */}
-                        <div className='mr-10'>
+                        <div className="mr-10">
                             {headerItemsRight.map((item, index) => (
                                 <Link href={item.href}>
-                                    <a className='relative'>
+                                    <a className="relative">
                                         <div
                                             className={`font-bold mt-1 ${
                                                 item.option === activeHeader
@@ -152,11 +153,12 @@ const Header: React.FC = () => {
                                         >
                                             {item.content}
                                             {item.option === activeHeader ? (
-                                                <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                             ) : null}
                                         </div>
                                         {item.isComingSoon ? (
-                                            <span className='absolute text-xxs w-max text-gradient-1 -top-1.5 left-full cursor-not-allowed'>
+                                            <span
+                                                className="absolute text-xxs w-max text-gradient-1 -top-1.5 left-full cursor-not-allowed">
                                                 Coming soon
                                             </span>
                                         ) : null}
@@ -164,44 +166,46 @@ const Header: React.FC = () => {
                                 </Link>
                             ))}
                         </div>
-                        <WalletMultiButton />
+                        <WalletMultiButton/>
                     </div>
                 </div>
             </div>
             <Transition
                 as={Fragment}
-                enter='duration-200 ease-out'
-                enterFrom='opacity-0 scale-95'
-                enterTo='opacity-100 scale-100'
-                leave='duration-100 ease-in'
-                leaveFrom='opacity-100 scale-100'
-                leaveTo='opacity-0 scale-95'
+                enter="duration-200 ease-out"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="duration-100 ease-in"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
             >
                 <Popover.Panel
                     focus
-                    className='absolute top-0 inset-x-0 p-2 transition transform origin-top-right lg:hidden'
+                    className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right lg:hidden"
                 >
-                    <div className='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-solabGray-300 divide-y-2 divide-gray-50'>
-                        <div className='pt-5 pb-6 px-5'>
-                            <div className='flex items-center justify-between'>
+                    <div
+                        className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-solabGray-300 divide-y-2 divide-gray-50">
+                        <div className="pt-5 pb-6 px-5">
+                            <div className="flex items-center justify-between">
                                 <div>
                                     <Image
                                         src={logo}
-                                        alt='Solab logo'
-                                        className='h-8 w-auto sm:h-10'
+                                        alt="Solab logo"
+                                        className="h-8 w-auto sm:h-10"
                                     />
                                 </div>
-                                <div className='-mr-2'>
-                                    <Popover.Button className='bg-white p-2 inline-flex items-center justify-center group'>
-                                        <span className='sr-only'>
+                                <div className="-mr-2">
+                                    <Popover.Button
+                                        className="bg-white p-2 inline-flex items-center justify-center group">
+                                        <span className="sr-only">
                                             Close menu
                                         </span>
-                                        <FaTimes className='h-6 w-6 text-white-500' />
+                                        <FaTimes className="h-6 w-6 text-white-500"/>
                                     </Popover.Button>
                                 </div>
                             </div>
-                            <div className='mt-6'>
-                                <nav className='grid gap-y-8'>
+                            <div className="mt-6">
+                                <nav className="grid gap-y-8">
                                     {headerItems.map((item, index) => (
                                         <Link href={item.href} key={index}>
                                             <a
@@ -219,10 +223,12 @@ const Header: React.FC = () => {
                                                     }`}
                                                 >
                                                     {item.icon}
-                                                    <span className='ml-3 text-base font-medium text-solabWhite-500 relative'>
+                                                    <span
+                                                        className="ml-3 text-base font-medium text-solabWhite-500 relative">
                                                         {item.content}
                                                         {item.isComingSoon ? (
-                                                            <span className='absolute text-xxs w-max text-gradient-1 top-0 left-full cursor-not-allowed'>
+                                                            <span
+                                                                className="absolute text-xxs w-max text-gradient-1 top-0 left-full cursor-not-allowed">
                                                                 Coming soon
                                                             </span>
                                                         ) : null}
@@ -230,13 +236,13 @@ const Header: React.FC = () => {
                                                 </div>
                                                 {item.option ===
                                                 activeHeader ? (
-                                                    <hr className='gradient-background-1 mt-1 py-px border-0' />
+                                                    <hr className="gradient-background-1 mt-1 py-px border-0"/>
                                                 ) : null}
                                             </a>
                                         </Link>
                                     ))}
-                                    <div className='text-center'>
-                                        <WalletMultiButton className='mx-auto justify-center' />
+                                    <div className="text-center">
+                                        <WalletMultiButton className="mx-auto justify-center"/>
                                     </div>
                                 </nav>
                             </div>

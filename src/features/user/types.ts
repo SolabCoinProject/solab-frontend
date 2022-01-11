@@ -1,6 +1,6 @@
-import { string } from 'yup/lib/locale';
-import { IPaginationData } from '../../common/types';
-import { ITier } from './../tier/types';
+import {IPaginationData} from '../../common/types';
+import {ITier} from './../tier/types';
+
 export interface IStaff {
     username: string;
     status: number;
@@ -30,20 +30,11 @@ export interface IUser {
     phone?: string;
     nation?: string;
     tier?: ITier;
-    stake: {
+    stake?: {
         totalSolab: number;
-        totalLab: number;
-        interest: number;
-        history:
-            | [
-                  {
-                      days: number;
-                      solabAmount: number;
-                      labAmount: number;
-                      withdrawDate: string;
-                  }
-              ]
-            | [];
+        lastInterestClaimDate: string;
+        remainInterest: number;
+        labRecord: number[];
     };
     isKycVerified: number;
     kycNote?: string;
@@ -69,6 +60,9 @@ export interface IUserState {
         isFetchingUser: boolean;
         isUpdatingInfo: boolean;
         isUpdatingKyc: boolean;
+        isStaking: boolean;
+        isClaimingInterest: boolean;
+        isUnstaking: boolean;
         constants: {
             kycVerified: number;
             kycDenied: number;
@@ -136,4 +130,10 @@ export interface IUserFull extends IUser {
 
 export interface IUpdateUserKycParams {
     kycData: { address: string; kycStatus: number }[];
+}
+
+export interface IStakeParams {
+    signature: string;
+    userId: string;
+    solabAmount: number;
 }

@@ -8,5 +8,5 @@ export interface IConfigState {
         solabPriceConfig: IConfig;
         isFetchingSolabPriceConfig: boolean;
         isUpdatingConfig: boolean;
-    }
+    };
 }

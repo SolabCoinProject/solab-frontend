@@ -1,6 +1,6 @@
 export enum appHeaderOptions {
     home = 'home',
-    stake = 'company',
+    stake = 'stake',
     projects = 'projects',
     myAccount = 'my-account',
     marketplace = 'marketplace',
