@@ -51,6 +51,7 @@ const initialState: IUserState = {
         isStaking: false,
         isClaimingInterest: false,
         isUnstaking: false,
+        isIncreaseStakeModalOpen: false,
         constants: {
             kycVerified: 1,
             kycDenied: 0,
@@ -322,7 +323,12 @@ export const userSlice = createSlice({
                 toast.error('Something went wrong!', toastConfigs.error);
             }
         },
-
+        openIncreaseStakeModal: (state) => {
+            state.app.isIncreaseStakeModalOpen = true;
+        },
+        closeIncreaseStakeModal: (state) => {
+            state.app.isIncreaseStakeModalOpen = false;
+        },
     },
 });
 

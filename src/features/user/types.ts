@@ -63,6 +63,7 @@ export interface IUserState {
         isStaking: boolean;
         isClaimingInterest: boolean;
         isUnstaking: boolean;
+        isIncreaseStakeModalOpen: boolean;
         constants: {
             kycVerified: number;
             kycDenied: number;
