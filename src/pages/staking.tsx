@@ -570,8 +570,9 @@ const Staking: NextPage = () => {
                                             />
                                         </Disclosure.Button>
                                         <Disclosure.Panel className='px-4 pb-2 text-sm text-solabGray-100'>
-                                            No, Solab does not implement a
-                                            pre-IDO staking policy.
+                                            The staking process involves
+                                            multiple steps including an approval
+                                            transaction and staking transaction.
                                         </Disclosure.Panel>
                                     </div>
                                 )}
