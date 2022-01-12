@@ -367,7 +367,8 @@ const Staking: NextPage = () => {
                                         <NumberFormat
                                             thousandsGroupStyle='thousand'
                                             value={user.stake?.labRecord.reduce(
-                                                (a, b) => a + b
+                                                (a, b) => a + b,
+                                                0
                                             )}
                                             displayType='text'
                                             thousandSeparator={true}
