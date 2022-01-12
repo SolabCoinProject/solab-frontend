@@ -553,6 +553,7 @@ const Staking: NextPage = () => {
                 onSubmit={async (values, { setSubmitting }) => {
                     await stake(values.solabAmount);
                     setSubmitting(false);
+                    dispatch(userActions.closeIncreaseStakeModal());
                 }}
             />
         </Container>
