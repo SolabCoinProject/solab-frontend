@@ -104,7 +104,7 @@ const IncreaseStakeModal: React.FC<Props> = ({ onSubmit }) => {
                                                 <Field
                                                     name='solabAmount'
                                                     type='number'
-                                                    className='input-2 input-cyan flex-grow'
+                                                    className='input-2 input-cyan flex-grow text-solabWhite-500'
                                                 />
                                             </div>
                                             <ErrorMessage
