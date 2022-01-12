@@ -23,11 +23,16 @@ import ReactTooltip from 'react-tooltip';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
+import loaderCyan from '../assets/images/loader-cyan.svg';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
     const tiers = useAppSelector((state) => state.tier.app.tiers);
     const user = useAppSelector((state) => state.user.app.user);
+    const isClaimingInterest = useAppSelector(
+        (state) => state.user.app.isClaimingInterest
+    );
+    const isUnstaking = useAppSelector((state) => state.user.app.isUnstaking);
     const [interest, setInterest] = useState<number>(0);
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     const { connection } = useConnection();
@@ -303,14 +308,23 @@ const Staking: NextPage = () => {
                                                     )}
                                                 </p>
                                             </div>
-                                            <span
-                                                className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
-                                                onClick={async () => {
-                                                    await unstake();
-                                                }}
-                                            >
-                                                Unstake
-                                            </span>
+                                            {!isUnstaking ? (
+                                                <span
+                                                    className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
+                                                    onClick={async () => {
+                                                        await unstake();
+                                                    }}
+                                                >
+                                                    Unstake
+                                                </span>
+                                            ) : (
+                                                <div className='w-10 h-10 relative'>
+                                                    <Image
+                                                        src={loaderCyan}
+                                                        layout='fill'
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                         <div className='flex items-start justify-between mt-8'>
                                             <div>
@@ -335,19 +349,29 @@ const Staking: NextPage = () => {
                                                     )}
                                                 </p>
                                             </div>
-                                            <span
-                                                className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
-                                                onClick={async () => {
-                                                    const claimDate = formatISO(
-                                                        new Date()
-                                                    );
-                                                    await claimInterest(
-                                                        claimDate
-                                                    );
-                                                }}
-                                            >
-                                                Claim rewards
-                                            </span>
+                                            {!isClaimingInterest ? (
+                                                <span
+                                                    className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
+                                                    onClick={async () => {
+                                                        const claimDate =
+                                                            formatISO(
+                                                                new Date()
+                                                            );
+                                                        await claimInterest(
+                                                            claimDate
+                                                        );
+                                                    }}
+                                                >
+                                                    Claim rewards
+                                                </span>
+                                            ) : (
+                                                <div className='w-10 h-10 relative'>
+                                                    <Image
+                                                        src={loaderCyan}
+                                                        layout='fill'
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
                                     </>
                                 ) : (
