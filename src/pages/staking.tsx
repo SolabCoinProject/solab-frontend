@@ -418,19 +418,19 @@ const Staking: NextPage = () => {
                                         />
                                     </p>
                                     <div className='mt-9'>
-                                        <div className='w-44 h-44 relative p-1 gradient-background-1 rounded-lg'>
-                                            {user && user.tier ? (
+                                        {user && user.tier ? (
+                                            <div className='w-44 h-44 relative p-1 gradient-background-1 rounded-lg'>
                                                 <Image
                                                     src={user.tier.thumbnail}
                                                     layout='fill'
                                                 />
-                                            ) : (
-                                                <p>
-                                                    You need more LAB to reach
-                                                    Tier 1
-                                                </p>
-                                            )}
-                                        </div>
+                                            </div>
+                                        ) : (
+                                            <p>
+                                                You need more LAB to reach Tier
+                                                1
+                                            </p>
+                                        )}
                                     </div>
                                 </>
                             ) : (
