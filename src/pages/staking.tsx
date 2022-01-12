@@ -424,13 +424,12 @@ const Staking: NextPage = () => {
                                                     src={user.tier.thumbnail}
                                                     layout='fill'
                                                 />
-                                            ) : (
-                                                <Image
-                                                    src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png'
-                                                    layout={'fill'}
-                                                    className='rounded-lg p-1'
-                                                />
-                                            )}
+                                            ) : // <Image
+                                            //     src='https://solab-media.s3.ap-southeast-1.amazonaws.com/content/axura-icon-product.png'
+                                            //     layout={'fill'}
+                                            //     className='rounded-lg p-1'
+                                            // />
+                                            null}
                                         </div>
                                     </div>
                                 </>
