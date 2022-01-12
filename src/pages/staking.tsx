@@ -533,8 +533,15 @@ const Staking: NextPage = () => {
                                             />
                                         </Disclosure.Button>
                                         <Disclosure.Panel className='px-4 pb-2 text-sm text-solabGray-100'>
-                                            No, Solab does not implement a
-                                            pre-IDO staking policy.
+                                            Registration takes an on chain snap
+                                            transaction to determine tier. As
+                                            such, if registration has already
+                                            taken place, added $SOLAB will not
+                                            be applied to change your tier for
+                                            the IDO you intend to partake in.
+                                            However, they can be added to an
+                                            existing stake pool to upgrade your
+                                            tier for future IDOs.
                                         </Disclosure.Panel>
                                     </div>
                                 )}
