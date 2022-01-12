@@ -1,9 +1,10 @@
-import { all } from 'redux-saga/effects';
+import {all} from 'redux-saga/effects';
 import userSaga from '../features/user/userSaga';
 import tierSaga from '../features/tier/tierSaga';
 import projectSaga from '../features/project/projectSaga';
 import resourceSaga from '../features/resources/resourceSaga';
 import solabProjectSaga from '../features/solabProject/solabProjectSaga';
+import configSaga from '../features/config/configSaga';
 
 export default function* rootSaga() {
     yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
         projectSaga(),
         resourceSaga(),
         solabProjectSaga(),
+        configSaga()
     ]);
 }

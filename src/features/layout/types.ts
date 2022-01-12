@@ -1,6 +1,6 @@
 export enum appHeaderOptions {
     home = 'home',
-    stake = 'company',
+    stake = 'stake',
     projects = 'projects',
     myAccount = 'my-account',
     marketplace = 'marketplace',
@@ -13,6 +13,7 @@ export enum adminSidebarItemOptions {
     project = 'project',
     demoEditor = 'demoEditor',
     user = 'user',
+    config = 'config'
 }
 
 export interface LayoutState {

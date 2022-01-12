@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './rootSaga';
 import layoutReducer from '../features/layout/layoutSlice';
@@ -8,8 +8,9 @@ import projectReducer from '../features/project/projectSlice';
 import resourceReducer from '../features/resources/resourceSlice';
 import solabProjectReducer from '../features/solabProject/solabProjectSlice';
 import imagePreviewReducer from '../features/imagePreview/imagePreviewSlice';
+import configReducer from '../features/config/configSlice';
 
-const sageMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
     reducer: {
         layout: layoutReducer,
@@ -19,13 +20,14 @@ export const store = configureStore({
         resource: resourceReducer,
         solabProject: solabProjectReducer,
         imagePreview: imagePreviewReducer,
+        config: configReducer
     },
-    devTools: process.env.NODE_ENV === 'development' ? true : false,
+    devTools: process.env.NODE_ENV === 'development',
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({ thunk: false }).concat(sageMiddleware),
+        getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
 });
 
-sageMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

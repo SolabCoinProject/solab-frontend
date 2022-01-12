@@ -1,7 +1,7 @@
 const routes = {
     app: {
         home: '/',
-        stake: '#',
+        stake: '/staking',
         projects: '#',
         ourTeam: '/our-team',
         myAccount: '/my-account',
@@ -16,6 +16,7 @@ const routes = {
         demoEditor: '/admin-slb/editor-demo',
         user: '/admin-slb/user',
         solab_whitelist: '/admin-slb/solab-project/whitelist',
+        config: '/admin-slb/config'
     },
 };
 
