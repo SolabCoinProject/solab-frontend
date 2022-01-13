@@ -23,6 +23,7 @@ import ReactTooltip from 'react-tooltip';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
+import { AiOutlineWarning } from 'react-icons/ai';
 import loaderCyan from '../assets/images/loader-cyan.svg';
 
 const Staking: NextPage = () => {
@@ -190,6 +191,10 @@ const Staking: NextPage = () => {
 
     const [interestInterval, setInterestInterval] = useState<any>(undefined);
 
+    window.onbeforeunload = () => {
+        return 'Are you sure you want to leave?';
+    };
+
     useEffect(() => {
         if (user) {
             clearInterval(interestInterval);
@@ -279,7 +284,11 @@ const Staking: NextPage = () => {
                                     Increase Stake
                                 </button>
                             </div>
-                            <div className='mt-8'>
+                            <p className='mt-4 text-center text-orange-500 uppercase'>
+                                Do not refresh your browser. The system will
+                                automatically update the number!
+                            </p>
+                            <div className='mt-4'>
                                 {user ? (
                                     <>
                                         <div className='flex items-start justify-between'>
