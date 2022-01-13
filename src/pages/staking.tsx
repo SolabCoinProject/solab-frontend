@@ -420,10 +420,12 @@ const Staking: NextPage = () => {
                                     <div className='mt-9'>
                                         {user && user.tier ? (
                                             <div className='w-44 h-44 relative p-1 gradient-background-1 rounded-lg'>
-                                                <Image
-                                                    src={user.tier.thumbnail}
-                                                    layout='fill'
-                                                />
+                                                <div
+                                                    className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
+                                                    style={{
+                                                        backgroundImage: `url(${user.tier.thumbnail})`,
+                                                    }}
+                                                ></div>
                                             </div>
                                         ) : (
                                             <p>
