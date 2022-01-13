@@ -97,7 +97,12 @@ const IncreaseStakeModal: React.FC<Props> = ({ onSubmit }) => {
                                 }) => {
                                     return (
                                         <Form>
-                                            <div className='flex items-center justify-between gap-4 flex-wrap mt-6'>
+                                            <p className='mt-4 text-center text-orange-500 uppercase text-sm'>
+                                                Do not refresh your browser. The
+                                                system will automatically update
+                                                the number!
+                                            </p>
+                                            <div className='flex items-center justify-between gap-4 flex-wrap mt-2'>
                                                 <span className='text-solabGray-100'>
                                                     Amount
                                                 </span>
