@@ -251,7 +251,7 @@ const Staking: NextPage = () => {
             .then((res) => {
                 console.log(res);
                 const stakeAmount =
-                    res.data.result.value[0].account.data.parsed.info
+                    res.data[0].result.value[0].account.data.parsed.info
                         .tokenAmount.uiAmount;
                 console.log(stakeAmount);
                 setCurrentStakeAmount(stakeAmount);
