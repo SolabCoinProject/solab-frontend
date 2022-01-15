@@ -24,7 +24,6 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
 import loaderCyan from '../assets/images/loader-cyan.svg';
-import axios from 'axios';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -227,36 +226,15 @@ const Staking: NextPage = () => {
     }, [user]);
 
     const getStakeAmount = () => {
-        axios
-            .post(
-                'https://api.mainnet-beta.solana.com',
-                [
-                    {
-                        jsonrpc: '2.0',
-                        id: 1,
-                        method: 'getTokenAccountsByOwner',
-                        params: [
-                            stakePubKey,
-                            {
-                                mint: solabPubKey,
-                            },
-                            {
-                                encoding: 'jsonParsed',
-                            },
-                        ],
-                    },
-                ],
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                }
-            )
+        connection
+            .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
+                mint: new web3.PublicKey(solabPubKey),
+            })
             .then((res) => {
                 const stakeAmount =
-                    res.data[0].result.value[0].account.data.parsed.info
-                        .tokenAmount.uiAmount;
+                    res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
                 setCurrentStakeAmount(stakeAmount);
-            })
-            .catch((err) => {});
+            });
     };
 
     useEffect(() => {
