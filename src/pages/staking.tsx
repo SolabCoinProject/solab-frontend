@@ -35,6 +35,7 @@ const Staking: NextPage = () => {
     );
     const isUnstaking = useAppSelector((state) => state.user.app.isUnstaking);
     const [interest, setInterest] = useState<number>(0);
+    const [currentStakeAmount, setCurrentStakeAmount] = useState<number>(0);
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     const { connection } = useConnection();
     useEffect(() => {
@@ -223,7 +224,7 @@ const Staking: NextPage = () => {
         }
     }, [user]);
 
-    useEffect(() => {
+    const getStakeAmount = () => {
         axios
             .post(
                 'https://api.mainnet-beta.solana.com',
@@ -233,9 +234,9 @@ const Staking: NextPage = () => {
                         id: 1,
                         method: 'getTokenAccountsByOwner',
                         params: [
-                            '8YCYsM6oaFeHDr7nxHMFn6w3xURDza7MWP2Zg4Q3mEiT',
+                            stakePubKey,
                             {
-                                mint: 'DH5KjPM53i7NMj69CEZ6FiF82ipbgz1U6QzNfQNY87Pr',
+                                mint: solabPubKey,
                             },
                             {
                                 encoding: 'jsonParsed',
@@ -248,12 +249,22 @@ const Staking: NextPage = () => {
                 }
             )
             .then((res) => {
-                console.log(res);
+                const stakeAmount =
+                    res.data.result.value[0].account.data.parsed.info
+                        .tokenAmount.uiAmount;
+                setCurrentStakeAmount(stakeAmount);
             })
             .catch((err) => {
                 console.log(err);
             });
-    });
+    };
+
+    useEffect(() => {
+        getStakeAmount();
+        setInterval(() => {
+            getStakeAmount();
+        }, 5000);
+    }, []);
 
     return (
         <Container>
@@ -270,7 +281,7 @@ const Staking: NextPage = () => {
                                     {' '}
                                     <NumberFormat
                                         thousandsGroupStyle='thousand'
-                                        value={546184000}
+                                        value={currentStakeAmount}
                                         displayType='text'
                                         thousandSeparator={true}
                                         suffix=' SOLAB'
