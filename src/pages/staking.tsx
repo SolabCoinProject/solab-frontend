@@ -227,36 +227,16 @@ const Staking: NextPage = () => {
     }, [user]);
 
     const getStakeAmount = () => {
-        axios
-            .post(
-                'https://api.mainnet-beta.solana.com',
-                [
-                    {
-                        jsonrpc: '2.0',
-                        id: 1,
-                        method: 'getTokenAccountsByOwner',
-                        params: [
-                            stakePubKey,
-                            {
-                                mint: solabPubKey,
-                            },
-                            {
-                                encoding: 'jsonParsed',
-                            },
-                        ],
-                    },
-                ],
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                }
-            )
-            .then((res) => {
-                const stakeAmount =
-                    res.data[0].result.value[0].account.data.parsed.info
-                        .tokenAmount.uiAmount;
-                setCurrentStakeAmount(stakeAmount);
+        connection
+            .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
+                mint: new web3.PublicKey(solabPubKey),
             })
-            .catch((err) => {});
+            .then((res) => {
+                console.log(res);
+                const stakeAmount =
+                    res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                setCurrentStakeAmount(stakeAmount);
+            });
     };
 
     useEffect(() => {
