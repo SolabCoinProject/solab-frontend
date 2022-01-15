@@ -249,23 +249,19 @@ const Staking: NextPage = () => {
                 }
             )
             .then((res) => {
-                console.log(res);
                 const stakeAmount =
                     res.data[0].result.value[0].account.data.parsed.info
                         .tokenAmount.uiAmount;
-                console.log(stakeAmount);
                 setCurrentStakeAmount(stakeAmount);
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => {});
     };
 
     useEffect(() => {
         getStakeAmount();
         setInterval(() => {
             getStakeAmount();
-        }, 5000);
+        }, 2000);
     }, []);
 
     return (
