@@ -110,6 +110,7 @@ const Staking: NextPage = () => {
     const claimInterest = useCallback(
         async (claimDate: string) => {
             try {
+                dispatch(userActions.startClaimInterest());
                 if (!user || !publicKey || !connection || !sendTransaction) {
                     throw new WalletNotConnectedError();
                 }
@@ -154,6 +155,7 @@ const Staking: NextPage = () => {
 
     const unstake = useCallback(async () => {
         try {
+            dispatch(userActions.startUnstake());
             if (!user || !publicKey || !connection || !sendTransaction) {
                 throw new WalletNotConnectedError();
             }
