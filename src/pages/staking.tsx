@@ -24,7 +24,6 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
 import loaderCyan from '../assets/images/loader-cyan.svg';
-import axios from 'axios';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
