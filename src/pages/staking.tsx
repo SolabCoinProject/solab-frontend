@@ -231,7 +231,6 @@ const Staking: NextPage = () => {
                 mint: new web3.PublicKey(solabPubKey),
             })
             .then((res) => {
-                console.log(res);
                 const stakeAmount =
                     res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
                 setCurrentStakeAmount(stakeAmount);
