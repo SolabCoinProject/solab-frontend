@@ -283,6 +283,7 @@ const Staking: NextPage = () => {
                                         displayType='text'
                                         thousandSeparator={true}
                                         suffix=' SOLAB'
+                                        decimalScale={2}
                                     />
                                 </span>
                             </p>
