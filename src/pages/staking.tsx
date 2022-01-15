@@ -23,8 +23,8 @@ import ReactTooltip from 'react-tooltip';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
-import { AiOutlineWarning } from 'react-icons/ai';
 import loaderCyan from '../assets/images/loader-cyan.svg';
+import axios from 'axios';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -222,6 +222,38 @@ const Staking: NextPage = () => {
             }
         }
     }, [user]);
+
+    useEffect(() => {
+        axios
+            .post(
+                'https://api.mainnet-beta.solana.com',
+                [
+                    {
+                        jsonrpc: '2.0',
+                        id: 1,
+                        method: 'getTokenAccountsByOwner',
+                        params: [
+                            '8YCYsM6oaFeHDr7nxHMFn6w3xURDza7MWP2Zg4Q3mEiT',
+                            {
+                                mint: 'DH5KjPM53i7NMj69CEZ6FiF82ipbgz1U6QzNfQNY87Pr',
+                            },
+                            {
+                                encoding: 'jsonParsed',
+                            },
+                        ],
+                    },
+                ],
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            )
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
 
     return (
         <Container>
