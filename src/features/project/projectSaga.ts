@@ -4,7 +4,6 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import projectApi from './api';
 import {IProject, IProjectFieldOptions, IProjectsByPhrase} from './types';
 import {projectActions} from './projectSlice';
-import {Payload} from '@hapi/boom';
 
 function* fetchProjects(action: PayloadAction<any>) {
     try {

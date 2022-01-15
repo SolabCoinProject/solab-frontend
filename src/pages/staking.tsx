@@ -23,8 +23,8 @@ import ReactTooltip from 'react-tooltip';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
-import { AiOutlineWarning } from 'react-icons/ai';
 import loaderCyan from '../assets/images/loader-cyan.svg';
+import axios from 'axios';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -35,6 +35,7 @@ const Staking: NextPage = () => {
     );
     const isUnstaking = useAppSelector((state) => state.user.app.isUnstaking);
     const [interest, setInterest] = useState<number>(0);
+    const [currentStakeAmount, setCurrentStakeAmount] = useState<number>(0);
     const { publicKey, sendTransaction, signTransaction } = useWallet();
     const { connection } = useConnection();
     useEffect(() => {
@@ -223,6 +224,46 @@ const Staking: NextPage = () => {
         }
     }, [user]);
 
+    const getStakeAmount = () => {
+        axios
+            .post(
+                'https://api.mainnet-beta.solana.com',
+                [
+                    {
+                        jsonrpc: '2.0',
+                        id: 1,
+                        method: 'getTokenAccountsByOwner',
+                        params: [
+                            stakePubKey,
+                            {
+                                mint: solabPubKey,
+                            },
+                            {
+                                encoding: 'jsonParsed',
+                            },
+                        ],
+                    },
+                ],
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            )
+            .then((res) => {
+                const stakeAmount =
+                    res.data[0].result.value[0].account.data.parsed.info
+                        .tokenAmount.uiAmount;
+                setCurrentStakeAmount(stakeAmount);
+            })
+            .catch((err) => {});
+    };
+
+    useEffect(() => {
+        getStakeAmount();
+        setInterval(() => {
+            getStakeAmount();
+        }, 2000);
+    }, []);
+
     return (
         <Container>
             <div className='mt-7 px-4'>
@@ -238,10 +279,11 @@ const Staking: NextPage = () => {
                                     {' '}
                                     <NumberFormat
                                         thousandsGroupStyle='thousand'
-                                        value={546184000}
+                                        value={currentStakeAmount}
                                         displayType='text'
                                         thousandSeparator={true}
                                         suffix=' SOLAB'
+                                        decimalScale={2}
                                     />
                                 </span>
                             </p>
