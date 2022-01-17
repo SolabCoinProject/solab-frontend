@@ -1,6 +1,6 @@
-import {IResponseData} from "../../common/types";
-import axiosClient from "../../libs/axiosClient";
-import {IConfig} from "./types";
+import { IResponseData } from '../../common/types';
+import axiosClient from '../../libs/axiosClient';
+import { IConfig } from './types';
 
 const configApi = {
     admin: {
@@ -8,11 +8,20 @@ const configApi = {
             const url = `admin/config/${slug}`;
             return axiosClient.get(url);
         },
-        updateConfigBySlug: (slug: string, value: string | number): Promise<IResponseData<IConfig>> => {
+        updateConfigBySlug: (
+            slug: string,
+            value: string | number
+        ): Promise<IResponseData<IConfig>> => {
             const url = `admin/config/${slug}`;
-            return axiosClient.put(url, {value});
-        }
-    }
-}
+            return axiosClient.put(url, { value });
+        },
+    },
+    app: {
+        fetchConfigBySlug: (slug: string): Promise<IResponseData<IConfig>> => {
+            const url = `app/config/${slug}`;
+            return axiosClient.get(url);
+        },
+    },
+};
 
 export default configApi;

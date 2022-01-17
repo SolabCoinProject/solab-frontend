@@ -1,6 +1,6 @@
 export interface IConfig {
-    slug: string,
-    value: number | string
+    slug: string;
+    value: number | string;
 }
 
 export interface IConfigState {
@@ -8,5 +8,9 @@ export interface IConfigState {
         solabPriceConfig: IConfig;
         isFetchingSolabPriceConfig: boolean;
         isUpdatingConfig: boolean;
+    };
+    app: {
+        solabPriceConfig: IConfig;
+        isFetchingSolabPriceConfig: boolean;
     };
 }
