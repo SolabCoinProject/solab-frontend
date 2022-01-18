@@ -74,6 +74,9 @@ const Home: NextPage = () => {
     };
 
     useEffect(() => {
+        if (window.location.host === 'solabstaking.co') {
+            router.push('https://solab.finance');
+        }
         dispatch(configActions.appFetchConfigBySlug({ slug: solabPriceSlug }));
         getStakeAmount();
     }, []);
