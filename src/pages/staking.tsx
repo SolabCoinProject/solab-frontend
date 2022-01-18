@@ -195,10 +195,6 @@ const Staking: NextPage = () => {
 
     const [interestInterval, setInterestInterval] = useState<any>(undefined);
 
-    window.onbeforeunload = () => {
-        return 'Are you sure you want to leave?';
-    };
-
     useEffect(() => {
         if (user) {
             clearInterval(interestInterval);
