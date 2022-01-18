@@ -197,52 +197,52 @@ const Staking: NextPage = () => {
         return 'Are you sure you want to leave?';
     };
 
-    useEffect(() => {
-        if (user) {
-            clearInterval(interestInterval);
-            setInterest(0);
-            if (user.stake && user.stake.totalSolab > 0) {
-                setInterestInterval(
-                    setInterval(() => {
-                        if (user.stake && user.stake.totalSolab > 0) {
-                            const date = new Date();
-                            const seconds = differenceInSeconds(
-                                date,
-                                new Date(
-                                    user.stake?.lastInterestClaimDate as string
-                                )
-                            );
-                            const interestPerSecond = stakeInterest / 8640000;
-                            const interest =
-                                interestPerSecond *
-                                seconds *
-                                user.stake.totalSolab;
-                            setInterest(interest + user.stake.remainInterest);
-                        }
-                    }, 1000)
-                );
-            }
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     if (user) {
+    //         clearInterval(interestInterval);
+    //         setInterest(0);
+    //         if (user.stake && user.stake.totalSolab > 0) {
+    //             setInterestInterval(
+    //                 setInterval(() => {
+    //                     if (user.stake && user.stake.totalSolab > 0) {
+    //                         const date = new Date();
+    //                         const seconds = differenceInSeconds(
+    //                             date,
+    //                             new Date(
+    //                                 user.stake?.lastInterestClaimDate as string
+    //                             )
+    //                         );
+    //                         const interestPerSecond = stakeInterest / 8640000;
+    //                         const interest =
+    //                             interestPerSecond *
+    //                             seconds *
+    //                             user.stake.totalSolab;
+    //                         setInterest(interest + user.stake.remainInterest);
+    //                     }
+    //                 }, 1000)
+    //             );
+    //         }
+    //     }
+    // }, [user]);
 
-    const getStakeAmount = () => {
-        connection
-            .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
-                mint: new web3.PublicKey(solabPubKey),
-            })
-            .then((res) => {
-                const stakeAmount =
-                    res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-                setCurrentStakeAmount(stakeAmount);
-            });
-    };
+    // const getStakeAmount = () => {
+    //     connection
+    //         .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
+    //             mint: new web3.PublicKey(solabPubKey),
+    //         })
+    //         .then((res) => {
+    //             const stakeAmount =
+    //                 res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+    //             setCurrentStakeAmount(stakeAmount);
+    //         });
+    // };
 
-    useEffect(() => {
-        getStakeAmount();
-        setInterval(() => {
-            getStakeAmount();
-        }, 2000);
-    }, []);
+    // useEffect(() => {
+    //     getStakeAmount();
+    //     setInterval(() => {
+    //         getStakeAmount();
+    //     }, 2000);
+    // }, []);
 
     return (
         <Container>
