@@ -239,9 +239,6 @@ const Staking: NextPage = () => {
 
     useEffect(() => {
         getStakeAmount();
-        setInterval(() => {
-            getStakeAmount();
-        }, 2000);
     }, []);
 
     return (

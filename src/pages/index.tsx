@@ -61,30 +61,27 @@ const Home: NextPage = () => {
         }
         return chunkedTiers;
     };
-    // const getStakeAmount = () => {
-    //     connection
-    //         .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
-    //             mint: new web3.PublicKey(solabPubKey),
-    //         })
-    //         .then((res) => {
-    //             const stakeAmount =
-    //                 res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-    //             setCurrentStakeAmount(stakeAmount);
-    //         });
-    // };
+    const getStakeAmount = () => {
+        connection
+            .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
+                mint: new web3.PublicKey(solabPubKey),
+            })
+            .then((res) => {
+                const stakeAmount =
+                    res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+                setCurrentStakeAmount(stakeAmount);
+            });
+    };
 
-    // useEffect(() => {
-    //     dispatch(configActions.appFetchConfigBySlug({ slug: solabPriceSlug }));
-    //     getStakeAmount();
-    //     setInterval(() => {
-    //         getStakeAmount();
-    //     }, 5000);
-    // }, []);
-    // useEffect(() => {
-    //     setCurrentStakeValue(
-    //         currentStakeAmount * (solabPriceConfig.value as number)
-    //     );
-    // }, [solabPriceConfig, currentStakeAmount]);
+    useEffect(() => {
+        dispatch(configActions.appFetchConfigBySlug({ slug: solabPriceSlug }));
+        getStakeAmount();
+    }, []);
+    useEffect(() => {
+        setCurrentStakeValue(
+            currentStakeAmount * (solabPriceConfig.value as number)
+        );
+    }, [solabPriceConfig, currentStakeAmount]);
 
     return (
         <Container>
