@@ -76,9 +76,6 @@ const Home: NextPage = () => {
     useEffect(() => {
         dispatch(configActions.appFetchConfigBySlug({ slug: solabPriceSlug }));
         getStakeAmount();
-        setInterval(() => {
-            getStakeAmount();
-        }, 5000);
     }, []);
     useEffect(() => {
         setCurrentStakeValue(
