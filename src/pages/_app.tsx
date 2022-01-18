@@ -27,10 +27,7 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { net } from '../config/solana';
 import { useMemo } from 'react';
 
-const network =
-    net === 'devnet'
-        ? WalletAdapterNetwork.Devnet
-        : WalletAdapterNetwork.Mainnet;
+const network = WalletAdapterNetwork.Mainnet;
 
 const WalletProvider = dynamic(
     () => import('../components/app/wallet/ClientWalletProvider'),
