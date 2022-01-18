@@ -143,7 +143,7 @@ const Home: NextPage = () => {
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
                                 <NumberFormat
                                     thousandsGroupStyle='thousand'
-                                    value={currentStakeAmount}
+                                    value={8831215.48}
                                     displayType='text'
                                     thousandSeparator={true}
                                     decimalScale={2}
@@ -157,7 +157,7 @@ const Home: NextPage = () => {
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
                                 <NumberFormat
                                     thousandsGroupStyle='thousand'
-                                    value={currentStakeValue}
+                                    value={52987.29}
                                     displayType='text'
                                     thousandSeparator={true}
                                     decimalScale={2}
