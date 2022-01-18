@@ -24,11 +24,13 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { Disclosure } from '@headlessui/react';
 import { BsChevronUp } from 'react-icons/bs';
 import loaderCyan from '../assets/images/loader-cyan.svg';
+import { useRouter } from 'next/router';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
     const tiers = useAppSelector((state) => state.tier.app.tiers);
     const user = useAppSelector((state) => state.user.app.user);
+    const router = useRouter();
     const isClaimingInterest = useAppSelector(
         (state) => state.user.app.isClaimingInterest
     );
@@ -238,6 +240,9 @@ const Staking: NextPage = () => {
     };
 
     useEffect(() => {
+        if (window.location.host === 'solab.finance') {
+            router.push('https://solabstaking.co/staking');
+        }
         getStakeAmount();
     }, []);
 

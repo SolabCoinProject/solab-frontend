@@ -56,6 +56,11 @@ const MyAccount: NextPage = () => {
             : 1;
         setDefaultIndex(defaultIndex);
     }, [router]);
+    useEffect(() => {
+        if (window.location.host === 'solabstaking.co') {
+            router.push('https://solab.finance/my-account');
+        }
+    }, []);
     return (
         <Container>
             <div className='mt-32 px-4'>

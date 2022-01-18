@@ -78,6 +78,9 @@ const SolabIDO: NextPage = () => {
     const router = useRouter();
 
     useEffect(() => {
+        if (window.location.host === 'solabstaking.co') {
+            router.push('https://solab.finance/solab-ido');
+        }
         dispatch(solabProjectActions.fetchSolabProject());
     }, []);
 
@@ -1099,10 +1102,12 @@ const SolabIDO: NextPage = () => {
                                                                                 <h2 className='text-solabCyan-500 text-2xl flex text-center items-center justify-center'>
                                                                                     <AiOutlineCheckCircle />
                                                                                     <span>
-                                                                                        Congratulations! You're the winner!
+                                                                                        Congratulations!
+                                                                                        You're
+                                                                                        the
+                                                                                        winner!
                                                                                     </span>
                                                                                 </h2>
-                                                                          
                                                                             </div>
                                                                         ) : (
                                                                             <div className='text-center py-32'>
