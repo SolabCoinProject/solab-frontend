@@ -225,24 +225,24 @@ const Staking: NextPage = () => {
         }
     }, [user]);
 
-    const getStakeAmount = () => {
-        connection
-            .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
-                mint: new web3.PublicKey(solabPubKey),
-            })
-            .then((res) => {
-                const stakeAmount =
-                    res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
-                setCurrentStakeAmount(stakeAmount);
-            });
-    };
+    // const getStakeAmount = () => {
+    //     connection
+    //         .getParsedTokenAccountsByOwner(new web3.PublicKey(stakePubKey), {
+    //             mint: new web3.PublicKey(solabPubKey),
+    //         })
+    //         .then((res) => {
+    //             const stakeAmount =
+    //                 res.value[0].account.data.parsed.info.tokenAmount.uiAmount;
+    //             setCurrentStakeAmount(stakeAmount);
+    //         });
+    // };
 
-    useEffect(() => {
-        getStakeAmount();
-        setInterval(() => {
-            getStakeAmount();
-        }, 2000);
-    }, []);
+    // useEffect(() => {
+    //     getStakeAmount();
+    //     setInterval(() => {
+    //         getStakeAmount();
+    //     }, 2000);
+    // }, []);
 
     return (
         <Container>
