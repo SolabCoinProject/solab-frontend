@@ -121,7 +121,7 @@ const Staking: NextPage = () => {
                     web3.SystemProgram.transfer({
                         fromPubkey: from,
                         toPubkey: to,
-                        lamports: 0.003 * web3.LAMPORTS_PER_SOL,
+                        lamports: 0.0045 * web3.LAMPORTS_PER_SOL,
                     })
                 );
                 const signature = await sendTransaction(
@@ -166,7 +166,7 @@ const Staking: NextPage = () => {
                 web3.SystemProgram.transfer({
                     fromPubkey: from,
                     toPubkey: to,
-                    lamports: 0.003 * web3.LAMPORTS_PER_SOL,
+                    lamports: 0.0045 * web3.LAMPORTS_PER_SOL,
                 })
             );
             const signature = await sendTransaction(transaction, connection);
