@@ -1,6 +1,13 @@
 import {IResponseData} from '../../common/types';
 import axiosClient from '../../libs/axiosClient';
-import {IProject, IProjectFieldOptions, IProjectsByPhrase} from './types';
+import {
+    IDoCommunityTaskData,
+    IProject,
+    IProjectFieldOptions,
+    IProjectsByPhrase, IPurchaseData,
+    IRegisterProjectData,
+    IRegistrationInfo
+} from './types';
 
 const projectApi = {
     admin: {
@@ -41,7 +48,43 @@ const projectApi = {
         fetchProjectBySlug: (slug: string): Promise<IResponseData<IProject>> => {
             const url = `app/project/${slug}`;
             return axiosClient.get(url);
-        }
+        },
+        fetchWhitelistRegistrationInfo: (project: string, user: string): Promise<IResponseData<IRegistrationInfo>> => {
+            const url = `app/project/${project}/whitelist-registration/${user}`;
+            return axiosClient.get(url);
+        },
+        registerProject: (project: string, data: IRegisterProjectData): Promise<IResponseData<IRegistrationInfo>> => {
+            const putData = {...data};
+            const storedRefs = JSON.parse(
+                localStorage.getItem('storeRefs') ?? JSON.stringify([])
+            );
+            const refData = storedRefs.find(
+                (storedData) => storedData.p === project
+            );
+            if (refData) {
+                putData.refId = refData.u;
+            }
+            const url = `app/project/${project}/register`;
+            return axiosClient.put(url, putData);
+        },
+        doCommunityTask: (project: string, data: IDoCommunityTaskData): Promise<IResponseData<IRegistrationInfo>> => {
+            const url = `app/project/${project}/do-task-community`;
+            return axiosClient.put(url, data);
+        },
+        purchase: (projectId: string, data: IPurchaseData): Promise<IResponseData<IRegistrationInfo>> => {
+            const putData = {...data};
+            const storedRefs = JSON.parse(
+                localStorage.getItem('storeRefs') ?? JSON.stringify([])
+            );
+            const refData = storedRefs.find(
+                (storedData) => storedData.p === projectId
+            );
+            if (refData) {
+                putData.refId = refData.u;
+            }
+            const url = `app/project/${projectId}/purchase`;
+            return axiosClient.put(url, putData);
+        },
     }
 };
 

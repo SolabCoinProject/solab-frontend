@@ -1,15 +1,15 @@
 import Header from './Header';
 import Footer from './Footer';
-import { useEffect } from 'react';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useAppDispatch } from '../../../app/hooks';
-import { userActions } from '../../../features/user/userSlice';
-import { useRouter } from 'next/router';
+import {useEffect} from 'react';
+import {useWallet} from '@solana/wallet-adapter-react';
+import {useAppDispatch} from '../../../app/hooks';
+import {userActions} from '../../../features/user/userSlice';
+import {useRouter} from 'next/router';
 
-import { refSecret } from '../../../config/app';
+import {refSecret} from '../../../config/app';
 
-const Container: React.FC = ({ children }) => {
-    const { publicKey } = useWallet();
+const Container: React.FC = ({children}) => {
+    const {publicKey} = useWallet();
     const dispatch = useAppDispatch();
     const router = useRouter();
     useEffect(() => {
@@ -25,12 +25,12 @@ const Container: React.FC = ({ children }) => {
     }, [publicKey]);
     useEffect(() => {
         try {
-            const { query } = router;
+            const {query} = router;
             if (query.ref) {
                 const storedRefs = JSON.parse(
                     localStorage.getItem('storeRefs') ?? JSON.stringify([])
                 );
-                const ref = JSON.parse(atob(query.ref as string) as string);
+                const ref = JSON.parse(Buffer.from(query.ref as string, 'base64').toString('ascii'));
                 const existedProjectRefIndex = storedRefs.findIndex(
                     (existedRef) => existedRef.p === ref.p
                 );
@@ -54,10 +54,10 @@ const Container: React.FC = ({ children }) => {
         }
     }, []);
     return (
-        <div className='container-app'>
-            <Header />
+        <div className="container-app">
+            <Header/>
             {children}
-            <Footer />
+            <Footer/>
         </div>
     );
 };

@@ -4,8 +4,16 @@ import {
     IResponseFailure,
 } from './../../common/types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProject, IProjectState, IProjectFieldOptions, IProjectsByPhrase} from './types';
+import {
+    IProject,
+    IProjectState,
+    IProjectFieldOptions,
+    IProjectsByPhrase,
+    IRegistrationInfo,
+    IRegisterProjectData, IDoCommunityTaskData, IPurchaseData
+} from './types';
 import {toast} from 'react-toastify';
+import toastConfigs from '../../config/toast';
 
 const initialState: IProjectState = {
     admin: {
@@ -49,7 +57,14 @@ const initialState: IProjectState = {
         },
         isFetchingProjectByPhrase: false,
         isFetchingProjectBySlug: false,
-        project: null
+        project: null,
+        isFetchingRegistrationInfo: false,
+        whitelistRegistrationInfo: null,
+        isRegisteringProject: false,
+        isTaskModalOpen: false,
+        openTask: null,
+        isDoingCommunityTask: false,
+        isPurchasing: false
     }
 };
 
@@ -252,9 +267,93 @@ export const projectSlice = createSlice({
                 toast.error(action.payload.data.message);
                 localStorage.removeItem('accessToken');
             } else if (action.payload.status !== 500) {
-                toast.error(action.payload.data.message);
+                toast.error(action.payload.data.message, toastConfigs.error);
             } else {
-                toast.error('Something went wrong!');
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+
+        appFetchWhitelistRegistrationInfo: (state, action: PayloadAction<{ project: string, user: string }>) => {
+            state.app.isFetchingRegistrationInfo = true;
+        },
+        appFetchWhitelistRegistrationInfoSuccess: (state, action: PayloadAction<IResponseData<IRegistrationInfo>>) => {
+            state.app.isFetchingRegistrationInfo = false;
+            state.app.whitelistRegistrationInfo = action.payload.data;
+        },
+        appFetchWhitelistRegistrationInfoFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isFetchingRegistrationInfo = false;
+            state.app.whitelistRegistrationInfo = null;
+        },
+
+        appRegisterProject: (state, action: PayloadAction<{
+            project: string, data: IRegisterProjectData
+        }>) => {
+            state.app.isRegisteringProject = true;
+        },
+        appRegisterProjectSuccess: (state, action: PayloadAction<IResponseData<IRegistrationInfo>>) => {
+            state.app.isRegisteringProject = false;
+            state.app.whitelistRegistrationInfo = action.payload.data;
+        },
+        appRegisterProjectFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isRegisteringProject = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+        openTaskModal: (state, action: PayloadAction<any>) => {
+            state.app.isTaskModalOpen = true;
+            state.app.openTask = action.payload;
+        },
+        closeTaskModal: (state) => {
+            state.app.isTaskModalOpen = false;
+            state.app.openTask = null;
+        },
+        appDoCommunityTask: (state, action: PayloadAction<{ project: string, data: IDoCommunityTaskData }>) => {
+            state.app.isDoingCommunityTask = true;
+        },
+        appDoCommunityTaskSuccessfully: (state, action: PayloadAction<IResponseData<IRegistrationInfo>>) => {
+            state.app.isDoingCommunityTask = false;
+            state.app.whitelistRegistrationInfo = action.payload.data;
+            state.app.isTaskModalOpen = false;
+            state.app.openTask = null;
+            toast.success('Task completed successfully!', toastConfigs.success);
+
+        },
+        appDoCommunityTaskFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isDoingCommunityTask = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
+            }
+        },
+        appPurchase: (state, action: PayloadAction<{ projectId: string, data: IPurchaseData }>) => {
+            state.app.isPurchasing = true;
+        },
+        appPurchaseSuccess: (state, action: PayloadAction<IResponseData<IRegistrationInfo>>) => {
+            state.app.isPurchasing = false;
+            state.app.whitelistRegistrationInfo = action.payload.data;
+        },
+        appPurchaseFailure: (
+            state,
+            action: PayloadAction<IResponseFailure>
+        ) => {
+            state.app.isPurchasing = false;
+            if (action.payload.status !== 500) {
+                toast.error(action.payload.data.message, toastConfigs.error);
+            } else {
+                toast.error('Something went wrong!', toastConfigs.error);
             }
         },
     },

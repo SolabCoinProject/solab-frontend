@@ -2,7 +2,14 @@ import {IPaginationResponse, IResponseData} from './../../common/types';
 import {call, takeLatest, put} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import projectApi from './api';
-import {IProject, IProjectFieldOptions, IProjectsByPhrase} from './types';
+import {
+    IDoCommunityTaskData,
+    IProject,
+    IProjectFieldOptions,
+    IProjectsByPhrase, IPurchaseData,
+    IRegisterProjectData,
+    IRegistrationInfo
+} from './types';
 import {projectActions} from './projectSlice';
 
 function* fetchProjects(action: PayloadAction<any>) {
@@ -97,6 +104,54 @@ function* fetchProjectById(action: PayloadAction<string>) {
     }
 }
 
+function* appFetchWhitelistRegistrationInfo(action: PayloadAction<{ project: string, user: string }>) {
+    try {
+        const response: IResponseData<IRegistrationInfo> = yield call(
+            projectApi.app.fetchWhitelistRegistrationInfo, action.payload.project, action.payload.user
+        );
+        yield put(projectActions.appFetchWhitelistRegistrationInfoSuccess(response));
+    } catch (err: any) {
+        const {status, data} = err.response;
+        yield put(projectActions.appFetchWhitelistRegistrationInfoFailure({status, data: data}));
+    }
+}
+
+function* appRegisterProject(action: PayloadAction<{ project: string, data: IRegisterProjectData }>) {
+    try {
+        const response: IResponseData<IRegistrationInfo> = yield call(
+            projectApi.app.registerProject, action.payload.project, action.payload.data
+        );
+        yield put(projectActions.appRegisterProjectSuccess(response));
+    } catch (err: any) {
+        const {status, data} = err.response;
+        yield put(projectActions.appRegisterProjectFailure({status, data: data}));
+    }
+}
+
+function* appDoCommunityTask(action: PayloadAction<{ project: string, data: IDoCommunityTaskData }>) {
+    try {
+        const response: IResponseData<IRegistrationInfo> = yield call(
+            projectApi.app.doCommunityTask, action.payload.project, action.payload.data
+        );
+        yield put(projectActions.appDoCommunityTaskSuccessfully(response));
+    } catch (err: any) {
+        const {status, data} = err.response;
+        yield put(projectActions.appDoCommunityTaskFailure({status, data: data}));
+    }
+}
+
+function* appPurchase(action: PayloadAction<{ projectId: string, data: IPurchaseData }>) {
+    try {
+        const response: IResponseData<IRegistrationInfo> = yield call(
+            projectApi.app.purchase, action.payload.projectId, action.payload.data
+        );
+        yield put(projectActions.appPurchaseSuccess(response));
+    } catch (err: any) {
+        const {status, data} = err.response;
+        yield put(projectActions.appPurchaseFailure({status, data: data}));
+    }
+}
+
 export default function* projectSaga() {
     yield takeLatest(projectActions.fetchProjects.type, fetchProjects);
     yield takeLatest(projectActions.createProject.type, createProject);
@@ -105,4 +160,8 @@ export default function* projectSaga() {
     yield takeLatest(projectActions.fetchProjectsByPhrase.type, fetchProjectsByPhrase);
     yield takeLatest(projectActions.fetchProjectBySlug.type, fetchProjectBySlug);
     yield takeLatest(projectActions.fetchProjectById.type, fetchProjectById);
+    yield takeLatest(projectActions.appFetchWhitelistRegistrationInfo.type, appFetchWhitelistRegistrationInfo);
+    yield takeLatest(projectActions.appRegisterProject.type, appRegisterProject);
+    yield takeLatest(projectActions.appDoCommunityTask.type, appDoCommunityTask);
+    yield takeLatest(projectActions.appPurchase.type, appPurchase);
 }
