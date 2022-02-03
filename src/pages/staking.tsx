@@ -285,7 +285,7 @@ const Staking: NextPage = () => {
                                     {' '}
                                     <NumberFormat
                                         thousandsGroupStyle="thousand"
-                                        value={474.5}
+                                        value={985.5}
                                         displayType="text"
                                         thousandSeparator={true}
                                         suffix=" %"
