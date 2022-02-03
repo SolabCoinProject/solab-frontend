@@ -250,7 +250,7 @@ const Staking: NextPage = () => {
                         className="bg-solabGray-300 rounded-lg border border-solabGray-50 p-5 lg:p-12 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div>
                             <h2 className="text-2xl font-bold">
-                                Stake SOLAB and Earn Up to 474.25% APY
+                                Stake SOLAB and Earn Up to 985.5% APY
                             </h2>
                             <p className="text-solabGray-100 mt-8 flex items-center justify-between flex-wrap">
                                 <span>Total SOLAB Staked on Launchpad</span>
