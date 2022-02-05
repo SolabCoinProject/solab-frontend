@@ -31,7 +31,7 @@ const Edit: NextPage = () => {
             </div>
         </div>
         {
-            editingProject ? <div className="p-4 bg-blue-300 bg-opacity-50">
+            editingProject ? <div className="p-4 bg-gray-100 bg-opacity-50">
                 <ProjectFrom
                     initialValues={{
                         ...editingProject
