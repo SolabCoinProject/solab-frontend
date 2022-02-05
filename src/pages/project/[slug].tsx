@@ -63,8 +63,8 @@ const ProjectDetail: NextPage = () => {
 
     useEffect(() => {
         const {slug} = router.query;
-        if (window.location.host === 'solabstaking.co') {
-            router.push(`https://solab.finance/staking/${slug}`);
+        if (window.location.host === 'solab.finance') {
+            router.push(`https://solabstaking.co/project/${slug}`);
         }
         dispatch(projectActions.fetchProjectBySlug({slug: slug as string}));
     }, [router]);
@@ -374,6 +374,18 @@ const ProjectDetail: NextPage = () => {
                         </div>
                     </Tab.Panel>;
                 }
+                if (whitelistRegistrationInfo && whitelistRegistrationInfo.bought > 0) {
+                    return <Tab.Panel className="overflow-x-auto">
+                        <div className="rounded-lg bg-solabGray-300 p-4 text-center">
+                            <h3 className="font-bold text-2xl">Result</h3>
+                            <div className="mt-10">
+                                <h4 className="text-xl font-bold">You bought
+                                    successfully {whitelistRegistrationInfo.bought / project.idoPrice} {project.token.symbol}!
+                                    Tokens will be sent automatically to your wallet.</h4>
+                            </div>
+                        </div>
+                    </Tab.Panel>;
+                }
                 return <Tab.Panel className="overflow-x-auto">
                     <div className="rounded-lg bg-solabGray-300 p-4">
                         <h3 className="font-bold text-2xl text-center">Result</h3>
@@ -604,6 +616,20 @@ const ProjectDetail: NextPage = () => {
                                     }
                                 </Formik>
                             </div>
+                        </div>
+                    </div>
+                </Tab.Panel>;
+            }
+            if (isAfter(new Date(), new Date(project.phrases.sale.endDate))) {
+                return <Tab.Panel className="overflow-x-auto">
+                    <div className="rounded-lg bg-solabGray-300 p-4 text-center">
+                        <h3 className="font-bold text-2xl">Result</h3>
+                        <div className="mt-10 relative w-60 h-48 mx-auto">
+                            <Image src="https://solab-media.s3.ap-southeast-1.amazonaws.com/content/empty-box.svg"
+                                   layout="fill" alt="empty-box"/>
+                        </div>
+                        <div className="mt-10">
+                            <h4 className="text-xl font-bold">Sale is closed!</h4>
                         </div>
                     </div>
                 </Tab.Panel>;
