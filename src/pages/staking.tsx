@@ -1,30 +1,30 @@
-import { NextPage } from 'next';
+import {NextPage} from 'next';
 import Container from '../components/app/layout/Container';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { useCallback, useEffect, useState } from 'react';
-import { updateActiveHeaderItem } from '../features/layout/layoutSlice';
-import { appHeaderOptions } from '../features/layout/types';
-import { tierActions } from '../features/tier/tierSlice';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {useCallback, useEffect, useState} from 'react';
+import {updateActiveHeaderItem} from '../features/layout/layoutSlice';
+import {appHeaderOptions} from '../features/layout/types';
+import {tierActions} from '../features/tier/tierSlice';
+import {WalletMultiButton} from '@solana/wallet-adapter-react-ui';
 import Image from 'next/image';
 import NumberFormat from 'react-number-format';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { userActions } from '../features/user/userSlice';
-import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
-import { solabPubKey } from '../config/token';
-import { stakePubKey, stakeInterest, receiveFeePubKey } from '../config/stake';
-import { web3 } from '@project-serum/anchor';
-import { getOrCreateAssociatedTokenAccount } from '../libs/getOrCreateAssociatedTokenAccount';
-import { createTransferInstruction } from '../libs/createTransferInstructions';
-import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { differenceInSeconds, format, formatISO, parse } from 'date-fns';
+import {useConnection, useWallet} from '@solana/wallet-adapter-react';
+import {userActions} from '../features/user/userSlice';
+import {WalletNotConnectedError} from '@solana/wallet-adapter-base';
+import {solabPubKey} from '../config/token';
+import {stakePubKey, stakeInterest, receiveFeePubKey} from '../config/stake';
+import {web3} from '@project-serum/anchor';
+import {getOrCreateAssociatedTokenAccount} from '../libs/getOrCreateAssociatedTokenAccount';
+import {createTransferInstruction} from '../libs/createTransferInstructions';
+import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
+import {differenceInSeconds, format, formatISO, parse} from 'date-fns';
 import IncreaseStakeModal from '../features/user/IncreaseStakeModal';
 import ReactTooltip from 'react-tooltip';
-import { GoPrimitiveDot } from 'react-icons/go';
-import { Disclosure } from '@headlessui/react';
-import { BsChevronUp } from 'react-icons/bs';
+import {GoPrimitiveDot} from 'react-icons/go';
+import {Disclosure} from '@headlessui/react';
+import {BsChevronUp} from 'react-icons/bs';
 import loaderCyan from '../assets/images/loader-cyan.svg';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 const Staking: NextPage = () => {
     const dispatch = useAppDispatch();
@@ -37,8 +37,8 @@ const Staking: NextPage = () => {
     const isUnstaking = useAppSelector((state) => state.user.app.isUnstaking);
     const [interest, setInterest] = useState<number>(0);
     const [currentStakeAmount, setCurrentStakeAmount] = useState<number>(0);
-    const { publicKey, sendTransaction, signTransaction } = useWallet();
-    const { connection } = useConnection();
+    const {publicKey, sendTransaction, signTransaction} = useWallet();
+    const {connection} = useConnection();
     useEffect(() => {
         dispatch(updateActiveHeaderItem(appHeaderOptions.stake));
         dispatch(tierActions.fetchTiersApp());
@@ -244,57 +244,58 @@ const Staking: NextPage = () => {
 
     return (
         <Container>
-            <div className='mt-7 px-4'>
-                <div className='max-w-7xl mx-auto'>
-                    <div className='bg-solabGray-300 rounded-lg border border-solabGray-50 p-5 lg:p-12 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8'>
+            <div className="mt-7 px-4">
+                <div className="max-w-7xl mx-auto">
+                    <div
+                        className="bg-solabGray-300 rounded-lg border border-solabGray-50 p-5 lg:p-12 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div>
-                            <h2 className='text-2xl font-bold'>
-                                Stake SOLAB and Earn Up to 474.25% APY
+                            <h2 className="text-2xl font-bold">
+                                Stake SOLAB and Earn Up to 985.5% APY
                             </h2>
-                            <p className='text-solabGray-100 mt-8 flex items-center justify-between flex-wrap'>
+                            <p className="text-solabGray-100 mt-8 flex items-center justify-between flex-wrap">
                                 <span>Total SOLAB Staked on Launchpad</span>
-                                <span className='text-solabWhite-500'>
+                                <span className="text-solabWhite-500">
                                     {' '}
                                     <NumberFormat
-                                        thousandsGroupStyle='thousand'
+                                        thousandsGroupStyle="thousand"
                                         value={currentStakeAmount}
-                                        displayType='text'
+                                        displayType="text"
                                         thousandSeparator={true}
-                                        suffix=' SOLAB'
+                                        suffix=" SOLAB"
                                         decimalScale={2}
                                     />
                                 </span>
                             </p>
-                            <p className='text-solabGray-100 mt-4 flex items-center justify-between flex-wrap'>
+                            <p className="text-solabGray-100 mt-4 flex items-center justify-between flex-wrap">
                                 <span>Daily Percentage Yield</span>
-                                <span className='text-solabWhite-500'>
+                                <span className="text-solabWhite-500">
                                     {' '}
                                     <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={1.3}
-                                        displayType='text'
+                                        thousandsGroupStyle="thousand"
+                                        value={2.7}
+                                        displayType="text"
                                         thousandSeparator={true}
-                                        suffix=' %'
+                                        suffix=" %"
                                     />
                                 </span>
                             </p>
-                            <p className='text-solabGray-100 mt-4 flex items-center justify-between flex-wrap'>
+                            <p className="text-solabGray-100 mt-4 flex items-center justify-between flex-wrap">
                                 <span>Annual Percentage Yield</span>
-                                <span className='text-solabWhite-500'>
+                                <span className="text-solabWhite-500">
                                     {' '}
                                     <NumberFormat
-                                        thousandsGroupStyle='thousand'
-                                        value={474.5}
-                                        displayType='text'
+                                        thousandsGroupStyle="thousand"
+                                        value={985.5}
+                                        displayType="text"
                                         thousandSeparator={true}
-                                        suffix=' %'
+                                        suffix=" %"
                                     />
                                 </span>
                             </p>
-                            <div className='mt-4 pb-8 border-b border-solabGray-100'>
+                            <div className="mt-4 pb-8 border-b border-solabGray-100">
                                 <button
-                                    type='button'
-                                    className='py-3 font-bold px-4 mt-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-full'
+                                    type="button"
+                                    className="py-3 font-bold px-4 mt-4 bg-solabCyan-500 rounded-lg text-solabBlack-500 w-full"
                                     onClick={() => {
                                         dispatch(
                                             userActions.openIncreaseStakeModal()
@@ -304,32 +305,32 @@ const Staking: NextPage = () => {
                                     Increase Stake
                                 </button>
                             </div>
-                            <p className='mt-4 text-center text-orange-500 uppercase'>
+                            <p className="mt-4 text-center text-orange-500 uppercase">
                                 Do not refresh your browser. The system will
                                 automatically update the number!
                             </p>
-                            <div className='mt-4'>
+                            <div className="mt-4">
                                 {user ? (
                                     <>
-                                        <div className='flex items-start justify-between'>
+                                        <div className="flex items-start justify-between">
                                             <div>
-                                                <p className='text-solabGray-100'>
+                                                <p className="text-solabGray-100">
                                                     Your staked SOLAB
                                                 </p>
                                                 <p>
                                                     {user.stake &&
                                                     user.stake.totalSolab ? (
                                                         <NumberFormat
-                                                            thousandsGroupStyle='thousand'
+                                                            thousandsGroupStyle="thousand"
                                                             value={
                                                                 user.stake
                                                                     .totalSolab
                                                             }
-                                                            displayType='text'
+                                                            displayType="text"
                                                             thousandSeparator={
                                                                 true
                                                             }
-                                                            suffix=' SOLAB'
+                                                            suffix=" SOLAB"
                                                             decimalScale={2}
                                                         />
                                                     ) : (
@@ -339,7 +340,7 @@ const Staking: NextPage = () => {
                                             </div>
                                             {!isUnstaking ? (
                                                 <span
-                                                    className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
+                                                    className="text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer"
                                                     onClick={async () => {
                                                         await unstake();
                                                     }}
@@ -347,30 +348,30 @@ const Staking: NextPage = () => {
                                                     Unstake
                                                 </span>
                                             ) : (
-                                                <div className='w-10 h-10 relative'>
+                                                <div className="w-10 h-10 relative">
                                                     <Image
                                                         src={loaderCyan}
-                                                        layout='fill'
+                                                        layout="fill"
                                                     />
                                                 </div>
                                             )}
                                         </div>
-                                        <div className='flex items-start justify-between mt-8'>
+                                        <div className="flex items-start justify-between mt-8">
                                             <div>
-                                                <p className='text-solabGray-100'>
+                                                <p className="text-solabGray-100">
                                                     Pending rewards
                                                 </p>
                                                 <p>
                                                     {user.stake &&
                                                     user.stake.totalSolab ? (
                                                         <NumberFormat
-                                                            thousandsGroupStyle='thousand'
+                                                            thousandsGroupStyle="thousand"
                                                             value={interest}
-                                                            displayType='text'
+                                                            displayType="text"
                                                             thousandSeparator={
                                                                 true
                                                             }
-                                                            suffix=' SOLAB'
+                                                            suffix=" SOLAB"
                                                             decimalScale={4}
                                                         />
                                                     ) : (
@@ -380,7 +381,7 @@ const Staking: NextPage = () => {
                                             </div>
                                             {!isClaimingInterest ? (
                                                 <span
-                                                    className='text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer'
+                                                    className="text-solabGray-100 hover:text-solabWhite-500 underline cursor-pointer"
                                                     onClick={async () => {
                                                         const claimDate =
                                                             formatISO(
@@ -394,63 +395,63 @@ const Staking: NextPage = () => {
                                                     Claim rewards
                                                 </span>
                                             ) : (
-                                                <div className='w-10 h-10 relative'>
+                                                <div className="w-10 h-10 relative">
                                                     <Image
                                                         src={loaderCyan}
-                                                        layout='fill'
+                                                        layout="fill"
                                                     />
                                                 </div>
                                             )}
                                         </div>
                                     </>
                                 ) : (
-                                    <WalletMultiButton className='mx-auto' />
+                                    <WalletMultiButton className="mx-auto"/>
                                 )}
                             </div>
                         </div>
                         <div>
-                            <h2 className='text-2xl font-bold'>Your tier</h2>
+                            <h2 className="text-2xl font-bold">Your tier</h2>
                             {user ? (
                                 <>
-                                    <p className='text-solabGray-100 flex items-center'>
+                                    <p className="text-solabGray-100 flex items-center">
                                         <span>
                                             Base on your amount of LAB in 7
                                             days:
                                         </span>{' '}
                                         <NumberFormat
-                                            thousandsGroupStyle='thousand'
+                                            thousandsGroupStyle="thousand"
                                             value={user.stake?.labRecord.reduce(
                                                 (a, b) => a + b,
                                                 0
                                             )}
-                                            displayType='text'
+                                            displayType="text"
                                             thousandSeparator={true}
-                                            suffix=' LAB'
+                                            suffix=" LAB"
                                             decimalScale={4}
                                         />
                                         <GoPrimitiveDot
-                                            data-for='tier-tooltip'
+                                            data-for="tier-tooltip"
                                             data-tip={`Your LAB number will be updated daily at ${format(
                                                 new Date(
                                                     '2022-01-10T01:00:00.000Z'
                                                 ),
                                                 'h a OOOO'
                                             )}`}
-                                            className='text-solabGray-100 w-4 h-4 cursor-pointer'
+                                            className="text-solabGray-100 w-4 h-4 cursor-pointer"
                                         />
                                         <ReactTooltip
-                                            id='tier-tooltip'
-                                            place='top'
-                                            type='light'
-                                            effect='solid'
+                                            id="tier-tooltip"
+                                            place="top"
+                                            type="light"
+                                            effect="solid"
                                             multiline={true}
                                         />
                                     </p>
-                                    <div className='mt-9'>
+                                    <div className="mt-9">
                                         {user && user.tier ? (
-                                            <div className='w-44 h-44 relative p-1 gradient-background-1 rounded-lg'>
+                                            <div className="w-44 h-44 relative p-1 gradient-background-1 rounded-lg">
                                                 <div
-                                                    className='bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4'
+                                                    className="bg-solabGray-300 bg-center bg-cover bg-no-repeat w-full h-full rounded-lg p-4"
                                                     style={{
                                                         backgroundImage: `url(${user.tier.thumbnail})`,
                                                     }}
@@ -466,35 +467,36 @@ const Staking: NextPage = () => {
                                 </>
                             ) : (
                                 <div>
-                                    <WalletMultiButton className='mx-auto w-auto' />
+                                    <WalletMultiButton className="mx-auto w-auto"/>
                                 </div>
                             )}
-                            <div className='mt-14'>
-                                <h3 className='text-xxl'>
+                            <div className="mt-14">
+                                <h3 className="text-xxl">
                                     Solab tiered system
                                 </h3>
-                                <div className='mt-2 divide-y divide-solabGray-100'>
+                                <div className="mt-2 divide-y divide-solabGray-100">
                                     {tiers.map((tier) => (
-                                        <div className='py-3 flex items-center justify-between'>
-                                            <div className='relative'>
-                                                <p className='texts-solabGray-100'>
+                                        <div className="py-3 flex items-center justify-between">
+                                            <div className="relative">
+                                                <p className="texts-solabGray-100">
                                                     {tier.name}
                                                 </p>
                                                 {user &&
                                                 user.tier &&
                                                 user.tier._id === tier._id ? (
-                                                    <span className='absolute text-xxs w-max text-gradient-1 -top-1.5 left-full'>
+                                                    <span
+                                                        className="absolute text-xxs w-max text-gradient-1 -top-1.5 left-full">
                                                         Your current tier
                                                     </span>
                                                 ) : null}
                                             </div>
                                             <NumberFormat
-                                                thousandsGroupStyle='thousand'
+                                                thousandsGroupStyle="thousand"
                                                 value={tier.requiredLabAmount}
-                                                displayType='text'
+                                                displayType="text"
                                                 thousandSeparator={true}
-                                                suffix=' LAB'
-                                                className='text-solabGray-100'
+                                                suffix=" LAB"
+                                                className="text-solabGray-100"
                                             />
                                         </div>
                                     ))}
@@ -502,14 +504,14 @@ const Staking: NextPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='mt-24'>
-                        <h2 className='text-center font-bold text-2xl'>
+                    <div className="mt-24">
+                        <h2 className="text-center font-bold text-2xl">
                             Frequently Asked Questions
                         </h2>
-                        <div className='mt-4 w-full lg:w-3/4 mx-auto'>
+                        <div className="mt-4 w-full lg:w-3/4 mx-auto">
                             <Disclosure>
-                                {({ open }) => (
-                                    <div className='py-8 border-b border-solabGray-100'>
+                                {({open}) => (
+                                    <div className="py-8 border-b border-solabGray-100">
                                         <Disclosure.Button
                                             className={`flex justify-between w-full px-4 py-2 text-xl text-left font-bold ${
                                                 open
@@ -529,7 +531,7 @@ const Staking: NextPage = () => {
                                                 } w-5 h-5`}
                                             />
                                         </Disclosure.Button>
-                                        <Disclosure.Panel className='px-4 pb-2 text-sm text-solabGray-100'>
+                                        <Disclosure.Panel className="px-4 pb-2 text-sm text-solabGray-100">
                                             No, Solab does not implement a
                                             pre-IDO staking policy.
                                         </Disclosure.Panel>
@@ -537,8 +539,8 @@ const Staking: NextPage = () => {
                                 )}
                             </Disclosure>
                             <Disclosure>
-                                {({ open }) => (
-                                    <div className='py-8 border-b border-solabGray-100'>
+                                {({open}) => (
+                                    <div className="py-8 border-b border-solabGray-100">
                                         <Disclosure.Button
                                             className={`flex justify-between w-full px-4 py-2 text-xl text-left font-bold ${
                                                 open
@@ -562,7 +564,7 @@ const Staking: NextPage = () => {
                                                 } w-5 h-5 flex-grow`}
                                             />
                                         </Disclosure.Button>
-                                        <Disclosure.Panel className='px-4 pb-2 text-sm text-solabGray-100'>
+                                        <Disclosure.Panel className="px-4 pb-2 text-sm text-solabGray-100">
                                             Registration takes an on chain snap
                                             transaction to determine tier. As
                                             such, if registration has already
@@ -577,8 +579,8 @@ const Staking: NextPage = () => {
                                 )}
                             </Disclosure>
                             <Disclosure>
-                                {({ open }) => (
-                                    <div className='py-8 border-b border-solabGray-100'>
+                                {({open}) => (
+                                    <div className="py-8 border-b border-solabGray-100">
                                         <Disclosure.Button
                                             className={`flex justify-between w-full px-4 py-2 text-xl text-left font-bold ${
                                                 open
@@ -599,7 +601,7 @@ const Staking: NextPage = () => {
                                                 } w-5 h-5`}
                                             />
                                         </Disclosure.Button>
-                                        <Disclosure.Panel className='px-4 pb-2 text-sm text-solabGray-100'>
+                                        <Disclosure.Panel className="px-4 pb-2 text-sm text-solabGray-100">
                                             The staking process involves
                                             multiple steps including an approval
                                             transaction and staking transaction.
@@ -612,7 +614,7 @@ const Staking: NextPage = () => {
                 </div>
             </div>
             <IncreaseStakeModal
-                onSubmit={async (values, { setSubmitting }) => {
+                onSubmit={async (values, {setSubmitting}) => {
                     await stake(values.solabAmount);
                     setSubmitting(false);
                     dispatch(userActions.closeIncreaseStakeModal());
