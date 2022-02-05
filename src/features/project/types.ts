@@ -18,6 +18,7 @@ export interface IProject {
             }
         ];
         decimals: number;
+        pubKey: string;
     };
     keyMetrics?: [
         {
@@ -80,6 +81,7 @@ export interface IProject {
             description: string;
             url: string;
             content?: string;
+            rewardTickets: number;
         }
     ];
     media: { mediaType: number; link: string; thumbnail: string }[];
@@ -90,6 +92,16 @@ export interface IProject {
     createdAt?: string;
     updatedAt?: string;
 
+}
+
+export interface IRegistrationInfo {
+    project: string;
+    user: string;
+    bought: number;
+    tickets: number;
+    isInWhiteList: number;
+    isFollowing: boolean;
+    communityTasksDone: string[];
 }
 
 export interface IProjectFieldOptions {
@@ -127,6 +139,30 @@ export interface IProjectState {
         projectsByPhrase: IProjectsByPhrase;
         isFetchingProjectByPhrase: boolean;
         isFetchingProjectBySlug: boolean;
-        project: IProject | null
+        project: IProject | null,
+        isFetchingRegistrationInfo: boolean;
+        whitelistRegistrationInfo: IRegistrationInfo | null;
+        isRegisteringProject: boolean;
+        isTaskModalOpen: boolean;
+        openTask: any;
+        isDoingCommunityTask: boolean;
+        isPurchasing: boolean;
     };
+}
+
+export interface IRegisterProjectData {
+    userId: string;
+    refId?: string;
+}
+
+export interface IDoCommunityTaskData {
+    taskUuid: string;
+    userId: string;
+    userUrl?: string;
+}
+
+export interface IPurchaseData {
+    userId: string;
+    amount: number;
+    refId?: string;
 }

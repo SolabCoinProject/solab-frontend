@@ -23,6 +23,7 @@ const CreateProjectModal: React.FC = () => {
             symbol: '',
             category: '',
             decimals: 0,
+            pubKey: ''
         },
         idoPrice: 0,
         idoSlots: 0,

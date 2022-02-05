@@ -8,9 +8,9 @@ import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {useEffect} from 'react';
 import {projectActions} from './projectSlice';
 import {v4 as uuid} from 'uuid';
-import Select from "react-select";
-import {kycStatuses} from "../user/constants";
-import {socialTypes} from "./constants";
+import Select from 'react-select';
+import {kycStatuses} from '../user/constants';
+import {socialTypes} from './constants';
 
 interface Props {
     initialValues: any;
@@ -105,7 +105,7 @@ const projectValidationSchema = Yup.object().shape({
                 uuid: Yup.string().required('Task uuid is required!'),
                 userLinkRequired: Yup.bool(),
                 socialType: Yup.number().required('Task social type is required'),
-                url: Yup.string().required('Task url is required'),
+                rewardTickets: Yup.number().required('Task social type is required')
             })
         ),
 });
@@ -129,106 +129,120 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
             {({values, isSubmitting, setFieldValue, errors}) => {
                 return (
                     <Form>
-                        <div className='grid grid-cols-3 gap-x-8'>
+                        <div className="grid grid-cols-3 gap-x-8 text-white">
                             <div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Name
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter project name'
-                                        name='name'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter project name"
+                                        name="name"
                                     />
                                     <ErrorMessage
-                                        name='name'
+                                        name="name"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Token
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter token thumbnail'
-                                        name='token.thumbnail'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter token thumbnail"
+                                        name="token.thumbnail"
                                     />
                                     <ErrorMessage
-                                        name='token.thumbnail'
+                                        name="token.thumbnail"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter token symbol'
-                                        name='token.symbol'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter token symbol"
+                                        name="token.symbol"
                                     />
                                     <ErrorMessage
-                                        name='token.symbol'
+                                        name="token.symbol"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter token category'
-                                        name='token.category'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter token category"
+                                        name="token.category"
                                     />
                                     <ErrorMessage
-                                        name='token.category'
+                                        name="token.category"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='number'
-                                        placeholder='Enter token decimals'
-                                        name='token.decimals'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="number"
+                                        placeholder="Enter token decimals"
+                                        name="token.decimals"
                                     />
                                     <ErrorMessage
-                                        name='token.decimals'
+                                        name="token.decimals"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                    <Field
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter token pub key"
+                                        name="token.pubKey"
+                                    />
+                                    <ErrorMessage
+                                        name="token.pubKey"
+                                        render={(msg) => (
+                                            <span className="font-bold text-red-500">
+                                                {msg}
+                                            </span>
+                                        )}
+                                    />
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Token additional Information
                                     </label>
                                     <FieldArray
-                                        name='token.others'
+                                        name="token.others"
                                         render={(arrayHelpers) => (
                                             <div>
-                                                <div className='grid grid-cols-7 gap-1'>
+                                                <div className="grid grid-cols-7 gap-1">
                                                     {values.token.others?.map(
                                                         (
                                                             other: any,
                                                             index: any
                                                         ) => (
                                                             <>
-                                                                <div className='col-span-3'>
+                                                                <div className="col-span-3">
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter label'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter label"
                                                                         name={`token.others.${index}.label`}
                                                                     />
                                                                     <ErrorMessage
@@ -236,7 +250,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -244,11 +258,11 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='col-span-3'>
+                                                                <div className="col-span-3">
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter value'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter value"
                                                                         name={`token.others.${index}.value`}
                                                                     />
                                                                     <ErrorMessage
@@ -256,7 +270,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -264,15 +278,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='col-span-1'>
+                                                                <div className="col-span-1">
                                                                     <button
-                                                                        className='btn btn-pink'
+                                                                        className="btn btn-pink"
                                                                         onClick={() =>
                                                                             arrayHelpers.remove(
                                                                                 index
                                                                             )
                                                                         }
-                                                                        type='button'
+                                                                        type="button"
                                                                     >
                                                                         <FaTimes/>
                                                                     </button>
@@ -282,14 +296,14 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                     )}
                                                 </div>
                                                 <button
-                                                    className='btn btn-pink'
+                                                    className="btn btn-pink"
                                                     onClick={() =>
                                                         arrayHelpers.push({
                                                             label: '',
                                                             value: '',
                                                         })
                                                     }
-                                                    type='button'
+                                                    type="button"
                                                 >
                                                     Add more information
                                                 </button>
@@ -299,77 +313,77 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 </div>
                             </div>
                             <div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Slug
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter project slug'
-                                        name='slug'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter project slug"
+                                        name="slug"
                                     />
                                     <ErrorMessage
-                                        name='slug'
+                                        name="slug"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Ido price
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='number'
-                                        placeholder='Enter project ido price'
-                                        name='idoPrice'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="number"
+                                        placeholder="Enter project ido price"
+                                        name="idoPrice"
                                     />
                                     <ErrorMessage
-                                        name='idoPrice'
+                                        name="idoPrice"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Ido slots
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='number'
-                                        placeholder='Enter project ido price'
-                                        name='idoSlots'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="number"
+                                        placeholder="Enter project ido price"
+                                        name="idoSlots"
                                     />
                                     <ErrorMessage
-                                        name='idoSlots'
+                                        name="idoSlots"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Raise amount
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='number'
-                                        placeholder='Enter project raise amount'
-                                        name='raiseAmount'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="number"
+                                        placeholder="Enter project raise amount"
+                                        name="raiseAmount"
                                     />
                                     <ErrorMessage
-                                        name='raiseAmount'
+                                        name="raiseAmount"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
@@ -377,58 +391,58 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 </div>
                             </div>
                             <div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Description
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter project description'
-                                        name='description'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter project description"
+                                        name="description"
                                     />
                                     <ErrorMessage
-                                        name='description'
+                                        name="description"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Thumbnail
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter project thumbnail link'
-                                        name='thumbnail'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter project thumbnail link"
+                                        name="thumbnail"
                                     />
                                     <ErrorMessage
-                                        name='thumbnail'
+                                        name="thumbnail"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
                                     />
                                 </div>
-                                <div className='mt-3'>
-                                    <label className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                <div className="mt-3">
+                                    <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Receive USDC wallet pub key
                                     </label>
                                     <Field
-                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                        type='text'
-                                        placeholder='Enter receive USDC wallet pub key'
-                                        name='pubKey'
+                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                        type="text"
+                                        placeholder="Enter receive USDC wallet pub key"
+                                        name="pubKey"
                                     />
                                     <ErrorMessage
-                                        name='pubKey'
+                                        name="pubKey"
                                         render={(msg) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                 {msg}
                                             </span>
                                         )}
@@ -437,53 +451,53 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                             </div>
                         </div>
                         <div>
-                            <h1 className='text-blue-900 text-2xl text-center'>
+                            <h1 className="text-blue-900 text-2xl text-center">
                                 Phrases configuration
                             </h1>
-                            <div className='overflow-x-auto'>
-                                <div className='align-middle inline-block min-w-full'>
-                                    <div className='shadow overflow-hidden rounded-lg bg-blue-light'>
-                                        <table className='table-fixed min-w-full divide-y divide-gray-200'>
-                                            <thead className='bg-blue-light text-white-500'>
+                            <div className="overflow-x-auto">
+                                <div className="align-middle inline-block min-w-full">
+                                    <div className="shadow overflow-hidden rounded-lg bg-blue-light">
+                                        <table className="table-fixed min-w-full divide-y divide-gray-200">
+                                            <thead className="bg-blue-light text-white-500">
                                             <tr>
                                                 <th
-                                                    scope='col'
-                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs text-white-500 font-bold uppercase"
                                                 ></th>
                                                 <th
-                                                    scope='col'
-                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs text-white-500 font-bold uppercase"
                                                 >
                                                     Preparation
                                                 </th>
                                                 <th
-                                                    scope='col'
-                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs text-white-500 font-bold uppercase"
                                                 >
                                                     Whitelist
                                                 </th>
 
                                                 <th
-                                                    scope='col'
-                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs text-white-500 font-bold uppercase"
                                                 >
                                                     Sale
                                                 </th>
                                                 <th
-                                                    scope='col'
-                                                    className='p-4 text-left text-xs text-white-500 font-bold uppercase'
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs text-white-500 font-bold uppercase"
                                                 >
                                                     Distribution
                                                 </th>
                                             </tr>
                                             </thead>
-                                            <tbody className='bg-white divide-y divide-gray-200'>
+                                            <tbody className="bg-white divide-y divide-gray-200">
                                             <tr>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     Start Date
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500"></td>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <DatetimePicker
                                                         value={
                                                             values.phrases
@@ -509,7 +523,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         }}
                                                     />
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <DatetimePicker
                                                         value={
                                                             values.phrases
@@ -535,7 +549,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         }}
                                                     />
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <DatetimePicker
                                                         value={
                                                             values.phrases
@@ -563,11 +577,11 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     End Date
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500"></td>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <DatetimePicker
                                                         value={
                                                             values.phrases
@@ -593,7 +607,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         }}
                                                     />
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <DatetimePicker
                                                         value={
                                                             values.phrases
@@ -619,46 +633,46 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         }}
                                                     />
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'></td>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500"></td>
                                             </tr>
                                             <tr>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     Title
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter preparation title'
-                                                            name='phrases.preparation.title'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter preparation title"
+                                                            name="phrases.preparation.title"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.preparation.title'
+                                                            name="phrases.preparation.title"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
                                                         />
                                                     </div>
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter preparation title'
-                                                            name='phrases.whitelist.title'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter preparation title"
+                                                            name="phrases.whitelist.title"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.whitelist.title'
+                                                            name="phrases.whitelist.title"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
@@ -666,40 +680,40 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                     </div>
                                                 </td>
 
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter sale title'
-                                                            name='phrases.sale.title'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter sale title"
+                                                            name="phrases.sale.title"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.sale.title'
+                                                            name="phrases.sale.title"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
                                                         />
                                                     </div>
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter distribution title'
-                                                            name='phrases.distribution.title'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter distribution title"
+                                                            name="phrases.distribution.title"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.distribution.title'
+                                                            name="phrases.distribution.title"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
@@ -708,83 +722,83 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     Description
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter preparation description'
-                                                            name='phrases.preparation.description'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter preparation description"
+                                                            name="phrases.preparation.description"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.preparation.description'
+                                                            name="phrases.preparation.description"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
                                                         />
                                                     </div>
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter preparation description'
-                                                            name='phrases.whitelist.description'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter preparation description"
+                                                            name="phrases.whitelist.description"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.whitelist.description'
+                                                            name="phrases.whitelist.description"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
                                                         />
                                                     </div>
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter sale description'
-                                                            name='phrases.sale.description'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter sale description"
+                                                            name="phrases.sale.description"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.sale.description'
+                                                            name="phrases.sale.description"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
                                                         />
                                                     </div>
                                                 </td>
-                                                <td className='p-4 whitespace-nowrap text-base font-medium text-white-500'>
+                                                <td className="p-4 whitespace-nowrap text-base font-medium text-white-500">
                                                     <div>
                                                         <Field
-                                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                            type='text'
-                                                            placeholder='Enter distribution description'
-                                                            name='phrases.distribution.description'
+                                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                            type="text"
+                                                            placeholder="Enter distribution description"
+                                                            name="phrases.distribution.description"
                                                         />
                                                         <ErrorMessage
-                                                            name='phrases.distribution.description'
+                                                            name="phrases.distribution.description"
                                                             render={(
                                                                 msg
                                                             ) => (
-                                                                <span className='font-bold text-red-500'>
+                                                                <span className="font-bold text-red-500">
                                                                         {msg}
                                                                     </span>
                                                             )}
@@ -799,46 +813,46 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                             </div>
                         </div>
                         <div>
-                            <h1 className='text-blue-900 text-2xl text-center'>
+                            <h1 className="text-blue-900 text-2xl text-center">
                                 Launch type configuration
                             </h1>
-                            <div className='grid grid-cols-3 gap-x-8'>
+                            <div className="grid grid-cols-3 gap-x-8">
                                 <div>
-                                    <div className='mt-3'>
+                                    <div className="mt-3">
                                         <label
-                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                             Name
                                         </label>
                                         <Field
-                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                            type='text'
-                                            placeholder='Enter launch type name'
-                                            name='launchType.name'
+                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                            type="text"
+                                            placeholder="Enter launch type name"
+                                            name="launchType.name"
                                         />
                                         <ErrorMessage
-                                            name='launchType.name'
+                                            name="launchType.name"
                                             render={(msg) => (
-                                                <span className='font-bold text-red-500'>
+                                                <span className="font-bold text-red-500">
                                                     {msg}
                                                 </span>
                                             )}
                                         />
                                     </div>
-                                    <div className='mt-3'>
+                                    <div className="mt-3">
                                         <label
-                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                             Token payment percent each interval
                                         </label>
                                         <Field
-                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                            type='text'
-                                            placeholder='Enter token payment percent each interval'
-                                            name='launchType.tokenPaymentPercent'
+                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                            type="text"
+                                            placeholder="Enter token payment percent each interval"
+                                            name="launchType.tokenPaymentPercent"
                                         />
                                         <ErrorMessage
-                                            name='launchType.tokenPaymentPercent'
+                                            name="launchType.tokenPaymentPercent"
                                             render={(msg) => (
-                                                <span className='font-bold text-red-500'>
+                                                <span className="font-bold text-red-500">
                                                     {msg}
                                                 </span>
                                             )}
@@ -846,29 +860,29 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div className='mt-3'>
+                                    <div className="mt-3">
                                         <label
-                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                             Payment amount at distribution
                                         </label>
                                         <Field
-                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                            type='number'
-                                            placeholder='Enter payment amount at distribution'
-                                            name='launchType.paymentAmountAtDistribution'
+                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                            type="number"
+                                            placeholder="Enter payment amount at distribution"
+                                            name="launchType.paymentAmountAtDistribution"
                                         />
                                         <ErrorMessage
-                                            name='launchType.paymentAmountAtDistribution'
+                                            name="launchType.paymentAmountAtDistribution"
                                             render={(msg) => (
-                                                <span className='font-bold text-red-500'>
+                                                <span className="font-bold text-red-500">
                                                     {msg}
                                                 </span>
                                             )}
                                         />
                                     </div>
-                                    <div className='mt-3'>
+                                    <div className="mt-3">
                                         <label
-                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                             Token payment all date
                                         </label>
                                         <DatetimePicker
@@ -891,9 +905,9 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                             }}
                                         />
                                         <ErrorMessage
-                                            name='phrases.launchType.tokenPaymentAllDate'
+                                            name="phrases.launchType.tokenPaymentAllDate"
                                             render={(msg) => (
-                                                <span className='font-bold text-red-500'>
+                                                <span className="font-bold text-red-500">
                                                     {msg}
                                                 </span>
                                             )}
@@ -901,21 +915,21 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div className='mt-3'>
+                                    <div className="mt-3">
                                         <label
-                                            className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                            className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                             Token payment interval (days)
                                         </label>
                                         <Field
-                                            className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                            type='number'
-                                            placeholder='Enter token payment interval'
-                                            name='launchType.tokenPaymentInterval'
+                                            className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                            type="number"
+                                            placeholder="Enter token payment interval"
+                                            name="launchType.tokenPaymentInterval"
                                         />
                                         <ErrorMessage
-                                            name='launchType.tokenPaymentInterval'
+                                            name="launchType.tokenPaymentInterval"
                                             render={(msg) => (
-                                                <span className='font-bold text-red-500'>
+                                                <span className="font-bold text-red-500">
                                                     {msg}
                                                 </span>
                                             )}
@@ -924,13 +938,13 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='grid grid-cols-3 gap-x-8 mt-4'>
+                        <div className="grid grid-cols-3 gap-x-8 mt-4">
                             <div>
-                                <h2 className='text-xl text-gray-900'>
+                                <h2 className="text-xl text-gray-900">
                                     Key metrics
                                 </h2>
                                 <FieldArray
-                                    name='keyMetrics'
+                                    name="keyMetrics"
                                     render={(arrayHelpers) => {
                                         return (
                                             <>
@@ -940,16 +954,16 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         index: any
                                                     ) => {
                                                         return (
-                                                            <div className='grid grid-cols-2 gap-x-4'>
-                                                                <div className='mt-3'>
+                                                            <div className="grid grid-cols-2 gap-x-4">
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Label
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter key metrics label'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter key metrics label"
                                                                         name={`keyMetrics.${index}.label`}
                                                                     />
                                                                     <ErrorMessage
@@ -957,7 +971,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -965,15 +979,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Value
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter key metrics value'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter key metrics value"
                                                                         name={`keyMetrics.${index}.value`}
                                                                     />
                                                                     <ErrorMessage
@@ -981,7 +995,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -989,15 +1003,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Unit
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter key metrics unit'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter key metrics unit"
                                                                         name={`keyMetrics.${index}.unit`}
                                                                     />
                                                                     <ErrorMessage
@@ -1005,7 +1019,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1013,9 +1027,9 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Unit
                                                                         position
                                                                     </label>
@@ -1030,7 +1044,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                                 setFieldValue(
                                                                                     `keyMetrics.${index}.unitPosition`,
                                                                                     selected.value
-                                                                                )
+                                                                                );
                                                                             }
                                                                         }}
 
@@ -1057,7 +1071,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1065,9 +1079,9 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Key
                                                                         metric
                                                                         value
@@ -1085,7 +1099,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                                 setFieldValue(
                                                                                     `keyMetrics.${index}.valueType`,
                                                                                     selected.value
-                                                                                )
+                                                                                );
                                                                             }
                                                                         }}
 
@@ -1112,7 +1126,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1120,15 +1134,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <button
-                                                                        className='btn btn-pink'
+                                                                        className="btn btn-pink"
                                                                         onClick={() =>
                                                                             arrayHelpers.remove(
                                                                                 index
                                                                             )
                                                                         }
-                                                                        type='button'
+                                                                        type="button"
                                                                     >
                                                                         <FaTimes/>
                                                                     </button>
@@ -1138,8 +1152,8 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                     }
                                                 )}
                                                 <button
-                                                    className='btn btn-pink'
-                                                    type='button'
+                                                    className="btn btn-pink"
+                                                    type="button"
                                                     onClick={() => {
                                                         arrayHelpers.push({
                                                             value: '',
@@ -1158,11 +1172,11 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 />
                             </div>
                             <div>
-                                <h2 className='text-xl text-gray-900'>
+                                <h2 className="text-xl text-gray-900">
                                     Social
                                 </h2>
                                 <FieldArray
-                                    name='social'
+                                    name="social"
                                     render={(arrayHelpers) => {
                                         return (
                                             <>
@@ -1172,15 +1186,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         index: any
                                                     ) => {
                                                         return (
-                                                            <div className='grid grid-cols-3 items-center gap-x-4'>
-                                                                <div className='mt-3'>
+                                                            <div className="grid grid-cols-3 items-center gap-x-4">
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Type
                                                                     </label>
                                                                     <select
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        placeholder='Enter social type'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        placeholder="Enter social type"
                                                                         name={`social.${index}.socialType`}
                                                                         onChange={(
                                                                             e
@@ -1216,7 +1230,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1224,15 +1238,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Link
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter social link'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter social link"
                                                                         name={`social.${index}.link`}
                                                                     />
                                                                     <ErrorMessage
@@ -1240,7 +1254,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1248,15 +1262,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         )}
                                                                     />
                                                                 </div>
-                                                                <div className='mt-3'>
+                                                                <div className="mt-3">
                                                                     <button
-                                                                        className='btn btn-pink'
+                                                                        className="btn btn-pink"
                                                                         onClick={() =>
                                                                             arrayHelpers.remove(
                                                                                 index
                                                                             )
                                                                         }
-                                                                        type='button'
+                                                                        type="button"
                                                                     >
                                                                         <FaTimes/>
                                                                     </button>
@@ -1266,8 +1280,8 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                     }
                                                 )}
                                                 <button
-                                                    className='btn btn-pink'
-                                                    type='button'
+                                                    className="btn btn-pink"
+                                                    type="button"
                                                     onClick={() => {
 
                                                         arrayHelpers.push({
@@ -1296,9 +1310,9 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 />
                             </div>
                             <div>
-                                <h2 className='text-xl text-gray-900'>Community Task</h2>
+                                <h2 className="text-xl text-gray-900">Community Task</h2>
                                 <FieldArray
-                                    name='communityTasks'
+                                    name="communityTasks"
                                     render={(arrayHelpers) => {
                                         return (
                                             <>
@@ -1308,16 +1322,16 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                         taskIndex: any
                                                     ) => {
                                                         return (
-                                                            <div className='mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4'>
+                                                            <div className="mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4">
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         UUID
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter task uuid'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter task uuid"
                                                                         name={`communityTasks.${taskIndex}.uuid`}
                                                                         value={
                                                                             task.uuid ? task.uuid : uuid()
@@ -1329,7 +1343,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1339,29 +1353,29 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                 </div>
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Is User Link required?
                                                                     </label>
                                                                     <Select
                                                                         options={[
                                                                             {
                                                                                 value: true,
-                                                                                label: "Yes"
+                                                                                label: 'Yes'
                                                                             },
                                                                             {
                                                                                 value: false,
-                                                                                label: "No"
+                                                                                label: 'No'
                                                                             }
                                                                         ]}
 
                                                                         value={[
                                                                             {
                                                                                 value: true,
-                                                                                label: "Yes"
+                                                                                label: 'Yes'
                                                                             },
                                                                             {
                                                                                 value: false,
-                                                                                label: "No"
+                                                                                label: 'No'
                                                                             }
                                                                         ].filter(item => item.value === task.userLinkRequired)[0]}
                                                                         onChange={(
@@ -1371,7 +1385,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                                 setFieldValue(
                                                                                     `communityTasks.${taskIndex}.userLinkRequired`,
                                                                                     selected.value
-                                                                                )
+                                                                                );
                                                                             }
                                                                         }}
 
@@ -1397,7 +1411,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1407,7 +1421,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                 </div>
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Social Type
                                                                     </label>
                                                                     <Select
@@ -1421,7 +1435,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                                 setFieldValue(
                                                                                     `communityTasks.${taskIndex}.socialType`,
                                                                                     selected.value
-                                                                                )
+                                                                                );
                                                                             }
                                                                         }}
 
@@ -1447,7 +1461,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1457,13 +1471,13 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                 </div>
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Description
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter task description'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter task description"
                                                                         name={`communityTasks.${taskIndex}.description`}
                                                                     />
                                                                     <ErrorMessage
@@ -1471,7 +1485,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1481,13 +1495,13 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                 </div>
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Url
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter task url'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter task url"
                                                                         name={`communityTasks.${taskIndex}.url`}
                                                                     />
                                                                     <ErrorMessage
@@ -1495,7 +1509,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1505,13 +1519,13 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                 </div>
                                                                 <div>
                                                                     <label
-                                                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                         Content
                                                                     </label>
                                                                     <Field
-                                                                        className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                        type='text'
-                                                                        placeholder='Enter task content'
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="text"
+                                                                        placeholder="Enter task content"
                                                                         name={`communityTasks.${taskIndex}.content`}
                                                                     />
                                                                     <ErrorMessage
@@ -1519,7 +1533,31 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                         render={(
                                                                             msg
                                                                         ) => (
-                                                                            <span className='font-bold text-red-500'>
+                                                                            <span className="font-bold text-red-500">
+                                                                                {
+                                                                                    msg
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                                                                        Tickets
+                                                                    </label>
+                                                                    <Field
+                                                                        className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                        type="number"
+                                                                        placeholder="Enter reward tickets"
+                                                                        name={`communityTasks.${taskIndex}.rewardTickets`}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        name={`communityTasks.${taskIndex}.rewardTickets`}
+                                                                        render={(
+                                                                            msg
+                                                                        ) => (
+                                                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1532,8 +1570,8 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                     }
                                                 )}
                                                 <button
-                                                    className='btn btn-pink mt-3'
-                                                    type='button'
+                                                    className="btn btn-pink mt-3"
+                                                    type="button"
                                                     onClick={() => {
                                                         arrayHelpers.push({
                                                             uuid: uuid(),
@@ -1553,31 +1591,31 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 />
                             </div>
                             <div>
-                                <div className='mt-3'>
+                                <div className="mt-3">
                                     <label
-                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Is closed
                                     </label>
                                     <Select
                                         options={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ]}
 
                                         value={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ].find(item => item.value === values.isClosed)}
                                         onChange={(
@@ -1587,7 +1625,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 setFieldValue(
                                                     `isClosed`,
                                                     selected.value
-                                                )
+                                                );
                                             }
                                         }}
 
@@ -1614,7 +1652,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                         render={(
                                             msg
                                         ) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1624,31 +1662,31 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 </div>
                             </div>
                             <div>
-                                <div className='mt-3'>
+                                <div className="mt-3">
                                     <label
-                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Is TBA
                                     </label>
                                     <Select
                                         options={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ]}
 
                                         value={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ].find(item => item.value === values.isTBA)}
                                         onChange={(
@@ -1658,7 +1696,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 setFieldValue(
                                                     `isTBA`,
                                                     selected.value
-                                                )
+                                                );
                                             }
                                         }}
 
@@ -1685,7 +1723,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                         render={(
                                             msg
                                         ) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1695,31 +1733,31 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 </div>
                             </div>
                             <div>
-                                <div className='mt-3'>
+                                <div className="mt-3">
                                     <label
-                                        className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                        className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                         Is Phrase TBA
                                     </label>
                                     <Select
                                         options={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ]}
 
                                         value={[
                                             {
                                                 value: true,
-                                                label: "YES"
+                                                label: 'YES'
                                             },
                                             {
                                                 value: false,
-                                                label: "No"
+                                                label: 'No'
                                             }
                                         ].find(item => item.value === values.isPhraseTBA)}
                                         onChange={(
@@ -1729,7 +1767,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 setFieldValue(
                                                     `isPhraseTBA`,
                                                     selected.value
-                                                )
+                                                );
                                             }
                                         }}
 
@@ -1756,7 +1794,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                         render={(
                                             msg
                                         ) => (
-                                            <span className='font-bold text-red-500'>
+                                            <span className="font-bold text-red-500">
                                                                                 {
                                                                                     msg
                                                                                 }
@@ -1768,11 +1806,11 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                         </div>
 
                         <div>
-                            <h1 className='text-blue-900 text-2xl text-center'>
+                            <h1 className="text-blue-900 text-2xl text-center">
                                 Details
                             </h1>
                             <FieldArray
-                                name='details'
+                                name="details"
                                 render={(arrayHelpers) => {
                                     return (
                                         <>
@@ -1780,15 +1818,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 (detail: any, index: any) => {
                                                     return (
                                                         <>
-                                                            <div className='mt-3'>
+                                                            <div className="mt-3">
                                                                 <label
-                                                                    className='text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300'>
+                                                                    className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                                                                     Title
                                                                 </label>
                                                                 <Field
-                                                                    className='w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent'
-                                                                    type='text'
-                                                                    placeholder='Enter title of detail'
+                                                                    className="w-full py-2 px-3 mb-2 text-blue-500 text-base rounded-lg border border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                                                    type="text"
+                                                                    placeholder="Enter title of detail"
                                                                     name={`details.${index}.title`}
                                                                 />
                                                                 <ErrorMessage
@@ -1796,7 +1834,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                     render={(
                                                                         msg
                                                                     ) => (
-                                                                        <span className='font-bold text-red-500'>
+                                                                        <span className="font-bold text-red-500">
                                                                             {
                                                                                 msg
                                                                             }
@@ -1824,15 +1862,15 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                                     );
                                                                 }}
                                                             />
-                                                            <div className='mt-3'>
+                                                            <div className="mt-3">
                                                                 <button
-                                                                    className='btn btn-pink'
+                                                                    className="btn btn-pink"
                                                                     onClick={() =>
                                                                         arrayHelpers.remove(
                                                                             index
                                                                         )
                                                                     }
-                                                                    type='button'
+                                                                    type="button"
                                                                 >
                                                                     <FaTimes/>
                                                                 </button>
@@ -1842,8 +1880,8 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                                 }
                                             )}
                                             <button
-                                                className='btn btn-pink mt-3'
-                                                type='button'
+                                                className="btn btn-pink mt-3"
+                                                type="button"
                                                 onClick={() => {
                                                     arrayHelpers.push({
                                                         title: '',
@@ -1858,7 +1896,7 @@ const ProjectFrom: React.FC<Props> = ({initialValues, onSubmit}) => {
                                 }}
                             />
                         </div>
-                        <button className='btn btn-pink mt-3' type='submit'>
+                        <button className="btn btn-pink mt-3" type="submit">
                             Submit
                         </button>
                     </Form>

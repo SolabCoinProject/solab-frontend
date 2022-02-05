@@ -7,6 +7,8 @@ export const socialTypeYoutube = 6;
 export const socialTypeDiscord = 7;
 export const socialTypeMedium = 8;
 
+export const inWhitelistApproved = 1;
+
 export const
     socialTypes = [
         {
