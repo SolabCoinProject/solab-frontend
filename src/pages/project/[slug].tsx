@@ -954,6 +954,21 @@ const ProjectDetail: NextPage = () => {
                                                 <div
                                                     className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
                                                     <span className="text-solabGray-100 text-sm">
+                                                        Whitelist Registration End
+                                                        Time
+                                                    </span>
+                                                    <span className="text-sm">
+                                                        {format(
+                                                            new Date(
+                                                                project.phrases.whitelist.endDate
+                                                            ),
+                                                            'MMMM do yyyy, hh:mm a OOOO'
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div
+                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
+                                                    <span className="text-solabGray-100 text-sm">
                                                         Sale Start
                                                         Time
                                                     </span>
@@ -976,20 +991,6 @@ const ProjectDetail: NextPage = () => {
                                                         {format(
                                                             new Date(
                                                                 project.phrases.sale.endDate
-                                                            ),
-                                                            'MMMM do yyyy, hh:mm a OOOO'
-                                                        )}
-                                                    </span>
-                                                </div>
-                                                <div
-                                                    className="mt-4 border-b border-solabGray-50 flex justify-between items-center pb-4">
-                                                    <span className="text-solabGray-100 text-sm">
-                                                        Token Distribution
-                                                    </span>
-                                                    <span className="text-sm">
-                                                        {format(
-                                                            new Date(
-                                                                project.phrases.distribution.startDate
                                                             ),
                                                             'MMMM do yyyy, hh:mm a OOOO'
                                                         )}
