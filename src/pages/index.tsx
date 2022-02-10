@@ -175,7 +175,7 @@ const Home: NextPage = () => {
                             <h1 className='text-solabCyan-500 text-2xl lg:text-3xl'>
                                 <NumberFormat
                                     thousandsGroupStyle='thousand'
-                                    value={475}
+                                    value={985.5}
                                     displayType='text'
                                     thousandSeparator={true}
                                     decimalScale={2}
