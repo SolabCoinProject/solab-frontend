@@ -42,8 +42,6 @@ import {WalletNotConnectedError} from '@solana/wallet-adapter-base';
 import {getOrCreateAssociatedTokenAccount} from '../../libs/getOrCreateAssociatedTokenAccount';
 import {createTransferInstruction} from '../../libs/createTransferInstructions';
 import {TOKEN_PROGRAM_ID} from '@solana/spl-token';
-
-
 SwiperCore.use([FreeMode, Navigation, Thumbs, Pagination]);
 
 const ProjectDetail: NextPage = () => {
